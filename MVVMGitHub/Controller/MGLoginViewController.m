@@ -8,6 +8,8 @@
 
 #import "MGLoginViewController.h"
 #import "MGLoginViewModel.h"
+#import "MGMainViewController.h"    
+#import "MGMainViewModel.h"
 @interface MGLoginViewController ()
 
 @property (nonatomic, strong) UITextField *userNameText;
@@ -57,6 +59,13 @@
             [MGProgressHUD dismiss];
         }
     }];
+    
+    [[[self.viewModel.loginSuccessCommand executionSignals]switchToLatest] subscribeNext:^(id x) {
+        @strongify(self);
+        MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithService:nil params:nil];
+        MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:mainViewModel];
+        [self.navigationController pushViewController:main animated:YES];
+    }];
 
 }
 - (void)updateViewConstraints{
@@ -88,10 +97,11 @@
         _userNameText.backgroundColor = [UIColor whiteColor];
         _userNameText.font = MGFont(14);
         _userNameText.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _userNameText.placeholder  = @"please input your github userName!";
+        _userNameText.placeholder  = @"Please input your github userName!";
         [_userNameText. rac_textSignal subscribeNext:^(NSString *userName) {
             self.viewModel.userName = userName;
         }];
+        _userNameText.keyboardType = UIKeyboardTypeEmailAddress;
     }
     return _userNameText;
 }
@@ -102,7 +112,7 @@
         _passWordText.backgroundColor = [UIColor whiteColor];
         _passWordText.font = MGFont(14);
         _passWordText.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _passWordText.placeholder  = @"please input your password!";
+        _passWordText.placeholder  = @"Please input your password!";
         _passWordText.secureTextEntry = YES;
         [_passWordText. rac_textSignal subscribeNext:^(NSString *passWord) {
             self.viewModel.passWord = passWord;
@@ -120,6 +130,7 @@
             @strongify(self);
             [self.viewModel.loginCommand execute:RACTuplePack(self.userNameText.text,self.passWordText.text)];
         }];
+        MGViewCornerRadius(_loginButton, 3);
     }
     return _loginButton;
 }

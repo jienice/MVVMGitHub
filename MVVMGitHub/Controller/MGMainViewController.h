@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGMainViewController : UITabBarController
+@class MGMainViewModel;
+
+@interface MGMainViewController : UITabBarController<MGViewControllerProtocol>
+
+@property (nonatomic, strong, readonly) MGMainViewModel *viewModel;
 
 @end

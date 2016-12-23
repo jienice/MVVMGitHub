@@ -12,13 +12,15 @@
 #import "MGLoginViewController.h"
 #import "MGLoginViewModel.h"
 #import "MGViewModel.h"
+#import "MGMainViewModel.h"
+#import "MGLoginViewModel.h"
+#import "MGLoginViewController.h"
 
 @interface MGAppDelegate ()
 
 @end
 
 @implementation MGAppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -30,11 +32,17 @@
 - (void)configWindow{
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    MGLoginViewModel *logViewModel = [[MGLoginViewModel alloc]init];
-    self.window.rootViewController = [[MGLoginViewController alloc]initWithViewModel:logViewModel];
     /*
-    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[[MGMainViewController alloc]init]];
-     */
+    MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithService:nil params:nil];
+    MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:mainViewModel];
+    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:main];
+    [mainNav.navigationBar setHidden:YES];
+    */
+    MGLoginViewModel *loginViewModel = [[MGLoginViewModel alloc]initWithService:self.service params:nil];
+    MGLoginViewController *loginVC = [[MGLoginViewController alloc]initWithViewModel:loginViewModel];
+    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
+    [mainNav.navigationBar setHidden:YES];
+    self.window.rootViewController = mainNav;
     [self.window makeKeyAndVisible];
 }
 
@@ -51,14 +59,14 @@
             [[obj instance] performSelector:@selector(bindViewModel)];
         }
     }error:nil];
+     
+}
+- (MGServiceimp *)service{
     
-    [MGViewModel aspect_hookSelector:@selector(init)
-                         withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> obj){
-        if ([[obj instance] conformsToProtocol:@protocol(MGViewModelProtocol)] &&
-            [[obj instance] respondsToSelector:@selector(initialize)]) {
-            [[obj instance] performSelector:@selector(initialize)];
-        }
-    }error:nil];
+    if (_service == nil) {
+        _service = [[MGServiceimp alloc]init];
+    }
+    return _service;
 }
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

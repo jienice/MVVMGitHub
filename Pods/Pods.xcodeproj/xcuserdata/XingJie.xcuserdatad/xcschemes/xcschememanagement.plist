@@ -89,12 +89,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SSKeychain.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SVProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>YYKit.xcscheme</key>
+		<key>YYCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -102,12 +107,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04236F6D2573A4C1EFBD2AACC0D928F5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>14386A622A01ECF888849C353E223671</key>
+		<key>13E3D1A779800CCB375AD5F09AE69812</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,17 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3DC132C57C4427E76C45ED39237194DD</key>
+		<key>399B92137CB40398678BC18145C0F8A6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4191F748DA70C5F3E24150395214698F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4DC0C8EC07FD201E887AFA1AFEB34C9B</key>
+		<key>4D552F6133D6F72A487696C8CC9C8826</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,17 +157,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7C9FBB5C2D0AE7D1EC2C7B03E8370820</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8FAFCB05EF771BCF658642FFAC4968AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A0576F24CBFCBD924E0A605E8847176F</key>
+		<key>A7808EDAF39537960C257FE563441D16</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A7CDBF5B07F485CDFF34949773E69A3C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9860EC299F5E92DED1B518B02CEB721</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A9C29632B66D67B57A9BC577E701FB39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,12 +187,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C6F5338A09E9B84D6FF30F46C319C11F</key>
+		<key>B3D36654B64357DA4D79506C8D4D0083</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C766897D56D8A815526A1B61D99EA0CA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C849EF6C4B41C23B30796DA3E89DEB35</key>
 		<dict>
 			<key>primary</key>
 			<true/>

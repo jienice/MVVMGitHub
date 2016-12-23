@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MGServiceProtocol.h"
 
 @protocol MGViewModelProtocol <NSObject>
+
+- (instancetype)initWithService:(id<MGServiceProtocol>)service params:(NSDictionary *)params;
 
 
 @optional

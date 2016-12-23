@@ -17,5 +17,7 @@ target 'MVVMGitHub' do
         pod 'SDCycleScrollView',        '~> 1.65'
         pod 'HMSegmentedControl',       '~> 1.5.2'
         pod 'OctoKit',                  '~> 0.5'
-        pod 'YYKit',                    '~> 1.0.7'
+        #pod 'YYKit',                    '~> 1.0.7'
+        pod 'SSKeychain',               '~> 1.4.1'
+        pod 'YYCache',                  '~> 1.0.3'
 end

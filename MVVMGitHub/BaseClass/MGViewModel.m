@@ -7,7 +7,29 @@
 //
 
 #import "MGViewModel.h"
+#import "MGMainViewModel.h"
+
+
+@interface MGViewModel ()
+
+@property (nonatomic, copy, readwrite) NSString *title;
+
+@end
 
 @implementation MGViewModel
+
+- (instancetype)initWithService:(id<MGServiceProtocol>)service params:(NSDictionary *)params{
+    
+    if (self = [super init]) {
+        self.service = service;
+        self.params = params;
+        self.title = [params valueForKey:kNavigationTitle];
+        if ([self respondsToSelector:@selector(initialize)]) {
+            [self performSelector:@selector(initialize)];
+        }
+    }
+    return self;
+}
+
 
 @end

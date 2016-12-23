@@ -31,10 +31,9 @@ PODS:
   - SDWebImage (3.8.1):
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
+  - SSKeychain (1.4.1)
   - SVProgressHUD (2.0.3)
-  - YYKit (1.0.7):
-    - YYKit/no-arc (= 1.0.7)
-  - YYKit/no-arc (1.0.7)
+  - YYCache (1.0.3)
 
 DEPENDENCIES:
   - Aspects (~> 1.4.1)
@@ -48,8 +47,9 @@ DEPENDENCIES:
   - Reachability (~> 3.2)
   - Routable (~> 0.2.0)
   - SDCycleScrollView (~> 1.65)
+  - SSKeychain (~> 1.4.1)
   - SVProgressHUD (~> 2.0.3)
-  - YYKit (~> 1.0.7)
+  - YYCache (~> 1.0.3)
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
@@ -68,9 +68,10 @@ SPEC CHECKSUMS:
   Routable: 859984d3f1613a4139795bab45941f71ed752564
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
+  SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
-  YYKit: 843d1b26e20b82c695790c9a89907eaa1e99907f
+  YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
 
-PODFILE CHECKSUM: 2a145a263dca1db44b4b7ea25d579b9740f58bfc
+PODFILE CHECKSUM: 2f8f6d6ec16199a1274340383bf34c251e6a0618
 
 COCOAPODS: 1.0.1

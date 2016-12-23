@@ -14,6 +14,7 @@
 #import <FMDB/FMDB.h>
 #import <PureLayout/PureLayout.h>
 #import <Aspects/Aspects.h>
+#import <SSKeychain/SSKeychain.h>
 #import "MGProgressHUD.h"
 
 #import "MGConst.h"
@@ -21,6 +22,7 @@
 #import "MGViewModelProtocol.h"
 #import "MGViewControllerProtocol.h"
 #import "RACEXTScope.h"
+#import "MGServiceProtocol.h"
 
 
 

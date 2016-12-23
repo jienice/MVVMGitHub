@@ -8,7 +8,7 @@
 
 #import "MGViewModel.h"
 
-@interface MGLoginViewModel : MGViewModel<MGViewModelProtocol>
+@interface MGLoginViewModel : MGViewModel
 
 @property (nonatomic, copy) NSString *userName;
 
@@ -18,5 +18,6 @@
 
 @property (nonatomic, strong, readonly) RACCommand *loginCommand;
 
+@property (nonatomic, strong, readonly) RACCommand *loginSuccessCommand;
 
 @end

@@ -11,7 +11,11 @@
 @interface MGViewModel : NSObject<MGViewModelProtocol>
 
 
+@property (nonatomic, strong) id<MGServiceProtocol> service;
 
+@property (nonatomic, strong) NSDictionary *params;
+
+@property (nonatomic, copy, readonly) NSString *title;
 
 
 @end

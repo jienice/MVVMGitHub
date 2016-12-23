@@ -21,6 +21,14 @@
 		A02F77241E0BA0D30088470E /* lanchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A02F77231E0BA0D30088470E /* lanchScreen.storyboard */; };
 		A02F77311E0BB85E0088470E /* MGProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F77301E0BB85E0088470E /* MGProgressHUD.m */; };
 		A02F77341E0BBF790088470E /* MGError.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F77331E0BBF790088470E /* MGError.m */; };
+		A05C7F521E0CF38100717589 /* MGProfileViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F511E0CF38100717589 /* MGProfileViewModel.m */; };
+		A05C7F551E0CF39B00717589 /* MGProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F541E0CF39B00717589 /* MGProfileViewController.m */; };
+		A05C7F581E0CF8FD00717589 /* MGRepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F571E0CF8FD00717589 /* MGRepositoryViewController.m */; };
+		A05C7F5B1E0CF91500717589 /* MGRepositoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F5A1E0CF91500717589 /* MGRepositoryViewModel.m */; };
+		A05C7F5E1E0CF93F00717589 /* MGMainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F5D1E0CF93F00717589 /* MGMainViewModel.m */; };
+		A05C7F611E0CFDA700717589 /* MGExploreViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F601E0CFDA700717589 /* MGExploreViewModel.m */; };
+		A05C7F641E0CFDC400717589 /* MGExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F631E0CFDC400717589 /* MGExploreViewController.m */; };
+		A05C7F6E1E0D276300717589 /* MGServiceimp.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F6D1E0D276300717589 /* MGServiceimp.m */; };
 		D23CFF904D5BC7DA89916EA7 /* Pods_MVVMGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +84,23 @@
 		A02F77301E0BB85E0088470E /* MGProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGProgressHUD.m; sourceTree = "<group>"; };
 		A02F77321E0BBF790088470E /* MGError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGError.h; sourceTree = "<group>"; };
 		A02F77331E0BBF790088470E /* MGError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGError.m; sourceTree = "<group>"; };
+		A05C7F501E0CF38100717589 /* MGProfileViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGProfileViewModel.h; sourceTree = "<group>"; };
+		A05C7F511E0CF38100717589 /* MGProfileViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGProfileViewModel.m; sourceTree = "<group>"; };
+		A05C7F531E0CF39B00717589 /* MGProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGProfileViewController.h; sourceTree = "<group>"; };
+		A05C7F541E0CF39B00717589 /* MGProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGProfileViewController.m; sourceTree = "<group>"; };
+		A05C7F561E0CF8FD00717589 /* MGRepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoryViewController.h; sourceTree = "<group>"; };
+		A05C7F571E0CF8FD00717589 /* MGRepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoryViewController.m; sourceTree = "<group>"; };
+		A05C7F591E0CF91500717589 /* MGRepositoryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoryViewModel.h; sourceTree = "<group>"; };
+		A05C7F5A1E0CF91500717589 /* MGRepositoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoryViewModel.m; sourceTree = "<group>"; };
+		A05C7F5C1E0CF93F00717589 /* MGMainViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMainViewModel.h; sourceTree = "<group>"; };
+		A05C7F5D1E0CF93F00717589 /* MGMainViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMainViewModel.m; sourceTree = "<group>"; };
+		A05C7F5F1E0CFDA700717589 /* MGExploreViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreViewModel.h; sourceTree = "<group>"; };
+		A05C7F601E0CFDA700717589 /* MGExploreViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewModel.m; sourceTree = "<group>"; };
+		A05C7F621E0CFDC400717589 /* MGExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreViewController.h; sourceTree = "<group>"; };
+		A05C7F631E0CFDC400717589 /* MGExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewController.m; sourceTree = "<group>"; };
+		A05C7F661E0D014000717589 /* MGServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGServiceProtocol.h; sourceTree = "<group>"; };
+		A05C7F6C1E0D276300717589 /* MGServiceimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGServiceimp.h; sourceTree = "<group>"; };
+		A05C7F6D1E0D276300717589 /* MGServiceimp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGServiceimp.m; sourceTree = "<group>"; };
 		E6E72F4025D1C9A954773EF1 /* Pods-MVVMGitHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.debug.xcconfig"; sourceTree = "<group>"; };
 		EB7C58D84B242D5E892B73FE /* Pods-MVVMGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,6 +224,12 @@
 				A02F77041E0B7EF70088470E /* MGMainViewController.m */,
 				A02F77011E0B7EF70088470E /* MGLoginViewController.h */,
 				A02F77021E0B7EF70088470E /* MGLoginViewController.m */,
+				A05C7F531E0CF39B00717589 /* MGProfileViewController.h */,
+				A05C7F541E0CF39B00717589 /* MGProfileViewController.m */,
+				A05C7F561E0CF8FD00717589 /* MGRepositoryViewController.h */,
+				A05C7F571E0CF8FD00717589 /* MGRepositoryViewController.m */,
+				A05C7F621E0CFDC400717589 /* MGExploreViewController.h */,
+				A05C7F631E0CFDC400717589 /* MGExploreViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -213,6 +244,7 @@
 		A02F77061E0B7EF70088470E /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				A05C7F661E0D014000717589 /* MGServiceProtocol.h */,
 				A02F771E1E0B9AC40088470E /* MGViewControllerProtocol.h */,
 				A02F771F1E0B9DC90088470E /* MGViewModelProtocol.h */,
 			);
@@ -243,8 +275,18 @@
 		A02F77091E0B7EF70088470E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A05C7F6C1E0D276300717589 /* MGServiceimp.h */,
+				A05C7F6D1E0D276300717589 /* MGServiceimp.m */,
 				A02F77171E0B820C0088470E /* MGLoginViewModel.h */,
 				A02F77181E0B820C0088470E /* MGLoginViewModel.m */,
+				A05C7F501E0CF38100717589 /* MGProfileViewModel.h */,
+				A05C7F511E0CF38100717589 /* MGProfileViewModel.m */,
+				A05C7F591E0CF91500717589 /* MGRepositoryViewModel.h */,
+				A05C7F5A1E0CF91500717589 /* MGRepositoryViewModel.m */,
+				A05C7F5C1E0CF93F00717589 /* MGMainViewModel.h */,
+				A05C7F5D1E0CF93F00717589 /* MGMainViewModel.m */,
+				A05C7F5F1E0CFDA700717589 /* MGExploreViewModel.h */,
+				A05C7F601E0CFDA700717589 /* MGExploreViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -447,15 +489,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A05C7F6E1E0D276300717589 /* MGServiceimp.m in Sources */,
 				A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */,
 				A02F77191E0B820C0088470E /* MGLoginViewModel.m in Sources */,
+				A05C7F5E1E0CF93F00717589 /* MGMainViewModel.m in Sources */,
 				A02F77341E0BBF790088470E /* MGError.m in Sources */,
+				A05C7F551E0CF39B00717589 /* MGProfileViewController.m in Sources */,
+				A05C7F641E0CFDC400717589 /* MGExploreViewController.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A02F77311E0BB85E0088470E /* MGProgressHUD.m in Sources */,
 				A02F770A1E0B7EF70088470E /* MGLoginViewController.m in Sources */,
+				A05C7F581E0CF8FD00717589 /* MGRepositoryViewController.m in Sources */,
+				A05C7F5B1E0CF91500717589 /* MGRepositoryViewModel.m in Sources */,
+				A05C7F521E0CF38100717589 /* MGProfileViewModel.m in Sources */,
 				A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */,
 				A02F76C31E0B6BAC0088470E /* main.m in Sources */,
 				A02F771D1E0B9A700088470E /* MGViewController.m in Sources */,
+				A05C7F611E0CFDA700717589 /* MGExploreViewModel.m in Sources */,
 				A02F770B1E0B7EF70088470E /* MGMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

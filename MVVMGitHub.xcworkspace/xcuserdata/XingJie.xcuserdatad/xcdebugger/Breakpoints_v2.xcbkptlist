@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVVMGitHub/Controller/MGLoginViewController.m"
-            timestampString = "504092460.999993"
+            filePath = "MVVMGitHub/ViewModel/MGLoginViewModel.m"
+            timestampString = "504177826.336233"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "-bindViewModel"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "-initialize"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVVMGitHub/Controller/MGLoginViewController.m"
-            timestampString = "504092462.114236"
+            filePath = "MVVMGitHub/ViewModel/MGRepositoryViewModel.m"
+            timestampString = "504179179.342938"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "-bindViewModel"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-initialize"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVVMGitHub/ViewModel/MGLoginViewModel.m"
+            timestampString = "504179289.214211"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-initialize"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

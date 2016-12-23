@@ -21,9 +21,36 @@
 ///-------------
 #define MGAPPDelegate ((MGAppDelegate *)[UIApplication sharedApplication].delegate)
 
-
 ///-------------
 ///  UIFont
 ///-------------
-
 #define MGFont(Size) [UIFont systemFontOfSize:Size]
+
+///----------
+///  UIView
+///----------
+#define MGViewCornerRadius(View,CornerRadius) {\
+    if ([View isKindOfClass:[UIView class]]) {\
+        View.layer.cornerRadius = CornerRadius;\
+        View.layer.masksToBounds = YES;\
+    }\
+}
+///-------------
+///  SSKeychain
+///-------------
+
+#define MGSSKeychainLoginService @"com.xingjie.mvvmgithub.login"
+
+///------------
+///  UIColor
+///------------
+#define RGBAlphaColor(R,G,B, alp) [UIColor colorWithRed:((R) / 255.0) green:((G) / 255.0) blue:((B) / 255.0) alpha:alp]
+
+
+
+
+
+
+
+
+

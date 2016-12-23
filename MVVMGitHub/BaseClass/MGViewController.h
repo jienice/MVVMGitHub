@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGViewController : UIViewController
+@interface MGViewController : UIViewController<MGViewControllerProtocol>
 
 
 
