@@ -19,7 +19,7 @@
 ///-------------
 ///  APPDelegate
 ///-------------
-#define MGAPPDelegate ((MGAppDelegate *)[UIApplication sharedApplication].delegate)
+#define MGSharedDelegate ((MGAppDelegate *)[UIApplication sharedApplication].delegate)
 
 ///-------------
 ///  UIFont

@@ -18,10 +18,9 @@
 
 @implementation MGViewModel
 
-- (instancetype)initWithService:(id<MGServiceProtocol>)service params:(NSDictionary *)params{
+- (instancetype)initWithParams:(NSDictionary *)params{
     
     if (self = [super init]) {
-        self.service = service;
         self.params = params;
         self.title = [params valueForKey:kNavigationTitle];
         if ([self respondsToSelector:@selector(initialize)]) {

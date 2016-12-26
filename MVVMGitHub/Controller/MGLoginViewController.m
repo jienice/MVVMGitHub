@@ -62,7 +62,7 @@
     
     [[[self.viewModel.loginSuccessCommand executionSignals]switchToLatest] subscribeNext:^(id x) {
         @strongify(self);
-        MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithService:nil params:nil];
+        MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
         MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:mainViewModel];
         [self.navigationController pushViewController:main animated:YES];
     }];
@@ -98,6 +98,7 @@
         _userNameText.font = MGFont(14);
         _userNameText.clearButtonMode = UITextFieldViewModeWhileEditing;
         _userNameText.placeholder  = @"Please input your github userName!";
+        _userNameText.text = @"jie.xing.personal@gmail.com";
         [_userNameText. rac_textSignal subscribeNext:^(NSString *userName) {
             self.viewModel.userName = userName;
         }];
@@ -114,6 +115,7 @@
         _passWordText.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passWordText.placeholder  = @"Please input your password!";
         _passWordText.secureTextEntry = YES;
+        _passWordText.text = @"xHyUWpXFbvrQarDFjW2uKDmi";
         [_passWordText. rac_textSignal subscribeNext:^(NSString *passWord) {
             self.viewModel.passWord = passWord;
         }];
@@ -128,7 +130,7 @@
         @weakify(self);
         [[_loginButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            [self.viewModel.loginCommand execute:RACTuplePack(self.userNameText.text,self.passWordText.text)];
+            [self.viewModel.loginCommand execute:nil];
         }];
         MGViewCornerRadius(_loginButton, 3);
     }

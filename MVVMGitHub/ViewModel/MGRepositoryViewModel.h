@@ -8,9 +8,7 @@
 
 #import "MGViewModel.h"
 
-@interface MGRepositoryViewModel : MGViewModel
-
-
+@interface MGRepositoryViewModel : MGViewModel<MGTableViewModelProtocol>
 
 
 

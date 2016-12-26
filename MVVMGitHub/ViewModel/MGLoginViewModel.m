@@ -13,6 +13,7 @@
 @property (nonatomic, strong, readwrite) RACSignal *canLoginSignal;
 @property (nonatomic, strong, readwrite) RACCommand *loginCommand;
 @property (nonatomic, strong, readwrite) RACCommand *loginSuccessCommand;
+@property (nonatomic, strong, readwrite) RACCommand *exchangeTokenCommand;
 
 @end
 
@@ -25,29 +26,26 @@
     
     void(^doNext)(OCTClient *authenticatedClient) = ^(OCTClient *authenticatedClient){
         
+        [MGSharedDelegate setClient:[OCTClient authenticatedClientWithUser:authenticatedClient.user token:authenticatedClient.token]];
         NSLog(@"token === %@",authenticatedClient.token);
-        [self.service setClient:[OCTClient authenticatedClientWithUser:authenticatedClient.user token:authenticatedClient.token]];
-        
-        [[OCTClient fetchMetadataForServer:OCTServer.dotComServer] subscribeNext:^(id x) {
-            
-        }];
-        
-        [SSKeychain setPassword:self.passWord forService:MGSSKeychainLoginService account:self.userName];
-        
         [self.loginSuccessCommand execute:@YES];
     };
     
     void (^doError)(NSError *error) = ^(NSError *error){
-        
         if ([error.domain isEqual:OCTClientErrorDomain] &&
             error.code == OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired) {
         }
+        
     };
     
-    self.loginCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
+    self.loginCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSString *oneTimePassword) {
         @strongify(self);
         OCTUser *user = [OCTUser userWithRawLogin:self.userName server:OCTServer.dotComServer];
-       return [[[OCTClient signInAsUser:user password:self.passWord oneTimePassword:nil scopes:OCTClientAuthorizationScopesUser] deliverOn:[RACScheduler mainThreadScheduler]] doNext:doNext];
+        return [[[OCTClient signInAsUser:user
+                                password:self.passWord
+                         oneTimePassword:oneTimePassword
+                                  scopes:OCTClientAuthorizationScopesUser|OCTClientAuthorizationScopesRepository]
+                 deliverOn:[RACScheduler mainThreadScheduler]] doNext:doNext];
     }];
     
     self.canLoginSignal = [RACSignal combineLatest:@[RACObserve(self, userName),RACObserve(self, passWord)] reduce:^id(NSString *userName, NSString *passWord){
@@ -60,7 +58,6 @@
             return nil;
         }];
     }];
-    
     
     
 }

@@ -7,14 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MGServiceProtocol.h"
 
 @protocol MGViewModelProtocol <NSObject>
 
-- (instancetype)initWithService:(id<MGServiceProtocol>)service params:(NSDictionary *)params;
+- (instancetype)initWithParams:(NSDictionary *)params;
 
 
 @optional
+
+@property (nonatomic, strong) RACCommand *fetchDataFromServiceCommand;
+
 - (void)initialize;
 
 @end

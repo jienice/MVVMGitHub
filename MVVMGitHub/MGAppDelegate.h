@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGServiceimp.h"
+
+@class OCTClient;
 
 @interface MGAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, strong) MGServiceimp *service;
+@property (nonatomic, strong) OCTClient *client;
+
 @end
 

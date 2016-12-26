@@ -28,7 +28,6 @@
 		A05C7F5E1E0CF93F00717589 /* MGMainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F5D1E0CF93F00717589 /* MGMainViewModel.m */; };
 		A05C7F611E0CFDA700717589 /* MGExploreViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F601E0CFDA700717589 /* MGExploreViewModel.m */; };
 		A05C7F641E0CFDC400717589 /* MGExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F631E0CFDC400717589 /* MGExploreViewController.m */; };
-		A05C7F6E1E0D276300717589 /* MGServiceimp.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C7F6D1E0D276300717589 /* MGServiceimp.m */; };
 		D23CFF904D5BC7DA89916EA7 /* Pods_MVVMGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVMGitHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A02349E51E11030200562388 /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
 		A02F76BE1E0B6BAC0088470E /* MVVMGitHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMGitHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02F76C21E0B6BAC0088470E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A02F76C41E0B6BAC0088470E /* MGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGAppDelegate.h; sourceTree = "<group>"; };
@@ -98,9 +98,6 @@
 		A05C7F601E0CFDA700717589 /* MGExploreViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewModel.m; sourceTree = "<group>"; };
 		A05C7F621E0CFDC400717589 /* MGExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreViewController.h; sourceTree = "<group>"; };
 		A05C7F631E0CFDC400717589 /* MGExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewController.m; sourceTree = "<group>"; };
-		A05C7F661E0D014000717589 /* MGServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGServiceProtocol.h; sourceTree = "<group>"; };
-		A05C7F6C1E0D276300717589 /* MGServiceimp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGServiceimp.h; sourceTree = "<group>"; };
-		A05C7F6D1E0D276300717589 /* MGServiceimp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGServiceimp.m; sourceTree = "<group>"; };
 		E6E72F4025D1C9A954773EF1 /* Pods-MVVMGitHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.debug.xcconfig"; sourceTree = "<group>"; };
 		EB7C58D84B242D5E892B73FE /* Pods-MVVMGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -244,9 +241,9 @@
 		A02F77061E0B7EF70088470E /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				A05C7F661E0D014000717589 /* MGServiceProtocol.h */,
 				A02F771E1E0B9AC40088470E /* MGViewControllerProtocol.h */,
 				A02F771F1E0B9DC90088470E /* MGViewModelProtocol.h */,
+				A02349E51E11030200562388 /* MGTableViewModelProtocol.h */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -275,8 +272,6 @@
 		A02F77091E0B7EF70088470E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				A05C7F6C1E0D276300717589 /* MGServiceimp.h */,
-				A05C7F6D1E0D276300717589 /* MGServiceimp.m */,
 				A02F77171E0B820C0088470E /* MGLoginViewModel.h */,
 				A02F77181E0B820C0088470E /* MGLoginViewModel.m */,
 				A05C7F501E0CF38100717589 /* MGProfileViewModel.h */,
@@ -489,7 +484,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A05C7F6E1E0D276300717589 /* MGServiceimp.m in Sources */,
 				A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */,
 				A02F77191E0B820C0088470E /* MGLoginViewModel.m in Sources */,
 				A05C7F5E1E0CF93F00717589 /* MGMainViewModel.m in Sources */,

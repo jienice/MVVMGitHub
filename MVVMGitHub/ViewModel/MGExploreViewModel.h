@@ -8,6 +8,6 @@
 
 #import "MGViewModel.h"
 
-@interface MGExploreViewModel : MGViewModel
+@interface MGExploreViewModel : MGViewModel<MGTableViewModelProtocol>
 
 @end

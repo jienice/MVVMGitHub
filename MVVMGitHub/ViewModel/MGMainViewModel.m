@@ -48,9 +48,9 @@ NSString *const kNavigationTitle = @"kNavigationTitle";
                            kClassMap:@"Profile",
                            kNavigationTitle:@"Profile"};
     
-    self.exploreViewModel = [[MGExploreViewModel alloc]initWithService:self.service params:explpre];
-    self.profileViewModel = [[MGProfileViewModel alloc]initWithService:self.service params:profile];
-    self.repositorisViewModel = [[MGRepositoryViewModel alloc]initWithService:self.service params:repositories];
+    self.exploreViewModel = [[MGExploreViewModel alloc]initWithParams:explpre];
+    self.profileViewModel = [[MGProfileViewModel alloc]initWithParams:profile];
+    self.repositorisViewModel = [[MGRepositoryViewModel alloc]initWithParams:repositories];
 }
 
 

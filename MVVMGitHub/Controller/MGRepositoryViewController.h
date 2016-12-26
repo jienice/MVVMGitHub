@@ -9,8 +9,8 @@
 #import "MGViewController.h"
 
 @class MGRepositoryViewModel;
-@interface MGRepositoryViewController : MGViewController
 
+@interface MGRepositoryViewController : MGViewController
 
 @property (nonatomic, strong, readonly) MGRepositoryViewModel *viewModel;
 
