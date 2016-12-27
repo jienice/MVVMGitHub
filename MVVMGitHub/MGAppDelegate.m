@@ -24,31 +24,42 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self configOCTClient];
     [self configMethodHooks];
-    [self configWindow];
+    
+    [self configLaunchView];
+
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    
     return YES;
 }
-- (void)configWindow{
+- (void)configLaunchView{
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    /*
-    MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithService:nil params:nil];
-    MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:mainViewModel];
-    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:main];
-    [mainNav.navigationBar setHidden:YES];
-    */
-    MGLoginViewModel *loginViewModel = [[MGLoginViewModel alloc]initWithParams:nil];
-    MGLoginViewController *loginVC = [[MGLoginViewController alloc]initWithViewModel:loginViewModel];
-    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
+    MGViewModel *launchViewModel = [self configLaunchViewModel];
+    UINavigationController *mainNav;
+    if ([launchViewModel isKindOfClass:[MGLoginViewModel class]]) {
+        MGLoginViewController *loginVC = [[MGLoginViewController alloc]initWithViewModel:launchViewModel];
+        mainNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
+    }else if([launchViewModel isKindOfClass:[MGMainViewModel class]]){
+        MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:launchViewModel];
+        mainNav = [[UINavigationController alloc]initWithRootViewController:main];
+    }
     [mainNav.navigationBar setHidden:YES];
     self.window.rootViewController = mainNav;
     [self.window makeKeyAndVisible];
 }
 
-- (void)configOCTClient{
+- (MGViewModel *)configLaunchViewModel{
     
-    [OCTClient setClientID:MG_Client_ID clientSecret:MG_Client_Secret];
+    if ([SSKeychain mg_accessToken].isExist && [SSKeychain mg_rawlogin].isExist) {
+        OCTUser *user = [OCTUser userWithRawLogin:[SSKeychain mg_rawlogin] server:OCTServer.dotComServer];
+        OCTClient *client = [OCTClient authenticatedClientWithUser:user token:[SSKeychain mg_accessToken]];
+        [self setClient:client];
+        MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
+        return mainViewModel;
+    }
+    MGLoginViewModel *loginViewModel = [[MGLoginViewModel alloc]initWithParams:nil];
+    return loginViewModel;
 }
 - (void)configMethodHooks{
     

@@ -11,7 +11,7 @@
 ///-------------
 ///   OAuth2
 ///-------------
-#define MG_CAllBack_URL @"http://com.xingjie.mvvmgithub"
+#define MG_Service_URL @"http://com.xingjie.mvvmgithub"
 #define MG_Client_ID @"e44fe151f15da8da1e3c"
 #define MG_Client_Secret @"cde7ce083876684b4429eca155cfaf01dfc1a5d3"
 
@@ -39,7 +39,12 @@
 ///  SSKeychain
 ///-------------
 
-#define MGSSKeychainLoginService @"com.xingjie.mvvmgithub.login"
+#define MGSSKeychain_LoginService @"com.xingjie.mvvmgithub.login"
+#define MGSSKeychain_UserName @"userName"
+#define MGSSKeychain_PassWord @"passWord"
+#define MGSSKeychain_RawLogin @"rawLogin"
+#define MGSSKeychain_AccessToken @"accessToken"
+
 
 ///------------
 ///  UIColor

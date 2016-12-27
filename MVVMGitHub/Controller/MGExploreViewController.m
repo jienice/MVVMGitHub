@@ -20,7 +20,7 @@
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
     
     if (self = [super init]) {
-        self.viewModel = viewModel;
+        self.viewModel = (MGExploreViewModel *)viewModel;
     }
     return self;
 }

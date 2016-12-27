@@ -22,12 +22,16 @@
 
 - (void)initialize{
     
+    [OCTClient setClientID:MG_Client_ID clientSecret:MG_Client_Secret];
+    
     @weakify(self);
     
     void(^doNext)(OCTClient *authenticatedClient) = ^(OCTClient *authenticatedClient){
         
-        [MGSharedDelegate setClient:[OCTClient authenticatedClientWithUser:authenticatedClient.user token:authenticatedClient.token]];
-        NSLog(@"token === %@",authenticatedClient.token);
+        [SSKeychain mg_setAccessToken:authenticatedClient.token];
+        [SSKeychain mg_setPassWord:self.passWord];
+        [SSKeychain mg_setRawlogin:authenticatedClient.user.rawLogin];
+        [MGSharedDelegate setClient:authenticatedClient];
         [self.loginSuccessCommand execute:@YES];
     };
     

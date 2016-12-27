@@ -14,27 +14,30 @@
 @implementation MGRepositoryViewModel
 
 @synthesize page = _page;
+@synthesize dataSource = _dataSource;
 @synthesize fetchDataFromServiceCommand = _fetchDataFromServiceCommand;
 @synthesize didSelectedRowCommand = _didSelectedRowCommand;
-@synthesize requestDisposable = _requestDisposable;
-@synthesize dataSource = _dataSource;
+@synthesize cancelFetchDataSignal = _cancelFetchDataSignal;
 
 - (void)initialize{
     
     NSLog(@"%s",__func__);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[self requestServiceDataWithPage:0] takeUntil:self.rac_willDeallocSignal];
+        if (self.cancelFetchDataSignal==nil) {
+            self.cancelFetchDataSignal = self.rac_willDeallocSignal;
+            NSLog(@"请设置取消请求的信号,如果不设置则默认为-rac_willDeallocSignal");
+        }
+        return [[self fetchDataFromServiceWithPage:0] takeUntil:self.cancelFetchDataSignal];
     }];
     
     self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal empty];
     }];
-
-    
 }
-- (RACSignal *)requestServiceDataWithPage:(NSInteger)page{
+- (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page{
     
-    return [[MGSharedDelegate.client fetchUserStarredRepositories] collect];
-//    return [[MGSharedDelegate.client fetchUserRepositories] collect];
+    return [[[MGSharedDelegate.client fetchUserRepositories] collect] doNext:^(NSArray<OCTRepository *>*repositories) {
+        self.dataSource = repositories;
+    }];
 }
 @end

@@ -22,28 +22,28 @@
 @implementation MGExploreViewModel
 - (void)initialize{
     
-    @weakify(self);
-    self.requestPopularReposCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        @strongify(self)
-        return [[MGSharedDelegate.client fetchPopularRepositoriesWithLanguage:nil] doNext:^(NSArray *popularRepos) {
-                [[YYCache sharedCache] setObject:popularRepos forKey:nil withBlock:NULL];
-        }];
-    }];
-    
-    self.requestPopularUsersCommand = [[RACCommand alloc] initWithSignalBlock:^(id input) {
-        @strongify(self)
-        return [[[[self.services client]
-                  fetchPopularUsersWithLocation:nil language:nil]
-                 retry:3]
-                doNext:^(NSArray *popularUsers) {
-                    [[YYCache sharedCache] setObject:popularUsers forKey:MRCExplorePopularUsersCacheKey withBlock:NULL];
-                }];
-    }];
+//    @weakify(self);
+//    self.requestPopularReposCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+//        @strongify(self)
+//        return [[MGSharedDelegate.client fetchPopularRepositoriesWithLanguage:nil] doNext:^(NSArray *popularRepos) {
+//                [[YYCache sharedCache] setObject:popularRepos forKey:nil withBlock:NULL];
+//        }];
+//    }];
+//    
+//    self.requestPopularUsersCommand = [[RACCommand alloc] initWithSignalBlock:^(id input) {
+//        @strongify(self)
+//        return [[[[self.services client]
+//                  fetchPopularUsersWithLocation:nil language:nil]
+//                 retry:3]
+//                doNext:^(NSArray *popularUsers) {
+//                    [[YYCache sharedCache] setObject:popularUsers forKey:MRCExplorePopularUsersCacheKey withBlock:NULL];
+//                }];
+//    }];
 }
 
 - (RACSignal *)requestServiceDataWithPage:(NSInteger)page{
     
-    @weakify(self);
+//    @weakify(self);
 //    self.requestTrendingReposCommand = [[RACCommand alloc] initWithSignalBlock:^(id input) {
 //        @strongify(self)
 //        return [[MGSharedDelegate.client requestTrendingRepositoriesSince:@"weekly" language:nil]

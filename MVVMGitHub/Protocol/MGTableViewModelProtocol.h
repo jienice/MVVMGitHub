@@ -19,9 +19,10 @@
 
 @property (nonatomic, strong) RACCommand *fetchDataFromServiceCommand;
 
-@property (nonatomic, strong, readonly) RACDisposable *requestDisposable;
+@property (nonatomic, strong) RACSignal *cancelFetchDataSignal;
 
-- (RACSignal *)requestServiceDataWithPage:(NSInteger)page;
+
+- (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page;
 
 
 

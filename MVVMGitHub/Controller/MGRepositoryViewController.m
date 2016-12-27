@@ -23,19 +23,24 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
     
-    [super viewDidAppear:animated];    
-    [[self.viewModel.fetchDataFromServiceCommand execute:nil] subscribeNext:^(id x) {
-        NSLog(@"Next == %s",__func__);
-    } error:^(NSError *error) {
-        NSLog(@"error == %s",__func__);
-        if (error.domain == OCTClientErrorDomain && error.code == 666) {
-            
-        }
-    } completed:^{
-        NSLog(@"completed == %s",__func__);
+    [super viewDidAppear:animated];
+    
+    self.viewModel.cancelFetchDataSignal = [self rac_signalForSelector:@selector(viewDidDisappear:)];
+    [self.viewModel.fetchDataFromServiceCommand execute:@1];
+    
+    [[RACObserve(self.viewModel, dataSource) filter:^BOOL(NSArray *value) {
+        return value;
+    }] subscribeNext:^(NSArray *dataSource) {
+        NSLog(@"dataSource == %@",dataSource);
     }];
     
-    
+    [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber*execut) {
+        if ([execut boolValue]) {
+            [SVProgressHUD showWithStatus:@"loading..."];
+        }else{
+            [SVProgressHUD dismissHUD];
+        }
+    }];
 }
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
     

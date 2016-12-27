@@ -54,9 +54,9 @@
     }];
     [[self.viewModel.loginCommand.executing skip:1] subscribeNext:^(NSNumber *isExecut) {
         if ([isExecut boolValue]) {
-            [MGProgressHUD showText:@"loging..." maskType:SVProgressHUDMaskTypeCustom];
+            [SVProgressHUD showWithStatus:@"loging..."];
         }else{
-            [MGProgressHUD dismiss];
+            [SVProgressHUD dismissHUD];
         }
     }];
     

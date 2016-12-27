@@ -16,7 +16,9 @@
 #import <Aspects/Aspects.h>
 #import <YYCache/YYCache.h>
 #import <SSKeychain/SSKeychain.h>
-#import "MGProgressHUD.h"
+#import "SSKeychain+MGUserSet.h"
+#import "NSString+MGUitl.h"
+#import "SVProgressHUD+MGHUD.h"
 
 #import "MGConst.h"
 #import "MGConfig.h"
