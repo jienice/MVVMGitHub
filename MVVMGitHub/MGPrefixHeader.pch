@@ -9,13 +9,13 @@
 #ifndef MGPrefixHeader_pch
 #define MGPrefixHeader_pch
 
-
 #import <OctoKit/OctoKit.h>
 #import <FMDB/FMDB.h>
 #import <PureLayout/PureLayout.h>
 #import <Aspects/Aspects.h>
 #import <YYCache/YYCache.h>
 #import <SSKeychain/SSKeychain.h>
+#import <MJRefresh/MJRefresh.h>
 #import "SSKeychain+MGUserSet.h"
 #import "NSString+MGUitl.h"
 #import "SVProgressHUD+MGHUD.h"

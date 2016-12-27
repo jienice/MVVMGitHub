@@ -8,30 +8,51 @@
 
 #import "MGRepositoryViewController.h"
 #import "MGRepositoryViewModel.h"
+#import "MGRepositoriesCell.h"
 
 @interface MGRepositoryViewController ()
+<UITableViewDelegate,
+UITableViewDataSource>
 
 @property (nonatomic, strong, readwrite) MGRepositoryViewModel *viewModel;
+
+@property (nonatomic, strong) UITableView *tableView;
+
 
 @end
 
 @implementation MGRepositoryViewController
 
+#pragma mark - Instance Method
+- (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
+    
+    if (self = [super init]) {
+        self.viewModel = (MGRepositoryViewModel *)viewModel;
+        self.viewModel.cancelFetchDataSignal = [self rac_signalForSelector:@selector(viewDidDisappear:)];
+    }
+    return self;
+}
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self.view addSubview:self.tableView];
 }
-- (void)viewDidAppear:(BOOL)animated{
+- (void)bindViewModel{
     
-    [super viewDidAppear:animated];
+    @weakify(self);
+    [[self rac_signalForSelector:@selector(viewDidAppear:)] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.viewModel.fetchDataFromServiceCommand execute:@1];
+    }];
     
-    self.viewModel.cancelFetchDataSignal = [self rac_signalForSelector:@selector(viewDidDisappear:)];
-    [self.viewModel.fetchDataFromServiceCommand execute:@1];
-    
-    [[RACObserve(self.viewModel, dataSource) filter:^BOOL(NSArray *value) {
+    [[[RACObserve(self.viewModel, dataSource) filter:^BOOL(NSArray *value) {
         return value;
-    }] subscribeNext:^(NSArray *dataSource) {
+    }]deliverOn:[RACScheduler mainThreadScheduler]]
+     subscribeNext:^(NSArray *dataSource) {
         NSLog(@"dataSource == %@",dataSource);
+        @strongify(self);
+        [self.tableView reloadData];
     }];
     
     [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber*execut) {
@@ -39,14 +60,43 @@
             [SVProgressHUD showWithStatus:@"loading..."];
         }else{
             [SVProgressHUD dismissHUD];
+            [self.tableView.mj_header endRefreshing];
         }
     }];
 }
-- (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
+#pragma mark - Load Data
+
+#pragma mark - Touch Action
+
+#pragma mark - Delegate Method
+//UITableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (self = [super init]) {
-        self.viewModel = (MGRepositoryViewModel *)viewModel;
+    return [self.viewModel.dataSource count];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return [MGRepositoriesCell configCellForTableView:tableView
+                                           repository:self.viewModel.dataSource[indexPath.row]
+                                      reuseIdentifier:@"Cell"];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return [MGRepositoriesCell cellHeight];
+}
+#pragma mark - Lazy Load
+- (UITableView *)tableView{
+    
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        @weakify(self);
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            @strongify(self);
+            [self.viewModel.fetchDataFromServiceCommand execute:0];
+        }];
     }
-    return self;
+    return _tableView;
 }
 @end

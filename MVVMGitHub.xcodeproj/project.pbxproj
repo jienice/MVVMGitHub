@@ -29,6 +29,7 @@
 		A05F96491E1204D600373330 /* SSKeychain+MGUserSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A05F96481E1204D600373330 /* SSKeychain+MGUserSet.m */; };
 		A05F964F1E120CDC00373330 /* NSString+MGUitl.m in Sources */ = {isa = PBXBuildFile; fileRef = A05F964E1E120CDC00373330 /* NSString+MGUitl.m */; };
 		A05F96521E12192000373330 /* SVProgressHUD+MGHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A05F96511E12192000373330 /* SVProgressHUD+MGHUD.m */; };
+		A05F96551E12515000373330 /* MGRepositoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05F96541E12515000373330 /* MGRepositoriesCell.m */; };
 		D23CFF904D5BC7DA89916EA7 /* Pods_MVVMGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +102,8 @@
 		A05F964E1E120CDC00373330 /* NSString+MGUitl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MGUitl.m"; sourceTree = "<group>"; };
 		A05F96501E12192000373330 /* SVProgressHUD+MGHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+MGHUD.h"; sourceTree = "<group>"; };
 		A05F96511E12192000373330 /* SVProgressHUD+MGHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+MGHUD.m"; sourceTree = "<group>"; };
+		A05F96531E12515000373330 /* MGRepositoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoriesCell.h; sourceTree = "<group>"; };
+		A05F96541E12515000373330 /* MGRepositoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoriesCell.m; sourceTree = "<group>"; };
 		E6E72F4025D1C9A954773EF1 /* Pods-MVVMGitHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.debug.xcconfig"; sourceTree = "<group>"; };
 		EB7C58D84B242D5E892B73FE /* Pods-MVVMGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -270,6 +273,8 @@
 		A02F77081E0B7EF70088470E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A05F96531E12515000373330 /* MGRepositoriesCell.h */,
+				A05F96541E12515000373330 /* MGRepositoriesCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				A05C7F641E0CFDC400717589 /* MGExploreViewController.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A02F770A1E0B7EF70088470E /* MGLoginViewController.m in Sources */,
+				A05F96551E12515000373330 /* MGRepositoriesCell.m in Sources */,
 				A05C7F581E0CF8FD00717589 /* MGRepositoryViewController.m in Sources */,
 				A05C7F5B1E0CF91500717589 /* MGRepositoryViewModel.m in Sources */,
 				A05C7F521E0CF38100717589 /* MGProfileViewModel.m in Sources */,

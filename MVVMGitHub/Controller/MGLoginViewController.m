@@ -32,11 +32,12 @@
     }
     return self;
 }
+#pragma mark - Life Cycle
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor redColor]];
+    [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.view addSubview:self.userNameText];
     [self.view addSubview:self.passWordText];
     [self.view addSubview:self.loginButton];
@@ -89,7 +90,7 @@
     }
     [super updateViewConstraints];
 }
-#pragma mark - lazy load
+#pragma mark - Lazy Load
 - (UITextField *)userNameText{
     
     if (_userNameText == nil) {
@@ -101,6 +102,9 @@
         [_userNameText. rac_textSignal subscribeNext:^(NSString *userName) {
             self.viewModel.userName = userName;
         }];
+        if ([SSKeychain mg_rawlogin].isExist) {
+            _userNameText.text = [SSKeychain mg_rawlogin];
+        }
         _userNameText.keyboardType = UIKeyboardTypeEmailAddress;
     }
     return _userNameText;

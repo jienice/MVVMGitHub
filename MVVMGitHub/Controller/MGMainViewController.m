@@ -40,14 +40,15 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.hidden = YES;
     //关闭滑屏返回
     [self.navigationController.interactivePopGestureRecognizer setEnabled:NO];
 }
 - (void)configSubVC{
     
-    [self addChildVc:self.repositoryVC itemsParams:self.viewModel.repositorisViewModel.params];
     [self addChildVc:self.exploreVC itemsParams:self.viewModel.exploreViewModel.params];
+    [self addChildVc:self.repositoryVC itemsParams:self.viewModel.repositorisViewModel.params];
     [self addChildVc:self.profileVC itemsParams:self.viewModel.profileViewModel.params];
 }
 
