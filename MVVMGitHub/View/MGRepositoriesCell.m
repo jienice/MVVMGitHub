@@ -48,6 +48,7 @@
     cell.repoTitleLabel.text = repository.SSHURL;
     cell.repoDescriptionLabel.text = repository.repoDescription;
     cell.languageKindLable.text = @"所属语言";
+    cell.repoKindImage.image = repository.isFork?[UIImage imageNamed:@"fork"]:[UIImage imageNamed:@"repo"];
     return cell;
 }
 
@@ -136,6 +137,8 @@
     
     if (_forkImage == nil) {
         _forkImage = [[UIImageView alloc]init];
+        _forkImage.image = [UIImage imageNamed:@"foke"];
+        _forkImage.contentMode = UIViewContentModeCenter;
         _forkImage.backgroundColor = [UIColor greenColor];
     }
     return _forkImage;
@@ -144,6 +147,7 @@
     
     if (_repoKindImage == nil) {
         _repoKindImage = [[UIImageView alloc]init];
+        _repoKindImage.contentMode = UIViewContentModeCenter;
         _repoKindImage.backgroundColor = [UIColor redColor];
     }
     return _repoKindImage;

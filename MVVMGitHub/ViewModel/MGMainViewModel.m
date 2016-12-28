@@ -11,11 +11,7 @@
 #import "MGRepositoryViewModel.h"
 #import "MGExploreViewModel.h"
 
-NSString *const kTabBarItemTitle = @"kTabBarItemTitle";
-NSString *const kTabBarSelectedImageName = @"kTabBarSelectedImageName";
-NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
-NSString *const kClassMap = @"kClassMap";
-NSString *const kNavigationTitle = @"kNavigationTitle";
+
 
 @interface MGMainViewModel ()
 
@@ -30,11 +26,11 @@ NSString *const kNavigationTitle = @"kNavigationTitle";
 
 - (void)initialize{
  
-    NSDictionary *explpre = @{kTabBarItemTitle:@"Explpre",
+    NSDictionary *explpre = @{kTabBarItemTitle:@"Explore",
                            kTabBarSelectedImageName:@"Icon-iPhone",
                            kTabBarNormalImageName:@"Icon-iPhone",
-                           kClassMap:@"Explpre",
-                           kNavigationTitle:@"Explpre"};
+                           kClassMap:@"Explore",
+                           kNavigationTitle:@"Explore"};
     
     NSDictionary *repositories = @{kTabBarItemTitle:@"Repositories",
                             kTabBarSelectedImageName:@"Icon-iPhone",

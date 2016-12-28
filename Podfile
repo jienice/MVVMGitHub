@@ -20,4 +20,5 @@ target 'MVVMGitHub' do
         #pod 'YYKit',                    '~> 1.0.7'
         pod 'SSKeychain',               '~> 1.4.1'
         pod 'YYCache',                  '~> 1.0.3'
+        pod 'IQKeyboardManager',        '~> 4.0.4'
 end

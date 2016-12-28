@@ -10,4 +10,12 @@
 
 @implementation MGConst
 
+
+NSString *const kTabBarItemTitle = @"kTabBarItemTitle";
+NSString *const kTabBarSelectedImageName = @"kTabBarSelectedImageName";
+NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
+NSString *const kClassMap = @"kClassMap";
+NSString *const kNavigationTitle = @"kNavigationTitle";
+
+
 @end

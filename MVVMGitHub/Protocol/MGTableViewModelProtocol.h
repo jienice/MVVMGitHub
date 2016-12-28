@@ -37,7 +37,7 @@
 @property (nonatomic, strong) RACSignal *cancelFetchDataSignal;
 
 
-
+@optional
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page;
 
 

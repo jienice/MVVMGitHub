@@ -16,18 +16,17 @@
 #import <YYCache/YYCache.h>
 #import <SSKeychain/SSKeychain.h>
 #import <MJRefresh/MJRefresh.h>
+#import <IQKeyboardManager/IQKeyboardManager.h>
 #import "SSKeychain+MGUserSet.h"
 #import "NSString+MGUitl.h"
 #import "SVProgressHUD+MGHUD.h"
 
 #import "MGConst.h"
 #import "MGConfig.h"
-#import "MGTableViewModelProtocol.h"    
-
+#import "MGTableViewModelProtocol.h"
 #import "MGViewModelProtocol.h"
 #import "MGViewControllerProtocol.h"
 #import "RACEXTScope.h"
-
 #import "MGAppDelegate.h"
 
 

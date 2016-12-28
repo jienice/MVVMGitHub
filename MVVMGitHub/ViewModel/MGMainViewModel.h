@@ -11,11 +11,6 @@
 @class MGRepositoryViewModel;
 @class MGExploreViewModel;
 
-extern NSString *const kTabBarItemTitle;
-extern NSString *const kTabBarSelectedImageName;
-extern NSString *const kTabBarNormalImageName;
-extern NSString *const kClassMap;
-extern NSString *const kNavigationTitle;
 
 @interface MGMainViewModel : MGViewModel
 

@@ -28,6 +28,18 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] subscribeNext:^(id x) {
+        [self.viewModel.fetchDataFromServiceCommand execute:nil];
+    }];
 }
-
+- (void)bindViewModel{
+    
+    [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(id x) {
+        if ([x boolValue]) {
+            [SVProgressHUD showWithStatus:@"loading..."];
+        }else{
+            [SVProgressHUD dismissHUD];
+        }
+    }];
+}
 @end

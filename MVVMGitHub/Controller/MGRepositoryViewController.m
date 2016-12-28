@@ -9,7 +9,8 @@
 #import "MGRepositoryViewController.h"
 #import "MGRepositoryViewModel.h"
 #import "MGRepositoriesCell.h"
-
+#import "MGCreateRepoViewController.h"
+#import "MGCreateRepoViewModel.h"
 @interface MGRepositoryViewController ()
 <UITableViewDelegate,
 UITableViewDataSource>
@@ -37,6 +38,7 @@ UITableViewDataSource>
     
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(mg_createRepository)];
 }
 - (void)bindViewModel{
     
@@ -67,7 +69,13 @@ UITableViewDataSource>
 #pragma mark - Load Data
 
 #pragma mark - Touch Action
-
+- (void)mg_createRepository{
+    
+    MGCreateRepoViewModel *viewMode = [[MGCreateRepoViewModel alloc]initWithParams:@{kNavigationTitle:@"Create New Repositioy"}];
+    MGCreateRepoViewController *vc = [[MGCreateRepoViewController alloc]initWithViewModel:viewMode];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
+}
 #pragma mark - Delegate Method
 //UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -92,10 +100,14 @@ UITableViewDataSource>
         _tableView.dataSource = self;
         _tableView.delegate = self;
         @weakify(self);
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            @strongify(self);
-            [self.viewModel.fetchDataFromServiceCommand execute:0];
-        }];
+        _tableView.mj_header = ({
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                @strongify(self);
+                [self.viewModel.fetchDataFromServiceCommand execute:0];
+            }];
+//            header setre
+            header;
+        });
     }
     return _tableView;
 }
