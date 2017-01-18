@@ -8,15 +8,17 @@
 
 #import "MGExploreViewModel.h"
 #import "MGApiService.h"
+#import "MGTrendRepoModel.h"
+#import "MGShowcasesModel.h"
+
+NSString *const kTrendDataSourceArrayKey = @"kTrendDataSourceArrayKey";
+NSString *const kShowcasesDataSourceArrayKey = @"kShowcasesDataSourceArrayKey";
 
 @interface MGExploreViewModel ()
 
-@property (nonatomic, strong) RACCommand *requestTrendReposCommand;
-
-@property (nonatomic, strong) RACCommand *requestPopularReposCommand;
-
-@property (nonatomic, strong) RACCommand *requestShowcasesCommand;
-
+@property (nonatomic, strong, readwrite) RACCommand *requestTrendReposCommand;
+@property (nonatomic, strong, readwrite) RACCommand *requestPopularReposCommand;
+@property (nonatomic, strong, readwrite) RACCommand *requestShowcasesCommand;
 
 @end
 
@@ -32,45 +34,56 @@
 
 - (void)initialize{
     
-    self.cancelFetchDataSignal = self.rac_willDeallocSignal;
-    
+    self.cancelFetchDataSignal = self.rac_willDeallocSignal;    
+
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
-        [self.requestTrendReposCommand execute:@0];
-        [self.requestShowcasesCommand execute:@0];
-        [self.requestPopularReposCommand execute:@0];
-        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [[[RACSignal combineLatest:@[self.requestShowcasesCommand.executionSignals.switchToLatest,
-                                       self.requestPopularReposCommand.executionSignals.switchToLatest,
-                                       self.requestTrendReposCommand.executionSignals.switchToLatest] reduce:^id(id showcases,
-                                                                                                                 id popularRepos,
-                                                                                                                 id trendRepos){
-                                           return RACTuplePack(showcases,popularRepos,trendRepos);
-                                       }] deliverOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(RACTuple *responseObject) {
-                                           [subscriber sendNext:responseObject];
-                                       } error:^(NSError *error) {
-                                           [subscriber sendError:error];
-                                       } completed:^{
-                                           [subscriber sendCompleted];
-                                       }];
-            return nil;
-        }];
+        [self.requestTrendReposCommand execute:nil];
+        [self.requestShowcasesCommand execute:nil];
+//        [self.requestPopularReposCommand execute:nil];
+        return [RACSignal empty];
     }];
 
     self.requestShowcasesCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         
-        return [MGApiService starNetWorkRequestWithHttpMethod:@"GET" baseUrl:EXPLORE_BASE_URL path:@"showcases" params:nil];
+        return [[[[[MGApiService starNetWorkRequestWithHttpMethod:GET
+                                                         baseUrl:EXPLORE_BASE_URL
+                                                            path:@"showcases"
+                                                          params:nil] retry:2]
+                 takeUntil:self.cancelFetchDataSignal] doNext:^(NSArray *dataArr) {
+            NSArray *showcases = [MGShowcasesModel mj_objectArrayWithKeyValuesArray:dataArr];
+            [self.dataSource addObject:@{kShowcasesDataSourceArrayKey:showcases}];
+        }] doCompleted:^{
+            
+        }];
     }];
-    
+
     self.requestPopularReposCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
         
-        return [MGApiService starNetWorkRequestWithHttpMethod:@"GET" baseUrl:EXPLORE_BASE_URL path:@"trending" params:nil];
+        return [[[[[MGApiService starNetWorkRequestWithHttpMethod:GET
+                                                        baseUrl:EXPLORE_BASE_URL
+                                                           path:@"trending"
+                                                         params:nil] retry:2]
+                takeUntil:self.cancelFetchDataSignal] doNext:^(id x) {
+            
+        }] doCompleted:^{
+            
+        }];
     }];
 
     self.requestTrendReposCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
-        
-        return [MGApiService starNetWorkRequestWithHttpMethod:@"GET" baseUrl:EXPLORE_BASE_URL path:@"trending" params:nil];
+        return [[[[[MGApiService starNetWorkRequestWithHttpMethod:GET
+                                                         baseUrl:EXPLORE_BASE_URL
+                                                            path:@"trending"
+                                                          params:nil] retry:2]
+                 takeUntil:self.cancelFetchDataSignal] doNext:^(NSArray *dataArr) {
+            NSArray *trending = [MGTrendRepoModel mj_objectArrayWithKeyValuesArray:dataArr];
+            [self.dataSource addObject:@{kTrendDataSourceArrayKey:trending}];
+        }] doCompleted:^{
+            
+        }];
     }];
+    
 }
 
 @end

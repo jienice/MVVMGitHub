@@ -8,34 +8,60 @@
 
 #import "MGApiService.h"
 
+
+@interface MGApiService ()
+
+
+
+@end
+
 @implementation MGApiService
 
-+ (RACSignal *)starNetWorkRequestWithHttpMethod:(NSString *)httpMethod
-                                        baseUrl:(NSString *)url
+
++ (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
+                                        baseUrl:(NSString *)baseUrl
                                            path:(NSString *)path
                                          params:(NSDictionary *)params{
     
-    return  [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        
-        AFHTTPClient *client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-        NSMutableURLRequest *request = [client requestWithMethod:httpMethod path:path parameters:params];
-        [request setTimeoutInterval:30];
-        AFHTTPRequestOperation *operation =
-        [client HTTPRequestOperationWithRequest:request
-                                        success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [subscriber sendNext:responseObject];
-            [subscriber sendCompleted];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@ error desc:%@",error,error.localizedDescription);
-            [subscriber sendError:error];
+    NSAssert(httpMethod,@"httpMethod can not be nil");
+    NSString *method;
+    switch (httpMethod) {
+        case POST:
+            method = @"POST";
+            break;
+        case GET:
+            method = @"GET";
+            break;
+        default:
+            break;
+    }
+    AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:baseUrl]];
+    
+    NSMutableURLRequest *request = [client requestWithMethod:method path:path parameters:params];
+    request.timeoutInterval = 30;
+
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    RACSignal *signal = [[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSURLSessionTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                [[RACScheduler mainThreadScheduler] schedule:^{
+                                                    if (error) {
+                                                        [subscriber sendError:error];
+                                                    }else{
+                                                        [subscriber sendNext:[data mj_JSONObject]];
+                                                        [subscriber sendCompleted];
+                                                    }
+                                                }];
+                                            }];
+        [task resume];
+        return [RACDisposable disposableWithBlock:^{
+            NSLog(@"%@ request -disposable",path);
+            [task cancel];
         }];
-        [operation start];
-        return nil;
-    }];
-    
-    
+    }] replayLazily] setNameWithFormat:@"-starNetWorkRequest %@/%@",baseUrl,path];
+    //replayLazily,signal must be subscribed before you start network request.
+    return signal;
 }
-
-
 
 @end

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '557F0A199148662CD556BF2BD6F14FD8'
+               BlueprintIdentifier = '87BCE4E783F53AF06CF8D16928B939CD'
                BlueprintName = 'OctoKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'OctoKit.framework'>

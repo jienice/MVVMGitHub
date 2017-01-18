@@ -6,12 +6,26 @@
 //  Copyright © 2016年 xingjie. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
+
+
+typedef NS_ENUM(NSInteger,HTTP_METHOD){
+    
+    POST,
+    GET
+};
 
 @interface MGApiService : NSObject
 
-+ (RACSignal *)starNetWorkRequestWithHttpMethod:(NSString *)httpMethod
-                                        baseUrl:(NSString *)url
+//
+///**
+// Invoke this method ,you can reate an network request with method like 'POST','GET','DELETE'
+// this method will return one signal
+// 
+// */
++ (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
+                                        baseUrl:(NSString *)baseUrl
                                            path:(NSString *)path
                                          params:(NSDictionary *)params;
 

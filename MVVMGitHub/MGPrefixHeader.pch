@@ -17,6 +17,7 @@
 #import <SSKeychain/SSKeychain.h>
 #import <MJRefresh/MJRefresh.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import <MJExtension/MJExtension.h>
 #import "SSKeychain+MGUserSet.h"
 #import "NSString+MGUitl.h"
 #import "SVProgressHUD+MGHUD.h"

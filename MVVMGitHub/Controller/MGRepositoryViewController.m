@@ -38,7 +38,9 @@ UITableViewDataSource>
     
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(mg_createRepository)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                          target:self
+                                                                                          action:@selector(mg_createRepository)];
 }
 - (void)bindViewModel{
     
@@ -91,6 +93,10 @@ UITableViewDataSource>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return [MGRepositoriesCell cellHeight];
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"%s repo -- %@",__func__,self.viewModel.dataSource[indexPath.row]);
 }
 #pragma mark - Lazy Load
 - (UITableView *)tableView{

@@ -17,7 +17,7 @@
 /**
  tableView's dataSource
  */
-@property (nonatomic, strong) NSArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 /**
  user did selected tableView row will invoke this command

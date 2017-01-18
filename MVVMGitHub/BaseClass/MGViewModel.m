@@ -23,7 +23,8 @@
     if (self = [super init]) {
         self.params = params;
         self.title = [params valueForKey:kNavigationTitle];
-        if ([self respondsToSelector:@selector(initialize)]) {
+        if ([self conformsToProtocol:@protocol(MGViewModelProtocol)]&&
+            [self respondsToSelector:@selector(initialize)]) {
             [self performSelector:@selector(initialize)];
         }
     }

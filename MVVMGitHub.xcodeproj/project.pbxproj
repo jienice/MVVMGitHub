@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A002953D1E2F601B004AC90E /* MGTrendRepoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */; };
+		A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */; };
 		A02F76C31E0B6BAC0088470E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C21E0B6BAC0088470E /* main.m */; };
 		A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C51E0B6BAC0088470E /* MGAppDelegate.m */; };
 		A02F76CE1E0B6BAC0088470E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02F76CD1E0B6BAC0088470E /* Assets.xcassets */; };
@@ -35,6 +37,7 @@
 		A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A06903F91E13A00000855B7D /* MGExploreCell.m */; };
 		A06903FC1E13A00000855B7D /* MGExploreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A06903FA1E13A00000855B7D /* MGExploreCell.xib */; };
 		A06904031E13A10400855B7D /* MGApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = A06904021E13A10400855B7D /* MGApiService.m */; };
+		A0C2951B1E1F7B120078DE43 /* MGViewModelToVCMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C2951A1E1F7B120078DE43 /* MGViewModelToVCMapper.m */; };
 		D23CFF904D5BC7DA89916EA7 /* Pods_MVVMGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,10 @@
 
 /* Begin PBXFileReference section */
 		05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVMGitHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A002953B1E2F601B004AC90E /* MGTrendRepoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTrendRepoModel.h; sourceTree = "<group>"; };
+		A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTrendRepoModel.m; sourceTree = "<group>"; };
+		A002953E1E2F63CE004AC90E /* MGShowcasesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGShowcasesModel.h; sourceTree = "<group>"; };
+		A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGShowcasesModel.m; sourceTree = "<group>"; };
 		A02349E51E11030200562388 /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
 		A02F76BE1E0B6BAC0088470E /* MVVMGitHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMGitHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02F76C21E0B6BAC0088470E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -118,6 +125,8 @@
 		A06903FA1E13A00000855B7D /* MGExploreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCell.xib; sourceTree = "<group>"; };
 		A06904011E13A10400855B7D /* MGApiService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGApiService.h; sourceTree = "<group>"; };
 		A06904021E13A10400855B7D /* MGApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGApiService.m; sourceTree = "<group>"; };
+		A0C295191E1F7B120078DE43 /* MGViewModelToVCMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelToVCMapper.h; sourceTree = "<group>"; };
+		A0C2951A1E1F7B120078DE43 /* MGViewModelToVCMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelToVCMapper.m; sourceTree = "<group>"; };
 		E6E72F4025D1C9A954773EF1 /* Pods-MVVMGitHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.debug.xcconfig"; sourceTree = "<group>"; };
 		EB7C58D84B242D5E892B73FE /* Pods-MVVMGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -239,14 +248,14 @@
 			children = (
 				A02F77031E0B7EF70088470E /* MGMainViewController.h */,
 				A02F77041E0B7EF70088470E /* MGMainViewController.m */,
+				A05C7F621E0CFDC400717589 /* MGExploreViewController.h */,
+				A05C7F631E0CFDC400717589 /* MGExploreViewController.m */,
 				A02F77011E0B7EF70088470E /* MGLoginViewController.h */,
 				A02F77021E0B7EF70088470E /* MGLoginViewController.m */,
 				A05C7F531E0CF39B00717589 /* MGProfileViewController.h */,
 				A05C7F541E0CF39B00717589 /* MGProfileViewController.m */,
 				A05C7F561E0CF8FD00717589 /* MGRepositoryViewController.h */,
 				A05C7F571E0CF8FD00717589 /* MGRepositoryViewController.m */,
-				A05C7F621E0CFDC400717589 /* MGExploreViewController.h */,
-				A05C7F631E0CFDC400717589 /* MGExploreViewController.m */,
 				A069015E1E13654A00855B7D /* MGCreateRepoViewController.h */,
 				A069015F1E13654A00855B7D /* MGCreateRepoViewController.m */,
 			);
@@ -256,6 +265,10 @@
 		A02F77051E0B7EF70088470E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A002953B1E2F601B004AC90E /* MGTrendRepoModel.h */,
+				A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */,
+				A002953E1E2F63CE004AC90E /* MGShowcasesModel.h */,
+				A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -284,6 +297,8 @@
 				A05F96511E12192000373330 /* SVProgressHUD+MGHUD.m */,
 				A06904011E13A10400855B7D /* MGApiService.h */,
 				A06904021E13A10400855B7D /* MGApiService.m */,
+				A0C295191E1F7B120078DE43 /* MGViewModelToVCMapper.h */,
+				A0C2951A1E1F7B120078DE43 /* MGViewModelToVCMapper.m */,
 			);
 			path = Uitl;
 			sourceTree = "<group>";
@@ -478,7 +493,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		09258D3DE45E5D6267509CEC /* [CP] Copy Pods Resources */ = {
@@ -518,17 +533,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */,
 				A06901601E13654A00855B7D /* MGCreateRepoViewController.m in Sources */,
 				A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */,
 				A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */,
 				A05F96521E12192000373330 /* SVProgressHUD+MGHUD.m in Sources */,
 				A02F77191E0B820C0088470E /* MGLoginViewModel.m in Sources */,
 				A05C7F5E1E0CF93F00717589 /* MGMainViewModel.m in Sources */,
+				A002953D1E2F601B004AC90E /* MGTrendRepoModel.m in Sources */,
 				A05C7F551E0CF39B00717589 /* MGProfileViewController.m in Sources */,
 				A05C7F641E0CFDC400717589 /* MGExploreViewController.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A02F770A1E0B7EF70088470E /* MGLoginViewController.m in Sources */,
 				A05F96551E12515000373330 /* MGRepositoriesCell.m in Sources */,
+				A0C2951B1E1F7B120078DE43 /* MGViewModelToVCMapper.m in Sources */,
 				A05C7F581E0CF8FD00717589 /* MGRepositoryViewController.m in Sources */,
 				A05C7F5B1E0CF91500717589 /* MGRepositoryViewModel.m in Sources */,
 				A06901631E13659900855B7D /* MGCreateRepoViewModel.m in Sources */,
