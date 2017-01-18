@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A002953D1E2F601B004AC90E /* MGTrendRepoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */; };
 		A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */; };
+		A00295431E2F6F91004AC90E /* MGOwnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A00295421E2F6F91004AC90E /* MGOwnerModel.m */; };
 		A02F76C31E0B6BAC0088470E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C21E0B6BAC0088470E /* main.m */; };
 		A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C51E0B6BAC0088470E /* MGAppDelegate.m */; };
 		A02F76CE1E0B6BAC0088470E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02F76CD1E0B6BAC0088470E /* Assets.xcassets */; };
@@ -64,6 +65,8 @@
 		A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTrendRepoModel.m; sourceTree = "<group>"; };
 		A002953E1E2F63CE004AC90E /* MGShowcasesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGShowcasesModel.h; sourceTree = "<group>"; };
 		A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGShowcasesModel.m; sourceTree = "<group>"; };
+		A00295411E2F6F91004AC90E /* MGOwnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOwnerModel.h; sourceTree = "<group>"; };
+		A00295421E2F6F91004AC90E /* MGOwnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOwnerModel.m; sourceTree = "<group>"; };
 		A02349E51E11030200562388 /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
 		A02F76BE1E0B6BAC0088470E /* MVVMGitHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMGitHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02F76C21E0B6BAC0088470E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */,
 				A002953E1E2F63CE004AC90E /* MGShowcasesModel.h */,
 				A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */,
+				A00295411E2F6F91004AC90E /* MGOwnerModel.h */,
+				A00295421E2F6F91004AC90E /* MGOwnerModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -539,6 +544,7 @@
 				A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */,
 				A05F96521E12192000373330 /* SVProgressHUD+MGHUD.m in Sources */,
 				A02F77191E0B820C0088470E /* MGLoginViewModel.m in Sources */,
+				A00295431E2F6F91004AC90E /* MGOwnerModel.m in Sources */,
 				A05C7F5E1E0CF93F00717589 /* MGMainViewModel.m in Sources */,
 				A002953D1E2F601B004AC90E /* MGTrendRepoModel.m in Sources */,
 				A05C7F551E0CF39B00717589 /* MGProfileViewController.m in Sources */,

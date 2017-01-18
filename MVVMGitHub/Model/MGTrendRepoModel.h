@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "MGOwnerModel.h"
 @interface MGTrendRepoModel : NSObject
 @property (nonatomic, copy) NSString *keys_url;
 @property (nonatomic, copy) NSString *statuses_url;
@@ -77,4 +77,5 @@
 @property (nonatomic, copy) NSString *language;
 @property (nonatomic, strong) NSNumber *has_pages;
 
+@property (nonatomic, strong) MGOwnerModel *owner;
 @end
