@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A002953D1E2F601B004AC90E /* MGTrendRepoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */; };
+		A002953D1E2F601B004AC90E /* MGRepositoriesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953C1E2F601B004AC90E /* MGRepositoriesModel.m */; };
 		A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */; };
-		A00295431E2F6F91004AC90E /* MGOwnerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A00295421E2F6F91004AC90E /* MGOwnerModel.m */; };
+		A00295471E30587C004AC90E /* github_language_name_slug.plist in Resources */ = {isa = PBXBuildFile; fileRef = A00295461E30587C004AC90E /* github_language_name_slug.plist */; };
+		A002954B1E305A3A004AC90E /* MGExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A00295491E305A3A004AC90E /* MGExploreCollectionViewCell.m */; };
+		A002954C1E305A3A004AC90E /* MGExploreCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A002954A1E305A3A004AC90E /* MGExploreCollectionViewCell.xib */; };
 		A02F76C31E0B6BAC0088470E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C21E0B6BAC0088470E /* main.m */; };
 		A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C51E0B6BAC0088470E /* MGAppDelegate.m */; };
 		A02F76CE1E0B6BAC0088470E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A02F76CD1E0B6BAC0088470E /* Assets.xcassets */; };
@@ -36,9 +38,12 @@
 		A06901601E13654A00855B7D /* MGCreateRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A069015F1E13654A00855B7D /* MGCreateRepoViewController.m */; };
 		A06901631E13659900855B7D /* MGCreateRepoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A06901621E13659900855B7D /* MGCreateRepoViewModel.m */; };
 		A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A06903F91E13A00000855B7D /* MGExploreCell.m */; };
-		A06903FC1E13A00000855B7D /* MGExploreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A06903FA1E13A00000855B7D /* MGExploreCell.xib */; };
 		A06904031E13A10400855B7D /* MGApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = A06904021E13A10400855B7D /* MGApiService.m */; };
 		A0C2951B1E1F7B120078DE43 /* MGViewModelToVCMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C2951A1E1F7B120078DE43 /* MGViewModelToVCMapper.m */; };
+		A0E07D2C1E30A5FF009CB569 /* MGUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D2B1E30A5FF009CB569 /* MGUserModel.m */; };
+		A0E07D371E30BCA5009CB569 /* MGExploreRowViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D361E30BCA5009CB569 /* MGExploreRowViewModel.m */; };
+		A0E07D3B1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D391E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m */; };
+		A0E07D3C1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0E07D3A1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib */; };
 		D23CFF904D5BC7DA89916EA7 /* Pods_MVVMGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,12 +66,14 @@
 
 /* Begin PBXFileReference section */
 		05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVMGitHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A002953B1E2F601B004AC90E /* MGTrendRepoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTrendRepoModel.h; sourceTree = "<group>"; };
-		A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTrendRepoModel.m; sourceTree = "<group>"; };
+		A002953B1E2F601B004AC90E /* MGRepositoriesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoriesModel.h; sourceTree = "<group>"; };
+		A002953C1E2F601B004AC90E /* MGRepositoriesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoriesModel.m; sourceTree = "<group>"; };
 		A002953E1E2F63CE004AC90E /* MGShowcasesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGShowcasesModel.h; sourceTree = "<group>"; };
 		A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGShowcasesModel.m; sourceTree = "<group>"; };
-		A00295411E2F6F91004AC90E /* MGOwnerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOwnerModel.h; sourceTree = "<group>"; };
-		A00295421E2F6F91004AC90E /* MGOwnerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOwnerModel.m; sourceTree = "<group>"; };
+		A00295461E30587C004AC90E /* github_language_name_slug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = github_language_name_slug.plist; sourceTree = "<group>"; };
+		A00295481E305A3A004AC90E /* MGExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCollectionViewCell.h; sourceTree = "<group>"; };
+		A00295491E305A3A004AC90E /* MGExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCollectionViewCell.m; sourceTree = "<group>"; };
+		A002954A1E305A3A004AC90E /* MGExploreCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCollectionViewCell.xib; sourceTree = "<group>"; };
 		A02349E51E11030200562388 /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
 		A02F76BE1E0B6BAC0088470E /* MVVMGitHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMGitHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A02F76C21E0B6BAC0088470E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -125,11 +132,17 @@
 		A06901621E13659900855B7D /* MGCreateRepoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCreateRepoViewModel.m; sourceTree = "<group>"; };
 		A06903F81E13A00000855B7D /* MGExploreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCell.h; sourceTree = "<group>"; };
 		A06903F91E13A00000855B7D /* MGExploreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCell.m; sourceTree = "<group>"; };
-		A06903FA1E13A00000855B7D /* MGExploreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCell.xib; sourceTree = "<group>"; };
 		A06904011E13A10400855B7D /* MGApiService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGApiService.h; sourceTree = "<group>"; };
 		A06904021E13A10400855B7D /* MGApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGApiService.m; sourceTree = "<group>"; };
 		A0C295191E1F7B120078DE43 /* MGViewModelToVCMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelToVCMapper.h; sourceTree = "<group>"; };
 		A0C2951A1E1F7B120078DE43 /* MGViewModelToVCMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelToVCMapper.m; sourceTree = "<group>"; };
+		A0E07D2A1E30A5FF009CB569 /* MGUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserModel.h; sourceTree = "<group>"; };
+		A0E07D2B1E30A5FF009CB569 /* MGUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserModel.m; sourceTree = "<group>"; };
+		A0E07D351E30BCA5009CB569 /* MGExploreRowViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreRowViewModel.h; sourceTree = "<group>"; };
+		A0E07D361E30BCA5009CB569 /* MGExploreRowViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreRowViewModel.m; sourceTree = "<group>"; };
+		A0E07D381E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCollectionViewDefaultCell.h; sourceTree = "<group>"; };
+		A0E07D391E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCollectionViewDefaultCell.m; sourceTree = "<group>"; };
+		A0E07D3A1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCollectionViewDefaultCell.xib; sourceTree = "<group>"; };
 		E6E72F4025D1C9A954773EF1 /* Pods-MVVMGitHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.debug.xcconfig"; sourceTree = "<group>"; };
 		EB7C58D84B242D5E892B73FE /* Pods-MVVMGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +231,7 @@
 		A02F76C11E0B6BAC0088470E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A00295461E30587C004AC90E /* github_language_name_slug.plist */,
 				A02F76C21E0B6BAC0088470E /* main.m */,
 				A02F76D21E0B6BAC0088470E /* Info.plist */,
 				A02F76F71E0B70630088470E /* MGPrefixHeader.pch */,
@@ -268,12 +282,12 @@
 		A02F77051E0B7EF70088470E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A002953B1E2F601B004AC90E /* MGTrendRepoModel.h */,
-				A002953C1E2F601B004AC90E /* MGTrendRepoModel.m */,
+				A002953B1E2F601B004AC90E /* MGRepositoriesModel.h */,
+				A002953C1E2F601B004AC90E /* MGRepositoriesModel.m */,
 				A002953E1E2F63CE004AC90E /* MGShowcasesModel.h */,
 				A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */,
-				A00295411E2F6F91004AC90E /* MGOwnerModel.h */,
-				A00295421E2F6F91004AC90E /* MGOwnerModel.m */,
+				A0E07D2A1E30A5FF009CB569 /* MGUserModel.h */,
+				A0E07D2B1E30A5FF009CB569 /* MGUserModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,7 +329,12 @@
 				A05F96541E12515000373330 /* MGRepositoriesCell.m */,
 				A06903F81E13A00000855B7D /* MGExploreCell.h */,
 				A06903F91E13A00000855B7D /* MGExploreCell.m */,
-				A06903FA1E13A00000855B7D /* MGExploreCell.xib */,
+				A00295481E305A3A004AC90E /* MGExploreCollectionViewCell.h */,
+				A00295491E305A3A004AC90E /* MGExploreCollectionViewCell.m */,
+				A002954A1E305A3A004AC90E /* MGExploreCollectionViewCell.xib */,
+				A0E07D381E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.h */,
+				A0E07D391E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m */,
+				A0E07D3A1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -335,6 +354,8 @@
 				A05C7F601E0CFDA700717589 /* MGExploreViewModel.m */,
 				A06901611E13659900855B7D /* MGCreateRepoViewModel.h */,
 				A06901621E13659900855B7D /* MGCreateRepoViewModel.m */,
+				A0E07D351E30BCA5009CB569 /* MGExploreRowViewModel.h */,
+				A0E07D361E30BCA5009CB569 /* MGExploreRowViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -463,7 +484,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A06903FC1E13A00000855B7D /* MGExploreCell.xib in Resources */,
+				A0E07D3C1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib in Resources */,
+				A00295471E30587C004AC90E /* github_language_name_slug.plist in Resources */,
+				A002954C1E305A3A004AC90E /* MGExploreCollectionViewCell.xib in Resources */,
 				A02F76CE1E0B6BAC0088470E /* Assets.xcassets in Resources */,
 				A02F77241E0BA0D30088470E /* lanchScreen.storyboard in Resources */,
 			);
@@ -538,19 +561,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0E07D2C1E30A5FF009CB569 /* MGUserModel.m in Sources */,
 				A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */,
 				A06901601E13654A00855B7D /* MGCreateRepoViewController.m in Sources */,
 				A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */,
 				A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */,
 				A05F96521E12192000373330 /* SVProgressHUD+MGHUD.m in Sources */,
 				A02F77191E0B820C0088470E /* MGLoginViewModel.m in Sources */,
-				A00295431E2F6F91004AC90E /* MGOwnerModel.m in Sources */,
 				A05C7F5E1E0CF93F00717589 /* MGMainViewModel.m in Sources */,
-				A002953D1E2F601B004AC90E /* MGTrendRepoModel.m in Sources */,
+				A002953D1E2F601B004AC90E /* MGRepositoriesModel.m in Sources */,
 				A05C7F551E0CF39B00717589 /* MGProfileViewController.m in Sources */,
+				A002954B1E305A3A004AC90E /* MGExploreCollectionViewCell.m in Sources */,
 				A05C7F641E0CFDC400717589 /* MGExploreViewController.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A02F770A1E0B7EF70088470E /* MGLoginViewController.m in Sources */,
+				A0E07D3B1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m in Sources */,
 				A05F96551E12515000373330 /* MGRepositoriesCell.m in Sources */,
 				A0C2951B1E1F7B120078DE43 /* MGViewModelToVCMapper.m in Sources */,
 				A05C7F581E0CF8FD00717589 /* MGRepositoryViewController.m in Sources */,
@@ -562,6 +587,7 @@
 				A02F76C31E0B6BAC0088470E /* main.m in Sources */,
 				A02F771D1E0B9A700088470E /* MGViewController.m in Sources */,
 				A05C7F611E0CFDA700717589 /* MGExploreViewModel.m in Sources */,
+				A0E07D371E30BCA5009CB569 /* MGExploreRowViewModel.m in Sources */,
 				A02F770B1E0B7EF70088470E /* MGMainViewController.m in Sources */,
 				A05F96491E1204D600373330 /* SSKeychain+MGUserSet.m in Sources */,
 				A06904031E13A10400855B7D /* MGApiService.m in Sources */,

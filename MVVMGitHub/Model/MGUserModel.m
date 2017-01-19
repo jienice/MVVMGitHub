@@ -1,14 +1,14 @@
 //
-//  MGOwnerModel.m
+//  MGUserModel.m
 //  MVVMGitHub
 //
-//  Created by XingJie on 2017/1/18.
+//  Created by XingJie on 2017/1/19.
 //  Copyright © 2017年 xingjie. All rights reserved.
 //
 
-#import "MGOwnerModel.h"
+#import "MGUserModel.h"
 
-@implementation MGOwnerModel
+@implementation MGUserModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName{
     
     return @{@"ID":@"id"};

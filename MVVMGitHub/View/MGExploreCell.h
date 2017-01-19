@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class MGExploreRowViewModel;
+
 @interface MGExploreCell : UITableViewCell
+
+@property (nonatomic, strong) RACCommand *seeAllCommand;
+
+@property (nonatomic, copy, readonly) NSString *titleString;
+
+@property (nonatomic, strong, readonly) NSArray *collectionDataSource;
+
++ (instancetype)configExploreCell:(UITableView *)tableView
+                  reuseIdentifier:(NSString *)reuseIdentifier
+                     rowViewModel:(MGExploreRowViewModel *)rowViewModel;
+
+
++ (CGFloat)cellHeight;
 
 @end

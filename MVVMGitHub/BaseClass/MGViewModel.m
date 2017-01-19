@@ -31,5 +31,11 @@
     return self;
 }
 
-
+- (RACSubject *)error{
+    
+    if (!_error) {
+        return [RACSubject subject];
+    }
+    return _error;
+}
 @end

@@ -50,13 +50,14 @@
 ///  UIColor
 ///------------
 #define RGBAlphaColor(R,G,B, alp) [UIColor colorWithRed:((R) / 255.0) green:((G) / 255.0) blue:((B) / 255.0) alpha:alp]
-
 #define RGBColor(R, G, B) RGBAlphaColor(R,G,B, 1.f)
-
 #define MGGitHub_Color RGBColor(97, 186, 58)
 
-
-
+///------------
+///  system
+///------------
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT  [UIScreen mainScreen].bounds.size.height
 
 
 

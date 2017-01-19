@@ -16,6 +16,8 @@
 @optional
 
 @property (nonatomic, strong) RACCommand *fetchDataFromServiceCommand;
+@property (nonatomic, assign) BOOL fetchDataFromServiceSuccess;
+
 
 - (void)initialize;
 

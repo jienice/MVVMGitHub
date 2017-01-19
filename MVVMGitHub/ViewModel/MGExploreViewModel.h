@@ -9,14 +9,19 @@
 #import "MGViewModel.h"
 
 
-extern NSString *const kTrendDataSourceArrayKey;
+extern NSString *const kTrendReposDataSourceArrayKey;
 extern NSString *const kShowcasesDataSourceArrayKey;
-
+extern NSString *const kPopularUsersDataSourceArrayKey;
+extern NSString *const kPopularReposDataSourceArrayKey;
 
 @interface MGExploreViewModel : MGViewModel<MGTableViewModelProtocol>
 
 @property (nonatomic, strong, readonly) RACCommand *requestTrendReposCommand;
-@property (nonatomic, strong, readonly) RACCommand *requestPopularReposCommand;
+@property (nonatomic, strong, readonly) RACCommand *requestPopularUsersCommand;
 @property (nonatomic, strong, readonly) RACCommand *requestShowcasesCommand;
+@property (nonatomic, strong, readonly) RACCommand *requestLanguageCommand;
+
+@property (nonatomic, strong, readonly) NSMutableDictionary *dataSourceDict;
+
 
 @end

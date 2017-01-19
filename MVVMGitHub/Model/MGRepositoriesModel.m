@@ -6,9 +6,9 @@
 //  Copyright © 2017年 xingjie. All rights reserved.
 //
 
-#import "MGTrendRepoModel.h"
+#import "MGRepositoriesModel.h"
 
-@implementation MGTrendRepoModel
+@implementation MGRepositoriesModel
 + (NSDictionary *)mj_replacedKeyFromPropertyName{
     
     return @{@"ID":@"id",
