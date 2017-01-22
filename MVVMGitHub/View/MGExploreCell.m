@@ -10,12 +10,16 @@
 #import "MGExploreCollectionViewCell.h"
 #import "MGExploreRowViewModel.h"
 #import "MGExploreCollectionViewDefaultCell.h"
+#import "MGUserModel.h"
+#import "MGRepositoriesModel.h"
+
+#import <SDWebImage/UIImageView+WebCache.h>
 
 #define MGExploreCell_HEIGHT 250
 #define MGExploreCell_TITLE_HEIGHT 45
 
 static NSString *MGExploreCollectionViewCellDefault = @"MGExploreCollectionViewCellDefault";
-static NSString *MGExploreCollectionViewCellTitelAndDesc = @"MGExploreCollectionViewCellTitelAndDesc";
+static NSString *MGExploreCollectionViewCellImageAndDesc = @"MGExploreCollectionViewCellImageAndDesc";
 
 @interface MGExploreCell()
 <UICollectionViewDelegate,
@@ -111,23 +115,29 @@ UICollectionViewDelegateFlowLayout>
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSString *currentReuseIdentifier;
-    switch (self.rowViewModel.rowType) {
-        case MGExploreRowForPopularUsers:
-            currentReuseIdentifier = MGExploreCollectionViewCellDefault;
-            break;
-        case MGExploreRowForTrendRepos:
-            currentReuseIdentifier = MGExploreCollectionViewCellTitelAndDesc;
-            break;
-        case MGExploreRowForPopularRepos:
-            currentReuseIdentifier = MGExploreCollectionViewCellTitelAndDesc;
-            break;
-        default:
-            break;
+    if (self.rowViewModel.rowType == MGExploreRowForPopularUsers) {
+        MGUserModel *user=self.rowViewModel.dataSource[indexPath.item];
+        MGExploreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MGExploreCollectionViewCellDefault
+                                                                                      forIndexPath:indexPath];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar_url] placeholderImage:nil];
+        return cell;
     }
-    MGExploreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:currentReuseIdentifier
+    MGExploreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MGExploreCollectionViewCellImageAndDesc
                                                                                   forIndexPath:indexPath];
+    MGRepositoriesModel *repo=self.rowViewModel.dataSource[indexPath.item];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:repo.owner.avatar_url] placeholderImage:nil];
+    cell.repoDescLabel.text = repo.des;
     return cell;
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.rowViewModel.rowType == MGExploreRowForPopularUsers) {
+        MGUserModel *user=self.rowViewModel.dataSource[indexPath.item];
+        NSLog(@"%@",user);
+    }else{
+        MGRepositoriesModel *repo=self.rowViewModel.dataSource[indexPath.item];
+        NSLog(@"%@",repo);
+    }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
@@ -172,7 +182,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [flow setScrollDirection:UICollectionViewScrollDirectionHorizontal];
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:flow];
         [_collectionView registerNib:[UINib nibWithNibName:@"MGExploreCollectionViewCell" bundle:nil]
-          forCellWithReuseIdentifier:MGExploreCollectionViewCellTitelAndDesc];
+          forCellWithReuseIdentifier:MGExploreCollectionViewCellImageAndDesc];
         [_collectionView registerNib:[UINib nibWithNibName:@"MGExploreCollectionViewDefaultCell" bundle:nil]
           forCellWithReuseIdentifier:MGExploreCollectionViewCellDefault];
         _collectionView.backgroundColor = [UIColor whiteColor];

@@ -37,7 +37,7 @@
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page{
     
     return [[[MGSharedDelegate.client fetchUserRepositories] collect] doNext:^(NSArray<OCTRepository *>*repositories) {
-        self.dataSource = repositories;
+        self.dataSource = [repositories mutableCopy];
     }];
 }
 @end

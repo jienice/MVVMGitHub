@@ -14,8 +14,8 @@ extern NSString *const kExploreRowViewModelRowTypeKey;
 
 typedef NS_ENUM(NSInteger,MGExploreRowType){
     
-    MGExploreRowForTrendRepos,
     MGExploreRowForPopularUsers,
+    MGExploreRowForTrendRepos,
     MGExploreRowForPopularRepos
 };
 

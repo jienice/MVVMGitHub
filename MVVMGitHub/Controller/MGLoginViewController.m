@@ -28,7 +28,7 @@
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
     
     if (self= [super init]) {
-        self.viewModel = viewModel;
+        self.viewModel = (MGLoginViewModel *)viewModel;
     }
     return self;
 }

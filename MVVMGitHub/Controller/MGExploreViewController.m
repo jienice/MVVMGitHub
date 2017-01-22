@@ -84,13 +84,13 @@ SDCycleScrollViewDelegate>
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 3;
+    return [self.viewModel.dataSourceDict allKeys].count-1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MGExploreCell *cell = [MGExploreCell configExploreCell:tableView
                                            reuseIdentifier:@"MGExploreCell"
-                                              rowViewModel:[self configExploreRowViewModel:indexPath]];
+                                              rowViewModel:[self.viewModel configExploreRowViewModel:indexPath.row]];
 
     cell.seeAllCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[RACSignal empty] takeUntil:cell.rac_prepareForReuseSignal];
@@ -101,30 +101,7 @@ SDCycleScrollViewDelegate>
     
     return [MGExploreCell cellHeight];
 }
-- (MGExploreRowViewModel *)configExploreRowViewModel:(NSIndexPath *)indexPath{
-    
-    NSMutableDictionary *parames = [NSMutableDictionary dictionary];
-    if (indexPath.row == MGExploreRowForTrendRepos) {
-        [parames setObject:@"Trend Repos This Week" forKey:kExploreRowViewModelTitleKey];
-        [parames setObject:[self.viewModel.dataSourceDict objectForKey:kTrendReposDataSourceArrayKey]
-                    forKey:kExploreRowViewModelDataSourceKey];
-        [parames setObject:@(MGExploreRowForTrendRepos) forKey:kExploreRowViewModelRowTypeKey];
-        
-    }else if(indexPath.row == MGExploreRowForPopularUsers) {
-        [parames setObject:@"Popular Users" forKey:kExploreRowViewModelTitleKey];
-        [parames setObject:[self.viewModel.dataSourceDict objectForKey:kPopularUsersDataSourceArrayKey]
-                    forKey:kExploreRowViewModelDataSourceKey];
-        [parames setObject:@(MGExploreRowForPopularUsers) forKey:kExploreRowViewModelRowTypeKey];
-        
-    }else if(indexPath.row == MGExploreRowForPopularRepos) {
-        [parames setObject:@"Popular Repos" forKey:kExploreRowViewModelTitleKey];
-        [parames setObject:[self.viewModel.dataSourceDict objectForKey:kPopularReposDataSourceArrayKey]
-                    forKey:kExploreRowViewModelDataSourceKey];
-        [parames setObject:@(MGExploreRowForPopularRepos) forKey:kExploreRowViewModelRowTypeKey];
-    }
-    MGExploreRowViewModel *rowViewModel = [[MGExploreRowViewModel alloc]initWithParams:parames];
-    return rowViewModel;
-}
+
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
     

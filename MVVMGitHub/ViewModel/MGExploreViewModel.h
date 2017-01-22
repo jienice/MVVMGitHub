@@ -7,7 +7,7 @@
 //
 
 #import "MGViewModel.h"
-
+#import "MGExploreRowViewModel.h"
 
 extern NSString *const kTrendReposDataSourceArrayKey;
 extern NSString *const kShowcasesDataSourceArrayKey;
@@ -23,5 +23,7 @@ extern NSString *const kPopularReposDataSourceArrayKey;
 
 @property (nonatomic, strong, readonly) NSMutableDictionary *dataSourceDict;
 
+
+- (MGExploreRowViewModel *)configExploreRowViewModel:(MGExploreRowType)exploreRowType;
 
 @end

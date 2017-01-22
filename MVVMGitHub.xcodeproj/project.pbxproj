@@ -39,6 +39,8 @@
 		A06901631E13659900855B7D /* MGCreateRepoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A06901621E13659900855B7D /* MGCreateRepoViewModel.m */; };
 		A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A06903F91E13A00000855B7D /* MGExploreCell.m */; };
 		A06904031E13A10400855B7D /* MGApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = A06904021E13A10400855B7D /* MGApiService.m */; };
+		A080AE031E349BDE00402510 /* MGRepositoriesModel+OCTRepos.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE021E349BDE00402510 /* MGRepositoriesModel+OCTRepos.m */; };
+		A080AE061E34A26900402510 /* MGUserModel+OCTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE051E34A26900402510 /* MGUserModel+OCTUser.m */; };
 		A0C2951B1E1F7B120078DE43 /* MGViewModelToVCMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C2951A1E1F7B120078DE43 /* MGViewModelToVCMapper.m */; };
 		A0E07D2C1E30A5FF009CB569 /* MGUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D2B1E30A5FF009CB569 /* MGUserModel.m */; };
 		A0E07D371E30BCA5009CB569 /* MGExploreRowViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D361E30BCA5009CB569 /* MGExploreRowViewModel.m */; };
@@ -134,6 +136,10 @@
 		A06903F91E13A00000855B7D /* MGExploreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCell.m; sourceTree = "<group>"; };
 		A06904011E13A10400855B7D /* MGApiService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGApiService.h; sourceTree = "<group>"; };
 		A06904021E13A10400855B7D /* MGApiService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGApiService.m; sourceTree = "<group>"; };
+		A080AE011E349BDE00402510 /* MGRepositoriesModel+OCTRepos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGRepositoriesModel+OCTRepos.h"; sourceTree = "<group>"; };
+		A080AE021E349BDE00402510 /* MGRepositoriesModel+OCTRepos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGRepositoriesModel+OCTRepos.m"; sourceTree = "<group>"; };
+		A080AE041E34A26900402510 /* MGUserModel+OCTUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGUserModel+OCTUser.h"; sourceTree = "<group>"; };
+		A080AE051E34A26900402510 /* MGUserModel+OCTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGUserModel+OCTUser.m"; sourceTree = "<group>"; };
 		A0C295191E1F7B120078DE43 /* MGViewModelToVCMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelToVCMapper.h; sourceTree = "<group>"; };
 		A0C2951A1E1F7B120078DE43 /* MGViewModelToVCMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelToVCMapper.m; sourceTree = "<group>"; };
 		A0E07D2A1E30A5FF009CB569 /* MGUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserModel.h; sourceTree = "<group>"; };
@@ -288,6 +294,10 @@
 				A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */,
 				A0E07D2A1E30A5FF009CB569 /* MGUserModel.h */,
 				A0E07D2B1E30A5FF009CB569 /* MGUserModel.m */,
+				A080AE011E349BDE00402510 /* MGRepositoriesModel+OCTRepos.h */,
+				A080AE021E349BDE00402510 /* MGRepositoriesModel+OCTRepos.m */,
+				A080AE041E34A26900402510 /* MGUserModel+OCTUser.h */,
+				A080AE051E34A26900402510 /* MGUserModel+OCTUser.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -562,8 +572,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0E07D2C1E30A5FF009CB569 /* MGUserModel.m in Sources */,
+				A080AE031E349BDE00402510 /* MGRepositoriesModel+OCTRepos.m in Sources */,
 				A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */,
 				A06901601E13654A00855B7D /* MGCreateRepoViewController.m in Sources */,
+				A080AE061E34A26900402510 /* MGUserModel+OCTUser.m in Sources */,
 				A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */,
 				A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */,
 				A05F96521E12192000373330 /* SVProgressHUD+MGHUD.m in Sources */,

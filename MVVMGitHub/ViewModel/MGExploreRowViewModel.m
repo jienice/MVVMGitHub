@@ -25,9 +25,9 @@ NSString *const kExploreRowViewModelRowTypeKey = @"kExploreRowViewModelRowTypeKe
 - (instancetype)initWithParams:(NSDictionary *)params{
     
     if (self = [super init]) {
-        NSParameterAssert(![params objectForKey:kExploreRowViewModelTitleKey]);
-        NSParameterAssert(![params objectForKey:kExploreRowViewModelDataSourceKey]);
-        NSParameterAssert(![params objectForKey:kExploreRowViewModelRowTypeKey]);
+        NSParameterAssert([params objectForKey:kExploreRowViewModelTitleKey]);
+        NSParameterAssert([params objectForKey:kExploreRowViewModelDataSourceKey]);
+        NSParameterAssert([params objectForKey:kExploreRowViewModelRowTypeKey]);
         self.titleString = [params objectForKey:kExploreRowViewModelTitleKey];
         self.dataSource = [params objectForKey:kExploreRowViewModelDataSourceKey];
         self.rowType = [[params objectForKey:kExploreRowViewModelRowTypeKey] integerValue];

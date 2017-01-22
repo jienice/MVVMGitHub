@@ -30,7 +30,7 @@
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
     
     if (self = [super init]) {
-        self.viewModel = viewModel;
+        self.viewModel = (MGMainViewModel *)viewModel;
         [self configSubVC];
     }
     return self;

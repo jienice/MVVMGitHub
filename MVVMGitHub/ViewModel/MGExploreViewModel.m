@@ -154,5 +154,31 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
     }];
      */
 }
-
+- (MGExploreRowViewModel *)configExploreRowViewModel:(MGExploreRowType)exploreRowType{
+    
+    NSParameterAssert([self.dataSourceDict objectForKey:kTrendReposDataSourceArrayKey]);
+    NSParameterAssert([self.dataSourceDict objectForKey:kPopularUsersDataSourceArrayKey]);
+    NSParameterAssert([self.dataSourceDict objectForKey:kPopularReposDataSourceArrayKey]);
+    NSMutableDictionary *parames = [NSMutableDictionary dictionary];
+    if (exploreRowType == MGExploreRowForTrendRepos) {
+        [parames setObject:@"Trend Repos This Week" forKey:kExploreRowViewModelTitleKey];
+        [parames setObject:[self.dataSourceDict objectForKey:kTrendReposDataSourceArrayKey]
+                    forKey:kExploreRowViewModelDataSourceKey];
+        [parames setObject:@(MGExploreRowForTrendRepos) forKey:kExploreRowViewModelRowTypeKey];
+        
+    }else if(exploreRowType == MGExploreRowForPopularUsers) {
+        [parames setObject:@"Popular Users" forKey:kExploreRowViewModelTitleKey];
+        [parames setObject:[self.dataSourceDict objectForKey:kPopularUsersDataSourceArrayKey]
+                    forKey:kExploreRowViewModelDataSourceKey];
+        [parames setObject:@(MGExploreRowForPopularUsers) forKey:kExploreRowViewModelRowTypeKey];
+        
+    }else if(exploreRowType == MGExploreRowForPopularRepos) {
+        [parames setObject:@"Popular Repos" forKey:kExploreRowViewModelTitleKey];
+        [parames setObject:[self.dataSourceDict objectForKey:kPopularReposDataSourceArrayKey]
+                    forKey:kExploreRowViewModelDataSourceKey];
+        [parames setObject:@(MGExploreRowForPopularRepos) forKey:kExploreRowViewModelRowTypeKey];
+    }
+    MGExploreRowViewModel *rowViewModel = [[MGExploreRowViewModel alloc]initWithParams:parames];
+    return rowViewModel;
+}
 @end
