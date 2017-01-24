@@ -12,11 +12,19 @@
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol"
 @implementation MGViewController
+#pragma clang diagnostic pop
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
 }
+
+
+
+
+
 @end

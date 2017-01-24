@@ -1,11 +1,14 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A586EE7E696CD64C474272B86C51884037DAFD16",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "c80f10d2-5650-e9db-085d-ce57b7db7bff++505",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "c80f10d2-5650-e9db-085d-ce57b7db7bff++505" : {
 
+    }
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "A586EE7E696CD64C474272B86C51884037DAFD16" : 9223372036854775807,
     "E3F1CFC7B66794122E6D31906D72E79A4B1AAB6D" : 9223372036854775807,
+    "c80f10d2-5650-e9db-085d-ce57b7db7bff++505" : 9223372036854775807,
     "F4E0D01C239078022205F5EFE09E8AB524DA87ED" : 9223372036854775807,
     "51B210D0D41486D3ADD6940D57E4480BBD4DE4C5" : 9223372036854775807,
     "CF42785408A00652986BBA4839BA1EA61698769D" : 9223372036854775807
@@ -14,6 +17,7 @@
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "A586EE7E696CD64C474272B86C51884037DAFD16" : "MVVMGitHub\/",
     "E3F1CFC7B66794122E6D31906D72E79A4B1AAB6D" : "MVVMReactiveCocoa\/OctoKit\/Carthage\/Checkouts\/Mantle\/",
+    "c80f10d2-5650-e9db-085d-ce57b7db7bff++505" : "MVVMGitHub.git\/",
     "F4E0D01C239078022205F5EFE09E8AB524DA87ED" : "MVVMReactiveCocoa\/OctoKit\/",
     "51B210D0D41486D3ADD6940D57E4480BBD4DE4C5" : "MVVMReactiveCocoa\/OctoKit\/Carthage\/Checkouts\/ReactiveCocoa\/",
     "CF42785408A00652986BBA4839BA1EA61698769D" : "MVVMReactiveCocoa\/"
@@ -46,6 +50,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/leichunfeng\/octokit.objc.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F4E0D01C239078022205F5EFE09E8AB524DA87ED"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kadimajay\/MVVMGitHub.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "c80f10d2-5650-e9db-085d-ce57b7db7bff++505"
     }
   ]
 }

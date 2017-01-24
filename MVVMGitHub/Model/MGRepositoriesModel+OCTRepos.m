@@ -21,12 +21,13 @@
     [repoDic setObject:self.isPrivate forKey:@"private"];
     [repoDic setObject:self.fork forKey:@"fork"];
     [repoDic setObject:self.pushed_at forKey:@"datePushed"];
-    [repoDic setObject:self.clone_url forKey:@"HTTPSURL"];
-    [repoDic setObject:self.ssh_url forKey:@"SSHURL"];
-    [repoDic setObject:self.git_url forKey:@"gitURL"];
-    [repoDic setObject:self.html_url forKey:@"HTMLURL"];
     [repoDic setObject:self.default_branch forKey:@"defaultBranch"];
-    [repoDic setObject:self.name forKey:@"issuesHTMLURL"];
+    [repoDic setObject:[NSURL URLWithString:self.clone_url] forKey:@"HTTPSURL"];
+    [repoDic setObject:[NSURL URLWithString:self.ssh_url] forKey:@"SSHURL"];
+    [repoDic setObject:[NSURL URLWithString:self.git_url] forKey:@"gitURL"];
+    [repoDic setObject:[NSURL URLWithString:self.html_url] forKey:@"HTMLURL"];
+//    [repoDic setObject:[NSURL URLWithString:self.issues_url] forKey:@"issuesHTMLURL"];
+    [repoDic setObject:self.ID forKey:@"objectID"];
     OCTRepository *repo = [[OCTRepository alloc]initWithDictionary:repoDic error:nil];
     return repo;
 }

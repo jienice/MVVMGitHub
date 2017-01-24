@@ -12,8 +12,9 @@
 #import "MGExploreCollectionViewDefaultCell.h"
 #import "MGUserModel.h"
 #import "MGRepositoriesModel.h"
+#import "MGRepositoriesModel+OCTRepos.h"
+#import "MGRepoDetailViewModel.h"
 
-#import <SDWebImage/UIImageView+WebCache.h>
 
 #define MGExploreCell_HEIGHT 250
 #define MGExploreCell_TITLE_HEIGHT 45
@@ -136,6 +137,11 @@ UICollectionViewDelegateFlowLayout>
         NSLog(@"%@",user);
     }else{
         MGRepositoriesModel *repo=self.rowViewModel.dataSource[indexPath.item];
+        MGRepoDetailViewModel *repoDetailViewModel = [[MGRepoDetailViewModel alloc]initWithRepo:repo];
+        
+        [[MGSharedDelegate.client fetchRepositoryReadme:[repo transToOCTRepository]] subscribeNext:^(OCTFileContent *x) {
+            NSLog(@"%@",x);
+        }];
         NSLog(@"%@",repo);
     }
 }

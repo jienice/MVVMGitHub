@@ -74,8 +74,7 @@ UITableViewDataSource>
 - (void)mg_createRepository{
     
     MGCreateRepoViewModel *viewMode = [[MGCreateRepoViewModel alloc]initWithParams:@{kNavigationTitle:@"Create New Repositioy"}];
-    MGCreateRepoViewController *vc = [[MGCreateRepoViewController alloc]initWithViewModel:viewMode];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:[MGSharedDelegate.viewModelMapper viewControllerForViewModel:viewMode]];
     [self presentViewController:nav animated:YES completion:nil];
 }
 #pragma mark - Delegate Method

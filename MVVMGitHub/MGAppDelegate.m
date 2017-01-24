@@ -18,6 +18,8 @@
 
 @interface MGAppDelegate ()
 
+@property (nonatomic, strong, readwrite) MGViewModelMapper *viewModelMapper;
+
 @end
 
 @implementation MGAppDelegate
@@ -35,14 +37,7 @@
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     MGViewModel *launchViewModel = [self configLaunchViewModel];
-    UINavigationController *mainNav;
-    if ([launchViewModel isKindOfClass:[MGLoginViewModel class]]) {
-        MGLoginViewController *loginVC = [[MGLoginViewController alloc]initWithViewModel:launchViewModel];
-        mainNav = [[UINavigationController alloc]initWithRootViewController:loginVC];
-    }else if([launchViewModel isKindOfClass:[MGMainViewModel class]]){
-        MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:launchViewModel];
-        mainNav = [[UINavigationController alloc]initWithRootViewController:main];
-    }
+    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:[self.viewModelMapper viewControllerForViewModel:launchViewModel]];
     [mainNav.navigationBar setHidden:YES];
     self.window.rootViewController = mainNav;
     [self.window makeKeyAndVisible];
@@ -80,6 +75,7 @@
     
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
 }
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -106,5 +102,12 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-
+#pragma mark - Lazy Load
+- (MGViewModelMapper *)viewModelMapper{
+    
+    if (_viewModelMapper==nil) {
+        _viewModelMapper=[[MGViewModelMapper alloc]init];
+    }
+    return _viewModelMapper;
+}
 @end

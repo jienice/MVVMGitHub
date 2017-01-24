@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGViewModelMapper.h"
+
 
 @class OCTClient;
 
@@ -16,5 +18,6 @@
 
 @property (nonatomic, strong) OCTClient *client;
 
+@property (nonatomic, strong, readonly) MGViewModelMapper *viewModelMapper;
 @end
 
