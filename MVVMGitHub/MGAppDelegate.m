@@ -45,9 +45,9 @@
 
 - (MGViewModel *)configLaunchViewModel{
     
-    if ([SSKeychain mg_accessToken].isExist && [SSKeychain mg_rawlogin].isExist) {
-        OCTUser *user = [OCTUser userWithRawLogin:[SSKeychain mg_rawlogin] server:OCTServer.dotComServer];
-        OCTClient *client = [OCTClient authenticatedClientWithUser:user token:[SSKeychain mg_accessToken]];
+    if ([SAMKeychain mg_accessToken].isExist && [SAMKeychain mg_rawlogin].isExist) {
+        OCTUser *user = [OCTUser userWithRawLogin:[SAMKeychain mg_rawlogin] server:OCTServer.dotComServer];
+        OCTClient *client = [OCTClient authenticatedClientWithUser:user token:[SAMKeychain mg_accessToken]];
         [self setClient:client];
         MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
         return mainViewModel;

@@ -18,7 +18,11 @@ target 'MVVMGitHub' do
         pod 'HMSegmentedControl',       '~> 1.5.2'
         pod 'OctoKit',                  '~> 0.5'
         #pod 'YYKit',                    '~> 1.0.7'
-        pod 'SSKeychain',               '~> 1.4.1'
+        pod 'SAMKeychain',              '~> 1.5.2'
         pod 'YYCache',                  '~> 1.0.3'
         pod 'IQKeyboardManager',        '~> 4.0.4'
+        pod 'SDVersion',                '~> 3.6'
+        pod 'MLeaksFinder',             '~> 0.2.1'
+        pod 'WebViewJavascriptBridge',  '~> 5.0.5'
+        pod 'CocoaSecurity',            '~> 1.2.4'
 end

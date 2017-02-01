@@ -102,8 +102,8 @@
         [_userNameText. rac_textSignal subscribeNext:^(NSString *userName) {
             self.viewModel.userName = userName;
         }];
-        if ([SSKeychain mg_rawlogin].isExist) {
-            _userNameText.text = [SSKeychain mg_rawlogin];
+        if ([SAMKeychain mg_rawlogin].isExist) {
+            _userNameText.text = [SAMKeychain mg_rawlogin];
         }
         _userNameText.keyboardType = UIKeyboardTypeEmailAddress;
     }

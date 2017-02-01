@@ -14,12 +14,12 @@
 #import <PureLayout/PureLayout.h>
 #import <Aspects/Aspects.h>
 #import <YYCache/YYCache.h>
-#import <SSKeychain/SSKeychain.h>
+#import <SAMKeychain/SAMKeychain.h>
 #import <MJRefresh/MJRefresh.h>
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <MJExtension/MJExtension.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "SSKeychain+MGUserSet.h"
+#import "SAMKeychain+MGUser.h"
 #import "NSString+MGUitl.h"
 #import "SVProgressHUD+MGHUD.h"
 

@@ -28,9 +28,9 @@
     
     void(^doNext)(OCTClient *authenticatedClient) = ^(OCTClient *authenticatedClient){
         
-        [SSKeychain mg_setAccessToken:authenticatedClient.token];
-        [SSKeychain mg_setPassWord:self.passWord];
-        [SSKeychain mg_setRawlogin:authenticatedClient.user.rawLogin];
+        [SAMKeychain mg_setAccessToken:authenticatedClient.token];
+        [SAMKeychain mg_setPassWord:self.passWord];
+        [SAMKeychain mg_setRawlogin:authenticatedClient.user.rawLogin];
         [MGSharedDelegate setClient:authenticatedClient];
         [self.loginSuccessCommand execute:@YES];
     };
