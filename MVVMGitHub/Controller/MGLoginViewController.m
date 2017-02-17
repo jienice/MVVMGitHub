@@ -53,19 +53,32 @@
     }] map:^id(NSNumber *value) {
         return [value boolValue]?[UIColor blueColor]:[UIColor lightGrayColor];
     }];
-    [[self.viewModel.loginCommand.executing skip:1] subscribeNext:^(NSNumber *isExecut) {
+    
+    [[[self.viewModel.loginCommand.executing skip:1] doNext:^(id x) {
+        @strongify(self);
+        [self.view endEditing:YES];
+    }]subscribeNext:^(NSNumber *isExecut) {
         if ([isExecut boolValue]) {
             [SVProgressHUD showWithStatus:@"loging..."];
         }else{
-            [SVProgressHUD dismissHUD];
+            [SVProgressHUD dismiss];
         }
     }];
     
-    [[[self.viewModel.loginSuccessCommand executionSignals]switchToLatest] subscribeNext:^(id x) {
+    [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
         @strongify(self);
         MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
         MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:mainViewModel];
         [self.navigationController pushViewController:main animated:YES];
+    }];
+
+    [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeCompleted:^{
+        NSLog(@"complete");
+    }];
+    
+    [self.viewModel.loginCommand.errors subscribeNext:^(NSError *error) {
+        
+        NSLog(@"%@",error);
     }];
 
 }

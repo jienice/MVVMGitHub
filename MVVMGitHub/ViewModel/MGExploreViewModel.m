@@ -134,25 +134,6 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
             [popularRepos sendNext:@YES];
         }];
     }];
-    
-
-    /*
-    self.requestLanguageCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[[[MGApiService starNetWorkRequestWithHttpMethod:GET
-                                                         baseUrl:EXPLORE_BASE_URL
-                                                            path:@"languages"
-                                                          params:nil] retry:2]
-                 takeUntil:self.cancelFetchDataSignal] doNext:^(NSArray *dataArr) {
-            NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsPath = [path objectAtIndex:0];
-            NSString *plistPath = [documentsPath stringByAppendingPathComponent:@"github_language_name_slug.plist"];
-            NSLog(@"plistPath--%@",plistPath);
-            //写入文件
-            [dataArr writeToFile:plistPath atomically:YES];
-        }];
-        
-    }];
-     */
 }
 - (MGExploreRowViewModel *)configExploreRowViewModel:(MGExploreRowType)exploreRowType{
     

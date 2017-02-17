@@ -11,7 +11,12 @@
 #import "MGExploreCell.h"
 #import "MGShowcasesModel.h"
 #import "MGExploreRowViewModel.h"
-#import <SDCycleScrollView/SDCycleScrollView.h>
+
+#import "MGUserModel.h"
+#import "MGRepositoriesModel.h"
+#import "MGRepoDetailViewModel.h"
+#import "MGRepoDetailViewController.h"
+#import "MGRepositoriesModel+OCTRepos.h"
 
 @interface MGExploreViewController ()
 <UITableViewDelegate,
@@ -32,6 +37,7 @@ SDCycleScrollViewDelegate>
     
     if (self = [super init]) {
         self.viewModel = (MGExploreViewModel *)viewModel;
+        self.navigationItem.title = self.viewModel.title;
     }
     return self;
 }
@@ -45,22 +51,17 @@ SDCycleScrollViewDelegate>
 - (void)bindViewModel{
     
     @weakify(self);
-    [[RACSignal combineLatest:@[self.viewModel.requestTrendReposCommand.executing,
-                               self.viewModel.requestPopularUsersCommand.executing,
-                               self.viewModel.requestShowcasesCommand.executing]
-                       reduce:^id(NSNumber *trendExecute,
-                                  NSNumber *popularExecute,
-                                  NSNumber *showcasesExecute){
-                           return @([trendExecute boolValue]||[popularExecute boolValue]||[showcasesExecute boolValue]);
-    }] subscribeNext:^(NSNumber *trendExecute) {
-        if(![trendExecute boolValue]){
+    [[RACSignal merge:@[self.viewModel.requestTrendReposCommand.executing,
+                      self.viewModel.requestPopularUsersCommand.executing,
+                      self.viewModel.requestShowcasesCommand.executing]] subscribeNext:^(NSNumber *execute) {
+        if(![execute boolValue]){
             @strongify(self);
             if ([self.tableView.mj_header isRefreshing]) {
                 [self.tableView.mj_header endRefreshing];
             }
         }
     }];
-    
+
     [[[[RACObserve(self, viewModel.fetchDataFromServiceSuccess) distinctUntilChanged] filter:^BOOL(NSNumber *value) {
         return [value boolValue];
     }] subscribeOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
@@ -91,9 +92,23 @@ SDCycleScrollViewDelegate>
     MGExploreCell *cell = [MGExploreCell configExploreCell:tableView
                                            reuseIdentifier:@"MGExploreCell"
                                               rowViewModel:[self.viewModel configExploreRowViewModel:indexPath.row]];
-
-    cell.seeAllCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[RACSignal empty] takeUntil:cell.rac_prepareForReuseSignal];
+    [cell.seeAllCommand.executionSignals.switchToLatest subscribeNext:^(NSNumber *rowType) {
+        NSLog(@"查看全部%@",rowType);
+    }];
+    
+    [cell.didSelectedItemCommand.executionSignals.switchToLatest subscribeNext:^(RACTuple *tucple) {
+        MGExploreRowViewModel *rowViewModel = [tucple first];
+        NSIndexPath *indexPath = [tucple last];
+        NSLog(@"选中%@",indexPath);
+        if (rowViewModel.rowType == MGExploreRowForPopularUsers) {
+            MGUserModel *user=rowViewModel.dataSource[indexPath.item];
+            NSLog(@"%@",user);
+        }else{
+            MGRepositoriesModel *repo=rowViewModel.dataSource[indexPath.item];
+            MGRepoDetailViewModel *repoDetailViewModel = [[MGRepoDetailViewModel alloc]initWithRepo:repo];
+            [self.navigationController pushViewController:[MGSharedDelegate.viewModelMapper viewControllerForViewModel:repoDetailViewModel]
+                                                 animated:YES];
+        }
     }];
     return cell;
 }

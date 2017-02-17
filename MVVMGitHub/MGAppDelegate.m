@@ -58,11 +58,32 @@
 - (void)configMethodHooks{
     
     [MGViewController aspect_hookSelector:@selector(viewDidLoad)
-                              withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> obj){
+                              withOptions:AspectPositionAfter
+                               usingBlock:^(id<AspectInfo> obj){
         if ([[obj instance] conformsToProtocol:@protocol(MGViewControllerProtocol)] &&
             [[obj instance] respondsToSelector:@selector(bindViewModel)]) {
             [[obj instance] performSelector:@selector(bindViewModel)];
         }
+    }error:nil];
+    
+    
+    [MGViewModel aspect_hookSelector:@selector(initWithParams:)
+                         withOptions:AspectPositionAfter
+                          usingBlock:^(id<AspectInfo> obj){
+        if ([[obj instance] respondsToSelector:@selector(initialize)]) {
+            [[obj instance] performSelector:@selector(initialize)];
+        }
+    }error:nil];
+    
+    [UINavigationController aspect_hookSelector:@selector(pushViewController:animated:)
+                                    withOptions:AspectPositionBefore
+                                     usingBlock:^(id<AspectInfo> obj){
+         if (![[[obj arguments] firstObject] isKindOfClass:[MGMainViewController class]]&&
+             ![[[obj arguments] firstObject] isKindOfClass:NSClassFromString(@"MGExploreViewController")]&&
+             ![[[obj arguments] firstObject] isKindOfClass:NSClassFromString(@"MGProfileViewController")]&&
+             ![[[obj arguments] firstObject] isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]) {
+             [[[obj arguments] firstObject] setHidesBottomBarWhenPushed:YES];
+         }
     }error:nil];
      
 }

@@ -8,7 +8,8 @@
 
 #ifndef MGPrefixHeader_pch
 #define MGPrefixHeader_pch
-
+///----------------------------------------------------------
+#import "RACEXTScope.h"
 #import <OctoKit/OctoKit.h>
 #import <FMDB/FMDB.h>
 #import <PureLayout/PureLayout.h>
@@ -19,20 +20,27 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <MJExtension/MJExtension.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <SVProgressHUD/SVProgressHUD.h>
+#import <Masonry/Masonry.h>
+#import <SDCycleScrollView/SDCycleScrollView.h>
+#import <MMMarkdown/MMMarkdown.h>
+#import <WebKit/WebKit.h>
+#import "Base64.h"
+///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"
 #import "NSString+MGUitl.h"
-#import "SVProgressHUD+MGHUD.h"
-
+///----------------------------------------------------------
 #import "MGConst.h"
 #import "MGConfig.h"
+///----------------------------------------------------------
 #import "MGTableViewModelProtocol.h"
 #import "MGViewModelProtocol.h"
 #import "MGViewControllerProtocol.h"
-#import "RACEXTScope.h"
-#import "MGAppDelegate.h"
 #import "MGNavigationControllerProtocol.h"
-
+///----------------------------------------------------------
+#import "MGAppDelegate.h"
 #import "MGViewController.h"
+///----------------------------------------------------------
 
 
 

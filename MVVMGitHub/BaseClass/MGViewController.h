@@ -10,6 +10,4 @@
 
 @interface MGViewController : UIViewController<MGViewControllerProtocol>
 
-
-
 @end

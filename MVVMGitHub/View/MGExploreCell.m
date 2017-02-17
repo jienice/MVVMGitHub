@@ -12,9 +12,6 @@
 #import "MGExploreCollectionViewDefaultCell.h"
 #import "MGUserModel.h"
 #import "MGRepositoriesModel.h"
-#import "MGRepositoriesModel+OCTRepos.h"
-#import "MGRepoDetailViewModel.h"
-
 
 #define MGExploreCell_HEIGHT 250
 #define MGExploreCell_TITLE_HEIGHT 45
@@ -34,7 +31,7 @@ UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong, readwrite) NSArray *collectionDataSource;
 @property (nonatomic, copy, readwrite) NSString *titleString;
 
-@property (nonatomic, strong) MGExploreRowViewModel *rowViewModel;
+@property (nonatomic, strong, readwrite) MGExploreRowViewModel *rowViewModel;
 
 
 @end
@@ -64,6 +61,12 @@ UICollectionViewDelegateFlowLayout>
         [cell.contentView addSubview:cell.titleLabel];
         [cell.contentView addSubview:cell.seeAllButton];
         [cell.contentView addSubview:cell.collectionView];
+        cell.didSelectedItemCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+            return [[RACSignal return:input] takeUntil:cell.rac_prepareForReuseSignal];
+        }];
+        cell.seeAllCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+            return [[RACSignal return:input] takeUntil:cell.rac_prepareForReuseSignal];
+        }];
         cell.canLayout=YES;
     }
     cell.rowViewModel = rowViewModel;
@@ -132,18 +135,7 @@ UICollectionViewDelegateFlowLayout>
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.rowViewModel.rowType == MGExploreRowForPopularUsers) {
-        MGUserModel *user=self.rowViewModel.dataSource[indexPath.item];
-        NSLog(@"%@",user);
-    }else{
-        MGRepositoriesModel *repo=self.rowViewModel.dataSource[indexPath.item];
-        MGRepoDetailViewModel *repoDetailViewModel = [[MGRepoDetailViewModel alloc]initWithRepo:repo];
-        
-        [[MGSharedDelegate.client fetchRepositoryReadme:[repo transToOCTRepository]] subscribeNext:^(OCTFileContent *x) {
-            NSLog(@"%@",x);
-        }];
-        NSLog(@"%@",repo);
-    }
+    [self.didSelectedItemCommand execute:RACTuplePack(self.rowViewModel,indexPath)];
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
@@ -212,7 +204,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         @weakify(self);
         [[_seeAllButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
             @strongify(self);
-            [self.seeAllCommand execute:nil];
+            [self.seeAllCommand execute:@(self.rowViewModel.rowType)];
         }];
     }
     return _seeAllButton;

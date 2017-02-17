@@ -22,11 +22,9 @@
     
     if (self = [super init]) {
         self.params = params;
-        self.title = [params valueForKey:kNavigationTitle];
-        if ([self conformsToProtocol:@protocol(MGViewModelProtocol)]&&
-            [self respondsToSelector:@selector(initialize)]) {
-            [self performSelector:@selector(initialize)];
-        }
+        [self.error subscribeNext:^(NSError *error) {
+            NSLog(@"MGViewModel.error %@",error);
+        }];
     }
     return self;
 }
@@ -37,5 +35,10 @@
         return [RACSubject subject];
     }
     return _error;
+}
+- (void)setParams:(NSDictionary *)params{
+    
+    _params = params;
+    self.title = [params valueForKey:kNavigationTitle];
 }
 @end

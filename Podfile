@@ -25,4 +25,6 @@ target 'MVVMGitHub' do
         pod 'MLeaksFinder',             '~> 0.2.1'
         pod 'WebViewJavascriptBridge',  '~> 5.0.5'
         pod 'CocoaSecurity',            '~> 1.2.4'
+        pod 'Masonry',                  '~> 1.0.1'
+        pod 'MMMarkdown',               '~> 0.5.5'
 end

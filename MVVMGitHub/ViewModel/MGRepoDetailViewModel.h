@@ -15,6 +15,12 @@
 
 @property (nonatomic, strong, readonly) MGRepositoriesModel *repo;
 
+@property (nonatomic, strong, readonly) NSString *readMEHtml;
+
+@property (nonatomic, strong, readonly) OCTTree *fileTree;
+
+@property (nonatomic, strong, readonly) RACCommand *fetchRepoBranchsCommand;
+
 - (instancetype)initWithRepo:(MGRepositoriesModel *)repo;
 
 

@@ -35,21 +35,14 @@
         [self.loginSuccessCommand execute:@YES];
     };
     
-    void (^doError)(NSError *error) = ^(NSError *error){
-        if ([error.domain isEqual:OCTClientErrorDomain] &&
-            error.code == OCTClientErrorTwoFactorAuthenticationOneTimePasswordRequired) {
-        }
-        
-    };
-    
     self.loginCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSString *oneTimePassword) {
         @strongify(self);
         OCTUser *user = [OCTUser userWithRawLogin:self.userName server:OCTServer.dotComServer];
-        return [[[OCTClient signInAsUser:user
-                                password:self.passWord
-                         oneTimePassword:oneTimePassword
-                                  scopes:OCTClientAuthorizationScopesUser|OCTClientAuthorizationScopesRepository]
-                 deliverOn:[RACScheduler mainThreadScheduler]] doNext:doNext];
+        return [[OCTClient signInAsUser:user
+                              password:self.passWord
+                       oneTimePassword:oneTimePassword
+                                scopes:OCTClientAuthorizationScopesUser|OCTClientAuthorizationScopesRepository]
+                doNext:doNext];
     }];
     
     self.canLoginSignal = [RACSignal combineLatest:@[RACObserve(self, userName),RACObserve(self, passWord)] reduce:^id(NSString *userName, NSString *passWord){

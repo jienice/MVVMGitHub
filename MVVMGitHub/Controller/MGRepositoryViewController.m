@@ -61,10 +61,9 @@ UITableViewDataSource>
     
     [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber*execut) {
         if ([execut boolValue]) {
-            [SVProgressHUD showWithStatus:@"loading..."];
+            [SVProgressHUD showWithStatus:@"loging..."];
         }else{
-            [SVProgressHUD dismissHUD];
-            [self.tableView.mj_header endRefreshing];
+            [SVProgressHUD dismiss];
         }
     }];
 }

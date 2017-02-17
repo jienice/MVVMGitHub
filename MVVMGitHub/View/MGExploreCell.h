@@ -14,9 +14,14 @@
 
 @property (nonatomic, strong) RACCommand *seeAllCommand;
 
+@property (nonatomic, strong) RACCommand *didSelectedItemCommand;
+
 @property (nonatomic, copy, readonly) NSString *titleString;
 
 @property (nonatomic, strong, readonly) NSArray *collectionDataSource;
+
+@property (nonatomic, strong, readonly) MGExploreRowViewModel *rowViewModel;
+
 
 + (instancetype)configExploreCell:(UITableView *)tableView
                   reuseIdentifier:(NSString *)reuseIdentifier

@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @class MGViewModel;
+@class MGViewController;
 
 @interface MGViewModelMapper : NSObject
 
 
-- (UIViewController<MGViewModelProtocol>*)viewControllerForViewModel:(MGViewModel *)viewModel;
+- (MGViewController<MGViewModelProtocol>*)viewControllerForViewModel:(MGViewModel *)viewModel;
 
 
 @end

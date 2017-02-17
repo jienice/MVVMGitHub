@@ -35,10 +35,10 @@
         View.layer.masksToBounds = YES;\
     }\
 }
+
 ///-------------
 ///  SSKeychain
 ///-------------
-
 #define MGSSKeychain_LoginService @"com.xingjie.mvvmgithub.login"
 #define MGSSKeychain_UserName @"userName"
 #define MGSSKeychain_PassWord @"passWord"
