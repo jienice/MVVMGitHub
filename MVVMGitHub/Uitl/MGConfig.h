@@ -13,8 +13,7 @@
 ///-------------
 #define MG_Service_URL @"http://com.xingjie.mvvmgithub"
 #define MG_Client_ID @"e44fe151f15da8da1e3c"
-#define MG_Client_Secret @"cde7ce083876684b4429eca155cfaf01dfc1a5d3"
-
+#define MG_Client_Secret @"78d6772432e956f8a73ba19fcbf1834b70dbfeb4"
 
 ///-------------
 ///  APPDelegate

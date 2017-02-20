@@ -12,6 +12,7 @@
 		A00295471E30587C004AC90E /* github_language_name_slug.plist in Resources */ = {isa = PBXBuildFile; fileRef = A00295461E30587C004AC90E /* github_language_name_slug.plist */; };
 		A002954B1E305A3A004AC90E /* MGExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A00295491E305A3A004AC90E /* MGExploreCollectionViewCell.m */; };
 		A002954C1E305A3A004AC90E /* MGExploreCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A002954A1E305A3A004AC90E /* MGExploreCollectionViewCell.xib */; };
+		A01D510C1E5AD05C002E9925 /* MGRepoDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D510B1E5AD05C002E9925 /* MGRepoDetailHeaderView.m */; };
 		A027E61B1E3E3CBA00641D2A /* NSString+MGUitl.m in Sources */ = {isa = PBXBuildFile; fileRef = A027E6151E3E3CBA00641D2A /* NSString+MGUitl.m */; };
 		A02F76C31E0B6BAC0088470E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C21E0B6BAC0088470E /* main.m */; };
 		A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C51E0B6BAC0088470E /* MGAppDelegate.m */; };
@@ -43,7 +44,7 @@
 		A080AE0C1E34B49300402510 /* MGRepoDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE0B1E34B49300402510 /* MGRepoDetailViewModel.m */; };
 		A080AE0F1E34B54400402510 /* MGViewModelMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE0E1E34B54400402510 /* MGViewModelMapper.m */; };
 		A0A2F76B1E422B8800F19F22 /* SAMKeychain+MGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */; };
-		A0D27CC81E5436D800F02E2C /* WKWebView+MGAutoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D27CC71E5436D800F02E2C /* WKWebView+MGAutoFrame.m */; };
+		A0D3DA481E56D27E00337EF7 /* WKWebView+MGWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */; };
 		A0E07D2C1E30A5FF009CB569 /* MGUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D2B1E30A5FF009CB569 /* MGUserModel.m */; };
 		A0E07D371E30BCA5009CB569 /* MGExploreRowViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D361E30BCA5009CB569 /* MGExploreRowViewModel.m */; };
 		A0E07D3B1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D391E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m */; };
@@ -78,6 +79,8 @@
 		A00295481E305A3A004AC90E /* MGExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCollectionViewCell.h; sourceTree = "<group>"; };
 		A00295491E305A3A004AC90E /* MGExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCollectionViewCell.m; sourceTree = "<group>"; };
 		A002954A1E305A3A004AC90E /* MGExploreCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCollectionViewCell.xib; sourceTree = "<group>"; };
+		A01D510A1E5AD05C002E9925 /* MGRepoDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepoDetailHeaderView.h; sourceTree = "<group>"; };
+		A01D510B1E5AD05C002E9925 /* MGRepoDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailHeaderView.m; sourceTree = "<group>"; };
 		A02349E51E11030200562388 /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
 		A027E6141E3E3CBA00641D2A /* NSString+MGUitl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MGUitl.h"; sourceTree = "<group>"; };
 		A027E6151E3E3CBA00641D2A /* NSString+MGUitl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MGUitl.m"; sourceTree = "<group>"; };
@@ -147,8 +150,8 @@
 		A080AE0E1E34B54400402510 /* MGViewModelMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelMapper.m; sourceTree = "<group>"; };
 		A0A2F7691E422B8800F19F22 /* SAMKeychain+MGUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SAMKeychain+MGUser.h"; sourceTree = "<group>"; };
 		A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SAMKeychain+MGUser.m"; sourceTree = "<group>"; };
-		A0D27CC61E5436D800F02E2C /* WKWebView+MGAutoFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+MGAutoFrame.h"; sourceTree = "<group>"; };
-		A0D27CC71E5436D800F02E2C /* WKWebView+MGAutoFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+MGAutoFrame.m"; sourceTree = "<group>"; };
+		A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+MGWeb.h"; sourceTree = "<group>"; };
+		A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+MGWeb.m"; sourceTree = "<group>"; };
 		A0E07D2A1E30A5FF009CB569 /* MGUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserModel.h; sourceTree = "<group>"; };
 		A0E07D2B1E30A5FF009CB569 /* MGUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserModel.m; sourceTree = "<group>"; };
 		A0E07D351E30BCA5009CB569 /* MGExploreRowViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreRowViewModel.h; sourceTree = "<group>"; };
@@ -210,8 +213,8 @@
 				A027E6151E3E3CBA00641D2A /* NSString+MGUitl.m */,
 				A0A2F7691E422B8800F19F22 /* SAMKeychain+MGUser.h */,
 				A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */,
-				A0D27CC61E5436D800F02E2C /* WKWebView+MGAutoFrame.h */,
-				A0D27CC71E5436D800F02E2C /* WKWebView+MGAutoFrame.m */,
+				A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */,
+				A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -339,9 +342,9 @@
 		A02F77071E0B7EF70088470E /* Uitl */ = {
 			isa = PBXGroup;
 			children = (
+				A02F770F1E0B7F150088470E /* MGConfig.h */,
 				A02F770C1E0B7F0E0088470E /* MGConst.h */,
 				A02F770D1E0B7F0E0088470E /* MGConst.m */,
-				A02F770F1E0B7F150088470E /* MGConfig.h */,
 				A06904011E13A10400855B7D /* MGApiService.h */,
 				A06904021E13A10400855B7D /* MGApiService.m */,
 				A080AE0D1E34B54400402510 /* MGViewModelMapper.h */,
@@ -363,6 +366,8 @@
 				A0E07D381E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.h */,
 				A0E07D391E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m */,
 				A0E07D3A1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib */,
+				A01D510A1E5AD05C002E9925 /* MGRepoDetailHeaderView.h */,
+				A01D510B1E5AD05C002E9925 /* MGRepoDetailHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -593,8 +598,8 @@
 			files = (
 				A0E07D2C1E30A5FF009CB569 /* MGUserModel.m in Sources */,
 				A027E61B1E3E3CBA00641D2A /* NSString+MGUitl.m in Sources */,
-				A0D27CC81E5436D800F02E2C /* WKWebView+MGAutoFrame.m in Sources */,
 				A080AE031E349BDE00402510 /* MGRepositoriesModel+OCTRepos.m in Sources */,
+				A01D510C1E5AD05C002E9925 /* MGRepoDetailHeaderView.m in Sources */,
 				A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */,
 				A06901601E13654A00855B7D /* MGCreateRepoViewController.m in Sources */,
 				A080AE061E34A26900402510 /* MGUserModel+OCTUser.m in Sources */,
@@ -624,6 +629,7 @@
 				A05C7F611E0CFDA700717589 /* MGExploreViewModel.m in Sources */,
 				A0E07D371E30BCA5009CB569 /* MGExploreRowViewModel.m in Sources */,
 				A02F770B1E0B7EF70088470E /* MGMainViewController.m in Sources */,
+				A0D3DA481E56D27E00337EF7 /* WKWebView+MGWeb.m in Sources */,
 				A06904031E13A10400855B7D /* MGApiService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

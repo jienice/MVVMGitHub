@@ -13,10 +13,14 @@
 
 @interface MGRepoDetailViewModel()
 
-@property (nonatomic, strong, readwrite) MGRepositoriesModel *repo;
-@property (nonatomic, strong, readwrite) NSString *readMEHtml;
 @property (nonatomic, strong) RACCommand *fetchRepositoryReadmeCommand;
+
+@property (nonatomic, strong, readwrite) NSString *readMEHtml;
 @property (nonatomic, strong, readwrite) RACCommand *fetchRepoBranchsCommand;
+@property (nonatomic, strong, readwrite) RACCommand *watchRepoCommand;
+@property (nonatomic, strong, readwrite) RACCommand *starRepoCommand;
+@property (nonatomic, strong, readwrite) RACCommand *forkRepoCommand;
+@property (nonatomic, strong) OCTRepository *repo;
 
 @end
 
@@ -28,7 +32,7 @@
     
     NSDictionary *params = @{kNavigationTitle:repo.name};
     self = [super initWithParams:params];
-    self.repo = repo;
+    self.repo = [repo transToOCTRepository];
     return self;
 }
 
@@ -38,9 +42,9 @@
     @weakify(self);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[RACSignal zip:@[[MGSharedDelegate.client fetchTreeForReference:self.repo.default_branch
-                                                           inRepository:[self.repo transToOCTRepository] recursive:NO],
-                         [MGSharedDelegate.client fetchRepositoryReadme:[self.repo transToOCTRepository]]]]
+        return [[RACSignal zip:@[[MGSharedDelegate.client fetchTreeForReference:self.repo.defaultBranch
+                                                                   inRepository:self.repo recursive:NO],
+                         [MGSharedDelegate.client fetchRepositoryReadme:self.repo]]]
                 doNext:^(RACTuple *tuple) {
             OCTTree *tree = [tuple first];
             NSLog(@"%@",tree);
@@ -56,14 +60,20 @@
     
     self.fetchRepositoryReadmeCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[[MGSharedDelegate.client fetchBranchesForRepositoryWithName:self.repo.name
-                                                                       owner:self.repo.owner.login] collect]
+                                                                       owner:self.repo.ownerLogin] collect]
                 doNext:^(NSArray *branchs) {
                     NSLog(@"branchs == %@",branchs);
         }];
     }];
     
+    
+    self.starRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        return [MGSharedDelegate.client starRepository:self.repo];
+    }];
+  
+    
     [[RACSignal merge:@[self.fetchRepositoryReadmeCommand.errors,
-                       self.fetchDataFromServiceCommand.errors]]subscribeNext:^(NSError *error) {
+                        self.fetchDataFromServiceCommand.errors]]subscribeNext:^(NSError *error) {
         [self.error sendError:error];
     }];
 }

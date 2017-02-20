@@ -30,7 +30,6 @@
     [self configLaunchView];
     [self configHUD];
     [self configKeyBoardManager];
-    
     return YES;
 }
 - (void)configLaunchView{

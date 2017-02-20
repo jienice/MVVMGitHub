@@ -9,6 +9,7 @@
 #ifndef MGPrefixHeader_pch
 #define MGPrefixHeader_pch
 ///----------------------------------------------------------
+#import <objc/runtime.h>
 #import "RACEXTScope.h"
 #import <OctoKit/OctoKit.h>
 #import <FMDB/FMDB.h>
@@ -26,6 +27,7 @@
 #import <MMMarkdown/MMMarkdown.h>
 #import <WebKit/WebKit.h>
 #import "Base64.h"
+#import "WKWebViewJavascriptBridge.h"
 ///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"
 #import "NSString+MGUitl.h"
