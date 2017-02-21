@@ -9,6 +9,8 @@
 #import "MGRepoDetailHeaderView.h"
 #import "MGRepositoriesModel.h"
 
+#define LINE_SPACE 5
+
 @interface MGRepoDetailHeaderView ()
 
 @property (nonatomic, strong) UIImageView *owerImageIcon;
@@ -23,13 +25,15 @@
 
 @property (nonatomic, assign) BOOL canLayout;
 
+@property (nonatomic, assign, readwrite) CGFloat height;
+
 @end
 
 @implementation MGRepoDetailHeaderView
 
-+ (instancetype)sharedInstancedWithRepo:(MGRepositoriesModel *)repo{
+- (instancetype)initHeaderViewWithRepo:(MGRepositoriesModel *)repo{
     
-    MGRepoDetailHeaderView *headerView = [[MGRepoDetailHeaderView alloc]initWithFrame:CGRectZero];
+    MGRepoDetailHeaderView *headerView = [[MGRepoDetailHeaderView alloc]init];
     [headerView addSubview:headerView.owerImageIcon];
     [headerView addSubview:headerView.createTimeLabel];
     [headerView addSubview:headerView.descLabel];
@@ -51,8 +55,8 @@
     if (self.canLayout) {
         [self.owerImageIcon mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.mas_left).offset(10);
-            make.top.mas_equalTo(self.mas_top).offset(10);
-            make.size.mas_equalTo(CGSizeMake(40, 60));
+            make.top.mas_equalTo(self.mas_top).offset(LINE_SPACE);
+            make.size.mas_equalTo(CGSizeMake(60, 60));
         }];
         
         [self.nameButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,13 +76,13 @@
         [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.owerImageIcon.mas_left);
             make.right.mas_equalTo(self.nameButton.mas_right);
-            make.top.mas_equalTo(self.owerImageIcon.mas_bottom).offset(10);
+            make.top.mas_equalTo(self.owerImageIcon.mas_bottom).offset(LINE_SPACE);
         }];
         
         [self.watchButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(@[self.starButton.mas_width,self.forkButton.mas_width]);
             make.height.mas_equalTo(@[@40,self.starButton.mas_height,self.forkButton.mas_height]);
-            make.top.mas_equalTo(self.descLabel.mas_bottom).offset(5);
+            make.top.mas_equalTo(self.descLabel.mas_bottom).offset(LINE_SPACE);
             make.right.mas_equalTo(self.starButton.mas_left).offset(-5);
             make.left.mas_equalTo(self.owerImageIcon.mas_left);
         }];
@@ -94,7 +98,7 @@
         
         [self.defaultBranchButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.owerImageIcon.mas_left);
-            make.top.mas_equalTo(self.forkButton.mas_bottom).offset(5);
+            make.top.mas_equalTo(self.forkButton.mas_bottom).offset(LINE_SPACE);
             make.size.mas_equalTo(CGSizeMake(100, 50));
         }];
         
@@ -149,6 +153,16 @@
     
     _branchBtnClickedCommand = branchBtnClickedCommand;
     self.defaultBranchButton.rac_command = _branchBtnClickedCommand;
+}
+#pragma mark -getter
+- (CGFloat)height{
+    
+    CGRect contentFrame = [self.descLabel.text boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.descLabel.frame), MAXFLOAT)
+                                                            options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                                                         attributes:@{NSFontAttributeName:self.descLabel.font}
+                                                            context:nil];
+    CGFloat descHeight = contentFrame.size.height + 30;
+    return LINE_SPACE+60+LINE_SPACE+descHeight+LINE_SPACE+40+LINE_SPACE+50;
 }
 #pragma mark - lazy load
 - (UIImageView *)owerImageIcon{

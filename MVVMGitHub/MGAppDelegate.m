@@ -7,18 +7,12 @@
 //
 
 #import "MGAppDelegate.h"
-#import "MGMainViewController.h"
-#import "MGViewController.h"
-#import "MGLoginViewController.h"
-#import "MGLoginViewModel.h"
-#import "MGViewModel.h"
-#import "MGMainViewModel.h"
 #import "MGLoginViewModel.h"
 #import "MGLoginViewController.h"
 
 @interface MGAppDelegate ()
 
-@property (nonatomic, strong, readwrite) MGViewModelMapper *viewModelMapper;
+@property (nonatomic, strong, readwrite) MGViewModelBasedNavigation *viewModelBased;
 
 @end
 
@@ -35,24 +29,25 @@
 - (void)configLaunchView{
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    MGViewModel *launchViewModel = [self configLaunchViewModel];
-    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:[self.viewModelMapper viewControllerForViewModel:launchViewModel]];
-    [mainNav.navigationBar setHidden:YES];
-    self.window.rootViewController = mainNav;
+    self.window.backgroundColor = [UIColor whiteColor];
+    UIViewController *launchVC = [self configLaunchViewController];
+    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:launchVC];
+    self.viewModelBased.navigationController = mainNav;
+    self.window.rootViewController = self.viewModelBased.navigationController;
     [self.window makeKeyAndVisible];
 }
 
-- (MGViewModel *)configLaunchViewModel{
+- (UIViewController *)configLaunchViewController{
     
     if ([SAMKeychain mg_accessToken].isExist && [SAMKeychain mg_rawlogin].isExist) {
         OCTUser *user = [OCTUser userWithRawLogin:[SAMKeychain mg_rawlogin] server:OCTServer.dotComServer];
         OCTClient *client = [OCTClient authenticatedClientWithUser:user token:[SAMKeychain mg_accessToken]];
         [self setClient:client];
-        MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
-        return mainViewModel;
+        MGViewModel *viewModel = [[NSClassFromString(@"MGMainViewModel") alloc]initWithParams:nil];
+        return [[NSClassFromString(@"MGMainViewController") alloc]initWithViewModel:viewModel];
     }
-    MGLoginViewModel *loginViewModel = [[MGLoginViewModel alloc]initWithParams:nil];
-    return loginViewModel;
+    MGViewModel *viewModel = [[NSClassFromString(@"MGLoginViewModel") alloc]initWithParams:nil];
+    return [[NSClassFromString(@"MGLoginViewController") alloc]initWithViewModel:viewModel];
 }
 - (void)configMethodHooks{
     
@@ -73,18 +68,7 @@
             [[obj instance] performSelector:@selector(initialize)];
         }
     }error:nil];
-    
-    [UINavigationController aspect_hookSelector:@selector(pushViewController:animated:)
-                                    withOptions:AspectPositionBefore
-                                     usingBlock:^(id<AspectInfo> obj){
-         if (![[[obj arguments] firstObject] isKindOfClass:[MGMainViewController class]]&&
-             ![[[obj arguments] firstObject] isKindOfClass:NSClassFromString(@"MGExploreViewController")]&&
-             ![[[obj arguments] firstObject] isKindOfClass:NSClassFromString(@"MGProfileViewController")]&&
-             ![[[obj arguments] firstObject] isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]) {
-             [[[obj arguments] firstObject] setHidesBottomBarWhenPushed:YES];
-         }
-    }error:nil];
-     
+         
 }
 - (void)configKeyBoardManager{
     
@@ -122,12 +106,12 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma mark - Lazy Load
-- (MGViewModelMapper *)viewModelMapper{
+#pragma mark - lazy load
+- (MGViewModelBasedNavigation*)viewModelBased{
     
-    if (_viewModelMapper==nil) {
-        _viewModelMapper=[[MGViewModelMapper alloc]init];
+    if (_viewModelBased==nil) {
+        _viewModelBased = [[MGViewModelBasedNavigation alloc]init];
     }
-    return _viewModelMapper;
+    return _viewModelBased;
 }
 @end

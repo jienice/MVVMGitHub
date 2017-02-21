@@ -7,9 +7,9 @@
 //
 
 #import "MGViewModel.h"
-@class MGProfileViewModel;
-@class MGRepositoryViewModel;
-@class MGExploreViewModel;
+#import "MGProfileViewModel.h"
+#import "MGRepositoryViewModel.h"
+#import "MGExploreViewModel.h"
 
 
 @interface MGMainViewModel : MGViewModel

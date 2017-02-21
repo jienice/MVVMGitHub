@@ -13,6 +13,10 @@
 		A002954B1E305A3A004AC90E /* MGExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A00295491E305A3A004AC90E /* MGExploreCollectionViewCell.m */; };
 		A002954C1E305A3A004AC90E /* MGExploreCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A002954A1E305A3A004AC90E /* MGExploreCollectionViewCell.xib */; };
 		A01D510C1E5AD05C002E9925 /* MGRepoDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D510B1E5AD05C002E9925 /* MGRepoDetailHeaderView.m */; };
+		A01D510F1E5BE41B002E9925 /* MGViewModelBasedNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D510E1E5BE41B002E9925 /* MGViewModelBasedNavigation.m */; };
+		A01D51141E5C1F00002E9925 /* MGWebCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D51121E5C1F00002E9925 /* MGWebCell.m */; };
+		A01D51211E5C3A1A002E9925 /* MGOCTTreeEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D511F1E5C3A1A002E9925 /* MGOCTTreeEntryCell.m */; };
+		A01D51221E5C3A1A002E9925 /* MGOCTTreeEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A01D51201E5C3A1A002E9925 /* MGOCTTreeEntryCell.xib */; };
 		A027E61B1E3E3CBA00641D2A /* NSString+MGUitl.m in Sources */ = {isa = PBXBuildFile; fileRef = A027E6151E3E3CBA00641D2A /* NSString+MGUitl.m */; };
 		A02F76C31E0B6BAC0088470E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C21E0B6BAC0088470E /* main.m */; };
 		A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F76C51E0B6BAC0088470E /* MGAppDelegate.m */; };
@@ -81,6 +85,13 @@
 		A002954A1E305A3A004AC90E /* MGExploreCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCollectionViewCell.xib; sourceTree = "<group>"; };
 		A01D510A1E5AD05C002E9925 /* MGRepoDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepoDetailHeaderView.h; sourceTree = "<group>"; };
 		A01D510B1E5AD05C002E9925 /* MGRepoDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailHeaderView.m; sourceTree = "<group>"; };
+		A01D510D1E5BE41B002E9925 /* MGViewModelBasedNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelBasedNavigation.h; sourceTree = "<group>"; };
+		A01D510E1E5BE41B002E9925 /* MGViewModelBasedNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelBasedNavigation.m; sourceTree = "<group>"; };
+		A01D51111E5C1F00002E9925 /* MGWebCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGWebCell.h; sourceTree = "<group>"; };
+		A01D51121E5C1F00002E9925 /* MGWebCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGWebCell.m; sourceTree = "<group>"; };
+		A01D511E1E5C3A1A002E9925 /* MGOCTTreeEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOCTTreeEntryCell.h; sourceTree = "<group>"; };
+		A01D511F1E5C3A1A002E9925 /* MGOCTTreeEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOCTTreeEntryCell.m; sourceTree = "<group>"; };
+		A01D51201E5C3A1A002E9925 /* MGOCTTreeEntryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGOCTTreeEntryCell.xib; sourceTree = "<group>"; };
 		A02349E51E11030200562388 /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
 		A027E6141E3E3CBA00641D2A /* NSString+MGUitl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MGUitl.h"; sourceTree = "<group>"; };
 		A027E6151E3E3CBA00641D2A /* NSString+MGUitl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MGUitl.m"; sourceTree = "<group>"; };
@@ -349,6 +360,8 @@
 				A06904021E13A10400855B7D /* MGApiService.m */,
 				A080AE0D1E34B54400402510 /* MGViewModelMapper.h */,
 				A080AE0E1E34B54400402510 /* MGViewModelMapper.m */,
+				A01D510D1E5BE41B002E9925 /* MGViewModelBasedNavigation.h */,
+				A01D510E1E5BE41B002E9925 /* MGViewModelBasedNavigation.m */,
 			);
 			path = Uitl;
 			sourceTree = "<group>";
@@ -368,6 +381,11 @@
 				A0E07D3A1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib */,
 				A01D510A1E5AD05C002E9925 /* MGRepoDetailHeaderView.h */,
 				A01D510B1E5AD05C002E9925 /* MGRepoDetailHeaderView.m */,
+				A01D51111E5C1F00002E9925 /* MGWebCell.h */,
+				A01D51121E5C1F00002E9925 /* MGWebCell.m */,
+				A01D511E1E5C3A1A002E9925 /* MGOCTTreeEntryCell.h */,
+				A01D511F1E5C3A1A002E9925 /* MGOCTTreeEntryCell.m */,
+				A01D51201E5C3A1A002E9925 /* MGOCTTreeEntryCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -523,6 +541,7 @@
 				A00295471E30587C004AC90E /* github_language_name_slug.plist in Resources */,
 				A002954C1E305A3A004AC90E /* MGExploreCollectionViewCell.xib in Resources */,
 				A02F76CE1E0B6BAC0088470E /* Assets.xcassets in Resources */,
+				A01D51221E5C3A1A002E9925 /* MGOCTTreeEntryCell.xib in Resources */,
 				A02F77241E0BA0D30088470E /* lanchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -613,6 +632,8 @@
 				A05C7F551E0CF39B00717589 /* MGProfileViewController.m in Sources */,
 				A002954B1E305A3A004AC90E /* MGExploreCollectionViewCell.m in Sources */,
 				A05C7F641E0CFDC400717589 /* MGExploreViewController.m in Sources */,
+				A01D510F1E5BE41B002E9925 /* MGViewModelBasedNavigation.m in Sources */,
+				A01D51211E5C3A1A002E9925 /* MGOCTTreeEntryCell.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A02F770A1E0B7EF70088470E /* MGLoginViewController.m in Sources */,
 				A0E07D3B1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m in Sources */,
@@ -623,6 +644,7 @@
 				A080AE0C1E34B49300402510 /* MGRepoDetailViewModel.m in Sources */,
 				A080AE0F1E34B54400402510 /* MGViewModelMapper.m in Sources */,
 				A05C7F521E0CF38100717589 /* MGProfileViewModel.m in Sources */,
+				A01D51141E5C1F00002E9925 /* MGWebCell.m in Sources */,
 				A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */,
 				A02F76C31E0B6BAC0088470E /* main.m in Sources */,
 				A02F771D1E0B9A700088470E /* MGViewController.m in Sources */,
@@ -769,9 +791,9 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MVVMGitHub/MGPrefixHeader.pch";
 				INFOPLIST_FILE = MVVMGitHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xingjie.MVVMGitHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xingjie.github;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -786,9 +808,9 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MVVMGitHub/MGPrefixHeader.pch";
 				INFOPLIST_FILE = MVVMGitHub/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xingjie.MVVMGitHub;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xingjie.github;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -14,7 +14,7 @@
 #import "MGRepositoriesModel.h"
 
 #define MGExploreCell_HEIGHT 250
-#define MGExploreCell_TITLE_HEIGHT 45
+#define MGExploreCell_TITLE_HEIGHT 44
 
 static NSString *MGExploreCollectionViewCellDefault = @"MGExploreCollectionViewCellDefault";
 static NSString *MGExploreCollectionViewCellImageAndDesc = @"MGExploreCollectionViewCellImageAndDesc";
@@ -33,7 +33,9 @@ UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong, readwrite) MGExploreRowViewModel *rowViewModel;
 
+@property (nonatomic, strong, readwrite) RACCommand *seeAllCommand;
 
+@property (nonatomic, strong, readwrite) RACCommand *didSelectedItemCommand;
 @end
 
 @implementation MGExploreCell
@@ -58,15 +60,10 @@ UICollectionViewDelegateFlowLayout>
     MGExploreCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
         cell = [[MGExploreCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView addSubview:cell.titleLabel];
         [cell.contentView addSubview:cell.seeAllButton];
         [cell.contentView addSubview:cell.collectionView];
-        cell.didSelectedItemCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-            return [[RACSignal return:input] takeUntil:cell.rac_prepareForReuseSignal];
-        }];
-        cell.seeAllCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-            return [[RACSignal return:input] takeUntil:cell.rac_prepareForReuseSignal];
-        }];
         cell.canLayout=YES;
     }
     cell.rowViewModel = rowViewModel;
@@ -90,16 +87,26 @@ UICollectionViewDelegateFlowLayout>
 - (void)layoutSubviews{
     
     if (self.canLayout) {
-        [self.titleLabel autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.contentView withOffset:5];
-        [self.titleLabel autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.contentView];
-        [self.titleLabel autoSetDimension:ALDimensionHeight toSize:MGExploreCell_TITLE_HEIGHT];
-        [self.titleLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.collectionView];
-        [self.collectionView autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsZero excludingEdge:ALEdgeTop];
-        [self.seeAllButton autoSetDimension:ALDimensionWidth toSize:50];
-        [self.seeAllButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeRight ofView:self.titleLabel];
-        [self.seeAllButton autoPinEdge:ALEdgeTop toEdge:ALEdgeTop ofView:self.titleLabel];
-        [self.seeAllButton autoPinEdge:ALEdgeBottom toEdge:ALEdgeBottom ofView:self.titleLabel];
-        [self.seeAllButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.contentView];
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left);
+            make.right.mas_equalTo(self.seeAllButton.mas_left);
+            make.top.mas_equalTo(self.contentView.mas_top);
+            make.bottom.mas_equalTo(self.collectionView.mas_top);
+            make.height.mas_equalTo(MGExploreCell_TITLE_HEIGHT);
+        }];
+        
+        [self.seeAllButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.titleLabel.mas_top);
+            make.bottom.mas_equalTo(self.titleLabel.mas_bottom);
+            make.width.mas_equalTo(50);
+            make.right.mas_equalTo(self.contentView.mas_right);
+        }];
+        
+        [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.titleLabel.mas_left);
+            make.right.mas_equalTo(self.seeAllButton.mas_right);
+            make.bottom.mas_equalTo(self.contentView.mas_bottom);
+        }];
     }
 }
 #pragma mark - Load Data
@@ -142,7 +149,7 @@ UICollectionViewDelegateFlowLayout>
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     return CGSizeMake(150,
-                      MGExploreCell_HEIGHT-MGExploreCell_TITLE_HEIGHT-5);
+                      MGExploreCell_HEIGHT-MGExploreCell_TITLE_HEIGHT-10);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView
                         layout:(UICollectionViewLayout*)collectionViewLayout
@@ -152,16 +159,17 @@ UICollectionViewDelegateFlowLayout>
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout*)collectionViewLayout
-minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     
-    return 5;
+    return 0.f;
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView
                    layout:(UICollectionViewLayout*)collectionViewLayout
-minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
-    return 5;
+    return 0.f;
 }
+
 #pragma mark - Lazy Load
 - (UILabel *)titleLabel{
     
@@ -187,7 +195,6 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [_collectionView setShowsHorizontalScrollIndicator:NO];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-
     }
     return _collectionView;
 }
@@ -201,12 +208,28 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         [_seeAllButton setTitle:@"All" forState:UIControlStateHighlighted];
         [_seeAllButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         _seeAllButton.titleLabel.font = MGFont(14);
-        @weakify(self);
-        [[_seeAllButton rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
-            @strongify(self);
-            [self.seeAllCommand execute:@(self.rowViewModel.rowType)];
-        }];
+        _seeAllButton.rac_command = self.seeAllCommand;
     }
     return _seeAllButton;
+}
+- (RACCommand *)didSelectedItemCommand{
+    
+    if(_didSelectedItemCommand==nil){
+        _didSelectedItemCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+            return [RACSignal return:input];
+        }];
+    }
+    return _didSelectedItemCommand;
+}
+- (RACCommand *)seeAllCommand{
+    
+    if (_seeAllCommand==nil) {
+        @weakify(self);
+        _seeAllCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self);
+            return [RACSignal return:@(self.rowViewModel.rowType)];
+        }];
+    }
+    return _seeAllCommand;
 }
 @end

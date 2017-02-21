@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGViewModelMapper.h"
-
-
-@class OCTClient;
+#import "MGViewModelBasedNavigation.h"
 
 @interface MGAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -18,6 +15,7 @@
 
 @property (nonatomic, strong) OCTClient *client;
 
-@property (nonatomic, strong, readonly) MGViewModelMapper *viewModelMapper;
+@property (nonatomic, strong, readonly) MGViewModelBasedNavigation *viewModelBased;
+
 @end
 

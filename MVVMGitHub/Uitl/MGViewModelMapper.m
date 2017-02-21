@@ -7,8 +7,6 @@
 //
 
 #import "MGViewModelMapper.h"
-#import "MGViewController.h"
-#import "MGViewModel.h"
 
 @implementation MGViewModelMapper{
     
@@ -21,7 +19,6 @@
     if (self = [super init]) {
         _mapperDict = @{@"MGRepoDetailViewModel":@"MGRepoDetailViewController",
                         @"MGExploreViewModel":@"MGExploreViewController",
-                        @"MGMainViewModel":@"MGMainViewController",
                         @"MGLoginViewModel":@"MGLoginViewController",
                         @"MGProfileViewModel":@"MGProfileViewController",
                         @"MGRepositoryViewModel":@"MGRepositoryViewController",
@@ -30,7 +27,7 @@
     return self;
 }
 
-- (MGViewController<MGViewModelProtocol>*)viewControllerForViewModel:(MGViewModel *)viewModel{
+- (MGViewController *)viewControllerForViewModel:(id<MGViewModelProtocol>)viewModel{
     
     NSString *viewControllerString = [_mapperDict valueForKey:NSStringFromClass(viewModel.class)];
     NSParameterAssert([NSClassFromString(viewControllerString) conformsToProtocol:@protocol(MGViewControllerProtocol)]);

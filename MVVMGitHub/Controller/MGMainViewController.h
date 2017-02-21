@@ -14,4 +14,5 @@
 
 @property (nonatomic, strong, readonly) MGMainViewModel *viewModel;
 
+
 @end

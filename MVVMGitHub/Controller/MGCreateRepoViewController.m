@@ -48,6 +48,7 @@
 - (void)updateViewConstraints{
     
     if (!self.didLayout) {
+        /*
         [self.repoNameTextField autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(64+5, 5, 5, 5) excludingEdge:ALEdgeBottom];
         [self.repoNameTextField autoSetDimension:ALDimensionHeight toSize:45];
         [self.repoDescTextView autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.repoNameTextField withOffset:10];
@@ -56,6 +57,7 @@
         [self.repoDescTextView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.commitButton withOffset:-5];
         [self.commitButton autoSetDimension:ALDimensionHeight toSize:35];
         [self.commitButton autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(5, 5, 5, 5) excludingEdge:ALEdgeTop];
+         */
         self.didLayout = YES;
     }
     [super updateViewConstraints];
@@ -101,7 +103,7 @@
 - (UITextField *)repoNameTextField{
     
     if (_repoNameTextField == nil) {
-        _repoNameTextField = [UITextField newAutoLayoutView];
+        _repoNameTextField = [[UITextField alloc]init];
         _repoNameTextField.borderStyle = UITextBorderStyleLine;
         _repoNameTextField.placeholder = @"Repository Name";
         _repoNameTextField.font = MGFont(14);
@@ -116,7 +118,7 @@
 - (UITextView *)repoDescTextView{
     
     if (_repoDescTextView == nil) {
-        _repoDescTextView = [UITextView newAutoLayoutView];
+        _repoDescTextView = [[UITextView alloc] init];
         _repoDescTextView.font = MGFont(13);
         _repoDescTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         _repoDescTextView.layer.borderWidth = 1.f;

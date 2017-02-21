@@ -19,13 +19,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVVMGitHub/BaseClass/MGViewModel.m"
-            timestampString = "509007111.406881"
+            filePath = "MVVMGitHub/Uitl/MGNavigationController.m"
+            timestampString = "509348866.355708"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-pushViewModel:animated:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVVMGitHub/View/MGWebCell.m"
+            timestampString = "509362122.441295"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
             endingLineNumber = "26"
-            landmarkName = "-initWithParams:"
+            landmarkName = "+configWebViewCellWithhtml:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

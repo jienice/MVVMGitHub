@@ -66,39 +66,38 @@
     }];
     
     [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
-        @strongify(self);
-        MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
-        MGMainViewController *main = [[MGMainViewController alloc]initWithViewModel:mainViewModel];
-        [self.navigationController pushViewController:main animated:YES];
+        [[RACScheduler mainThreadScheduler] schedule:^{
+            MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
+            [MGSharedDelegate.viewModelBased pushViewModel:mainViewModel animated:YES];
+        }];
     }];
 
-    [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeCompleted:^{
-        NSLog(@"complete");
-    }];
-    
     [self.viewModel.loginCommand.errors subscribeNext:^(NSError *error) {
-        
-        NSLog(@"%@",error);
+        NSLog(@"error----%@",error);
     }];
-
 }
 - (void)updateViewConstraints{
     
     if (!self.didLayout) {
-        [self.userNameText autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(200, 10, 0, 10) excludingEdge:ALEdgeBottom];
-        [self.userNameText autoSetDimension:ALDimensionHeight toSize:40];
+        [self.userNameText mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.view.mas_top).offset(200);
+            make.left.mas_equalTo(self.view.mas_left).offset(10);
+            make.right.mas_equalTo(self.view.mas_right).offset(-10);
+            make.height.mas_equalTo(40);
+        }];
         
-        [self.passWordText autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.userNameText withOffset:10];
-        [self.passWordText autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.userNameText];
-        [self.passWordText autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.userNameText];
-        [self.passWordText autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.userNameText];
+        [self.passWordText mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.userNameText.mas_bottom);
+            make.left.mas_equalTo(self.userNameText.mas_left);
+            make.right.mas_equalTo(self.userNameText.mas_right);
+            make.height.mas_equalTo(@[self.userNameText.mas_height,self.loginButton.mas_height]);
+        }];
         
-        [self.loginButton autoPinEdge:ALEdgeTop toEdge:ALEdgeBottom ofView:self.passWordText withOffset:10];
-        [self.loginButton autoPinEdge:ALEdgeLeft toEdge:ALEdgeLeft ofView:self.userNameText];
-        [self.loginButton autoPinEdge:ALEdgeRight toEdge:ALEdgeRight ofView:self.userNameText];
-        [self.loginButton autoMatchDimension:ALDimensionHeight toDimension:ALDimensionHeight ofView:self.userNameText];
-        [self.loginButton autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self.userNameText];
-
+        [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.passWordText.mas_bottom).offset(10);
+            make.left.mas_equalTo(self.userNameText.mas_left);
+            make.right.mas_equalTo(self.userNameText.mas_right);
+        }];
         self.didLayout = YES;
     }
     [super updateViewConstraints];

@@ -32,16 +32,15 @@
         [SAMKeychain mg_setPassWord:self.passWord];
         [SAMKeychain mg_setRawlogin:authenticatedClient.user.rawLogin];
         [MGSharedDelegate setClient:authenticatedClient];
-        [self.loginSuccessCommand execute:@YES];
     };
     
     self.loginCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSString *oneTimePassword) {
         @strongify(self);
         OCTUser *user = [OCTUser userWithRawLogin:self.userName server:OCTServer.dotComServer];
         return [[OCTClient signInAsUser:user
-                              password:self.passWord
-                       oneTimePassword:oneTimePassword
-                                scopes:OCTClientAuthorizationScopesUser|OCTClientAuthorizationScopesRepository]
+                               password:self.passWord
+                        oneTimePassword:oneTimePassword
+                                 scopes:OCTClientAuthorizationScopesRepository]
                 doNext:doNext];
     }];
     

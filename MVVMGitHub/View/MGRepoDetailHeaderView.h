@@ -17,8 +17,9 @@
 @property (nonatomic, strong) RACCommand *forkBtnClickedCommand;
 @property (nonatomic, strong) RACCommand *branchBtnClickedCommand;
 
+@property (nonatomic, assign, readonly) CGFloat height;
 
-+ (instancetype)sharedInstancedWithRepo:(MGRepositoriesModel *)repo;
+- (instancetype)initHeaderViewWithRepo:(MGRepositoriesModel *)repo;
 
 
 @end

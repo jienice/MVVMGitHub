@@ -9,14 +9,7 @@
 #import "MGMainViewController.h"
 #import "MGMainViewModel.h"
 
-//#import "MGProfileViewModel.h"
-//#import "MGExploreViewModel.h"
-//#import "MGRepositoryViewModel.h"
-//#import "MGExploreViewController.h"
-//#import "MGRepositoryViewController.h"
-//#import "MGProfileViewController.h"
-
-@interface MGMainViewController ()
+@interface MGMainViewController ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong, readwrite) MGMainViewModel *viewModel;
 
@@ -33,6 +26,7 @@
         [self addViewModel:self.viewModel.exploreViewModel];
         [self addViewModel:self.viewModel.repositorisViewModel];
         [self addViewModel:self.viewModel.profileViewModel];
+        self.navigationItem.title = self.viewModel.exploreViewModel.title;
     }
     return self;
 }
@@ -43,8 +37,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
-    self.navigationController.navigationBar.hidden = YES;
+    self.delegate = self;
     //关闭滑屏返回
     [self.navigationController.interactivePopGestureRecognizer setEnabled:NO];
 }
@@ -58,10 +51,19 @@
     [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
     [item setTitleTextAttributes:@{NSForegroundColorAttributeName:RGBAlphaColor(0, 0, 0, 1)} forState:UIControlStateNormal];
     item.titlePositionAdjustment = UIOffsetMake(0, -2);
-    MGViewController *vc = (MGViewController *)[MGSharedDelegate.viewModelMapper viewControllerForViewModel:viewModel];
+    MGViewController *vc = [MGSharedDelegate.viewModelBased.viewModelMapper viewControllerForViewModel:viewModel];
     vc.tabBarItem = item;
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    [self addChildViewController:nav];
+    [self addChildViewController:vc];
 }
-
+#pragma mark - Delegate Method
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
+    
+    if ([viewController isKindOfClass:NSClassFromString(@"MGExploreViewController")]) {
+        self.navigationItem.title = self.viewModel.exploreViewModel.title;
+    }else if ([viewController isKindOfClass:NSClassFromString(@"MGProfileViewController")]) {
+        self.navigationItem.title = self.viewModel.profileViewModel.title;
+    }else if ([viewController isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]) {
+        self.navigationItem.title = self.viewModel.repositorisViewModel.title;
+    }
+}
 @end

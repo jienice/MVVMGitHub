@@ -32,6 +32,7 @@
         @strongify(self);
         CGFloat height = result?result.floatValue:self.scrollView.contentSize.height;
         NSLog(@"webView.contentHeight====%f",height);
+        
         if (complete) {
             complete(height);
         }

@@ -7,11 +7,6 @@
 //
 
 #import "MGMainViewModel.h"
-#import "MGProfileViewModel.h"
-#import "MGRepositoryViewModel.h"
-#import "MGExploreViewModel.h"
-
-
 
 @interface MGMainViewModel ()
 

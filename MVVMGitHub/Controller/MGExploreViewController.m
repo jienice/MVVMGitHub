@@ -92,11 +92,11 @@ SDCycleScrollViewDelegate>
     MGExploreCell *cell = [MGExploreCell configExploreCell:tableView
                                            reuseIdentifier:@"MGExploreCell"
                                               rowViewModel:[self.viewModel configExploreRowViewModel:indexPath.row]];
-    [cell.seeAllCommand.executionSignals.switchToLatest subscribeNext:^(NSNumber *rowType) {
+    [[cell.seeAllCommand.executionSignals.switchToLatest takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(NSNumber *rowType) {
         NSLog(@"查看全部%@",rowType);
     }];
     
-    [cell.didSelectedItemCommand.executionSignals.switchToLatest subscribeNext:^(RACTuple *tucple) {
+    [[cell.didSelectedItemCommand.executionSignals.switchToLatest takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(RACTuple *tucple) {
         MGExploreRowViewModel *rowViewModel = [tucple first];
         NSIndexPath *indexPath = [tucple last];
         NSLog(@"选中%@",indexPath);
@@ -106,8 +106,7 @@ SDCycleScrollViewDelegate>
         }else{
             MGRepositoriesModel *repo=rowViewModel.dataSource[indexPath.item];
             MGRepoDetailViewModel *repoDetailViewModel = [[MGRepoDetailViewModel alloc]initWithRepo:repo];
-            [self.navigationController pushViewController:[MGSharedDelegate.viewModelMapper viewControllerForViewModel:repoDetailViewModel]
-                                                 animated:YES];
+            [MGSharedDelegate.viewModelBased pushViewModel:repoDetailViewModel animated:YES];
         }
     }];
     return cell;
@@ -121,7 +120,7 @@ SDCycleScrollViewDelegate>
 - (UITableView *)tableView{
     
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)
                                                  style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;

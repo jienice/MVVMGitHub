@@ -11,14 +11,10 @@
 @interface MGLoginViewModel : MGViewModel
 
 @property (nonatomic, copy) NSString *userName;
-
 @property (nonatomic, copy) NSString *passWord;
 
 @property (nonatomic, strong, readonly) RACSignal *canLoginSignal;
-
 @property (nonatomic, strong, readonly) RACCommand *loginCommand;
-
-@property (nonatomic, strong, readonly) RACCommand *loginSuccessCommand;
 @property (nonatomic, strong, readonly) RACCommand *exchangeTokenCommand;
 
 @end

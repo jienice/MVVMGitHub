@@ -12,9 +12,9 @@
 
 @interface MGExploreCell : UITableViewCell
 
-@property (nonatomic, strong) RACCommand *seeAllCommand;
+@property (nonatomic, strong, readonly) RACCommand *seeAllCommand;
 
-@property (nonatomic, strong) RACCommand *didSelectedItemCommand;
+@property (nonatomic, strong, readonly) RACCommand *didSelectedItemCommand;
 
 @property (nonatomic, copy, readonly) NSString *titleString;
 
