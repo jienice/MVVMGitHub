@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class MGRepositoriesModel;
+
 @interface MGRepoDetailHeaderView : UIView
 
 @property (nonatomic, strong) RACCommand *nameBtnClickedCommand;
@@ -19,7 +20,6 @@
 
 @property (nonatomic, assign, readonly) CGFloat height;
 
-- (instancetype)initHeaderViewWithRepo:(MGRepositoriesModel *)repo;
-
+- (void)setRepo:(MGRepositoriesModel *)repo;
 
 @end

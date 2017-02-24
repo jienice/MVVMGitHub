@@ -34,7 +34,7 @@ UITableViewDataSource,WKNavigationDelegate>
     
     if (self = [super init]) {
         self.viewModel = (MGRepoDetailViewModel *)viewModel;
-        self.navigationItem.title = self.viewModel.title;
+        self.navigationItem.title = [self.viewModel.params valueForKey:kRepoDetailParamsKeyForRepoName];
     }
     return self;
 }
@@ -70,6 +70,22 @@ UITableViewDataSource,WKNavigationDelegate>
     [[[RACObserve(self, viewModel.readMEHtml) ignore:nil] distinctUntilChanged] subscribeNext:^(id x) {
         @strongify(self);
         [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
+    }];
+    
+    [[RACObserve(self, viewModel.repo) ignore:nil] subscribeNext:^(MGRepositoriesModel *repo) {
+        @strongify(self);
+        [self.headerView setRepo:repo];
+    }];
+    
+    [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber *execut) {
+        if (![execut boolValue]) {
+            if ([self.scrollView.mj_header isRefreshing]) {
+                [self.scrollView.mj_header endRefreshing];
+            }
+            [SVProgressHUD dismiss];
+        }else{
+            [SVProgressHUD showWithStatus:@"loading"];
+        }
     }];
 }
 - (void)updateViewConstraints{
@@ -135,6 +151,15 @@ UITableViewDataSource,WKNavigationDelegate>
     
     if(_scrollView==nil){
         _scrollView = [[UIScrollView alloc]init];
+        @weakify(self);
+        _scrollView.mj_header = ({
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                @strongify(self);
+                [self.viewModel.fetchDataFromServiceCommand execute:nil];
+            }];
+            [header.lastUpdatedTimeLabel setHidden:YES];
+            header;
+        });
     }
     return _scrollView;
 }
@@ -142,8 +167,7 @@ UITableViewDataSource,WKNavigationDelegate>
     
     if(_contentView==nil){
         _contentView = [[UIView alloc]init];
-        _contentView.backgroundColor = [UIColor redColor];
-        
+//        _contentView.backgroundColor = [UIColor redColor];
     }
     return _contentView;
 }
@@ -161,7 +185,7 @@ UITableViewDataSource,WKNavigationDelegate>
 - (MGRepoDetailHeaderView *)headerView{
     
     if (_headerView==nil) {
-        _headerView=[[MGRepoDetailHeaderView alloc]initHeaderViewWithRepo:self.viewModel.repo];
+        _headerView=[[MGRepoDetailHeaderView alloc]init];
     }
     return _headerView;
 }

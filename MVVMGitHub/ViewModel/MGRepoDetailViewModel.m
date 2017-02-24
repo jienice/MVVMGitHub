@@ -8,6 +8,10 @@
 
 #import "MGRepoDetailViewModel.h"
 #import "MGRepositoriesModel.h"
+#import "MGApiService+MGRepo.h"
+
+NSString *const kRepoDetailParamsKeyForRepoOwner = @"kRepoDetailParamsKeyForRepoOwner";
+NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoName";
 
 @interface MGRepoDetailViewModel()
 
@@ -21,47 +25,50 @@
 @property (nonatomic, strong, readwrite) MGRepositoriesModel *repo;
 @property (nonatomic, strong, readwrite) OCTTree *fileTree;
 
+@property (nonatomic, copy) NSString *repoOwner;
+@property (nonatomic, copy) NSString *repoName;
+
+
 @end
 
 @implementation MGRepoDetailViewModel
 
 @synthesize fetchDataFromServiceCommand = _fetchDataFromServiceCommand;
 
-- (instancetype)initWithRepo:(MGRepositoriesModel *)repo{
-    
-    NSDictionary *params = @{kNavigationTitle:repo.name,@"repo":repo};
-    self = [super initWithParams:params];
-    return self;
-}
-
 - (void)initialize{
     
     NSLog(@"%s",__func__);
-    self.repo = [self.params objectForKey:@"repo"];
-    
+    self.repoOwner = [self.params objectForKey:kRepoDetailParamsKeyForRepoOwner];
+    self.repoName = [self.params objectForKey:kRepoDetailParamsKeyForRepoName];
     @weakify(self);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[RACSignal zip:@[[MGSharedDelegate.client fetchTreeForReference:self.repo.defaultBranch
-                                                                   inRepository:self.repo recursive:NO],
-                         [MGSharedDelegate.client fetchRepositoryReadme:self.repo]]]
-                doNext:^(RACTuple *tuple) {
+        return [[[MGApiService fetchRepoDetaiWithOwner:self.repoOwner
+                                      repoName:self.repoName]doNext:^(NSDictionary *repoDic) {
+            @strongify(self);
+            self.repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
+        }] finally:^{
+            if (self.repo) {
+                [[RACSignal zip:@[[MGSharedDelegate.client fetchTreeForReference:self.repo.defaultBranch
+                                                                    inRepository:self.repo recursive:NO],
+                                  [MGSharedDelegate.client fetchRepositoryReadme:self.repo]]]
+                   subscribeNext:^(RACTuple *tuple) {
                     [self setFileTree:[tuple first]];
-            NSLog(@"file tree--%@",self.fileTree);
-            OCTFileContent *file = [tuple last];
-            if ([file.encoding isEqualToString:@"base64"]) {
-                NSString *readME = [file.content base64DecodedString];
-                self.readMEHtml = [MMMarkdown HTMLStringWithMarkdown:readME error:nil];
+                    OCTFileContent *file = [tuple last];
+                    if ([file.encoding isEqualToString:@"base64"]) {
+                        NSString *readME = [file.content base64DecodedString];
+                        self.readMEHtml = [MMMarkdown HTMLStringWithMarkdown:readME error:nil];
+                    }
+                }];
             }
         }];
-
     }];
     
     self.fetchRepositoryReadmeCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[[MGSharedDelegate.client fetchBranchesForRepositoryWithName:self.repo.name
                                                                        owner:self.repo.ownerLogin] collect]
                 doNext:^(NSArray *branchs) {
-                    NSLog(@"branchs == %@",branchs);
+//                    NSLog(@"branchs == %@",branchs);
         }];
     }];
     

@@ -29,13 +29,6 @@
  */
 @property (nonatomic, strong) RACCommand *fetchDataFromServiceCommand;
 
-/**
- cancel fetch data request signal
- if you don't set before you invoke -fetchDataFromServiceCommand, 
- this signal will be set to default with -rac_willDeallocSignal
- */
-@property (nonatomic, strong) RACSignal *cancelFetchDataSignal;
-
 
 @optional
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page;

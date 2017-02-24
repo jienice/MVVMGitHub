@@ -12,6 +12,7 @@
 #import "MGCreateRepoViewController.h"
 #import "MGCreateRepoViewModel.h"
 #import "MGRepoDetailViewModel.h"
+#import "MGRepositoriesModel.h"
 
 @interface MGRepositoryViewController ()
 <UITableViewDelegate,
@@ -31,7 +32,6 @@ UITableViewDataSource>
     
     if (self = [super init]) {
         self.viewModel = (MGRepositoryViewModel *)viewModel;
-        self.viewModel.cancelFetchDataSignal = [self rac_signalForSelector:@selector(viewDidDisappear:)];
     }
     return self;
 }
@@ -47,7 +47,7 @@ UITableViewDataSource>
 - (void)bindViewModel{
     
     @weakify(self);
-    [[self rac_signalForSelector:@selector(viewDidAppear:)] subscribeNext:^(id x) {
+    [[self rac_signalForSelector:@selector(viewDidLoad)] subscribeNext:^(id x) {
         @strongify(self);
         [self.viewModel.fetchDataFromServiceCommand execute:@1];
     }];
@@ -96,7 +96,8 @@ UITableViewDataSource>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"%s repo -- %@",__func__,self.viewModel.dataSource[indexPath.row]);
-    MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithRepo:self.viewModel.dataSource[indexPath.row]];
+    MGRepositoriesModel *repo = self.viewModel.dataSource[indexPath.row];
+    MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.owner.login,kRepoDetailParamsKeyForRepoName:repo.name}];
     [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
 }
 #pragma mark - Lazy Load
@@ -112,7 +113,7 @@ UITableViewDataSource>
                 @strongify(self);
                 [self.viewModel.fetchDataFromServiceCommand execute:0];
             }];
-//            header setre
+            [header.lastUpdatedTimeLabel setHidden:YES];
             header;
         });
     }

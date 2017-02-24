@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger,HTTP_METHOD){
 // 
 // */
 + (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
-                                        baseUrl:(NSString *)baseUrl
+                                        baseUrl:(NSURL *)baseUrl
                                            path:(NSString *)path
                                          params:(NSDictionary *)params;
 

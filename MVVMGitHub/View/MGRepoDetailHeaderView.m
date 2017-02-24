@@ -1,5 +1,5 @@
 //
-//  MGRepoDetailHeaderView.m
+//  MGRepoDetailself.m
 //  MVVMGitHub
 //
 //  Created by XingJie on 2017/2/20.
@@ -14,107 +14,100 @@
 @interface MGRepoDetailHeaderView ()
 
 @property (nonatomic, strong) UIImageView *owerImageIcon;
-@property (nonatomic, strong) UILabel *createTimeLabel;
-@property (nonatomic, strong) UILabel *descLabel;
-@property (nonatomic, strong) UILabel *latestUpdateLabel;
 @property (nonatomic, strong) UIButton *nameButton;
 @property (nonatomic, strong) UIButton *watchButton;
 @property (nonatomic, strong) UIButton *starButton;
 @property (nonatomic, strong) UIButton *forkButton;
 @property (nonatomic, strong) UIButton *defaultBranchButton;
-
-@property (nonatomic, assign) BOOL canLayout;
-
+@property (nonatomic, strong) UILabel *createTimeLabel;
+@property (nonatomic, strong) UILabel *descLabel;
+@property (nonatomic, strong) UILabel *latestUpdateLabel;
 @property (nonatomic, assign, readwrite) CGFloat height;
 
 @end
 
 @implementation MGRepoDetailHeaderView
 
-- (instancetype)initHeaderViewWithRepo:(MGRepositoriesModel *)repo{
+- (instancetype)init{
     
-    MGRepoDetailHeaderView *headerView = [[MGRepoDetailHeaderView alloc]initWithFrame:CGRectZero];
-    [headerView addSubview:headerView.owerImageIcon];
-    [headerView addSubview:headerView.createTimeLabel];
-    [headerView addSubview:headerView.descLabel];
-    [headerView addSubview:headerView.latestUpdateLabel];
-    [headerView addSubview:headerView.nameButton];
-    [headerView addSubview:headerView.watchButton];
-    [headerView addSubview:headerView.starButton];
-    [headerView addSubview:headerView.forkButton];
-    [headerView addSubview:headerView.defaultBranchButton];
-    headerView.canLayout = YES;
-    [headerView setRepo:repo];
-    return headerView;
+    if(self = [super init]){
+        [self addSubview:self.owerImageIcon];
+        [self addSubview:self.createTimeLabel];
+        [self addSubview:self.descLabel];
+        [self addSubview:self.latestUpdateLabel];
+        [self addSubview:self.nameButton];
+        [self addSubview:self.watchButton];
+        [self addSubview:self.starButton];
+        [self addSubview:self.forkButton];
+        [self addSubview:self.defaultBranchButton];
+    }
+    return self;
 }
 
 - (void)layoutSubviews{
     
-    if (self.canLayout) {
-        [self.owerImageIcon mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.mas_left).offset(10);
-            make.top.mas_equalTo(self.mas_top).offset(LINE_SPACE);
-            make.size.mas_equalTo(CGSizeMake(60, 60));
-        }];
-        
-        [self.nameButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.owerImageIcon.mas_top);
-            make.right.mas_equalTo(self.mas_right).offset(-10);
-            make.left.mas_equalTo(self.owerImageIcon.mas_right).offset(5);
-            make.height.mas_equalTo(self.createTimeLabel.mas_height);
-        }];
-        
-        [self.createTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.nameButton.mas_left);
-            make.right.mas_equalTo(self.nameButton.mas_right);
-            make.top.mas_equalTo(self.nameButton.mas_bottom).offset(10);
-            make.bottom.mas_equalTo(self.owerImageIcon.mas_bottom);
-        }];
-        
-        [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.owerImageIcon.mas_left);
-            make.right.mas_equalTo(self.nameButton.mas_right);
-            make.top.mas_equalTo(self.owerImageIcon.mas_bottom).offset(LINE_SPACE);
-        }];
-        
-        [self.watchButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(@[self.starButton.mas_width,self.forkButton.mas_width]);
-            make.height.mas_equalTo(@[@40,self.starButton.mas_height,self.forkButton.mas_height]);
-            make.top.mas_equalTo(self.descLabel.mas_bottom).offset(LINE_SPACE);
-            make.right.mas_equalTo(self.starButton.mas_left).offset(-5);
-            make.left.mas_equalTo(self.owerImageIcon.mas_left);
-        }];
-        
-        [self.starButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(@[self.watchButton.mas_top,self.forkButton.mas_top]);
-            make.right.mas_equalTo(self.forkButton.mas_left).offset(-5);
-        }];
-        
-        [self.forkButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(self.nameButton.mas_right);
-        }];
-        
-        [self.defaultBranchButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.owerImageIcon.mas_left);
-            make.top.mas_equalTo(self.forkButton.mas_bottom).offset(LINE_SPACE);
-            make.size.mas_equalTo(CGSizeMake(100, 50));
-        }];
-        
-        [self.latestUpdateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.defaultBranchButton.mas_top);
-            make.bottom.mas_equalTo(self.defaultBranchButton.mas_bottom);
-            make.right.mas_equalTo(self.nameButton.mas_right);
-            make.left.mas_equalTo(self.defaultBranchButton.mas_right);
-        }];
-    }
-    [super layoutSubviews];
+    [self.owerImageIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.mas_left).offset(10);
+        make.top.mas_equalTo(self.mas_top).offset(LINE_SPACE);
+        make.size.mas_equalTo(CGSizeMake(60, 60));
+    }];
+    
+    [self.nameButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.owerImageIcon.mas_top);
+        make.right.mas_equalTo(self.mas_right).offset(-10);
+        make.left.mas_equalTo(self.owerImageIcon.mas_right).offset(5);
+        make.height.mas_equalTo(self.createTimeLabel.mas_height);
+    }];
+    
+    [self.createTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.nameButton.mas_left);
+        make.right.mas_equalTo(self.nameButton.mas_right);
+        make.top.mas_equalTo(self.nameButton.mas_bottom).offset(10);
+        make.bottom.mas_equalTo(self.owerImageIcon.mas_bottom);
+    }];
+    
+    [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.owerImageIcon.mas_left);
+        make.right.mas_equalTo(self.nameButton.mas_right);
+        make.top.mas_equalTo(self.owerImageIcon.mas_bottom).offset(LINE_SPACE);
+    }];
+    
+    [self.watchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(@[self.starButton.mas_width,self.forkButton.mas_width]);
+        make.height.mas_equalTo(@[@40,self.starButton.mas_height,self.forkButton.mas_height]);
+        make.top.mas_equalTo(self.descLabel.mas_bottom).offset(LINE_SPACE);
+        make.right.mas_equalTo(self.starButton.mas_left).offset(-5);
+        make.left.mas_equalTo(self.owerImageIcon.mas_left);
+    }];
+    
+    [self.starButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(@[self.watchButton.mas_top,self.forkButton.mas_top]);
+        make.right.mas_equalTo(self.forkButton.mas_left).offset(-5);
+    }];
+    
+    [self.forkButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.nameButton.mas_right);
+    }];
+    
+    [self.defaultBranchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.owerImageIcon.mas_left);
+        make.top.mas_equalTo(self.forkButton.mas_bottom).offset(LINE_SPACE);
+        make.size.mas_equalTo(CGSizeMake(100, 50));
+    }];
+    
+    [self.latestUpdateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.defaultBranchButton.mas_top);
+        make.bottom.mas_equalTo(self.defaultBranchButton.mas_bottom);
+        make.right.mas_equalTo(self.nameButton.mas_right);
+        make.left.mas_equalTo(self.defaultBranchButton.mas_right);
+    }];
 }
 #pragma mark - setter
 - (void)setRepo:(MGRepositoriesModel *)repo{
     
     [self.owerImageIcon sd_setImageWithURL:repo.owner.avatarURL
                                 placeholderImage:nil];
-    self.createTimeLabel.text = @"creatr time";
+    self.createTimeLabel.text = @"create time";
     self.descLabel.text = repo.repoDescription;
     [self.nameButton setTitle:repo.ownerLogin
                      forState:UIControlStateNormal];

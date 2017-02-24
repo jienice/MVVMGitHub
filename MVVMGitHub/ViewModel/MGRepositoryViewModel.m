@@ -17,17 +17,12 @@
 @synthesize dataSource = _dataSource;
 @synthesize fetchDataFromServiceCommand = _fetchDataFromServiceCommand;
 @synthesize didSelectedRowCommand = _didSelectedRowCommand;
-@synthesize cancelFetchDataSignal = _cancelFetchDataSignal;
 
 - (void)initialize{
     
     NSLog(@"%s",__func__);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        if (self.cancelFetchDataSignal==nil) {
-            self.cancelFetchDataSignal = self.rac_willDeallocSignal;
-            NSLog(@"请设置取消请求的信号,如果不设置则默认为-rac_willDeallocSignal");
-        }
-        return [[self fetchDataFromServiceWithPage:0] takeUntil:self.cancelFetchDataSignal];
+        return [[self fetchDataFromServiceWithPage:0] takeUntil:self.rac_willDeallocSignal];
     }];
     
     self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {

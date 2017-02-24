@@ -19,7 +19,7 @@
 
 
 + (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
-                                        baseUrl:(NSString *)baseUrl
+                                        baseUrl:(NSURL *)baseUrl
                                            path:(NSString *)path
                                          params:(NSDictionary *)params{
     
@@ -35,7 +35,7 @@
         default:
             break;
     }
-    AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:baseUrl]];
+    AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:baseUrl];
     
     NSMutableURLRequest *request = [client requestWithMethod:method path:path parameters:params];
     request.timeoutInterval = 30;

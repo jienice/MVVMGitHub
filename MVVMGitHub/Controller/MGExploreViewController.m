@@ -106,8 +106,8 @@ SDCycleScrollViewDelegate>
             [MGSharedDelegate.viewModelBased pushViewModel:userDetailViewModel animated:YES];
         }else{
             MGRepositoriesModel *repo=rowViewModel.dataSource[indexPath.item];
-            MGRepoDetailViewModel *repoDetailViewModel = [[MGRepoDetailViewModel alloc]initWithRepo:repo];
-            [MGSharedDelegate.viewModelBased pushViewModel:repoDetailViewModel animated:YES];
+            MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.owner.login,kRepoDetailParamsKeyForRepoName:repo.name}];
+            [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
         }
     }];
     return cell;
