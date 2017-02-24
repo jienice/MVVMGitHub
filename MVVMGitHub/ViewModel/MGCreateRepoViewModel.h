@@ -19,7 +19,6 @@
 
 @property (nonatomic, strong, readonly) RACSignal *canCreateSignal;
 
-
 @property (nonatomic, strong) RACCommand *createRepoCommand;
 
 

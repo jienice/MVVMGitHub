@@ -33,7 +33,7 @@
 
 - (instancetype)initHeaderViewWithRepo:(MGRepositoriesModel *)repo{
     
-    MGRepoDetailHeaderView *headerView = [[MGRepoDetailHeaderView alloc]init];
+    MGRepoDetailHeaderView *headerView = [[MGRepoDetailHeaderView alloc]initWithFrame:CGRectZero];
     [headerView addSubview:headerView.owerImageIcon];
     [headerView addSubview:headerView.createTimeLabel];
     [headerView addSubview:headerView.descLabel];
@@ -44,8 +44,6 @@
     [headerView addSubview:headerView.forkButton];
     [headerView addSubview:headerView.defaultBranchButton];
     headerView.canLayout = YES;
-    [headerView setNeedsLayout];
-    [headerView layoutIfNeeded];
     [headerView setRepo:repo];
     return headerView;
 }
@@ -114,11 +112,11 @@
 #pragma mark - setter
 - (void)setRepo:(MGRepositoriesModel *)repo{
     
-    [self.owerImageIcon sd_setImageWithURL:[NSURL URLWithString:repo.owner.avatar_url]
+    [self.owerImageIcon sd_setImageWithURL:repo.owner.avatarURL
                                 placeholderImage:nil];
-    self.createTimeLabel.text = repo.created_at;
-    self.descLabel.text = repo.des;
-    [self.nameButton setTitle:repo.full_name
+    self.createTimeLabel.text = @"creatr time";
+    self.descLabel.text = repo.repoDescription;
+    [self.nameButton setTitle:repo.ownerLogin
                      forState:UIControlStateNormal];
     [self.watchButton setTitle:[repo.watchers_count stringValue]
                       forState:UIControlStateNormal];
@@ -126,7 +124,7 @@
                      forState:UIControlStateNormal];
     [self.forkButton setTitle:[repo.forks_count stringValue]
                      forState:UIControlStateNormal];
-    [self.defaultBranchButton setTitle:repo.default_branch
+    [self.defaultBranchButton setTitle:repo.defaultBranch
                               forState:UIControlStateNormal];
 }
 - (void)setNameBtnClickedCommand:(RACCommand *)nameBtnClickedCommand{

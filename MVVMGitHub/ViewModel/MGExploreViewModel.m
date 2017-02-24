@@ -10,7 +10,6 @@
 #import "MGApiService.h"
 #import "MGRepositoriesModel.h"
 #import "MGShowcasesModel.h"
-#import "MGUserModel.h"
 
 NSString *const kTrendReposDataSourceArrayKey = @"kTrendReposDataSourceArrayKey";
 NSString *const kShowcasesDataSourceArrayKey = @"kShowcasesDataSourceArrayKey";
@@ -24,10 +23,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
 @property (nonatomic, strong, readwrite) RACCommand *requestShowcasesCommand;
 @property (nonatomic, strong, readwrite) RACCommand *requestLanguageCommand;
 @property (nonatomic, strong, readwrite) RACCommand *requestPopularReposCommand;
-
 @property (nonatomic, strong, readwrite) NSMutableDictionary *dataSourceDict;
-
 @property (nonatomic, strong) NSIndexSet *dataIndexSet;
+
 @end
 
 @implementation MGExploreViewModel
@@ -97,7 +95,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                                                                     @"order":@"desc"}] retry:2]
                 takeUntil:self.cancelFetchDataSignal] doNext:^(NSDictionary *dict) {
             @strongify(self);
-            NSArray *popularUsers = [MGUserModel mj_objectArrayWithKeyValuesArray:[dict valueForKey:@"items"]];
+            NSArray *popularUsers = [[[[dict valueForKey:@"items"] rac_sequence]map:^id(NSDictionary *usersDic) {
+               return  [MTLJSONAdapter modelOfClass:[OCTUser class] fromJSONDictionary:usersDic error:nil];
+            }] array];
             [self.dataSourceDict setObject:popularUsers forKey:kPopularUsersDataSourceArrayKey];
         }] doCompleted:^{
             [popularUsers sendNext:@YES];
@@ -112,7 +112,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                                                                     @"language":@"objective-c"}] retry:2]
                  takeUntil:self.cancelFetchDataSignal] doNext:^(NSArray *dataArr) {
             @strongify(self);
-            NSArray *trending = [MGRepositoriesModel mj_objectArrayWithKeyValuesArray:dataArr];
+            NSArray *trending = [[[dataArr rac_sequence] map:^id(NSDictionary *repoDic) {
+                return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
+            }] array];
             [self.dataSourceDict setObject:trending forKey:kTrendReposDataSourceArrayKey];
         }] doCompleted:^{
             [trendRepos sendNext:@YES];
@@ -128,7 +130,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                                                                     @"order":@"desc"}] retry:2]
                   takeUntil:self.cancelFetchDataSignal] doNext:^(NSDictionary *dict) {
             @strongify(self);
-            NSArray *popularRepo = [MGRepositoriesModel mj_objectArrayWithKeyValuesArray:[dict valueForKey:@"items"]];
+            NSArray *popularRepo = [[[[dict valueForKey:@"items"] rac_sequence] map:^id(NSDictionary *repoDic) {
+                return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
+            }] array];
             [self.dataSourceDict setObject:popularRepo forKey:kPopularReposDataSourceArrayKey];
         }] doCompleted:^{
             [popularRepos sendNext:@YES];

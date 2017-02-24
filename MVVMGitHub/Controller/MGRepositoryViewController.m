@@ -11,6 +11,8 @@
 #import "MGRepositoriesCell.h"
 #import "MGCreateRepoViewController.h"
 #import "MGCreateRepoViewModel.h"
+#import "MGRepoDetailViewModel.h"
+
 @interface MGRepositoryViewController ()
 <UITableViewDelegate,
 UITableViewDataSource>
@@ -94,6 +96,8 @@ UITableViewDataSource>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"%s repo -- %@",__func__,self.viewModel.dataSource[indexPath.row]);
+    MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithRepo:self.viewModel.dataSource[indexPath.row]];
+    [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
 }
 #pragma mark - Lazy Load
 - (UITableView *)tableView{

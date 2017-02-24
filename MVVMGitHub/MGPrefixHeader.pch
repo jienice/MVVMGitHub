@@ -28,9 +28,11 @@
 #import <WebKit/WebKit.h>
 #import "Base64.h"
 #import "WKWebViewJavascriptBridge.h"
+#import "UIView+Borders.h"
 ///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"
 #import "NSString+MGUitl.h"
+#import "UIView+Extension.h"
 ///----------------------------------------------------------
 #import "MGConst.h"
 #import "MGConfig.h"
@@ -41,7 +43,6 @@
 #import "MGNavigationControllerProtocol.h"
 ///----------------------------------------------------------
 #import "MGAppDelegate.h"
-#import "MGViewController.h"
 #import "MGViewModelMapper.h"
 #import "MGViewModel.h"
 ///----------------------------------------------------------

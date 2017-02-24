@@ -26,5 +26,7 @@
     }
     return self;
 }
+- (void)bindViewModel{}
+
 
 @end

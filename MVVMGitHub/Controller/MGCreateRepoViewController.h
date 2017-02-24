@@ -6,8 +6,8 @@
 //  Copyright © 2016年 xingjie. All rights reserved.
 //
 
-#import "MGViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface MGCreateRepoViewController : MGViewController<MGViewControllerProtocol>
+@interface MGCreateRepoViewController : UIViewController<MGViewControllerProtocol>
 
 @end

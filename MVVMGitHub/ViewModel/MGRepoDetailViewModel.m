@@ -8,8 +8,6 @@
 
 #import "MGRepoDetailViewModel.h"
 #import "MGRepositoriesModel.h"
-#import "MGRepositoriesModel+OCTRepos.h"
-
 
 @interface MGRepoDetailViewModel()
 
@@ -40,14 +38,13 @@
     
     NSLog(@"%s",__func__);
     self.repo = [self.params objectForKey:@"repo"];
-    OCTRepository *repository = [self.repo transToOCTRepository];
     
     @weakify(self);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[RACSignal zip:@[[MGSharedDelegate.client fetchTreeForReference:repository.defaultBranch
-                                                                   inRepository:repository recursive:NO],
-                         [MGSharedDelegate.client fetchRepositoryReadme:repository]]]
+        return [[RACSignal zip:@[[MGSharedDelegate.client fetchTreeForReference:self.repo.defaultBranch
+                                                                   inRepository:self.repo recursive:NO],
+                         [MGSharedDelegate.client fetchRepositoryReadme:self.repo]]]
                 doNext:^(RACTuple *tuple) {
                     [self setFileTree:[tuple first]];
             NSLog(@"file tree--%@",self.fileTree);
@@ -61,8 +58,8 @@
     }];
     
     self.fetchRepositoryReadmeCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[[MGSharedDelegate.client fetchBranchesForRepositoryWithName:repository.name
-                                                                       owner:repository.ownerLogin] collect]
+        return [[[MGSharedDelegate.client fetchBranchesForRepositoryWithName:self.repo.name
+                                                                       owner:self.repo.ownerLogin] collect]
                 doNext:^(NSArray *branchs) {
                     NSLog(@"branchs == %@",branchs);
         }];
@@ -70,7 +67,7 @@
     
     
     self.starRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [MGSharedDelegate.client starRepository:repository];
+        return [MGSharedDelegate.client starRepository:self.repo];
     }];
   
     

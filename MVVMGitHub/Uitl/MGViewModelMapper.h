@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class MGViewController;
 
 @interface MGViewModelMapper : NSObject
 
 
-- (MGViewController *)viewControllerForViewModel:(id<MGViewModelProtocol>)viewModel;
+- (UIViewController<MGViewControllerProtocol> *)viewControllerForViewModel:(id<MGViewModelProtocol>)viewModel;
 
 
 @end

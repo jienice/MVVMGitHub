@@ -12,11 +12,12 @@
 #import "WKWebView+MGWeb.h"
 #import "MGRepoDetailHeaderView.h"
 #import "MGOCTTreeEntryCell.h"
-#import "MGWebCell.h"
+
+#define TREE_ENTRY_CELL_HEIGHT 40
 
 @interface MGRepoDetailViewController ()
 <UITableViewDelegate,
-UITableViewDataSource>
+UITableViewDataSource,WKNavigationDelegate>
 
 @property (nonatomic, strong) MGRepoDetailViewModel *viewModel;
 @property (nonatomic, strong) MGRepoDetailHeaderView *headerView;
@@ -24,7 +25,6 @@ UITableViewDataSource>
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) WKWebView *readmeWeb;
-@property (nonatomic, assign) BOOL canLayout;
 
 @end
 
@@ -53,9 +53,6 @@ UITableViewDataSource>
     [self.contentView addSubview:self.headerView];
     [self.contentView addSubview:self.tableView];
     [self.contentView addSubview:self.readmeWeb];
-    self.canLayout = YES;
-    [self.view setNeedsUpdateConstraints];
-    [self.view updateConstraintsIfNeeded];
 }
 - (void)bindViewModel{
     
@@ -64,50 +61,45 @@ UITableViewDataSource>
         @strongify(self);
         [[RACScheduler mainThreadScheduler] schedule:^{
             [self.tableView reloadData];
+            [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(fileTree.entries.count*TREE_ENTRY_CELL_HEIGHT);
+            }];
         }];
     }];
     
     [[[RACObserve(self, viewModel.readMEHtml) ignore:nil] distinctUntilChanged] subscribeNext:^(id x) {
+        @strongify(self);
         [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
-        [self.readmeWeb autoSetHeightAfterLoaded:^(CGFloat height) {
-           [[RACScheduler mainThreadScheduler]schedule:^{
-              [self.readmeWeb mas_updateConstraints:^(MASConstraintMaker *make) {
-                  make.height.mas_equalTo(height);
-              }];
-           }];
-        }];
     }];
 }
 - (void)updateViewConstraints{
     
-    if (self.canLayout) {
-        [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(UIEdgeInsetsZero);
-        }];
-        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(UIEdgeInsetsZero);
-            make.width.mas_equalTo(SCREEN_WIDTH);
-        }];
-        [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.contentView.mas_left);
-            make.top.mas_equalTo(self.contentView.mas_top);
-            make.right.mas_equalTo(self.contentView.mas_right);
-            make.height.mas_equalTo(self.headerView.height);
-        }];
-        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.headerView.mas_bottom);
-            make.left.mas_equalTo(self.contentView.mas_left);
-            make.right.mas_equalTo(self.contentView.mas_right);
-            make.height.mas_equalTo(300);
-        }];
-        [self.readmeWeb mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.tableView.mas_bottom);
-            make.left.mas_equalTo(self.contentView.mas_left);
-            make.right.mas_equalTo(self.contentView.mas_right);
-            make.bottom.mas_equalTo(self.contentView.mas_bottom);
-            make.height.mas_equalTo(10);
-        }];
-    }
+    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsZero);
+    }];
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsZero);
+        make.width.mas_equalTo(SCREEN_WIDTH);
+    }];
+    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.contentView.mas_left);
+        make.top.mas_equalTo(self.contentView.mas_top);
+        make.right.mas_equalTo(self.contentView.mas_right);
+        make.height.mas_equalTo(self.headerView.height);
+    }];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.headerView.mas_bottom);
+        make.left.mas_equalTo(self.contentView.mas_left);
+        make.right.mas_equalTo(self.contentView.mas_right);
+        make.height.mas_equalTo(0.1f);
+    }];
+    [self.readmeWeb mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.tableView.mas_bottom);
+        make.left.mas_equalTo(self.contentView.mas_left);
+        make.right.mas_equalTo(self.contentView.mas_right);
+        make.bottom.mas_equalTo(self.contentView.mas_bottom);
+        make.height.mas_equalTo(0.1f);
+    }];
     [super updateViewConstraints];
 }
 #pragma mark - Load Data
@@ -115,6 +107,16 @@ UITableViewDataSource>
 #pragma mark - Touch Action
 
 #pragma mark - Delegate Method
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
+
+    [webView autoSetHeightAfterLoaded:^(CGFloat height) {
+        [[RACScheduler mainThreadScheduler]schedule:^{
+            [webView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(height);
+            }];
+        }];
+    }];
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.viewModel.fileTree.entries.count;
@@ -126,14 +128,13 @@ UITableViewDataSource>
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 40;
+    return TREE_ENTRY_CELL_HEIGHT;
 }
 #pragma mark - Lazy Load
 - (UIScrollView *)scrollView{
     
     if(_scrollView==nil){
         _scrollView = [[UIScrollView alloc]init];
-        _scrollView.backgroundColor = [UIColor greenColor];
     }
     return _scrollView;
 }
@@ -142,6 +143,7 @@ UITableViewDataSource>
     if(_contentView==nil){
         _contentView = [[UIView alloc]init];
         _contentView.backgroundColor = [UIColor redColor];
+        
     }
     return _contentView;
 }
@@ -149,7 +151,7 @@ UITableViewDataSource>
     
     if (_tableView==nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStyleGrouped];
+                                                 style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -167,7 +169,12 @@ UITableViewDataSource>
     
     if (_readmeWeb==nil) {
         _readmeWeb = [[WKWebView alloc]init];
+        _readmeWeb.navigationDelegate = self;
     }
     return _readmeWeb;
+}
+- (BOOL)willDealloc{
+    
+    return NO;
 }
 @end

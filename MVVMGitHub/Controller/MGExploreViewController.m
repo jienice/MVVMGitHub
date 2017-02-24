@@ -11,13 +11,10 @@
 #import "MGExploreCell.h"
 #import "MGShowcasesModel.h"
 #import "MGExploreRowViewModel.h"
-
-#import "MGUserModel.h"
 #import "MGRepositoriesModel.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGRepoDetailViewController.h"
-#import "MGRepositoriesModel+OCTRepos.h"
-
+#import "MGUserDetailViewModel.h"
 @interface MGExploreViewController ()
 <UITableViewDelegate,
 UITableViewDataSource,
@@ -101,8 +98,12 @@ SDCycleScrollViewDelegate>
         NSIndexPath *indexPath = [tucple last];
         NSLog(@"选中%@",indexPath);
         if (rowViewModel.rowType == MGExploreRowForPopularUsers) {
-            MGUserModel *user=rowViewModel.dataSource[indexPath.item];
+            OCTUser *user=rowViewModel.dataSource[indexPath.item];
             NSLog(@"%@",user);
+            MGUserDetailViewModel *userDetailViewModel = [[MGUserDetailViewModel alloc]
+                                                          initWithParams:@{kNavigationTitle:user.name,
+                                                                           kUserDetailViewModelParamsKeyForUser:user}];
+            [MGSharedDelegate.viewModelBased pushViewModel:userDetailViewModel animated:YES];
         }else{
             MGRepositoriesModel *repo=rowViewModel.dataSource[indexPath.item];
             MGRepoDetailViewModel *repoDetailViewModel = [[MGRepoDetailViewModel alloc]initWithRepo:repo];

@@ -40,7 +40,7 @@
         return [[OCTClient signInAsUser:user
                                password:self.passWord
                         oneTimePassword:oneTimePassword
-                                 scopes:OCTClientAuthorizationScopesRepository]
+                                 scopes:OCTClientAuthorizationScopesRepository|OCTClientAuthorizationScopesUserFollow]
                 doNext:doNext];
     }];
     

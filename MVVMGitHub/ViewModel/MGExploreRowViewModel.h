@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger,MGExploreRowType){
 @interface MGExploreRowViewModel : NSObject<MGViewModelProtocol>
 
 @property (nonatomic, copy, readonly) NSString *titleString;
-@property (nonatomic, strong, readonly) NSArray *dataSource;
+@property (nonatomic, strong, readonly) NSArray *dataSource;//OCTUser、MGRepositoriesModel
 @property (nonatomic, assign, readonly) MGExploreRowType rowType;
 
 

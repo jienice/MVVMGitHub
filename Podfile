@@ -27,4 +27,5 @@ target 'MVVMGitHub' do
         pod 'CocoaSecurity',            '~> 1.2.4'
         pod 'Masonry',                  '~> 1.0.1'
         pod 'MMMarkdown',               '~> 0.5.5'
+        pod 'UIView+Borders',           '~> 0.0.2'
 end

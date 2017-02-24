@@ -18,7 +18,6 @@
 
 @property (nonatomic, strong) MGLoginViewModel *viewModel;
 
-@property (nonatomic, assign) BOOL didLayout;
 
 
 @end
@@ -41,8 +40,6 @@
     [self.view addSubview:self.userNameText];
     [self.view addSubview:self.passWordText];
     [self.view addSubview:self.loginButton];
-    [self.view setNeedsUpdateConstraints];
-    [self.view updateConstraintsIfNeeded];
 }
 - (void)bindViewModel{
     
@@ -78,28 +75,25 @@
 }
 - (void)updateViewConstraints{
     
-    if (!self.didLayout) {
-        [self.userNameText mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.view.mas_top).offset(200);
-            make.left.mas_equalTo(self.view.mas_left).offset(10);
-            make.right.mas_equalTo(self.view.mas_right).offset(-10);
-            make.height.mas_equalTo(40);
-        }];
-        
-        [self.passWordText mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.userNameText.mas_bottom);
-            make.left.mas_equalTo(self.userNameText.mas_left);
-            make.right.mas_equalTo(self.userNameText.mas_right);
-            make.height.mas_equalTo(@[self.userNameText.mas_height,self.loginButton.mas_height]);
-        }];
-        
-        [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.passWordText.mas_bottom).offset(10);
-            make.left.mas_equalTo(self.userNameText.mas_left);
-            make.right.mas_equalTo(self.userNameText.mas_right);
-        }];
-        self.didLayout = YES;
-    }
+    [self.userNameText mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.view.mas_top).offset(200);
+        make.left.mas_equalTo(self.view.mas_left).offset(10);
+        make.right.mas_equalTo(self.view.mas_right).offset(-10);
+        make.height.mas_equalTo(40);
+    }];
+    
+    [self.passWordText mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.userNameText.mas_bottom);
+        make.left.mas_equalTo(self.userNameText.mas_left);
+        make.right.mas_equalTo(self.userNameText.mas_right);
+        make.height.mas_equalTo(@[self.userNameText.mas_height,self.loginButton.mas_height]);
+    }];
+    
+    [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.passWordText.mas_bottom).offset(10);
+        make.left.mas_equalTo(self.userNameText.mas_left);
+        make.right.mas_equalTo(self.userNameText.mas_right);
+    }];
     [super updateViewConstraints];
 }
 #pragma mark - Lazy Load

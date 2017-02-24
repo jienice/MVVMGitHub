@@ -25,7 +25,7 @@
         [self.viewModels removeObject:viewModel];
     }
     [self.viewModels addObject:viewModel];
-    MGViewController *vc = (MGViewController *)[self.viewModelMapper viewControllerForViewModel:viewModel];
+    UIViewController *vc = (UIViewController *)[self.viewModelMapper viewControllerForViewModel:viewModel];
     if (![vc isKindOfClass:NSClassFromString(@"MGMainViewController")]&&
         ![vc isKindOfClass:NSClassFromString(@"MGExploreViewController")]&&
         ![vc isKindOfClass:NSClassFromString(@"MGProfileViewController")]&&
@@ -41,26 +41,26 @@
     }
     NSInteger index = [self.viewModels indexOfObject:viewModel];
     [self.viewModels removeObjectsInRange:NSMakeRange(index+1, self.viewModels.count)];
-    MGViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
+    UIViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
     [self.navigationController popToViewController:vc animated:animated];
 }
 
 - (void)popToRootViewControllerAnimated:(BOOL)animated{
     
-    MGViewController *vc = [self.viewModelMapper viewControllerForViewModel:[self.viewModels firstObject]];
+    UIViewController *vc = [self.viewModelMapper viewControllerForViewModel:[self.viewModels firstObject]];
     [self.viewModels removeObjectsInRange:NSMakeRange(1, self.viewModels.count)];
     [self.navigationController popToViewController:vc animated:animated];
 }
 
 - (void)presentViewModel:(id<MGViewModelProtocol>)viewModel animated:(BOOL)animated{
     
-    MGViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
+    UIViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
     [self.navigationController presentViewController:vc animated:animated completion:nil];
 }
 
 - (void)dissMissViewModel:(id<MGViewModelProtocol>)viewModel animated:(BOOL)animated{
     
-    MGViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
+    UIViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
     [vc dismissViewControllerAnimated:animated completion:nil];
 }
 

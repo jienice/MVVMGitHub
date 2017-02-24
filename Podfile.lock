@@ -41,6 +41,7 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - SVProgressHUD (2.0.4)
+  - UIView+Borders (0.0.2)
   - WebViewJavascriptBridge (5.0.9)
   - YYCache (1.0.4)
 
@@ -64,6 +65,7 @@ DEPENDENCIES:
   - SDCycleScrollView (~> 1.65)
   - SDVersion (~> 3.6)
   - SVProgressHUD (~> 2.0.3)
+  - UIView+Borders (~> 0.0.2)
   - WebViewJavascriptBridge (~> 5.0.5)
   - YYCache (~> 1.0.3)
 
@@ -93,9 +95,10 @@ SPEC CHECKSUMS:
   SDVersion: 43383b6ac05462c973c3fd92d9748c74e360aba5
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SVProgressHUD: bfde85ed6c573ea802b9cb37894ed9b629034f1b
+  UIView+Borders: d632c8bef679e7f98e913b569e972858742841ce
   WebViewJavascriptBridge: a4390df79bf622fc068dd035c8b5f67590c0ba05
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: 906e6f32e1bb98f1f710f8738d386a7e21a90607
+PODFILE CHECKSUM: 79352bb4d55f1fce5453f0f9140b6089b0dc73d8
 
 COCOAPODS: 1.1.1

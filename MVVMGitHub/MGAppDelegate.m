@@ -51,13 +51,15 @@
 }
 - (void)configMethodHooks{
     
-    [MGViewController aspect_hookSelector:@selector(viewDidLoad)
+    [UIViewController aspect_hookSelector:@selector(viewDidLoad)
                               withOptions:AspectPositionAfter
                                usingBlock:^(id<AspectInfo> obj){
         if ([[obj instance] conformsToProtocol:@protocol(MGViewControllerProtocol)] &&
             [[obj instance] respondsToSelector:@selector(bindViewModel)]) {
             [[obj instance] performSelector:@selector(bindViewModel)];
         }
+                                   UIViewController *vc = [obj instance];
+                                   [vc.view setBackgroundColor:[UIColor whiteColor]];
     }error:nil];
     
     

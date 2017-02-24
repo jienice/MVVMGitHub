@@ -10,7 +10,6 @@
 #import "MGExploreCollectionViewCell.h"
 #import "MGExploreRowViewModel.h"
 #import "MGExploreCollectionViewDefaultCell.h"
-#import "MGUserModel.h"
 #import "MGRepositoriesModel.h"
 
 #define MGExploreCell_HEIGHT 250
@@ -30,12 +29,10 @@ UICollectionViewDelegateFlowLayout>
 @property (nonatomic, assign) BOOL canLayout;
 @property (nonatomic, strong, readwrite) NSArray *collectionDataSource;
 @property (nonatomic, copy, readwrite) NSString *titleString;
-
 @property (nonatomic, strong, readwrite) MGExploreRowViewModel *rowViewModel;
-
 @property (nonatomic, strong, readwrite) RACCommand *seeAllCommand;
-
 @property (nonatomic, strong, readwrite) RACCommand *didSelectedItemCommand;
+
 @end
 
 @implementation MGExploreCell
@@ -45,8 +42,9 @@ UICollectionViewDelegateFlowLayout>
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         @weakify(self);
-        [[[RACObserve(self, collectionDataSource) distinctUntilChanged]
-          takeUntil:self.rac_prepareForReuseSignal]subscribeNext:^(id x) {
+        [[[[RACObserve(self, collectionDataSource) distinctUntilChanged]
+          takeUntil:self.rac_prepareForReuseSignal]
+          subscribeOn:[RACScheduler mainThreadScheduler]]subscribeNext:^(id x) {
             @strongify(self);
             [self.collectionView reloadData];
         }];
@@ -127,17 +125,17 @@ UICollectionViewDelegateFlowLayout>
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.rowViewModel.rowType == MGExploreRowForPopularUsers) {
-        MGUserModel *user=self.rowViewModel.dataSource[indexPath.item];
+        OCTUser *user=self.rowViewModel.dataSource[indexPath.item];
         MGExploreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MGExploreCollectionViewCellDefault
                                                                                       forIndexPath:indexPath];
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:user.avatar_url] placeholderImage:nil];
+        [cell.imageView sd_setImageWithURL:user.avatarURL placeholderImage:nil];
         return cell;
     }
     MGExploreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MGExploreCollectionViewCellImageAndDesc
                                                                                   forIndexPath:indexPath];
     MGRepositoriesModel *repo=self.rowViewModel.dataSource[indexPath.item];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:repo.owner.avatar_url] placeholderImage:nil];
-    cell.repoDescLabel.text = repo.des;
+    [cell.imageView sd_setImageWithURL:repo.owner.avatarURL placeholderImage:nil];
+    cell.repoDescLabel.text = repo.repoDescription;
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

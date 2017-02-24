@@ -6,9 +6,10 @@
 //  Copyright © 2016年 xingjie. All rights reserved.
 //
 
-#import "MGViewController.h"
+#import <UIKit/UIKit.h>
+
 @class MGExploreViewModel;
-@interface MGExploreViewController : MGViewController
+@interface MGExploreViewController : UIViewController<MGViewControllerProtocol>
 
 @property (nonatomic, strong, readonly) MGExploreViewModel *viewModel;
 

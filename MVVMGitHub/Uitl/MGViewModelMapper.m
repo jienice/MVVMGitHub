@@ -22,12 +22,13 @@
                         @"MGLoginViewModel":@"MGLoginViewController",
                         @"MGProfileViewModel":@"MGProfileViewController",
                         @"MGRepositoryViewModel":@"MGRepositoryViewController",
-                        @"MGExploreViewModel":@"MGExploreViewController"};
+                        @"MGExploreViewModel":@"MGExploreViewController",
+                        @"MGUserDetailViewModel":@"MGUserDetailViewController"};
     }
     return self;
 }
 
-- (MGViewController *)viewControllerForViewModel:(id<MGViewModelProtocol>)viewModel{
+- (UIViewController<MGViewControllerProtocol> *)viewControllerForViewModel:(id<MGViewModelProtocol>)viewModel{
     
     NSString *viewControllerString = [_mapperDict valueForKey:NSStringFromClass(viewModel.class)];
     NSParameterAssert([NSClassFromString(viewControllerString) conformsToProtocol:@protocol(MGViewControllerProtocol)]);

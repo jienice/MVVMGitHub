@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger,HTTP_METHOD){
 
 //
 ///**
-// Invoke this method ,you can reate an network request with method like 'POST','GET','DELETE'
+// Invoke this method ,you can create an network request with method like 'POST','GET','DELETE'
 // this method will return one signal
 // 
 // */

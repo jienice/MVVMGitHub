@@ -9,11 +9,11 @@
 #import "MGRepositoriesModel.h"
 
 @implementation MGRepositoriesModel
-+ (NSDictionary *)mj_replacedKeyFromPropertyName{
+
++ (NSValueTransformer *)ownerJSONTransformer {
     
-    return @{@"ID":@"id",
-             @"des":@"description",
-             @"isPrivate":@"private"};
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:OCTUser.class];
 }
+
 
 @end
