@@ -50,7 +50,7 @@
         make.right.mas_equalTo(self.mas_right).offset(-LINE_SPACE);
         make.height.mas_equalTo(self.emailButton.mas_height);
         make.top.mas_equalTo(self.iconImage.mas_top);
-        make.bottom.mas_equalTo(self.emailButton.mas_top).offset(LINE_SPACE);
+        make.bottom.mas_equalTo(self.emailButton.mas_top).offset(-LINE_SPACE);
     }];
     
     [self.emailButton mas_makeConstraints:^(MASConstraintMaker *make) {

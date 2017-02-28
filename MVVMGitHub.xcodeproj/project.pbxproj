@@ -54,6 +54,7 @@
 		A09BDD261E6014DB0061F0DB /* MGApiService+MGSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = A09BDD251E6014DB0061F0DB /* MGApiService+MGSearch.m */; };
 		A09BDD291E6020110061F0DB /* MGApiService+MGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A09BDD281E6020110061F0DB /* MGApiService+MGUser.m */; };
 		A0A2F76B1E422B8800F19F22 /* SAMKeychain+MGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */; };
+		A0B748331E64187A00A86AE2 /* UIButton+MGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B748321E64187A00A86AE2 /* UIButton+MGButton.m */; };
 		A0D3DA481E56D27E00337EF7 /* WKWebView+MGWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */; };
 		A0E07D371E30BCA5009CB569 /* MGExploreRowViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D361E30BCA5009CB569 /* MGExploreRowViewModel.m */; };
 		A0E07D3B1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E07D391E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m */; };
@@ -177,6 +178,8 @@
 		A09BDD281E6020110061F0DB /* MGApiService+MGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGApiService+MGUser.m"; sourceTree = "<group>"; };
 		A0A2F7691E422B8800F19F22 /* SAMKeychain+MGUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SAMKeychain+MGUser.h"; sourceTree = "<group>"; };
 		A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SAMKeychain+MGUser.m"; sourceTree = "<group>"; };
+		A0B748311E64187A00A86AE2 /* UIButton+MGButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+MGButton.h"; sourceTree = "<group>"; };
+		A0B748321E64187A00A86AE2 /* UIButton+MGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+MGButton.m"; sourceTree = "<group>"; };
 		A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+MGWeb.h"; sourceTree = "<group>"; };
 		A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+MGWeb.m"; sourceTree = "<group>"; };
 		A0E07D351E30BCA5009CB569 /* MGExploreRowViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreRowViewModel.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */,
 				A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */,
 				A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */,
+				A0B748311E64187A00A86AE2 /* UIButton+MGButton.h */,
+				A0B748321E64187A00A86AE2 /* UIButton+MGButton.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 			files = (
 				A027E61B1E3E3CBA00641D2A /* NSString+MGUitl.m in Sources */,
 				A01D510C1E5AD05C002E9925 /* MGRepoDetailHeaderView.m in Sources */,
+				A0B748331E64187A00A86AE2 /* UIButton+MGButton.m in Sources */,
 				A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */,
 				A06901601E13654A00855B7D /* MGCreateRepoViewController.m in Sources */,
 				A09BDD261E6014DB0061F0DB /* MGApiService+MGSearch.m in Sources */,

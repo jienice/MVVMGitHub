@@ -32,13 +32,12 @@
         ![vc isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]) {
         [vc setHidesBottomBarWhenPushed:YES];
     }
+    NSLog(@"%@",self.viewModels);
     [self.navigationController pushViewController:vc animated:animated];
 }
 - (void)popToViewModel:(id<MGViewModelProtocol>)viewModel animated:(BOOL)animated{
     
-    if (![self.viewModels containsObject:viewModel]) {
-        NSAssert(NO, @"返回的控制器不在栈中");
-    }
+    NSParameterAssert([self.viewModels containsObject:viewModel]);
     NSInteger index = [self.viewModels indexOfObject:viewModel];
     [self.viewModels removeObjectsInRange:NSMakeRange(index+1, self.viewModels.count)];
     UIViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];

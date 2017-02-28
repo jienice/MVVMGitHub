@@ -43,21 +43,25 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
     self.dataSourceDict = [NSMutableDictionary dictionary];
     self.dataIndexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 10)];
     
-    RACSubject *showcases = [RACSubject subject];
-    RACSubject *popularUsers = [RACSubject subject];
-    RACSubject *trendRepos = [RACSubject subject];
-    RACSubject *popularRepos = [RACSubject subject];
+    RACSubject *showcasesSB = [RACSubject subject];
+    RACSubject *popularUsersSB = [RACSubject subject];
+    RACSubject *trendReposSB = [RACSubject subject];
+    RACSubject *popularReposSB = [RACSubject subject];
+    
     @weakify(self);
-    [[[RACSignal combineLatest:@[showcases,popularUsers,trendRepos,popularRepos]
-                        reduce:^id(NSNumber *showcases,NSNumber *popularUsers,
-                                   NSNumber *trendRepos,NSNumber *popularRepos){
-                            return @([showcases boolValue]&&[popularRepos boolValue]&&
-                            [trendRepos boolValue]&&[popularUsers boolValue]);
-    }] filter:^BOOL(NSNumber *value) {
-        return [value boolValue];
-    }] subscribeNext:^(id x) {
+    [[RACSignal zip:@[showcasesSB,popularUsersSB,
+                      trendReposSB,popularReposSB]] subscribeNext:^(RACTuple *tuple) {
         @strongify(self);
-        [self setFetchDataFromServiceSuccess:YES];
+        NSNumber *showcases = [tuple first];
+        NSNumber *popularUsers = [tuple second];
+        NSNumber *trendRepos = [tuple third];
+        NSNumber *popularRepos = [tuple last];
+        if ([showcases boolValue]&&[popularRepos boolValue]&&
+            [trendRepos boolValue]&&[popularUsers boolValue]) {
+            [self setFetchDataFromServiceSuccess:YES];
+        }else{
+            [self setFetchDataFromServiceSuccess:NO];
+        }
     }];
     
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
@@ -75,8 +79,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
             @strongify(self);
             NSArray *showcases = [MGShowcasesModel mj_objectArrayWithKeyValuesArray:dataArr];
             [self.dataSourceDict setObject:showcases forKey:kShowcasesDataSourceArrayKey];
-        }] doCompleted:^{
-            [showcases sendNext:@YES];
+            [showcasesSB sendNext:@YES];
+        }] doError:^(NSError *error) {
+            [showcasesSB sendNext:@NO];
         }];
     }];
 
@@ -91,8 +96,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                return  [MTLJSONAdapter modelOfClass:[OCTUser class] fromJSONDictionary:usersDic error:nil];
             }] array];
             [self.dataSourceDict setObject:popularUsers forKey:kPopularUsersDataSourceArrayKey];
-        }] doCompleted:^{
-            [popularUsers sendNext:@YES];
+            [popularUsersSB sendNext:@YES];
+        }] doError:^(NSError *error) {
+            [popularUsersSB sendNext:@NO];
         }];
     }];
 
@@ -105,8 +111,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                 return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
             }] array];
             [self.dataSourceDict setObject:trending forKey:kTrendReposDataSourceArrayKey];
-        }] doCompleted:^{
-            [trendRepos sendNext:@YES];
+            [trendReposSB sendNext:@YES];
+        }] doError:^(NSError *error) {
+            [trendReposSB sendNext:@NO];
         }];
     }];
     
@@ -121,8 +128,9 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                 return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
             }] array];
             [self.dataSourceDict setObject:popularRepo forKey:kPopularReposDataSourceArrayKey];
-        }] doCompleted:^{
-            [popularRepos sendNext:@YES];
+            [popularReposSB sendNext:@YES];
+        }] doError:^(NSError *error) {
+            [popularReposSB sendNext:@NO];
         }];
     }];
 }

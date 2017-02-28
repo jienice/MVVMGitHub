@@ -48,20 +48,13 @@ SDCycleScrollViewDelegate>
 - (void)bindViewModel{
     
     @weakify(self);
-    [[RACSignal merge:@[self.viewModel.requestTrendReposCommand.executing,
-                      self.viewModel.requestPopularUsersCommand.executing,
-                      self.viewModel.requestShowcasesCommand.executing]] subscribeNext:^(NSNumber *execute) {
-        if(![execute boolValue]){
-            @strongify(self);
-            if ([self.tableView.mj_header isRefreshing]) {
-                [self.tableView.mj_header endRefreshing];
-            }
-        }
-    }];
-
-    [[[[RACObserve(self, viewModel.fetchDataFromServiceSuccess) distinctUntilChanged] filter:^BOOL(NSNumber *value) {
+    [[[[RACObserve(self, viewModel.fetchDataFromServiceSuccess) filter:^BOOL(NSNumber *value) {
         return [value boolValue];
-    }] subscribeOn:[RACScheduler mainThreadScheduler]] subscribeNext:^(id x) {
+    }] deliverOn:[RACScheduler mainThreadScheduler]] doNext:^(id x) {
+        if ([self.tableView.mj_header isRefreshing]) {
+            [self.tableView.mj_header endRefreshing];
+        }
+    }]subscribeNext:^(id x) {
         @strongify(self);
         [self.tableView reloadData];
         NSArray *cycleScrollViewDataSource = [[[[self.viewModel.dataSourceDict valueForKey:kShowcasesDataSourceArrayKey] rac_sequence]

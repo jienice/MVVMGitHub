@@ -63,6 +63,10 @@
     }error:nil];
     
     
+    
+    
+    
+    
     [MGViewModel aspect_hookSelector:@selector(initWithParams:)
                          withOptions:AspectPositionAfter
                           usingBlock:^(id<AspectInfo> obj){
