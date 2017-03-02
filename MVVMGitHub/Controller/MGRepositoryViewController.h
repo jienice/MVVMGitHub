@@ -6,11 +6,11 @@
 //  Copyright © 2016年 xingjie. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MGViewController.h"
 
 @class MGRepositoryViewModel;
 
-@interface MGRepositoryViewController : UIViewController<MGViewControllerProtocol>
+@interface MGRepositoryViewController : MGViewController<MGViewControllerProtocol>
 
 @property (nonatomic, strong, readonly) MGRepositoryViewModel *viewModel;
 

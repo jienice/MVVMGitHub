@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong, readwrite) MGViewModelMapper *viewModelMapper;
 
+@property (nonatomic, strong) UINavigationController *navigationController;
+
 @end
 
 @implementation MGViewModelBasedNavigation
@@ -25,7 +27,7 @@
         [self.viewModels removeObject:viewModel];
     }
     [self.viewModels addObject:viewModel];
-    UIViewController *vc = (UIViewController *)[self.viewModelMapper viewControllerForViewModel:viewModel];
+    UIViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
     if (![vc isKindOfClass:NSClassFromString(@"MGMainViewController")]&&
         ![vc isKindOfClass:NSClassFromString(@"MGExploreViewController")]&&
         ![vc isKindOfClass:NSClassFromString(@"MGProfileViewController")]&&
@@ -34,6 +36,10 @@
     }
     NSLog(@"%@",self.viewModels);
     [self.navigationController pushViewController:vc animated:animated];
+}
+- (void)popViewModelAnimated:(BOOL)animated{
+    
+    [self.navigationController popViewControllerAnimated:animated];
 }
 - (void)popToViewModel:(id<MGViewModelProtocol>)viewModel animated:(BOOL)animated{
     
@@ -71,4 +77,11 @@
     }
     return _viewModelMapper;
 }
+#pragma mark - 
+- (void)resetRootNavigationController:(UINavigationController *)rootNavigationController{
+    
+    if(self.navigationController == rootNavigationController) return;
+    self.navigationController = rootNavigationController;
+}
+
 @end

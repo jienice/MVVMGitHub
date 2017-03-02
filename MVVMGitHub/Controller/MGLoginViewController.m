@@ -8,17 +8,13 @@
 
 #import "MGLoginViewController.h"
 #import "MGLoginViewModel.h"
-#import "MGMainViewController.h"    
-#import "MGMainViewModel.h"
+
 @interface MGLoginViewController ()
 
 @property (nonatomic, strong) UITextField *userNameText;
 @property (nonatomic, strong) UITextField *passWordText;
 @property (nonatomic, strong) UIButton *loginButton;
-
 @property (nonatomic, strong) MGLoginViewModel *viewModel;
-
-
 
 @end
 
@@ -64,7 +60,7 @@
     
     [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
         [[RACScheduler mainThreadScheduler] schedule:^{
-            MGMainViewModel *mainViewModel = [[MGMainViewModel alloc]initWithParams:nil];
+            MGViewModel *mainViewModel = [[NSClassFromString(@"MGMainViewModel") alloc]initWithParams:nil];
             [MGSharedDelegate.viewModelBased pushViewModel:mainViewModel animated:YES];
         }];
     }];
@@ -109,7 +105,7 @@
             self.viewModel.userName = userName;
         }];
         if ([SAMKeychain mg_rawlogin].isExist) {
-            _userNameText.text = [SAMKeychain mg_rawlogin];
+            [_userNameText setText:[SAMKeychain mg_rawlogin]];
         }
         _userNameText.keyboardType = UIKeyboardTypeEmailAddress;
     }

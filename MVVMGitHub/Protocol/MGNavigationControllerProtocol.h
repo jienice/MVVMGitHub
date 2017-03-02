@@ -17,6 +17,8 @@
 
 - (void)pushViewModel:(id<MGViewModelProtocol>)viewModel animated:(BOOL)animated;
 
+- (void)popViewModelAnimated:(BOOL)animated;
+
 - (void)popToViewModel:(id<MGViewModelProtocol>)viewModel animated:(BOOL)animated;
 
 - (void)popToRootViewControllerAnimated:(BOOL)animated;

@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong, readonly) MGViewModelMapper *viewModelMapper;
 
-@property (nonatomic, strong) UINavigationController *navigationController;
+
+- (void)resetRootNavigationController:(UINavigationController *)rootNavigationController;
+
 
 @end

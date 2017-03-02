@@ -13,8 +13,8 @@
 #import "MGExploreRowViewModel.h"
 #import "MGRepositoriesModel.h"
 #import "MGRepoDetailViewModel.h"
-#import "MGRepoDetailViewController.h"
 #import "MGUserDetailViewModel.h"
+
 @interface MGExploreViewController ()
 <UITableViewDelegate,
 UITableViewDataSource,

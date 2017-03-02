@@ -7,8 +7,6 @@
 //
 
 #import "MGAppDelegate.h"
-#import "MGLoginViewModel.h"
-#import "MGLoginViewController.h"
 
 @interface MGAppDelegate ()
 
@@ -32,8 +30,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     UIViewController *launchVC = [self configLaunchViewController];
     UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:launchVC];
-    self.viewModelBased.navigationController = mainNav;
-    self.window.rootViewController = self.viewModelBased.navigationController;
+    [mainNav setNavigationBarHidden:YES];
+    self.window.rootViewController = mainNav;
     [self.window makeKeyAndVisible];
 }
 
@@ -61,11 +59,7 @@
                                    UIViewController *vc = [obj instance];
                                    [vc.view setBackgroundColor:[UIColor whiteColor]];
     }error:nil];
-    
-    
-    
-    
-    
+        
     
     [MGViewModel aspect_hookSelector:@selector(initWithParams:)
                          withOptions:AspectPositionAfter

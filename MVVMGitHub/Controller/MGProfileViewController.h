@@ -6,8 +6,8 @@
 //  Copyright © 2016年 xingjie. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MGViewController.h"
 
-@interface MGProfileViewController : UIViewController<MGViewControllerProtocol>
+@interface MGProfileViewController : MGViewController<MGViewControllerProtocol>
 
 @end

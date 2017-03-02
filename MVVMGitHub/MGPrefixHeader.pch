@@ -45,6 +45,7 @@
 #import "MGAppDelegate.h"
 #import "MGViewModelMapper.h"
 #import "MGViewModel.h"
+#import "MGNavigationController.h"
 ///----------------------------------------------------------
 
 

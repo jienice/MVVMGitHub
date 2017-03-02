@@ -9,7 +9,6 @@
 #import "MGRepositoryViewController.h"
 #import "MGRepositoryViewModel.h"
 #import "MGRepositoriesCell.h"
-#import "MGCreateRepoViewController.h"
 #import "MGCreateRepoViewModel.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGRepositoriesModel.h"
@@ -32,6 +31,7 @@ UITableViewDataSource>
     
     if (self = [super init]) {
         self.viewModel = (MGRepositoryViewModel *)viewModel;
+        self.navigationItem.title = self.viewModel.title;
     }
     return self;
 }

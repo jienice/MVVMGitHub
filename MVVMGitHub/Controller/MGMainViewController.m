@@ -17,6 +17,8 @@
 
 @implementation MGMainViewController
 
+#pragma mark - Instance Method
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincompatible-pointer-types"
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
@@ -26,14 +28,12 @@
         [self addViewModel:self.viewModel.exploreViewModel];
         [self addViewModel:self.viewModel.repositorisViewModel];
         [self addViewModel:self.viewModel.profileViewModel];
-        self.navigationItem.title = self.viewModel.exploreViewModel.title;
     }
     return self;
 }
 #pragma clang diagnostic pop
 
-- (void)bindViewModel{}
-
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -41,6 +41,11 @@
     //关闭滑屏返回
     [self.navigationController.interactivePopGestureRecognizer setEnabled:NO];
 }
+- (void)bindViewModel{
+    
+    [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers] firstObject]];
+}
+
 - (void)addViewModel:(MGViewModel *)viewModel{
     
     UITabBarItem *item = [[UITabBarItem alloc]initWithTitle:[viewModel.params valueForKey:kTabBarItemTitle]
@@ -53,17 +58,20 @@
     item.titlePositionAdjustment = UIOffsetMake(0, -2);
     UIViewController *vc = [MGSharedDelegate.viewModelBased.viewModelMapper viewControllerForViewModel:viewModel];
     vc.tabBarItem = item;
-    [self addChildViewController:vc];
+    MGNavigationController *nav = [[MGNavigationController alloc]initWithRootViewController:vc];
+    [self addChildViewController:nav];
 }
 #pragma mark - Delegate Method
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
     
-    if ([viewController isKindOfClass:NSClassFromString(@"MGExploreViewController")]) {
-        self.navigationItem.title = self.viewModel.exploreViewModel.title;
-    }else if ([viewController isKindOfClass:NSClassFromString(@"MGProfileViewController")]) {
-        self.navigationItem.title = self.viewModel.profileViewModel.title;
-    }else if ([viewController isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]) {
-        self.navigationItem.title = self.viewModel.repositorisViewModel.title;
-    }
+    UINavigationController *nav = (UINavigationController*)viewController;
+    [MGSharedDelegate.viewModelBased resetRootNavigationController:nav];
 }
+
+
+
+
+
+
+
 @end

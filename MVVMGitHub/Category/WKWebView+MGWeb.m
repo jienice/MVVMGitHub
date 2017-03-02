@@ -12,7 +12,7 @@
 
 #pragma mark - 公开方法
 - (void)autoSetHeightAfterLoaded:(void(^)(CGFloat height))complete{
-    /*
+    
     [self evaluateJavaScript:@"(function(){"
     "var allLinks = document.getElementsByTagName('a');"
     "if (allLinks) {"
@@ -24,7 +24,7 @@
     "}"
     "}"
     "}"
-    "})();" completionHandler:nil];*/
+    "})();" completionHandler:nil];
     
     [self evaluateJavaScript:@"Math.max(document.body.scrollHeight, document.body.offsetHeight,document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);" completionHandler:^(NSString *result, NSError * _Nullable error) {
         CGFloat height = result?result.floatValue:self.scrollView.contentSize.height;

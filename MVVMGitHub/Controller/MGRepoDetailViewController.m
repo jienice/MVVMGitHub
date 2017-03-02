@@ -9,9 +9,9 @@
 #import "MGRepoDetailViewController.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGRepositoriesModel.h"
-#import "WKWebView+MGWeb.h"
 #import "MGRepoDetailHeaderView.h"
 #import "MGOCTTreeEntryCell.h"
+#import "WKWebView+MGWeb.h"
 
 #define TREE_ENTRY_CELL_HEIGHT 40
 
