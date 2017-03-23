@@ -12,18 +12,26 @@
 @interface MGApiService ()
 
 
-
 @end
 
 @implementation MGApiService
 
++ (instancetype)sharedApiService{
+    
+    static MGApiService *apiService = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        apiService = [[MGApiService alloc]init];
+    });
+    return apiService;
+}
 
-+ (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
+- (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
                                         baseUrl:(NSURL *)baseUrl
                                            path:(NSString *)path
                                          params:(NSDictionary *)params{
     
-    NSAssert(httpMethod,@"httpMethod can not be nil");
+    NSParameterAssert(httpMethod);
     NSString *method;
     switch (httpMethod) {
         case POST:
@@ -36,12 +44,9 @@
             break;
     }
     AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:baseUrl];
-    
     NSMutableURLRequest *request = [client requestWithMethod:method path:path parameters:params];
     request.timeoutInterval = 30;
-
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
     RACSignal *signal = [[[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         NSURLSessionTask *task = [session dataTaskWithRequest:request
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

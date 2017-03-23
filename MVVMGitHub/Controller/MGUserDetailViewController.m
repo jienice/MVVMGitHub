@@ -38,6 +38,10 @@ UITableViewDataSource>
     
     [super viewDidLoad];
     [self configUI];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_back"]
+                                                                            style:UIBarButtonItemStyleDone
+                                                                           target:MGSharedDelegate.viewModelBased
+                                                                           action:@selector(popViewModelAnimated:)];
 }
 - (void)configUI{
     

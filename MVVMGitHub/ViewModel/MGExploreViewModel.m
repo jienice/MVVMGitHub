@@ -74,7 +74,7 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
     }];
 
     self.requestShowcasesCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[[[[MGApiService fetchShowcases] retry:2] takeUntil:self.rac_willDeallocSignal]
+        return [[[[[[MGApiService sharedApiService] fetchShowcases] retry:2] takeUntil:self.rac_willDeallocSignal]
                  doNext:^(NSArray *dataArr) {
             @strongify(self);
             NSArray *showcases = [MGShowcasesModel mj_objectArrayWithKeyValuesArray:dataArr];
@@ -86,7 +86,7 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
     }];
 
     self.requestPopularUsersCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
-        return [[[[[MGApiService searchUserWithKeyWord:nil
+        return [[[[[[MGApiService sharedApiService] searchUserWithKeyWord:nil
                                               language:@"objective-c"
                                                   sort:@"followers"
                                                  order:@"desc"] retry:2]
@@ -103,8 +103,8 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
     }];
 
     self.requestTrendReposCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
-        return [[[[[MGApiService fetchTrendReposSince:@"weekly"
-                                             language:@"objective-c"] retry:2]
+        return [[[[[[MGApiService sharedApiService] fetchTrendReposSince:@"weekly"
+                                                                language:@"objective-c"] retry:2]
                   takeUntil:self.rac_willDeallocSignal] doNext:^(NSArray *dataArr) {
             @strongify(self);
             NSArray *trending = [[[dataArr rac_sequence] map:^id(NSDictionary *repoDic) {
@@ -118,11 +118,11 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
     }];
     
     self.requestPopularReposCommand =[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[[[[MGApiService searchRepositoriesWithKeyWord:nil
-                                                      language:@"objective-c"
-                                                          sort:@"stars"
-                                                         order:@"desc"] retry:2]
-                  takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *dict) {
+        return [[[[[[MGApiService sharedApiService] searchRepositoriesWithKeyWord:nil
+                                                                         language:@"objective-c"
+                                                                             sort:@"stars"
+                                                                            order:@"desc"] retry:2]
+                    takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *dict) {
             @strongify(self);
             NSArray *popularRepo = [[[[dict valueForKey:@"items"] rac_sequence] map:^id(NSDictionary *repoDic) {
                 return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];

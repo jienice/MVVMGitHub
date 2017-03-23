@@ -28,6 +28,7 @@
         [self addViewModel:self.viewModel.exploreViewModel];
         [self addViewModel:self.viewModel.repositorisViewModel];
         [self addViewModel:self.viewModel.profileViewModel];
+        [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers] firstObject]];
     }
     return self;
 }
@@ -41,10 +42,7 @@
     //关闭滑屏返回
     [self.navigationController.interactivePopGestureRecognizer setEnabled:NO];
 }
-- (void)bindViewModel{
-    
-    [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers] firstObject]];
-}
+- (void)bindViewModel{}
 
 - (void)addViewModel:(MGViewModel *)viewModel{
     
@@ -67,11 +65,4 @@
     UINavigationController *nav = (UINavigationController*)viewController;
     [MGSharedDelegate.viewModelBased resetRootNavigationController:nav];
 }
-
-
-
-
-
-
-
 @end

@@ -7,6 +7,13 @@
 //
 
 #import "MGMainViewModel.h"
+#import "MGExploreViewModel.h"
+#import "MGProfileViewModel.h"
+#import "MGRepositoryViewModel.h"
+
+NSString *const kTabBarItemTitle = @"kTabBarItemTitle";
+NSString *const kTabBarSelectedImageName = @"kTabBarSelectedImageName";
+NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
 
 @interface MGMainViewModel ()
 

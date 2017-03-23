@@ -34,7 +34,7 @@
         ![vc isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]) {
         [vc setHidesBottomBarWhenPushed:YES];
     }
-    NSLog(@"%@",self.viewModels);
+    NSLog(@"self.viewModels ==== %@",self.viewModels);
     [self.navigationController pushViewController:vc animated:animated];
 }
 - (void)popViewModelAnimated:(BOOL)animated{
@@ -76,6 +76,13 @@
         _viewModelMapper = [[MGViewModelMapper alloc]init];
     }
     return _viewModelMapper;
+}
+- (NSMutableArray *)viewModels{
+    
+    if (_viewModels==nil) {
+        _viewModels = [NSMutableArray array];
+    }
+    return _viewModels;
 }
 #pragma mark - 
 - (void)resetRootNavigationController:(UINavigationController *)rootNavigationController{

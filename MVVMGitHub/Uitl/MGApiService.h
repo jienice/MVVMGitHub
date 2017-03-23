@@ -18,13 +18,13 @@ typedef NS_ENUM(NSInteger,HTTP_METHOD){
 
 @interface MGApiService : NSObject
 
-//
-///**
-// Invoke this method ,you can create an network request with method like 'POST','GET','DELETE'
-// this method will return one signal
-// 
-// */
-+ (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
++ (instancetype)sharedApiService;
+
+/**
+ Invoke this method ,you can create an network request with method like 'POST','GET','DELETE'
+ this method will return one signal
+ */
+- (RACSignal *)starNetWorkRequestWithHttpMethod:(HTTP_METHOD)httpMethod
                                         baseUrl:(NSURL *)baseUrl
                                            path:(NSString *)path
                                          params:(NSDictionary *)params;

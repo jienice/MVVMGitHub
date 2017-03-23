@@ -11,6 +11,6 @@
 @interface MGApiService (MGRepo)
 
 
-+ (RACSignal *)fetchRepoDetaiWithOwner:(NSString *)ower repoName:(NSString *)repoName;
+- (RACSignal *)fetchRepoDetaiWithOwner:(NSString *)ower repoName:(NSString *)repoName;
 
 @end

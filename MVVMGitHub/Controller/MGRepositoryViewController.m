@@ -47,18 +47,21 @@ UITableViewDataSource>
 - (void)bindViewModel{
     
     @weakify(self);
-    [[self rac_signalForSelector:@selector(viewDidLoad)] subscribeNext:^(id x) {
+    
+    [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] subscribeNext:^(id x) {
         @strongify(self);
-        [self.viewModel.fetchDataFromServiceCommand execute:@1];
+        NSLog(@"fetchDataFromServiceCommand === %s",__func__);
+        [self.tableView.mj_header beginRefreshing];
     }];
     
     [[[RACObserve(self.viewModel, dataSource) filter:^BOOL(NSArray *value) {
         return value;
     }]deliverOn:[RACScheduler mainThreadScheduler]]
      subscribeNext:^(NSArray *dataSource) {
-        NSLog(@"dataSource == %@",dataSource);
-        @strongify(self);
-        [self.tableView reloadData];
+         NSLog(@"dataSource == %@",dataSource);
+         @strongify(self);
+         [self.tableView reloadData];
+         [self.tableView.mj_header endRefreshing];
     }];
     
     [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber*execut) {

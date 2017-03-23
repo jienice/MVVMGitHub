@@ -12,22 +12,22 @@
 
 @implementation MGApiService (MGExplore)
 
-+ (RACSignal *)fetchTrendReposSince:(NSString *)since language:(NSString *)language{
+- (RACSignal *)fetchTrendReposSince:(NSString *)since language:(NSString *)language{
     
     NSParameterAssert([since isExist]);
-    return [MGApiService starNetWorkRequestWithHttpMethod:GET
-                                                  baseUrl:[NSURL URLWithString:EXPLORE_BASE_URL]
-                                                     path:@"trending"
-                                                   params:@{@"since":since,
-                                                            @"language":language}];
+    return [self starNetWorkRequestWithHttpMethod:GET
+                                          baseUrl:[NSURL URLWithString:EXPLORE_BASE_URL]
+                                             path:@"trending"
+                                           params:@{@"since":since,
+                                                    @"language":language}];
 }
 
-+ (RACSignal *)fetchShowcases{
+- (RACSignal *)fetchShowcases{
     
-   return  [MGApiService starNetWorkRequestWithHttpMethod:GET
-                                                  baseUrl:[NSURL URLWithString:EXPLORE_BASE_URL]
-                                                     path:@"showcases"
-                                                   params:nil];
+   return  [self starNetWorkRequestWithHttpMethod:GET
+                                          baseUrl:[NSURL URLWithString:EXPLORE_BASE_URL]
+                                             path:@"showcases"
+                                           params:nil];
     
 }
 

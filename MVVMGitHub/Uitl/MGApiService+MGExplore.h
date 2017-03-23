@@ -10,10 +10,10 @@
 
 @interface MGApiService (MGExplore)
 
-+ (RACSignal *)fetchTrendReposSince:(NSString *)since language:(NSString *)language;
+- (RACSignal *)fetchTrendReposSince:(NSString *)since language:(NSString *)language;
 
 
-+ (RACSignal *)fetchShowcases;
+- (RACSignal *)fetchShowcases;
 
 
 @end

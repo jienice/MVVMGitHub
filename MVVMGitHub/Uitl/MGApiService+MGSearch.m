@@ -10,34 +10,33 @@
 
 @implementation MGApiService (MGSearch)
 
-
-+ (RACSignal *)searchRepositoriesWithKeyWord:(NSString *)keyWord
+- (RACSignal *)searchRepositoriesWithKeyWord:(NSString *)keyWord
                                     language:(NSString *)language
                                         sort:(NSString *)sort
                                        order:(NSString *)order{
     
     keyWord = [keyWord isExist]?[NSString stringWithFormat:@"%@+",keyWord]:@"";
-    return [MGApiService starNetWorkRequestWithHttpMethod:GET
-                                                  baseUrl:MGSharedDelegate.client.baseURL
-                                                     path:@"/search/repositories"
-                                                   params:@{@"q":[NSString stringWithFormat:@"%@language:%@",keyWord,language],
-                                                            @"sort":@"stars",
-                                                            @"order":@"desc"}];
+    return [self starNetWorkRequestWithHttpMethod:GET
+                                          baseUrl:MGSharedDelegate.client.baseURL
+                                             path:@"/search/repositories"
+                                           params:@{@"q":[NSString stringWithFormat:@"%@language:%@",keyWord,language],
+                                                    @"sort":@"stars",
+                                                    @"order":@"desc"}];
 }
 
 
-+ (RACSignal *)searchUserWithKeyWord:(NSString *)keyWord
+- (RACSignal *)searchUserWithKeyWord:(NSString *)keyWord
                             language:(NSString *)language
                                 sort:(NSString *)sort
                                order:(NSString *)order{
     
     keyWord = [keyWord isExist]?[NSString stringWithFormat:@"%@+",keyWord]:@"";
-    return [MGApiService starNetWorkRequestWithHttpMethod:GET
-                                                  baseUrl:MGSharedDelegate.client.baseURL
-                                                     path:@"/search/users"
-                                                   params:@{@"q":[NSString stringWithFormat:@"%@language:%@",keyWord,language],
-                                                            @"sort":sort,
-                                                            @"order":order}];
+    return [self starNetWorkRequestWithHttpMethod:GET
+                                          baseUrl:MGSharedDelegate.client.baseURL
+                                             path:@"/search/users"
+                                           params:@{@"q":[NSString stringWithFormat:@"%@language:%@",keyWord,language],
+                                                    @"sort":sort,
+                                                    @"order":order}];
 }
 
 

@@ -7,10 +7,14 @@
 //
 
 #import "MGViewModel.h"
-#import "MGProfileViewModel.h"
-#import "MGRepositoryViewModel.h"
-#import "MGExploreViewModel.h"
 
+@class MGProfileViewModel;
+@class MGRepositoryViewModel;
+@class MGExploreViewModel;
+
+extern NSString *const kTabBarItemTitle;
+extern NSString *const kTabBarSelectedImageName;
+extern NSString *const kTabBarNormalImageName;
 
 @interface MGMainViewModel : MGViewModel
 

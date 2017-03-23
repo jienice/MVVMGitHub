@@ -92,7 +92,6 @@ SDCycleScrollViewDelegate>
         NSLog(@"选中%@",indexPath);
         if (rowViewModel.rowType == MGExploreRowForPopularUsers) {
             OCTUser *user=rowViewModel.dataSource[indexPath.item];
-            NSLog(@"%@",user);
             MGUserDetailViewModel *userDetailViewModel = [[MGUserDetailViewModel alloc]
                                                           initWithParams:@{kNavigationTitle:user.name,
                                                                            kUserDetailViewModelParamsKeyForUser:user}];
@@ -114,7 +113,7 @@ SDCycleScrollViewDelegate>
 - (UITableView *)tableView{
     
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64)
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
                                                  style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;

@@ -51,7 +51,6 @@
 		A080AE091E34B45400402510 /* MGRepoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE081E34B45400402510 /* MGRepoDetailViewController.m */; };
 		A080AE0C1E34B49300402510 /* MGRepoDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE0B1E34B49300402510 /* MGRepoDetailViewModel.m */; };
 		A080AE0F1E34B54400402510 /* MGViewModelMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE0E1E34B54400402510 /* MGViewModelMapper.m */; };
-		A08D09141E67B2D400602B9E /* MGNavigationController+MGPop.m in Sources */ = {isa = PBXBuildFile; fileRef = A08D09131E67B2D400602B9E /* MGNavigationController+MGPop.m */; };
 		A09BDD201E6006880061F0DB /* MGApiService+MGRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = A09BDD1F1E6006880061F0DB /* MGApiService+MGRepo.m */; };
 		A09BDD231E6013290061F0DB /* MGApiService+MGExplore.m in Sources */ = {isa = PBXBuildFile; fileRef = A09BDD221E6013290061F0DB /* MGApiService+MGExplore.m */; };
 		A09BDD261E6014DB0061F0DB /* MGApiService+MGSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = A09BDD251E6014DB0061F0DB /* MGApiService+MGSearch.m */; };
@@ -175,8 +174,6 @@
 		A080AE0B1E34B49300402510 /* MGRepoDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailViewModel.m; sourceTree = "<group>"; };
 		A080AE0D1E34B54400402510 /* MGViewModelMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelMapper.h; sourceTree = "<group>"; };
 		A080AE0E1E34B54400402510 /* MGViewModelMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelMapper.m; sourceTree = "<group>"; };
-		A08D09121E67B2D400602B9E /* MGNavigationController+MGPop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGNavigationController+MGPop.h"; sourceTree = "<group>"; };
-		A08D09131E67B2D400602B9E /* MGNavigationController+MGPop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGNavigationController+MGPop.m"; sourceTree = "<group>"; };
 		A09BDD1E1E6006880061F0DB /* MGApiService+MGRepo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGApiService+MGRepo.h"; sourceTree = "<group>"; };
 		A09BDD1F1E6006880061F0DB /* MGApiService+MGRepo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGApiService+MGRepo.m"; sourceTree = "<group>"; };
 		A09BDD211E6013290061F0DB /* MGApiService+MGExplore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGApiService+MGExplore.h"; sourceTree = "<group>"; };
@@ -256,8 +253,6 @@
 				A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */,
 				A0B748311E64187A00A86AE2 /* UIButton+MGButton.h */,
 				A0B748321E64187A00A86AE2 /* UIButton+MGButton.m */,
-				A08D09121E67B2D400602B9E /* MGNavigationController+MGPop.h */,
-				A08D09131E67B2D400602B9E /* MGNavigationController+MGPop.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -704,7 +699,6 @@
 				A01D51291E5D5A7D002E9925 /* MGUserDetailViewController.m in Sources */,
 				A0D3DA481E56D27E00337EF7 /* WKWebView+MGWeb.m in Sources */,
 				A06904031E13A10400855B7D /* MGApiService.m in Sources */,
-				A08D09141E67B2D400602B9E /* MGNavigationController+MGPop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
