@@ -12,7 +12,8 @@
 
 @property (nonatomic, assign, readonly) CGFloat height;
 
-+ (instancetype)configUserDetailHeaderWithUser:(OCTUser *)user;
+
+- (instancetype)initWithUser:(OCTUser *)user;
 
 
 @end

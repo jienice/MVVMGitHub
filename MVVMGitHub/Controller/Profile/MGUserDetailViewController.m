@@ -95,7 +95,7 @@ UITableViewDataSource>
 - (MGUserDetailHeaderView *)headerView{
     
     if (_headerView==nil) {
-        _headerView = [MGUserDetailHeaderView configUserDetailHeaderWithUser:self.user];
+        _headerView = [[MGUserDetailHeaderView alloc]initWithUser:self.user];
     }
     return _headerView;
 }
