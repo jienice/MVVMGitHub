@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class MGExploreRowViewModel;
+@class MGExploreCellViewModel;
 
 @interface MGExploreCell : UITableViewCell
 
@@ -20,12 +20,12 @@
 
 @property (nonatomic, strong, readonly) NSArray *collectionDataSource;
 
-@property (nonatomic, strong, readonly) MGExploreRowViewModel *rowViewModel;
+@property (nonatomic, strong, readonly) MGExploreCellViewModel *rowViewModel;
 
 
 + (instancetype)configExploreCell:(UITableView *)tableView
                   reuseIdentifier:(NSString *)reuseIdentifier
-                     rowViewModel:(MGExploreRowViewModel *)rowViewModel;
+                     rowViewModel:(MGExploreCellViewModel *)rowViewModel;
 
 
 + (CGFloat)cellHeight;

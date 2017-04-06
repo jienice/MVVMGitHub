@@ -12,6 +12,6 @@
 
 @interface MGRepositoryViewController : MGViewController<MGViewControllerProtocol>
 
-@property (nonatomic, strong, readonly) MGRepositoryViewModel *viewModel;
+@property (nonatomic, weak, readonly) MGRepositoryViewModel *viewModel;
 
 @end

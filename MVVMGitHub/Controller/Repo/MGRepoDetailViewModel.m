@@ -57,7 +57,7 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
                     OCTFileContent *file = [tuple last];
                     if ([file.encoding isEqualToString:@"base64"]) {
                         NSString *readME = [file.content base64DecodedString];
-                        self.readMEHtml = [MMMarkdown HTMLStringWithMarkdown:readME error:nil];
+                        self.readMEHtml = [MMMarkdown HTMLStringWithMarkdown:readME extensions:MMMarkdownExtensionsGitHubFlavored error:nil];
                     }
                 }];
             }

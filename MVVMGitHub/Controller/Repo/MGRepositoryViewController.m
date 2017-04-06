@@ -17,7 +17,7 @@
 <UITableViewDelegate,
 UITableViewDataSource>
 
-@property (nonatomic, strong, readwrite) MGRepositoryViewModel *viewModel;
+@property (nonatomic, weak, readwrite) MGRepositoryViewModel *viewModel;
 
 @property (nonatomic, strong) UITableView *tableView;
 

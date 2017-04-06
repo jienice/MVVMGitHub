@@ -8,7 +8,7 @@
 
 #import "MGExploreCell.h"
 #import "MGExploreCollectionViewCell.h"
-#import "MGExploreRowViewModel.h"
+#import "MGExploreCellViewModel.h"
 #import "MGExploreCollectionViewDefaultCell.h"
 #import "MGRepositoriesModel.h"
 
@@ -29,7 +29,7 @@ UICollectionViewDelegateFlowLayout>
 @property (nonatomic, assign) BOOL canLayout;
 @property (nonatomic, strong, readwrite) NSArray *collectionDataSource;
 @property (nonatomic, copy, readwrite) NSString *titleString;
-@property (nonatomic, strong, readwrite) MGExploreRowViewModel *rowViewModel;
+@property (nonatomic, strong, readwrite) MGExploreCellViewModel *rowViewModel;
 @property (nonatomic, strong, readwrite) RACCommand *seeAllCommand;
 @property (nonatomic, strong, readwrite) RACCommand *didSelectedItemCommand;
 
@@ -53,7 +53,7 @@ UICollectionViewDelegateFlowLayout>
 }
 + (instancetype)configExploreCell:(UITableView *)tableView
                   reuseIdentifier:(NSString *)reuseIdentifier
-                     rowViewModel:(MGExploreRowViewModel *)rowViewModel{
+                     rowViewModel:(MGExploreCellViewModel *)rowViewModel{
     
     MGExploreCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {

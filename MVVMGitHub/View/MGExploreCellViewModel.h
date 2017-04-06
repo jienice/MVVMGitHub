@@ -1,5 +1,5 @@
 //
-//  MGExploreRowViewModel.h
+//  MGExploreCellViewModel.h
 //  MVVMGitHub
 //
 //  Created by XingJie on 2017/1/19.
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger,MGExploreRowType){
     MGExploreRowForPopularRepos
 };
 
-@interface MGExploreRowViewModel : NSObject<MGViewModelProtocol>
+@interface MGExploreCellViewModel : NSObject<MGViewModelProtocol>
 
 @property (nonatomic, copy, readonly) NSString *titleString;
 @property (nonatomic, strong, readonly) NSArray *dataSource;//OCTUser、MGRepositoriesModel

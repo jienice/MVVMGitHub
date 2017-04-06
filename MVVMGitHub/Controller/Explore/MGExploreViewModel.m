@@ -134,7 +134,7 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
         }];
     }];
 }
-- (MGExploreRowViewModel *)configExploreRowViewModel:(MGExploreRowType)exploreRowType{
+- (MGExploreCellViewModel *)configExploreRowViewModel:(MGExploreRowType)exploreRowType{
     
     NSParameterAssert([self.dataSourceDict objectForKey:kTrendReposDataSourceArrayKey]);
     NSParameterAssert([self.dataSourceDict objectForKey:kPopularUsersDataSourceArrayKey]);
@@ -158,7 +158,7 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                     forKey:kExploreRowViewModelDataSourceKey];
         [parames setObject:@(MGExploreRowForPopularRepos) forKey:kExploreRowViewModelRowTypeKey];
     }
-    MGExploreRowViewModel *rowViewModel = [[MGExploreRowViewModel alloc]initWithParams:parames];
+    MGExploreCellViewModel *rowViewModel = [[MGExploreCellViewModel alloc]initWithParams:parames];
     return rowViewModel;
 }
 @end

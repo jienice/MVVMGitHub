@@ -1,18 +1,18 @@
 //
-//  MGExploreRowViewModel.m
+//  MGExploreCellViewModel.m
 //  MVVMGitHub
 //
 //  Created by XingJie on 2017/1/19.
 //  Copyright © 2017年 xingjie. All rights reserved.
 //
 
-#import "MGExploreRowViewModel.h"
+#import "MGExploreCellViewModel.h"
 
 NSString *const kExploreRowViewModelTitleKey = @"kExploreRowViewModelTitleKey";
 NSString *const kExploreRowViewModelDataSourceKey= @"kExploreRowViewModelDataSourceKey";
 NSString *const kExploreRowViewModelRowTypeKey = @"kExploreRowViewModelRowTypeKey";
 
-@interface MGExploreRowViewModel ()
+@interface MGExploreCellViewModel ()
 
 @property (nonatomic, copy, readwrite) NSString *titleString;
 @property (nonatomic, strong, readwrite) NSArray *dataSource;
@@ -20,7 +20,7 @@ NSString *const kExploreRowViewModelRowTypeKey = @"kExploreRowViewModelRowTypeKe
 
 @end
 
-@implementation MGExploreRowViewModel
+@implementation MGExploreCellViewModel
 
 - (instancetype)initWithParams:(NSDictionary *)params{
     

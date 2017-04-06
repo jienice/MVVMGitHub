@@ -11,7 +11,7 @@
 @class MGExploreViewModel;
 @interface MGExploreViewController : MGViewController<MGViewControllerProtocol>
 
-@property (nonatomic, strong, readonly) MGExploreViewModel *viewModel;
+@property (nonatomic, weak, readonly) MGExploreViewModel *viewModel;
 
 
 @end

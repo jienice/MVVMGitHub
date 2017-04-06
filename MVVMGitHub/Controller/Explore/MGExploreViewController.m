@@ -10,7 +10,7 @@
 #import "MGExploreViewModel.h"
 #import "MGExploreCell.h"
 #import "MGShowcasesModel.h"
-#import "MGExploreRowViewModel.h"
+#import "MGExploreCellViewModel.h"
 #import "MGRepositoriesModel.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGUserDetailViewModel.h"
@@ -20,8 +20,7 @@
 UITableViewDataSource,
 SDCycleScrollViewDelegate>
 
-@property (nonatomic, strong, readwrite) MGExploreViewModel *viewModel;
-@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
+@property (nonatomic, weak, readwrite) MGExploreViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
 
 
@@ -61,7 +60,8 @@ SDCycleScrollViewDelegate>
                                                map:^id(MGShowcasesModel *showcase) {
             return showcase.image_url;
         }] array];
-        [self.cycleScrollView setImageURLStringsGroup:cycleScrollViewDataSource];
+        SDCycleScrollView *cycleScrollView = (SDCycleScrollView *)self.tableView.tableHeaderView;
+        [cycleScrollView setImageURLStringsGroup:cycleScrollViewDataSource];
     }];
 }
 #pragma mark - Load Data
@@ -80,14 +80,16 @@ SDCycleScrollViewDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MGExploreCell *cell = [MGExploreCell configExploreCell:tableView
-                                           reuseIdentifier:@"MGExploreCell"
+                                           reuseIdentifier:NSStringFromClass([MGExploreCell class])
                                               rowViewModel:[self.viewModel configExploreRowViewModel:indexPath.row]];
-    [[cell.seeAllCommand.executionSignals.switchToLatest takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(NSNumber *rowType) {
+    [[cell.seeAllCommand.executionSignals.switchToLatest
+      takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(NSNumber *rowType) {
         NSLog(@"查看全部%@",rowType);
     }];
     
-    [[cell.didSelectedItemCommand.executionSignals.switchToLatest takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(RACTuple *tucple) {
-        MGExploreRowViewModel *rowViewModel = [tucple first];
+    [[cell.didSelectedItemCommand.executionSignals.switchToLatest
+      takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(RACTuple *tucple) {
+        MGExploreCellViewModel *rowViewModel = [tucple first];
         NSIndexPath *indexPath = [tucple last];
         NSLog(@"选中%@",indexPath);
         if (rowViewModel.rowType == MGExploreRowForPopularUsers) {
@@ -98,7 +100,9 @@ SDCycleScrollViewDelegate>
             [MGSharedDelegate.viewModelBased pushViewModel:userDetailViewModel animated:YES];
         }else{
             MGRepositoriesModel *repo=rowViewModel.dataSource[indexPath.item];
-            MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.owner.login,kRepoDetailParamsKeyForRepoName:repo.name}];
+            MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
+                                                 initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.owner.login,
+                                                                  kRepoDetailParamsKeyForRepoName:repo.name}];
             [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
         }
     }];
@@ -119,20 +123,20 @@ SDCycleScrollViewDelegate>
         _tableView.delegate = self;
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self.viewModel.fetchDataFromServiceCommand
                                                                 refreshingAction:@selector(execute:)];
-        _tableView.tableHeaderView.frame = self.cycleScrollView.bounds;
-        _tableView.tableHeaderView = self.cycleScrollView;
+        SDCycleScrollView *cycleScrollView = [self cycleScrollView];
+        _tableView.tableHeaderView.frame = cycleScrollView.bounds;
+        _tableView.tableHeaderView = cycleScrollView;
     }
     return _tableView;
 }
 - (SDCycleScrollView *)cycleScrollView{
     
-    if (_cycleScrollView == nil) {
-        CGRect cycleScrollViewFrame = CGRectMake(0, 0, SCREEN_WIDTH, 150);
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:cycleScrollViewFrame
-                                                              delegate:self
-                                                      placeholderImage:nil];
-        _cycleScrollView.backgroundColor = [UIColor greenColor];
-    }
-    return _cycleScrollView;
+    CGRect cycleScrollViewFrame = CGRectMake(0, 0, SCREEN_WIDTH, 150);
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:cycleScrollViewFrame
+                                                          delegate:self
+                                                  placeholderImage:nil];
+    cycleScrollView.backgroundColor = [UIColor greenColor];
+
+    return cycleScrollView;
 }
 @end

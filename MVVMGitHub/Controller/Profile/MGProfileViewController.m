@@ -11,7 +11,7 @@
 
 @interface MGProfileViewController ()
 
-@property (nonatomic, strong) MGProfileViewModel *viewModel;
+@property (nonatomic, weak) MGProfileViewModel *viewModel;
 
 @end
 
