@@ -34,7 +34,7 @@
     if (!cell) {
         cell = [[MGRepositoriesCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         cell.selectionStyle= UITableViewCellSelectionStyleNone;
-        cell.contentView.backgroundColor = [UIColor whiteColor];
+        cell.contentView.backgroundColor = MGWhiteColor;
         [cell.contentView addSubview:cell.repoDescriptionLabel];
         [cell.contentView addSubview:cell.repoTitleLabel];
         [cell.contentView addSubview:cell.languageKindLable];

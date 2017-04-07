@@ -99,7 +99,7 @@ UITableViewDataSource,WKNavigationDelegate>
     }];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
-        make.width.mas_equalTo(SCREEN_WIDTH);
+        make.width.mas_equalTo(MGSCREEN_WIDTH);
     }];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentView.mas_left);
@@ -180,7 +180,7 @@ UITableViewDataSource,WKNavigationDelegate>
     if (_tableView==nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
                                                  style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = MGWhiteColor;
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

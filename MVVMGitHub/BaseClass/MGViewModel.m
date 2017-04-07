@@ -7,8 +7,6 @@
 //
 
 #import "MGViewModel.h"
-#import "MGMainViewModel.h"
-
 
 @interface MGViewModel ()
 
@@ -36,6 +34,7 @@
     }
     return _error;
 }
+
 - (void)setParams:(NSDictionary *)params{
     
     _params = params;

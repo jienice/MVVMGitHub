@@ -23,7 +23,9 @@
                         @"MGProfileViewModel":@"MGProfileViewController",
                         @"MGRepositoryViewModel":@"MGRepositoryViewController",
                         @"MGExploreViewModel":@"MGExploreViewController",
-                        @"MGUserDetailViewModel":@"MGUserDetailViewController"};
+                        @"MGUserDetailViewModel":@"MGUserDetailViewController",
+                        @"MGSearchViewModel":@"MGSearchViewController",
+                        @"MGMainViewModel":@"MGMainViewController"};
     }
     return self;
 }

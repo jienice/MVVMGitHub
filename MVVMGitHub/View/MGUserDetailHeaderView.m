@@ -111,7 +111,7 @@
     
     if (_emailLabel==nil) {
         _emailLabel = [UILabel new];
-        [_emailLabel setFont:[UIFont systemFontOfSize:16]];
+        [_emailLabel setFont:MGFont(16)];
         [_emailLabel setTextColor:[UIColor blackColor]];
         [_emailLabel setTextAlignment:NSTextAlignmentLeft];
     }
@@ -121,7 +121,7 @@
     
     if (_blogLabel==nil) {
         _blogLabel = [UILabel new];
-        [_blogLabel setFont:[UIFont systemFontOfSize:16]];
+        [_blogLabel setFont:MGFont(16)];
         [_blogLabel setTextColor:[UIColor blackColor]];
         [_blogLabel setTextAlignment:NSTextAlignmentLeft];
     }
@@ -131,7 +131,7 @@
     
     if (_companyLabel==nil) {
         _companyLabel = [UILabel new];
-        [_companyLabel setFont:[UIFont systemFontOfSize:16]];
+        [_companyLabel setFont:MGFont(16)];
         [_companyLabel setTextColor:[UIColor blackColor]];
         [_companyLabel setTextAlignment:NSTextAlignmentLeft];
     }

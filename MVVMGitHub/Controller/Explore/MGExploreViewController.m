@@ -14,6 +14,7 @@
 #import "MGRepositoriesModel.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGUserDetailViewModel.h"
+#import "MGSearchViewModel.h"
 
 @interface MGExploreViewController ()
 <UITableViewDelegate,
@@ -41,8 +42,12 @@ SDCycleScrollViewDelegate>
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.view addSubview:self.tableView];
+    [self configUI];
     [self.tableView.mj_header beginRefreshing];
+}
+- (void)configUI{
+    
+    [self.view addSubview:self.tableView];
 }
 - (void)bindViewModel{
     
@@ -117,7 +122,7 @@ SDCycleScrollViewDelegate>
 - (UITableView *)tableView{
     
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MGSCREEN_WIDTH, MGSCREEN_HEIGHT)
                                                  style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -131,7 +136,7 @@ SDCycleScrollViewDelegate>
 }
 - (SDCycleScrollView *)cycleScrollView{
     
-    CGRect cycleScrollViewFrame = CGRectMake(0, 0, SCREEN_WIDTH, 150);
+    CGRect cycleScrollViewFrame = CGRectMake(0, 0, MGSCREEN_WIDTH, 150);
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:cycleScrollViewFrame
                                                           delegate:self
                                                   placeholderImage:nil];

@@ -48,15 +48,16 @@
 ///------------
 ///  UIColor
 ///------------
-#define RGBAlphaColor(R,G,B, alp) [UIColor colorWithRed:((R) / 255.0) green:((G) / 255.0) blue:((B) / 255.0) alpha:alp]
-#define RGBColor(R, G, B) RGBAlphaColor(R,G,B, 1.f)
-#define MGGitHub_Color RGBColor(97, 186, 58)
-
+#define MGRGBAlphaColor(R,G,B, alp) [UIColor colorWithRed:((R) / 255.0) green:((G) / 255.0) blue:((B) / 255.0) alpha:alp]
+#define MGRGBColor(R, G, B) MGRGBAlphaColor(R,G,B, 1.f)
+#define MGClickedColor MGRGBColor(97, 186, 58)
+#define MGNormalColor [UIColor lightGrayColor]
+#define MGWhiteColor [UIColor whiteColor]
 ///------------
 ///  system
 ///------------
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT  [UIScreen mainScreen].bounds.size.height
-#define TAB_BAR_HEIGHT 49
-
+#define MGSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define MGSCREEN_HEIGHT  [UIScreen mainScreen].bounds.size.height
+#define MGTAB_BAR_HEIGHT 49
+#define MGSTATUS_BAR_HEIGHT 20
 

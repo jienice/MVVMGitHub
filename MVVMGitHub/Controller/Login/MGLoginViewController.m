@@ -36,6 +36,8 @@
     [self.view addSubview:self.userNameText];
     [self.view addSubview:self.passWordText];
     [self.view addSubview:self.loginButton];
+    [self.view setNeedsUpdateConstraints];
+    [self.view updateConstraintsIfNeeded];
 }
 - (void)bindViewModel{
     
@@ -44,7 +46,7 @@
        @strongify(self);
        [self.loginButton setEnabled:[value boolValue]];
     }] map:^id(NSNumber *value) {
-        return [value boolValue]?[UIColor blueColor]:[UIColor lightGrayColor];
+        return [value boolValue]?MGClickedColor:MGNormalColor;
     }];
     
     [[[self.viewModel.loginCommand.executing skip:1] doNext:^(id x) {
@@ -79,7 +81,7 @@
     }];
     
     [self.passWordText mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.userNameText.mas_bottom);
+        make.top.mas_equalTo(self.userNameText.mas_bottom).offset(3);
         make.left.mas_equalTo(self.userNameText.mas_left);
         make.right.mas_equalTo(self.userNameText.mas_right);
         make.height.mas_equalTo(@[self.userNameText.mas_height,self.loginButton.mas_height]);
@@ -97,7 +99,7 @@
     
     if (_userNameText == nil) {
         _userNameText = [[UITextField alloc]init];
-        _userNameText.backgroundColor = [UIColor whiteColor];
+        _userNameText.backgroundColor = MGWhiteColor;
         _userNameText.font = MGFont(14);
         _userNameText.clearButtonMode = UITextFieldViewModeWhileEditing;
         _userNameText.placeholder  = @"Please input your github userName!";
@@ -115,7 +117,7 @@
     
     if (_passWordText == nil) {
         _passWordText = [[UITextField alloc]init];
-        _passWordText.backgroundColor = [UIColor whiteColor];
+        _passWordText.backgroundColor = MGWhiteColor;
         _passWordText.font = MGFont(14);
         _passWordText.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passWordText.placeholder  = @"Please input your password!";

@@ -69,7 +69,7 @@
     RAC(self.commitButton,backgroundColor) = [[self.viewModel.canCreateSignal doNext:^(NSNumber *can) {
         self.commitButton.enabled =[can boolValue];
     }]map:^id(NSNumber *can) {
-        return [can boolValue]?MGGitHub_Color:[UIColor lightGrayColor];
+        return [can boolValue]?MGClickedColor:[UIColor lightGrayColor];
     }];
     
     [self.viewModel.createRepoCommand.executionSignals.switchToLatest subscribeError:^(NSError *error) {
@@ -135,7 +135,7 @@
     if (_commitButton == nil) {
         _commitButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_commitButton setTitle:@"Create Repo" forState:UIControlStateNormal];
-        [_commitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_commitButton setTitleColor:MGWhiteColor forState:UIControlStateNormal];
         MGViewCornerRadius(_commitButton, 3.f);
     }
     return _commitButton;

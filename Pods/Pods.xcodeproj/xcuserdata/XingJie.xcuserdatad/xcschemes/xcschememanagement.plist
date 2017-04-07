@@ -39,11 +39,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>IQKeyboardManager.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ISO8601DateFormatter.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -104,11 +99,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Routable.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SAMKeychain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -134,11 +124,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>UIView+Borders.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>WebViewJavascriptBridge.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -152,12 +137,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>08E3F7977D5FCA61A724286A9AC75491</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1B9EF1590D8FAADD2CEAC09121E74425</key>
+		<key>0D0E5F23D9CB54C1BEEBD6F932B86F6D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,11 +152,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>27D2705418D4437A931291337339DA98</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2C599305421E66F4BEB2D511DDA2DCD5</key>
 		<dict>
 			<key>primary</key>
@@ -187,7 +162,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>437A63ED8CE56DAC1BACF7429D2B3E44</key>
+		<key>44E51BC97126C590B0EE1AE197C7AA37</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>547ED5D6F4A6029554C37E7E6EBBD7D3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5915E6B8A20B160067DC269FE3787B31</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -197,22 +182,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5AFE9290E8A2C284C0CF4535CFBC81DE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>61E326C5243C2F7EC517ED6E379962F4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>66C64F27F748D5A1AA50BFE1E22A206A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>711E95409E7412CEC83D2B2F88857DFA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -222,7 +192,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7E2A74695AF1405350F2027B0A8E40BC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7E867CB0286484DB1C3931D41CCE2A6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>87BCE4E783F53AF06CF8D16928B939CD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8C4D1F277F62BACE973BF436636DC7F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -237,27 +222,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>99DE88C25469BA53F7C3C766774617B8</key>
+		<key>9E6189139F498CE07A13034EBB7D3A9B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A0FAE5F4FF4ACCE7B9E4A5518DFD875A</key>
+		<key>BECBB8335AEED61202EABF2234A421CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ACCB61AA1969713685293D48E79F1ACB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C36CB2CB977A4E7D954935096D00A1ED</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CD898ECAC0DAB1C8CAAFCFE8887DAF5B</key>
+		<key>CA2F1E0B8911E7D3032038EAD296784A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -268,11 +243,6 @@
 			<true/>
 		</dict>
 		<key>D52144DE9D7255DE912490FF5A806573</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>DCF1725DF0FD314D8559BF98A7D5A10C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

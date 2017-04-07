@@ -189,7 +189,7 @@ minimumLineSpacingForSectionAtIndex:(NSInteger)section{
           forCellWithReuseIdentifier:MGExploreCollectionViewCellImageAndDesc];
         [_collectionView registerNib:[UINib nibWithNibName:@"MGExploreCollectionViewDefaultCell" bundle:nil]
           forCellWithReuseIdentifier:MGExploreCollectionViewCellDefault];
-        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.backgroundColor = MGWhiteColor;
         [_collectionView setShowsHorizontalScrollIndicator:NO];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;

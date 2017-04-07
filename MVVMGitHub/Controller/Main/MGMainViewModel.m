@@ -10,6 +10,7 @@
 #import "MGExploreViewModel.h"
 #import "MGProfileViewModel.h"
 #import "MGRepositoryViewModel.h"
+#import "MGSearchViewModel.h"
 
 NSString *const kTabBarItemTitle = @"kTabBarItemTitle";
 NSString *const kTabBarSelectedImageName = @"kTabBarSelectedImageName";
@@ -20,6 +21,7 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
 @property (nonatomic, strong, readwrite) MGProfileViewModel *profileViewModel;
 @property (nonatomic, strong, readwrite) MGRepositoryViewModel *repositorisViewModel;
 @property (nonatomic, strong, readwrite) MGExploreViewModel *exploreViewModel;
+@property (nonatomic, strong, readwrite) MGSearchViewModel *searchViewModel;
 
 @end
 
@@ -46,9 +48,16 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
                            kClassMap:@"Profile",
                            kNavigationTitle:@"Profile"};
     
+    NSDictionary *search = @{kTabBarItemTitle:@"Search",
+                              kTabBarSelectedImageName:@"Icon-iPhone",
+                              kTabBarNormalImageName:@"Icon-iPhone",
+                              kClassMap:@"Search",
+                              kNavigationTitle:@"Search"};
+    
     self.exploreViewModel = [[MGExploreViewModel alloc]initWithParams:explpre];
     self.profileViewModel = [[MGProfileViewModel alloc]initWithParams:profile];
     self.repositorisViewModel = [[MGRepositoryViewModel alloc]initWithParams:repositories];
+    self.searchViewModel = [[MGSearchViewModel alloc]initWithParams:search];
 }
 
 

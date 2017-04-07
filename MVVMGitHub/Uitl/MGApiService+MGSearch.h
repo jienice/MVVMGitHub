@@ -8,6 +8,12 @@
 
 #import "MGApiService.h"
 
+/**
+ The Search API has a custom rate limit.
+ For requests using Basic Authentication, OAuth, or client ID and secret, you can make up to 30 requests per minute.
+ For unauthenticated requests, the rate limit allows you to make up to 10 requests per minute.
+ */
+
 @interface MGApiService (MGSearch)
 
 //stars, forks, or updated. Default: results are sorted by best match.

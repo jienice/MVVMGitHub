@@ -11,6 +11,7 @@
 @class MGProfileViewModel;
 @class MGRepositoryViewModel;
 @class MGExploreViewModel;
+@class MGSearchViewModel;
 
 extern NSString *const kTabBarItemTitle;
 extern NSString *const kTabBarSelectedImageName;
@@ -25,6 +26,7 @@ extern NSString *const kTabBarNormalImageName;
 
 @property (nonatomic, strong, readonly) MGExploreViewModel *exploreViewModel;
 
+@property (nonatomic, strong, readonly) MGSearchViewModel *searchViewModel;
 
 
 @end

@@ -18,7 +18,6 @@
 #import <YYCache/YYCache.h>
 #import <SAMKeychain/SAMKeychain.h>
 #import <MJRefresh/MJRefresh.h>
-#import <IQKeyboardManager/IQKeyboardManager.h>
 #import <MJExtension/MJExtension.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SVProgressHUD/SVProgressHUD.h>
@@ -26,9 +25,10 @@
 #import <SDCycleScrollView/SDCycleScrollView.h>
 #import <MMMarkdown/MMMarkdown.h>
 #import <WebKit/WebKit.h>
+#import <HMSegmentedControl/HMSegmentedControl.h>
 #import "Base64.h"
 #import "WKWebViewJavascriptBridge.h"
-#import "UIView+Borders.h"
+//#import "UIView+Borders.h"
 ///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"
 #import "NSString+MGUitl.h"

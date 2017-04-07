@@ -26,6 +26,7 @@
     if (self = [super init]) {
         self.viewModel = (MGMainViewModel *)viewModel;
         [self addViewModel:self.viewModel.exploreViewModel];
+        [self addViewModel:self.viewModel.searchViewModel];
         [self addViewModel:self.viewModel.repositorisViewModel];
         [self addViewModel:self.viewModel.profileViewModel];
         [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers] firstObject]];
@@ -52,7 +53,7 @@
                                               selectedImage:[[UIImage imageNamed:[viewModel.params valueForKey:kTabBarSelectedImageName]]
                                                              imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [item setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
-    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:RGBAlphaColor(0, 0, 0, 1)} forState:UIControlStateNormal];
+    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:MGRGBAlphaColor(0, 0, 0, 1)} forState:UIControlStateNormal];
     item.titlePositionAdjustment = UIOffsetMake(0, -2);
     UIViewController *vc = [MGSharedDelegate.viewModelBased.viewModelMapper viewControllerForViewModel:viewModel];
     vc.tabBarItem = item;

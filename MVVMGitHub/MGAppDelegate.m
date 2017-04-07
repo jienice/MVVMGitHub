@@ -21,16 +21,16 @@
     [self configMethodHooks];
     [self configLaunchView];
     [self configHUD];
-    [self configKeyBoardManager];
     return YES;
 }
 - (void)configLaunchView{
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = MGWhiteColor;
     UIViewController *launchVC = [self configLaunchViewController];
     UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:launchVC];
     [mainNav setNavigationBarHidden:YES];
+    [self.viewModelBased resetRootNavigationController:mainNav];
     self.window.rootViewController = mainNav;
     [self.window makeKeyAndVisible];
 }
@@ -56,8 +56,6 @@
             [[obj instance] respondsToSelector:@selector(bindViewModel)]) {
             [[obj instance] performSelector:@selector(bindViewModel)];
         }
-                                   UIViewController *vc = [obj instance];
-                                   [vc.view setBackgroundColor:[UIColor whiteColor]];
     }error:nil];
         
     
@@ -70,11 +68,7 @@
     }error:nil];
          
 }
-- (void)configKeyBoardManager{
-    
-    [[IQKeyboardManager sharedManager] setEnable:NO];
-    
-}
+
 - (void)configHUD{
     
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];

@@ -29,6 +29,7 @@
 		A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F770D1E0B7F0E0088470E /* MGConst.m */; };
 		A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F77211E0B9DDC0088470E /* MGViewModel.m */; };
 		A02F77241E0BA0D30088470E /* lanchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A02F77231E0BA0D30088470E /* lanchScreen.storyboard */; };
+		A044BC181E97292100B836CD /* viewModel-ViewControllerMapper.plist in Resources */ = {isa = PBXBuildFile; fileRef = A044BC171E97292100B836CD /* viewModel-ViewControllerMapper.plist */; };
 		A05F96551E12515000373330 /* MGRepositoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05F96541E12515000373330 /* MGRepositoriesCell.m */; };
 		A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A06903F91E13A00000855B7D /* MGExploreCell.m */; };
 		A06904031E13A10400855B7D /* MGApiService.m in Sources */ = {isa = PBXBuildFile; fileRef = A06904021E13A10400855B7D /* MGApiService.m */; };
@@ -61,6 +62,8 @@
 		A0E132D71E95DE0D00CA9855 /* MGCreateRepoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E132D21E95DE0D00CA9855 /* MGCreateRepoViewModel.m */; };
 		A0E132D81E95DE0D00CA9855 /* MGRepoDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E132D41E95DE0D00CA9855 /* MGRepoDetailViewModel.m */; };
 		A0E132D91E95DE0D00CA9855 /* MGRepositoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E132D61E95DE0D00CA9855 /* MGRepositoryViewModel.m */; };
+		A0E132DE1E961C2F00CA9855 /* MGSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E132DD1E961C2F00CA9855 /* MGSearchViewController.m */; };
+		A0E132E11E961C4500CA9855 /* MGSearchViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E132E01E961C4500CA9855 /* MGSearchViewModel.m */; };
 		D23CFF904D5BC7DA89916EA7 /* Pods_MVVMGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05931592AF25A635B3606D87 /* Pods_MVVMGitHub.framework */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +132,7 @@
 		A02F77201E0B9DDC0088470E /* MGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModel.h; sourceTree = "<group>"; };
 		A02F77211E0B9DDC0088470E /* MGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModel.m; sourceTree = "<group>"; };
 		A02F77231E0BA0D30088470E /* lanchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = lanchScreen.storyboard; sourceTree = "<group>"; };
+		A044BC171E97292100B836CD /* viewModel-ViewControllerMapper.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "viewModel-ViewControllerMapper.plist"; sourceTree = "<group>"; };
 		A04B86BF1E36083700EC8E81 /* MGNavigationControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGNavigationControllerProtocol.h; sourceTree = "<group>"; };
 		A05F96531E12515000373330 /* MGRepositoriesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoriesCell.h; sourceTree = "<group>"; };
 		A05F96541E12515000373330 /* MGRepositoriesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoriesCell.m; sourceTree = "<group>"; };
@@ -193,6 +197,10 @@
 		A0E132D41E95DE0D00CA9855 /* MGRepoDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailViewModel.m; sourceTree = "<group>"; };
 		A0E132D51E95DE0D00CA9855 /* MGRepositoryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoryViewModel.h; sourceTree = "<group>"; };
 		A0E132D61E95DE0D00CA9855 /* MGRepositoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoryViewModel.m; sourceTree = "<group>"; };
+		A0E132DC1E961C2F00CA9855 /* MGSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchViewController.h; sourceTree = "<group>"; };
+		A0E132DD1E961C2F00CA9855 /* MGSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchViewController.m; sourceTree = "<group>"; };
+		A0E132DF1E961C4500CA9855 /* MGSearchViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchViewModel.h; sourceTree = "<group>"; };
+		A0E132E01E961C4500CA9855 /* MGSearchViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchViewModel.m; sourceTree = "<group>"; };
 		E6E72F4025D1C9A954773EF1 /* Pods-MVVMGitHub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.debug.xcconfig"; sourceTree = "<group>"; };
 		EB7C58D84B242D5E892B73FE /* Pods-MVVMGitHub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMGitHub.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVMGitHub/Pods-MVVMGitHub.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -300,6 +308,7 @@
 			children = (
 				A02F76C41E0B6BAC0088470E /* MGAppDelegate.h */,
 				A02F76C51E0B6BAC0088470E /* MGAppDelegate.m */,
+				A044BC171E97292100B836CD /* viewModel-ViewControllerMapper.plist */,
 				A00295461E30587C004AC90E /* github_language_name_slug.plist */,
 				A02F76C21E0B6BAC0088470E /* main.m */,
 				A02F76D21E0B6BAC0088470E /* Info.plist */,
@@ -330,6 +339,7 @@
 		A02F77001E0B7EF70088470E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				A0E132DB1E961C1B00CA9855 /* Search */,
 				A0E132A51E95DD0600CA9855 /* Login */,
 				A0E132A81E95DD0600CA9855 /* Main */,
 				A0E132A21E95DD0600CA9855 /* Explore */,
@@ -494,6 +504,17 @@
 			path = Repo;
 			sourceTree = "<group>";
 		};
+		A0E132DB1E961C1B00CA9855 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A0E132DC1E961C2F00CA9855 /* MGSearchViewController.h */,
+				A0E132DD1E961C2F00CA9855 /* MGSearchViewController.m */,
+				A0E132DF1E961C4500CA9855 /* MGSearchViewModel.h */,
+				A0E132E01E961C4500CA9855 /* MGSearchViewModel.m */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -610,6 +631,7 @@
 				A0E07D3C1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.xib in Resources */,
 				A00295471E30587C004AC90E /* github_language_name_slug.plist in Resources */,
 				A002954C1E305A3A004AC90E /* MGExploreCollectionViewCell.xib in Resources */,
+				A044BC181E97292100B836CD /* viewModel-ViewControllerMapper.plist in Resources */,
 				A02F76CE1E0B6BAC0088470E /* Assets.xcassets in Resources */,
 				A01D51221E5C3A1A002E9925 /* MGOCTTreeEntryCell.xib in Resources */,
 				A01D513E1E5D6BD0002E9925 /* MGSegmentView.xib in Resources */,
@@ -696,6 +718,7 @@
 				A0E132D71E95DE0D00CA9855 /* MGCreateRepoViewModel.m in Sources */,
 				A09BDD261E6014DB0061F0DB /* MGApiService+MGSearch.m in Sources */,
 				A06903FB1E13A00000855B7D /* MGExploreCell.m in Sources */,
+				A0E132DE1E961C2F00CA9855 /* MGSearchViewController.m in Sources */,
 				A02F77221E0B9DDC0088470E /* MGViewModel.m in Sources */,
 				A07FA0231E66787D0005BD57 /* MGNavigationController.m in Sources */,
 				A0A2F76B1E422B8800F19F22 /* SAMKeychain+MGUser.m in Sources */,
@@ -715,6 +738,7 @@
 				A09BDD231E6013290061F0DB /* MGApiService+MGExplore.m in Sources */,
 				A01D510F1E5BE41B002E9925 /* MGViewModelBasedNavigation.m in Sources */,
 				A01D51211E5C3A1A002E9925 /* MGOCTTreeEntryCell.m in Sources */,
+				A0E132E11E961C4500CA9855 /* MGSearchViewModel.m in Sources */,
 				A0E132BD1E95DD0600CA9855 /* MGRepoDetailViewController.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A0E07D3B1E30C2EB009CB569 /* MGExploreCollectionViewDefaultCell.m in Sources */,

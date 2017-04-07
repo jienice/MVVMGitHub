@@ -17,5 +17,7 @@
 
 - (void)bindViewModel;
 
+@optional
+- (void)configUI;
 
 @end
