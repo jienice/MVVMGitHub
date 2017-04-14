@@ -26,6 +26,7 @@
 #import <MMMarkdown/MMMarkdown.h>
 #import <WebKit/WebKit.h>
 #import <HMSegmentedControl/HMSegmentedControl.h>
+#import <WMPageController/WMPageController.h>
 #import "Base64.h"
 #import "WKWebViewJavascriptBridge.h"
 //#import "UIView+Borders.h"
@@ -37,15 +38,7 @@
 #import "MGConst.h"
 #import "MGConfig.h"
 ///----------------------------------------------------------
-#import "MGTableViewModelProtocol.h"
-#import "MGViewModelProtocol.h"
-#import "MGViewControllerProtocol.h"
-#import "MGNavigationControllerProtocol.h"
-///----------------------------------------------------------
 #import "MGAppDelegate.h"
-#import "MGViewModelMapper.h"
-#import "MGViewModel.h"
-#import "MGNavigationController.h"
 ///----------------------------------------------------------
 
 

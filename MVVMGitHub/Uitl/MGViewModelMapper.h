@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MGViewControllerProtocol.h"
 
 
 @interface MGViewModelMapper : NSObject

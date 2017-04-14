@@ -13,11 +13,12 @@
 + (NSString *)mg_passWord;
 + (NSString *)mg_rawlogin;
 + (NSString *)mg_accessToken;
++ (NSString *)mg_preferenceLanguage;
 
 + (void)mg_setAccessToken:(NSString *)accessToken;
 + (void)mg_setPassWord:(NSString *)passWord;
 + (void)mg_setRawlogin:(NSString *)rawlogin;
-
++ (void)mg_setPreferenceLanguage:(NSString *)preferenceLanguage;
 
 + (void)mg_deleteAccessToken;
 + (void)mg_deletePassWord;

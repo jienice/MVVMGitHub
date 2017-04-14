@@ -10,6 +10,7 @@
 
 @implementation SAMKeychain (MGUser)
 
+#pragma mark - getter
 + (NSString *)mg_rawlogin{
     
     return [[NSUserDefaults standardUserDefaults] valueForKey:MGSSKeychain_RawLogin];
@@ -22,7 +23,11 @@
     
     return [self passwordForService:MGSSKeychain_LoginService account:MGSSKeychain_AccessToken];
 }
-
++ (NSString *)mg_preferenceLanguage{
+    
+    return [[NSUserDefaults standardUserDefaults] valueForKey:MGSSKeychain_PreferenceLanguage];
+}
+#pragma mark - setter
 + (void)mg_setAccessToken:(NSString *)accessToken{
     
     if (accessToken == nil) NSLog(@"%s accessToken is nil",__func__);
@@ -39,6 +44,13 @@
     [[NSUserDefaults standardUserDefaults] setObject:rawlogin forKey:MGSSKeychain_RawLogin];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
++ (void)mg_setPreferenceLanguage:(NSString *)preferenceLanguage{
+    
+    if (preferenceLanguage == nil) NSLog(@"%s preferenceLanguage is nil",__func__);
+    [[NSUserDefaults standardUserDefaults] setObject:preferenceLanguage forKey:MGSSKeychain_PreferenceLanguage];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+#pragma mark - delete
 + (void)mg_deleteAccessToken{
     
     [self deletePasswordForService:MGSSKeychain_LoginService account:MGSSKeychain_AccessToken];

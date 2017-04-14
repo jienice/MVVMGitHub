@@ -43,7 +43,7 @@
 #define MGSSKeychain_PassWord @"passWord"
 #define MGSSKeychain_RawLogin @"rawLogin"
 #define MGSSKeychain_AccessToken @"accessToken"
-
+#define MGSSKeychain_PreferenceLanguage @"preferenceLanguage"
 
 ///------------
 ///  UIColor

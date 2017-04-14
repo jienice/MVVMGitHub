@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class MGViewModelMapper;
+#import "MGNavigationControllerProtocol.h"
+#import "MGViewModelMapper.h"
 
 @interface MGViewModelBasedNavigation : NSObject<MGNavigationControllerProtocol>
 

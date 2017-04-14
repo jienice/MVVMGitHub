@@ -7,6 +7,8 @@
 //
 
 #import "MGAppDelegate.h"
+#import "MGViewModel.h"
+#import "MGViewControllerProtocol.h"
 
 @interface MGAppDelegate ()
 
@@ -48,17 +50,7 @@
     return [[NSClassFromString(@"MGLoginViewController") alloc]initWithViewModel:viewModel];
 }
 - (void)configMethodHooks{
-    
-    [UIViewController aspect_hookSelector:@selector(viewDidLoad)
-                              withOptions:AspectPositionAfter
-                               usingBlock:^(id<AspectInfo> obj){
-        if ([[obj instance] conformsToProtocol:@protocol(MGViewControllerProtocol)] &&
-            [[obj instance] respondsToSelector:@selector(bindViewModel)]) {
-            [[obj instance] performSelector:@selector(bindViewModel)];
-        }
-    }error:nil];
         
-    
     [MGViewModel aspect_hookSelector:@selector(initWithParams:)
                          withOptions:AspectPositionAfter
                           usingBlock:^(id<AspectInfo> obj){
