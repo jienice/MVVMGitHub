@@ -23,11 +23,4 @@ extern NSString *const kPopularReposDataSourceArrayKey;
 @property (nonatomic, strong, readonly) RACCommand *requestLanguageCommand;
 @property (nonatomic, strong, readonly) RACCommand *requestPopularReposCommand;
 
-@property (nonatomic, strong, readonly) NSMutableDictionary *dataSourceDict;
-
-@property (nonatomic, assign, readonly) BOOL fetchDataFromServiceSuccess;
-
-
-- (MGExploreCellViewModel *)configExploreRowViewModel:(MGExploreRowType)exploreRowType;
-
 @end

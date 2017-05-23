@@ -10,12 +10,10 @@
 #define MGPrefixHeader_pch
 ///----------------------------------------------------------
 #import <objc/runtime.h>
-#import "RACEXTScope.h"
 #import <OctoKit/OctoKit.h>
 #import <FMDB/FMDB.h>
 #import <PureLayout/PureLayout.h>
 #import <Aspects/Aspects.h>
-#import <YYCache/YYCache.h>
 #import <SAMKeychain/SAMKeychain.h>
 #import <MJRefresh/MJRefresh.h>
 #import <MJExtension/MJExtension.h>
@@ -29,6 +27,9 @@
 #import <WMPageController/WMPageController.h>
 #import "Base64.h"
 #import "WKWebViewJavascriptBridge.h"
+#import <YYKit/YYKit.h>
+#import <JSONKit_NoWarning/JSONKit.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 //#import "UIView+Borders.h"
 ///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"

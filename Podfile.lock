@@ -10,6 +10,7 @@ PODS:
   - HMSegmentedControl (1.5.3)
   - IQKeyboardManager (4.0.8)
   - ISO8601DateFormatter (0.7)
+  - JSONKit-NoWarning (1.2)
   - Mantle (1.3.1):
     - Mantle/extobjc (= 1.3.1)
   - Mantle/extobjc (1.3.1)
@@ -43,7 +44,9 @@ PODS:
   - UIView+Borders (0.0.2)
   - WebViewJavascriptBridge (5.0.9)
   - WMPageController (2.2.1)
-  - YYCache (1.0.4)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
   - Aspects (~> 1.4.1)
@@ -52,6 +55,7 @@ DEPENDENCIES:
   - FMDB (~> 2.6.2)
   - HMSegmentedControl (~> 1.5.2)
   - IQKeyboardManager (~> 4.0.4)
+  - JSONKit-NoWarning (~> 1.2)
   - Masonry (~> 1.0.1)
   - MJExtension (~> 3.0.10)
   - MJRefresh (~> 3.1.12)
@@ -67,7 +71,7 @@ DEPENDENCIES:
   - UIView+Borders (~> 0.0.2)
   - WebViewJavascriptBridge (~> 5.0.5)
   - WMPageController (~> 2.2.1)
-  - YYCache (~> 1.0.3)
+  - YYKit (~> 1.0.7)
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
@@ -79,6 +83,7 @@ SPEC CHECKSUMS:
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   ISO8601DateFormatter: ab926648eebe497f4d167c0fd083992f959f1274
+  JSONKit-NoWarning: 3d27e6f9e6846ecf741e8c64dcadd7d5aa7193cb
   Mantle: a516570b84c3cefb34b02647a6588a087dddc490
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
@@ -97,8 +102,8 @@ SPEC CHECKSUMS:
   UIView+Borders: d632c8bef679e7f98e913b569e972858742841ce
   WebViewJavascriptBridge: a4390df79bf622fc068dd035c8b5f67590c0ba05
   WMPageController: 181bcc9b1fb7c9c3466bff66012552953a547d28
-  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: bb26a3a609d200e1c8773e7ed2ad3879e56fdf4b
+PODFILE CHECKSUM: 1562bb2cc4a6d4ca30fbb991a2f33f5a7219d7d8
 
 COCOAPODS: 1.2.0

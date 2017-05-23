@@ -24,14 +24,14 @@ UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
-@property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, weak) IBOutlet UIButton *seeAllButton;
-@property (nonatomic, assign) BOOL canLayout;
-@property (nonatomic, strong, readwrite) NSArray *collectionDataSource;
-@property (nonatomic, copy, readwrite) NSString *titleString;
+@property (nonatomic, weak) IBOutlet UICollectionView *collection;
+
 @property (nonatomic, strong, readwrite) MGExploreCellViewModel *rowViewModel;
 @property (nonatomic, strong, readwrite) RACCommand *seeAllCommand;
 @property (nonatomic, strong, readwrite) RACCommand *didSelectedItemCommand;
+@property (nonatomic, strong, readwrite) NSArray *collectionDataSource;
+
 
 @end
 
@@ -40,22 +40,46 @@ UICollectionViewDelegateFlowLayout>
 - (void)awakeFromNib{
     
     [super awakeFromNib];
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MGExploreCollectionViewCell class])
-                                                    bundle:nil]
+    [self.collection registerNib:[UINib nibWithNibName:NSStringFromClass([MGExploreCollectionViewCell class])
+                                                bundle:nil]
           forCellWithReuseIdentifier:MGExploreCollectionViewCellImageAndDesc];
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MGExploreCollectionViewDefaultCell class])
-                                                    bundle:nil]
+    [self.collection registerNib:[UINib nibWithNibName:NSStringFromClass([MGExploreCollectionViewDefaultCell class])
+                                                bundle:nil]
           forCellWithReuseIdentifier:MGExploreCollectionViewCellDefault];
-    
+
     self.seeAllButton.rac_command = self.seeAllCommand;
 }
 
 - (void)bindViewModel:(id)viewModel{
     
-    MGExploreCellViewModel *rowViewModel = viewModel;
-    self.rowViewModel = rowViewModel;
-    self.titleLabel.text = rowViewModel.titleString;
-    self.collectionDataSource = rowViewModel.dataSource;
+    self.rowViewModel = viewModel;
+    self.titleLabel.text = self.rowViewModel.titleString;
+    self.collectionDataSource = self.rowViewModel.dataSource;
+    
+    [[self.seeAllCommand.executionSignals.switchToLatest
+      takeUntil:self.rac_prepareForReuseSignal] subscribeNext:^(NSNumber *rowType) {
+        NSLog(@"查看全部%@",rowType);
+    }];
+
+//   [[self.didSelectedItemCommand.executionSignals.switchToLatest
+//        takeUntil:self.rac_prepareForReuseSignal] subscribeNext:^(RACTuple *tucple) {
+//        MGExploreCellViewModel *rowViewModel = [tucple first];
+//        NSIndexPath *indexPath = [tucple last];
+//        NSLog(@"选中%@",indexPath);
+////        if (rowViewModel.rowType == MGExploreRowForPopularUsers) {
+////            OCTUser *user=rowViewModel.dataSource[indexPath.item];
+////            MGUserDetailViewModel *userDetailViewModel = [[MGUserDetailViewModel alloc]
+////                                                         initWithParams:@{kNavigationTitle:user.name,
+////                                                                          kUserDetailViewModelParamsKeyForUser:user}];
+////            [MGSharedDelegate.viewModelBased pushViewModel:userDetailViewModel animated:YES];
+////       }else{
+////            MGRepositoriesModel *repo=rowViewModel.dataSource[indexPath.item];
+////            MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
+////                                                initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.owner.login,
+////                                                                 kRepoDetailParamsKeyForRepoName:repo.name}];
+////            [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
+////       }
+//   }];
 }
 + (CGFloat)cellHeight{
     
@@ -65,12 +89,12 @@ UICollectionViewDelegateFlowLayout>
 #pragma mark - Delegate Method
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
-    return 1;
+    return 0;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section{
     
-    return 10;
+    return 0;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{

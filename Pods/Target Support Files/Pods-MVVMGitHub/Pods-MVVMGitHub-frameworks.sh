@@ -98,6 +98,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/HMSegmentedControl/HMSegmentedControl.framework"
   install_framework "$BUILT_PRODUCTS_DIR/IQKeyboardManager/IQKeyboardManager.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ISO8601DateFormatter/ISO8601DateFormatter.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/JSONKit-NoWarning/JSONKit_NoWarning.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MJExtension/MJExtension.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MJRefresh/MJRefresh.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MLeaksFinder/MLeaksFinder.framework"
@@ -116,7 +117,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/UIView+Borders/UIView_Borders.framework"
   install_framework "$BUILT_PRODUCTS_DIR/WMPageController/WMPageController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/WebViewJavascriptBridge/WebViewJavascriptBridge.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYCache/YYCache.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/YYKit/YYKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
@@ -128,6 +129,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/HMSegmentedControl/HMSegmentedControl.framework"
   install_framework "$BUILT_PRODUCTS_DIR/IQKeyboardManager/IQKeyboardManager.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ISO8601DateFormatter/ISO8601DateFormatter.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/JSONKit-NoWarning/JSONKit_NoWarning.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MJExtension/MJExtension.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MJRefresh/MJRefresh.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MLeaksFinder/MLeaksFinder.framework"
@@ -146,7 +148,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/UIView+Borders/UIView_Borders.framework"
   install_framework "$BUILT_PRODUCTS_DIR/WMPageController/WMPageController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/WebViewJavascriptBridge/WebViewJavascriptBridge.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/YYCache/YYCache.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/YYKit/YYKit.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

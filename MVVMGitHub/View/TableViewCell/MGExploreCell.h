@@ -14,20 +14,9 @@
 @interface MGExploreCell : UITableViewCell<MGReactiveViewProtocol>
 
 @property (nonatomic, strong, readonly) RACCommand *seeAllCommand;
-
 @property (nonatomic, strong, readonly) RACCommand *didSelectedItemCommand;
-
-@property (nonatomic, copy, readonly) NSString *titleString;
-
-@property (nonatomic, strong, readonly) NSArray *collectionDataSource;
-
 @property (nonatomic, strong, readonly) MGExploreCellViewModel *rowViewModel;
-
-
-+ (instancetype)configExploreCell:(UITableView *)tableView
-                  reuseIdentifier:(NSString *)reuseIdentifier
-                     rowViewModel:(MGExploreCellViewModel *)rowViewModel;
-
+@property (nonatomic, strong, readonly) NSArray *collectionDataSource;
 
 + (CGFloat)cellHeight;
 

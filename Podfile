@@ -17,9 +17,8 @@ target 'MVVMGitHub' do
         pod 'SDCycleScrollView',        '~> 1.65'
         pod 'HMSegmentedControl',       '~> 1.5.2'
         pod 'OctoKit',                  '~> 0.5'
-        #pod 'YYKit',                    '~> 1.0.7'
+        pod 'YYKit',                    '~> 1.0.7'
         pod 'SAMKeychain',              '~> 1.5.2'
-        pod 'YYCache',                  '~> 1.0.3'
         pod 'IQKeyboardManager',        '~> 4.0.4'
         pod 'SDVersion',                '~> 3.6'
         pod 'MLeaksFinder',             '~> 0.2.1'
@@ -29,4 +28,5 @@ target 'MVVMGitHub' do
         pod 'MMMarkdown',               '~> 0.5.5'
         pod 'UIView+Borders',           '~> 0.0.2'
         pod 'WMPageController',         '~> 2.2.1'
+        pod 'JSONKit-NoWarning',        '~> 1.2'
 end

@@ -11,9 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MGExploreCell">
             <connections>
-                <outlet property="collectionView" destination="zKA-LC-0mM" id="O4c-WM-67E"/>
-                <outlet property="seeAllButton" destination="4YL-lZ-d7a" id="nVS-Ct-Le0"/>
-                <outlet property="titleLabel" destination="mql-Bc-w3k" id="Rei-GY-6Uh"/>
+                <outlet property="collection" destination="zKA-LC-0mM" id="xaM-7n-ddD"/>
+                <outlet property="seeAllButton" destination="4YL-lZ-d7a" id="AaF-2A-ePF"/>
+                <outlet property="titleLabel" destination="mql-Bc-w3k" id="OFQ-wV-kbr"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -45,10 +45,6 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <connections>
-                                    <outlet property="dataSource" destination="-1" id="BPC-ZZ-lQp"/>
-                                    <outlet property="delegate" destination="-1" id="uYc-75-rwf"/>
-                                </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mql-Bc-w3k">
                                 <rect key="frame" x="5" y="3" width="305" height="35"/>

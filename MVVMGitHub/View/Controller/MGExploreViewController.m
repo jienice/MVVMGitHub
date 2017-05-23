@@ -15,16 +15,14 @@
 #import "MGRepoDetailViewModel.h"
 #import "MGUserDetailViewModel.h"
 #import "MGSearchViewModel.h"
+#import "MGTableViewBinder.h"
 
 @interface MGExploreViewController ()
-<UITableViewDelegate,
-UITableViewDataSource,
-SDCycleScrollViewDelegate>
+<SDCycleScrollViewDelegate>
 
 @property (nonatomic, weak, readwrite) MGExploreViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
-
-
+@property (nonatomic, strong) MGTableViewBinder *tableViewBinder;
 @end
 
 @implementation MGExploreViewController
@@ -53,72 +51,21 @@ SDCycleScrollViewDelegate>
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
-    
-    [[[[RACObserve(self, viewModel.fetchDataFromServiceSuccess) filter:^BOOL(NSNumber *value) {
-        return [value boolValue];
-    }] deliverOn:[RACScheduler mainThreadScheduler]] doNext:^(id x) {
-        if ([self.tableView.mj_header isRefreshing]) {
-            [self.tableView.mj_header endRefreshing];
-        }
-    }]subscribeNext:^(id x) {
+    [self.viewModel.requestShowcasesCommand.executionSignals.switchToLatest subscribeNext:^(NSArray *x) {
         @strongify(self);
-        [self.tableView reloadData];
-        NSArray *cycleScrollViewDataSource = [[[[self.viewModel.dataSourceDict valueForKey:kShowcasesDataSourceArrayKey] rac_sequence]
-                                               map:^id(MGShowcasesModel *showcase) {
+        NSArray *cycleScrollViewDataSource = [[[x rac_sequence] map:^id(MGShowcasesModel *showcase) {
             return showcase.image_url;
         }] array];
         SDCycleScrollView *cycleScrollView = (SDCycleScrollView *)self.tableView.tableHeaderView;
         [cycleScrollView setImageURLStringsGroup:cycleScrollViewDataSource];
     }];
+    
 }
 #pragma mark - Load Data
 
 #pragma mark - Touch Action
 
 #pragma mark - Delegate Method
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 1;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return [self.viewModel.dataSourceDict allKeys].count-1;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    MGExploreCell *cell = [MGExploreCell configExploreCell:tableView
-                                           reuseIdentifier:NSStringFromClass([MGExploreCell class])
-                                              rowViewModel:[self.viewModel configExploreRowViewModel:indexPath.row]];
-    [[cell.seeAllCommand.executionSignals.switchToLatest
-      takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(NSNumber *rowType) {
-        NSLog(@"查看全部%@",rowType);
-    }];
-    
-    [[cell.didSelectedItemCommand.executionSignals.switchToLatest
-      takeUntil:cell.rac_prepareForReuseSignal] subscribeNext:^(RACTuple *tucple) {
-        MGExploreCellViewModel *rowViewModel = [tucple first];
-        NSIndexPath *indexPath = [tucple last];
-        NSLog(@"选中%@",indexPath);
-        if (rowViewModel.rowType == MGExploreRowForPopularUsers) {
-            OCTUser *user=rowViewModel.dataSource[indexPath.item];
-            MGUserDetailViewModel *userDetailViewModel = [[MGUserDetailViewModel alloc]
-                                                          initWithParams:@{kNavigationTitle:user.name,
-                                                                           kUserDetailViewModelParamsKeyForUser:user}];
-            [MGSharedDelegate.viewModelBased pushViewModel:userDetailViewModel animated:YES];
-        }else{
-            MGRepositoriesModel *repo=rowViewModel.dataSource[indexPath.item];
-            MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
-                                                 initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.owner.login,
-                                                                  kRepoDetailParamsKeyForRepoName:repo.name}];
-            [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
-        }
-    }];
-    return cell;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return [MGExploreCell cellHeight];
-}
 
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
@@ -126,24 +73,34 @@ SDCycleScrollViewDelegate>
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MGSCREEN_WIDTH, MGSCREEN_HEIGHT)
                                                  style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self.viewModel.fetchDataFromServiceCommand
                                                                 refreshingAction:@selector(execute:)];
         SDCycleScrollView *cycleScrollView = [self cycleScrollView];
         _tableView.tableHeaderView.frame = cycleScrollView.bounds;
         _tableView.tableHeaderView = cycleScrollView;
+        self.tableViewBinder = ({
+            MGTableViewBinder *tableViewBinder = [MGTableViewBinder binderWithTable:_tableView];
+            [tableViewBinder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest];
+            [tableViewBinder setReuseXibCellClass:@[[MGExploreCell class]]];
+            [tableViewBinder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
+                return NSStringFromClass([MGExploreCell class]);
+            }];
+            [tableViewBinder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
+                return [MGExploreCell cellHeight];
+            }];
+            tableViewBinder;
+        });
     }
     return _tableView;
 }
+
 - (SDCycleScrollView *)cycleScrollView{
     
     CGRect cycleScrollViewFrame = CGRectMake(0, 0, MGSCREEN_WIDTH, 150);
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:cycleScrollViewFrame
-                                                          delegate:self
-                                                  placeholderImage:nil];
+                                                                            delegate:self
+                                                                    placeholderImage:nil];
     cycleScrollView.backgroundColor = [UIColor greenColor];
-
     return cycleScrollView;
 }
 @end
