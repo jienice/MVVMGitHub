@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MGViewControllerProtocol.h"
+
 
 @class MGMainViewModel;
 

@@ -44,7 +44,7 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[[[MGApiImpl sharedApiImpl] fetchRepoDetaiWithOwner:self.repoOwner
-                                      repoName:self.repoName]doNext:^(NSDictionary *repoDic) {
+                                                           repoName:self.repoName] doNext:^(NSDictionary *repoDic) {
             @strongify(self);
             self.repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
         }] finally:^{

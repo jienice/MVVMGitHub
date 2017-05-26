@@ -10,6 +10,19 @@
 		A002953D1E2F601B004AC90E /* MGRepositoriesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953C1E2F601B004AC90E /* MGRepositoriesModel.m */; };
 		A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */; };
 		A00295471E30587C004AC90E /* github_language_name_slug.plist in Resources */ = {isa = PBXBuildFile; fileRef = A00295461E30587C004AC90E /* github_language_name_slug.plist */; };
+		A01833A71ED6B810003E5D1C /* UILabel+MGAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833A61ED6B810003E5D1C /* UILabel+MGAdd.m */; };
+		A01833AB1ED6BAF0003E5D1C /* MGExploreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833A91ED6BAF0003E5D1C /* MGExploreTableViewCell.m */; };
+		A01833AC1ED6BAF0003E5D1C /* MGExploreTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A01833AA1ED6BAF0003E5D1C /* MGExploreTableViewCell.xib */; };
+		A01833B01ED6BBAF003E5D1C /* MGExploreCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833AF1ED6BBAF003E5D1C /* MGExploreCellViewModel.m */; };
+		A01833C71ED6BBF9003E5D1C /* MGCreateRepoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833B31ED6BBF9003E5D1C /* MGCreateRepoViewModel.m */; };
+		A01833C91ED6BBF9003E5D1C /* MGExploreViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833B71ED6BBF9003E5D1C /* MGExploreViewModel.m */; };
+		A01833CA1ED6BBF9003E5D1C /* MGLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833B91ED6BBF9003E5D1C /* MGLoginViewModel.m */; };
+		A01833CB1ED6BBF9003E5D1C /* MGMainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833BB1ED6BBF9003E5D1C /* MGMainViewModel.m */; };
+		A01833CC1ED6BBF9003E5D1C /* MGProfileViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833BD1ED6BBF9003E5D1C /* MGProfileViewModel.m */; };
+		A01833CD1ED6BBF9003E5D1C /* MGRepoDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833BF1ED6BBF9003E5D1C /* MGRepoDetailViewModel.m */; };
+		A01833CE1ED6BBF9003E5D1C /* MGRepositoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833C11ED6BBF9003E5D1C /* MGRepositoryViewModel.m */; };
+		A01833CF1ED6BBF9003E5D1C /* MGSearchViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833C31ED6BBF9003E5D1C /* MGSearchViewModel.m */; };
+		A01833D01ED6BBF9003E5D1C /* MGUserDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A01833C61ED6BBF9003E5D1C /* MGUserDetailViewModel.m */; };
 		A01D510F1E5BE41B002E9925 /* MGViewModelBasedNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D510E1E5BE41B002E9925 /* MGViewModelBasedNavigation.m */; };
 		A01D51391E5D6AA9002E9925 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = A01D51381E5D6AA9002E9925 /* UIView+Extension.m */; };
 		A027E61B1E3E3CBA00641D2A /* NSString+MGUitl.m in Sources */ = {isa = PBXBuildFile; fileRef = A027E6151E3E3CBA00641D2A /* NSString+MGUitl.m */; };
@@ -26,23 +39,20 @@
 		A06DD5A41ED3D14300082DA4 /* MGApiImpl+MGSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = A06DD59D1ED3D14300082DA4 /* MGApiImpl+MGSearch.m */; };
 		A06DD5A51ED3D14300082DA4 /* MGApiImpl+MGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A06DD59F1ED3D14300082DA4 /* MGApiImpl+MGUser.m */; };
 		A06DD5A91ED3D26800082DA4 /* MGApiImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = A06DD5A81ED3D26800082DA4 /* MGApiImpl.m */; };
+		A06F45D31ED824D400C0DEFE /* MGExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45BE1ED824D400C0DEFE /* MGExploreViewController.m */; };
+		A06F45D41ED824D400C0DEFE /* MGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45C11ED824D400C0DEFE /* MGLoginViewController.m */; };
+		A06F45D51ED824D400C0DEFE /* MGProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45C41ED824D400C0DEFE /* MGProfileViewController.m */; };
+		A06F45D61ED824D400C0DEFE /* MGCreateRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45C71ED824D400C0DEFE /* MGCreateRepoViewController.m */; };
+		A06F45D71ED824D400C0DEFE /* MGRepoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45C91ED824D400C0DEFE /* MGRepoDetailViewController.m */; };
+		A06F45D81ED824D400C0DEFE /* MGRepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45CB1ED824D400C0DEFE /* MGRepositoryViewController.m */; };
+		A06F45D91ED824D400C0DEFE /* MGSearchRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45CE1ED824D400C0DEFE /* MGSearchRepoViewController.m */; };
+		A06F45DA1ED824D400C0DEFE /* MGSearchUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45D01ED824D400C0DEFE /* MGSearchUserViewController.m */; };
+		A06F45DB1ED824D400C0DEFE /* MGSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45D21ED824D400C0DEFE /* MGSearchViewController.m */; };
+		A06F45DF1ED824ED00C0DEFE /* MGMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06F45DE1ED824ED00C0DEFE /* MGMainViewController.m */; };
 		A080AE0F1E34B54400402510 /* MGViewModelMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE0E1E34B54400402510 /* MGViewModelMapper.m */; };
 		A0A2F76B1E422B8800F19F22 /* SAMKeychain+MGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */; };
 		A0A815141ED4092A004678CD /* MGTableViewBinder.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A815131ED4092A004678CD /* MGTableViewBinder.m */; };
-		A0B748331E64187A00A86AE2 /* UIButton+MGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0B748321E64187A00A86AE2 /* UIButton+MGButton.m */; };
-		A0C0A5C31EA0765000F44F94 /* MGCreateRepoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5B01EA0765000F44F94 /* MGCreateRepoViewModel.m */; };
-		A0C0A5C41EA0765000F44F94 /* MGExploreViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5B21EA0765000F44F94 /* MGExploreViewModel.m */; };
-		A0C0A5C51EA0765000F44F94 /* MGLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5B41EA0765000F44F94 /* MGLoginViewModel.m */; };
-		A0C0A5C61EA0765000F44F94 /* MGMainViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5B61EA0765000F44F94 /* MGMainViewModel.m */; };
-		A0C0A5C71EA0765000F44F94 /* MGProfileViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5B81EA0765000F44F94 /* MGProfileViewModel.m */; };
-		A0C0A5C81EA0765000F44F94 /* MGRepoDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5BA1EA0765000F44F94 /* MGRepoDetailViewModel.m */; };
-		A0C0A5C91EA0765000F44F94 /* MGRepositoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5BC1EA0765000F44F94 /* MGRepositoryViewModel.m */; };
-		A0C0A5CA1EA0765000F44F94 /* MGSearchViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5BE1EA0765000F44F94 /* MGSearchViewModel.m */; };
-		A0C0A5CB1EA0765000F44F94 /* MGUserDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A5C01EA0765000F44F94 /* MGUserDetailViewModel.m */; };
 		A0C0A6111EA0AF7800F44F94 /* MGViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6101EA0AF7800F44F94 /* MGViewModel.m */; };
-		A0C0A61F1EA0C0BB00F44F94 /* MGExploreCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A61E1EA0C0BB00F44F94 /* MGExploreCellViewModel.m */; };
-		A0C0A62F1EA0C24C00F44F94 /* MGExploreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6221EA0C24C00F44F94 /* MGExploreCell.m */; };
-		A0C0A6301EA0C24C00F44F94 /* MGExploreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0C0A6231EA0C24C00F44F94 /* MGExploreCell.xib */; };
 		A0C0A6311EA0C24C00F44F94 /* MGExploreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6251EA0C24C00F44F94 /* MGExploreCollectionViewCell.m */; };
 		A0C0A6321EA0C24C00F44F94 /* MGExploreCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0C0A6261EA0C24C00F44F94 /* MGExploreCollectionViewCell.xib */; };
 		A0C0A6331EA0C24C00F44F94 /* MGExploreCollectionViewDefaultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6281EA0C24C00F44F94 /* MGExploreCollectionViewDefaultCell.m */; };
@@ -52,17 +62,7 @@
 		A0C0A6371EA0C24C00F44F94 /* MGRepositoriesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A62E1EA0C24C00F44F94 /* MGRepositoriesCell.m */; };
 		A0C0A6411EA0C2A300F44F94 /* MGRepoDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A63E1EA0C2A300F44F94 /* MGRepoDetailHeaderView.m */; };
 		A0C0A6421EA0C2A300F44F94 /* MGUserDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6401EA0C2A300F44F94 /* MGUserDetailHeaderView.m */; };
-		A0C0A6601EA0C2DD00F44F94 /* MGCreateRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6451EA0C2DD00F44F94 /* MGCreateRepoViewController.m */; };
-		A0C0A6611EA0C2DD00F44F94 /* MGExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6471EA0C2DD00F44F94 /* MGExploreViewController.m */; };
-		A0C0A6621EA0C2DD00F44F94 /* MGLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6491EA0C2DD00F44F94 /* MGLoginViewController.m */; };
-		A0C0A6631EA0C2DD00F44F94 /* MGMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A64B1EA0C2DD00F44F94 /* MGMainViewController.m */; };
 		A0C0A6641EA0C2DD00F44F94 /* MGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A64D1EA0C2DD00F44F94 /* MGNavigationController.m */; };
-		A0C0A6651EA0C2DD00F44F94 /* MGProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A64F1EA0C2DD00F44F94 /* MGProfileViewController.m */; };
-		A0C0A6661EA0C2DD00F44F94 /* MGRepoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6521EA0C2DD00F44F94 /* MGRepoDetailViewController.m */; };
-		A0C0A6671EA0C2DD00F44F94 /* MGRepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6541EA0C2DD00F44F94 /* MGRepositoryViewController.m */; };
-		A0C0A6681EA0C2DD00F44F94 /* MGSearchRepoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6561EA0C2DD00F44F94 /* MGSearchRepoViewController.m */; };
-		A0C0A6691EA0C2DD00F44F94 /* MGSearchUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A6581EA0C2DD00F44F94 /* MGSearchUserViewController.m */; };
-		A0C0A66A1EA0C2DD00F44F94 /* MGSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A65A1EA0C2DD00F44F94 /* MGSearchViewController.m */; };
 		A0C0A66B1EA0C2DD00F44F94 /* MGUserDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A65C1EA0C2DD00F44F94 /* MGUserDetailViewController.m */; };
 		A0C0A66C1EA0C2DD00F44F94 /* MGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A65E1EA0C2DD00F44F94 /* MGViewController.m */; };
 		A0D3DA481E56D27E00337EF7 /* WKWebView+MGWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */; };
@@ -93,6 +93,32 @@
 		A002953E1E2F63CE004AC90E /* MGShowcasesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGShowcasesModel.h; sourceTree = "<group>"; };
 		A002953F1E2F63CE004AC90E /* MGShowcasesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGShowcasesModel.m; sourceTree = "<group>"; };
 		A00295461E30587C004AC90E /* github_language_name_slug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = github_language_name_slug.plist; sourceTree = "<group>"; };
+		A01833A51ED6B810003E5D1C /* UILabel+MGAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+MGAdd.h"; sourceTree = "<group>"; };
+		A01833A61ED6B810003E5D1C /* UILabel+MGAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+MGAdd.m"; sourceTree = "<group>"; };
+		A01833A81ED6BAF0003E5D1C /* MGExploreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreTableViewCell.h; sourceTree = "<group>"; };
+		A01833A91ED6BAF0003E5D1C /* MGExploreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreTableViewCell.m; sourceTree = "<group>"; };
+		A01833AA1ED6BAF0003E5D1C /* MGExploreTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreTableViewCell.xib; sourceTree = "<group>"; };
+		A01833AE1ED6BBAF003E5D1C /* MGExploreCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCellViewModel.h; sourceTree = "<group>"; };
+		A01833AF1ED6BBAF003E5D1C /* MGExploreCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCellViewModel.m; sourceTree = "<group>"; };
+		A01833B21ED6BBF9003E5D1C /* MGCreateRepoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCreateRepoViewModel.h; sourceTree = "<group>"; };
+		A01833B31ED6BBF9003E5D1C /* MGCreateRepoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCreateRepoViewModel.m; sourceTree = "<group>"; };
+		A01833B61ED6BBF9003E5D1C /* MGExploreViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreViewModel.h; sourceTree = "<group>"; };
+		A01833B71ED6BBF9003E5D1C /* MGExploreViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewModel.m; sourceTree = "<group>"; };
+		A01833B81ED6BBF9003E5D1C /* MGLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLoginViewModel.h; sourceTree = "<group>"; };
+		A01833B91ED6BBF9003E5D1C /* MGLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLoginViewModel.m; sourceTree = "<group>"; };
+		A01833BA1ED6BBF9003E5D1C /* MGMainViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMainViewModel.h; sourceTree = "<group>"; };
+		A01833BB1ED6BBF9003E5D1C /* MGMainViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMainViewModel.m; sourceTree = "<group>"; };
+		A01833BC1ED6BBF9003E5D1C /* MGProfileViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGProfileViewModel.h; sourceTree = "<group>"; };
+		A01833BD1ED6BBF9003E5D1C /* MGProfileViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGProfileViewModel.m; sourceTree = "<group>"; };
+		A01833BE1ED6BBF9003E5D1C /* MGRepoDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepoDetailViewModel.h; sourceTree = "<group>"; };
+		A01833BF1ED6BBF9003E5D1C /* MGRepoDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailViewModel.m; sourceTree = "<group>"; };
+		A01833C01ED6BBF9003E5D1C /* MGRepositoryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoryViewModel.h; sourceTree = "<group>"; };
+		A01833C11ED6BBF9003E5D1C /* MGRepositoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoryViewModel.m; sourceTree = "<group>"; };
+		A01833C21ED6BBF9003E5D1C /* MGSearchViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchViewModel.h; sourceTree = "<group>"; };
+		A01833C31ED6BBF9003E5D1C /* MGSearchViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchViewModel.m; sourceTree = "<group>"; };
+		A01833C51ED6BBF9003E5D1C /* MGUserDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserDetailViewModel.h; sourceTree = "<group>"; };
+		A01833C61ED6BBF9003E5D1C /* MGUserDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserDetailViewModel.m; sourceTree = "<group>"; };
+		A01833D11ED6BC16003E5D1C /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
 		A01D510D1E5BE41B002E9925 /* MGViewModelBasedNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelBasedNavigation.h; sourceTree = "<group>"; };
 		A01D510E1E5BE41B002E9925 /* MGViewModelBasedNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelBasedNavigation.m; sourceTree = "<group>"; };
 		A01D51371E5D6AA9002E9925 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -127,42 +153,36 @@
 		A06DD59F1ED3D14300082DA4 /* MGApiImpl+MGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGApiImpl+MGUser.m"; sourceTree = "<group>"; };
 		A06DD5A71ED3D26800082DA4 /* MGApiImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGApiImpl.h; sourceTree = "<group>"; };
 		A06DD5A81ED3D26800082DA4 /* MGApiImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGApiImpl.m; sourceTree = "<group>"; };
+		A06F45BD1ED824D400C0DEFE /* MGExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreViewController.h; sourceTree = "<group>"; };
+		A06F45BE1ED824D400C0DEFE /* MGExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewController.m; sourceTree = "<group>"; };
+		A06F45C01ED824D400C0DEFE /* MGLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLoginViewController.h; sourceTree = "<group>"; };
+		A06F45C11ED824D400C0DEFE /* MGLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLoginViewController.m; sourceTree = "<group>"; };
+		A06F45C31ED824D400C0DEFE /* MGProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGProfileViewController.h; sourceTree = "<group>"; };
+		A06F45C41ED824D400C0DEFE /* MGProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGProfileViewController.m; sourceTree = "<group>"; };
+		A06F45C61ED824D400C0DEFE /* MGCreateRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCreateRepoViewController.h; sourceTree = "<group>"; };
+		A06F45C71ED824D400C0DEFE /* MGCreateRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCreateRepoViewController.m; sourceTree = "<group>"; };
+		A06F45C81ED824D400C0DEFE /* MGRepoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepoDetailViewController.h; sourceTree = "<group>"; };
+		A06F45C91ED824D400C0DEFE /* MGRepoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailViewController.m; sourceTree = "<group>"; };
+		A06F45CA1ED824D400C0DEFE /* MGRepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoryViewController.h; sourceTree = "<group>"; };
+		A06F45CB1ED824D400C0DEFE /* MGRepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoryViewController.m; sourceTree = "<group>"; };
+		A06F45CD1ED824D400C0DEFE /* MGSearchRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchRepoViewController.h; sourceTree = "<group>"; };
+		A06F45CE1ED824D400C0DEFE /* MGSearchRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchRepoViewController.m; sourceTree = "<group>"; };
+		A06F45CF1ED824D400C0DEFE /* MGSearchUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchUserViewController.h; sourceTree = "<group>"; };
+		A06F45D01ED824D400C0DEFE /* MGSearchUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchUserViewController.m; sourceTree = "<group>"; };
+		A06F45D11ED824D400C0DEFE /* MGSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchViewController.h; sourceTree = "<group>"; };
+		A06F45D21ED824D400C0DEFE /* MGSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchViewController.m; sourceTree = "<group>"; };
+		A06F45DD1ED824ED00C0DEFE /* MGMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMainViewController.h; sourceTree = "<group>"; };
+		A06F45DE1ED824ED00C0DEFE /* MGMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMainViewController.m; sourceTree = "<group>"; };
 		A080AE0D1E34B54400402510 /* MGViewModelMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelMapper.h; sourceTree = "<group>"; };
 		A080AE0E1E34B54400402510 /* MGViewModelMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelMapper.m; sourceTree = "<group>"; };
 		A0A2F7691E422B8800F19F22 /* SAMKeychain+MGUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SAMKeychain+MGUser.h"; sourceTree = "<group>"; };
 		A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SAMKeychain+MGUser.m"; sourceTree = "<group>"; };
 		A0A815121ED4092A004678CD /* MGTableViewBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewBinder.h; sourceTree = "<group>"; };
 		A0A815131ED4092A004678CD /* MGTableViewBinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTableViewBinder.m; sourceTree = "<group>"; };
-		A0B748311E64187A00A86AE2 /* UIButton+MGButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+MGButton.h"; sourceTree = "<group>"; };
-		A0B748321E64187A00A86AE2 /* UIButton+MGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+MGButton.m"; sourceTree = "<group>"; };
-		A0C0A5AF1EA0765000F44F94 /* MGCreateRepoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCreateRepoViewModel.h; sourceTree = "<group>"; };
-		A0C0A5B01EA0765000F44F94 /* MGCreateRepoViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCreateRepoViewModel.m; sourceTree = "<group>"; };
-		A0C0A5B11EA0765000F44F94 /* MGExploreViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreViewModel.h; sourceTree = "<group>"; };
-		A0C0A5B21EA0765000F44F94 /* MGExploreViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewModel.m; sourceTree = "<group>"; };
-		A0C0A5B31EA0765000F44F94 /* MGLoginViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLoginViewModel.h; sourceTree = "<group>"; };
-		A0C0A5B41EA0765000F44F94 /* MGLoginViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLoginViewModel.m; sourceTree = "<group>"; };
-		A0C0A5B51EA0765000F44F94 /* MGMainViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMainViewModel.h; sourceTree = "<group>"; };
-		A0C0A5B61EA0765000F44F94 /* MGMainViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMainViewModel.m; sourceTree = "<group>"; };
-		A0C0A5B71EA0765000F44F94 /* MGProfileViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGProfileViewModel.h; sourceTree = "<group>"; };
-		A0C0A5B81EA0765000F44F94 /* MGProfileViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGProfileViewModel.m; sourceTree = "<group>"; };
-		A0C0A5B91EA0765000F44F94 /* MGRepoDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepoDetailViewModel.h; sourceTree = "<group>"; };
-		A0C0A5BA1EA0765000F44F94 /* MGRepoDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailViewModel.m; sourceTree = "<group>"; };
-		A0C0A5BB1EA0765000F44F94 /* MGRepositoryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoryViewModel.h; sourceTree = "<group>"; };
-		A0C0A5BC1EA0765000F44F94 /* MGRepositoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoryViewModel.m; sourceTree = "<group>"; };
-		A0C0A5BD1EA0765000F44F94 /* MGSearchViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchViewModel.h; sourceTree = "<group>"; };
-		A0C0A5BE1EA0765000F44F94 /* MGSearchViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchViewModel.m; sourceTree = "<group>"; };
-		A0C0A5BF1EA0765000F44F94 /* MGUserDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserDetailViewModel.h; sourceTree = "<group>"; };
-		A0C0A5C01EA0765000F44F94 /* MGUserDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserDetailViewModel.m; sourceTree = "<group>"; };
 		A0C0A5EF1EA0770600F44F94 /* MGViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelProtocol.h; sourceTree = "<group>"; };
 		A0C0A5F01EA0779A00F44F94 /* MGNavigationControllerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGNavigationControllerProtocol.h; sourceTree = "<group>"; };
 		A0C0A60F1EA0AF7800F44F94 /* MGViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModel.h; sourceTree = "<group>"; };
 		A0C0A6101EA0AF7800F44F94 /* MGViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModel.m; sourceTree = "<group>"; };
-		A0C0A6191EA0B53A00F44F94 /* MGTableViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableViewModelProtocol.h; sourceTree = "<group>"; };
-		A0C0A61D1EA0C0BB00F44F94 /* MGExploreCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCellViewModel.h; sourceTree = "<group>"; };
-		A0C0A61E1EA0C0BB00F44F94 /* MGExploreCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCellViewModel.m; sourceTree = "<group>"; };
-		A0C0A6211EA0C24C00F44F94 /* MGExploreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCell.h; sourceTree = "<group>"; };
-		A0C0A6221EA0C24C00F44F94 /* MGExploreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCell.m; sourceTree = "<group>"; };
-		A0C0A6231EA0C24C00F44F94 /* MGExploreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCell.xib; sourceTree = "<group>"; };
 		A0C0A6241EA0C24C00F44F94 /* MGExploreCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreCollectionViewCell.h; sourceTree = "<group>"; };
 		A0C0A6251EA0C24C00F44F94 /* MGExploreCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreCollectionViewCell.m; sourceTree = "<group>"; };
 		A0C0A6261EA0C24C00F44F94 /* MGExploreCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGExploreCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -178,28 +198,8 @@
 		A0C0A63E1EA0C2A300F44F94 /* MGRepoDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailHeaderView.m; sourceTree = "<group>"; };
 		A0C0A63F1EA0C2A300F44F94 /* MGUserDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserDetailHeaderView.h; sourceTree = "<group>"; };
 		A0C0A6401EA0C2A300F44F94 /* MGUserDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserDetailHeaderView.m; sourceTree = "<group>"; };
-		A0C0A6441EA0C2DD00F44F94 /* MGCreateRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCreateRepoViewController.h; sourceTree = "<group>"; };
-		A0C0A6451EA0C2DD00F44F94 /* MGCreateRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCreateRepoViewController.m; sourceTree = "<group>"; };
-		A0C0A6461EA0C2DD00F44F94 /* MGExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGExploreViewController.h; sourceTree = "<group>"; };
-		A0C0A6471EA0C2DD00F44F94 /* MGExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGExploreViewController.m; sourceTree = "<group>"; };
-		A0C0A6481EA0C2DD00F44F94 /* MGLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLoginViewController.h; sourceTree = "<group>"; };
-		A0C0A6491EA0C2DD00F44F94 /* MGLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLoginViewController.m; sourceTree = "<group>"; };
-		A0C0A64A1EA0C2DD00F44F94 /* MGMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMainViewController.h; sourceTree = "<group>"; };
-		A0C0A64B1EA0C2DD00F44F94 /* MGMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMainViewController.m; sourceTree = "<group>"; };
 		A0C0A64C1EA0C2DD00F44F94 /* MGNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGNavigationController.h; sourceTree = "<group>"; };
 		A0C0A64D1EA0C2DD00F44F94 /* MGNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGNavigationController.m; sourceTree = "<group>"; };
-		A0C0A64E1EA0C2DD00F44F94 /* MGProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGProfileViewController.h; sourceTree = "<group>"; };
-		A0C0A64F1EA0C2DD00F44F94 /* MGProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGProfileViewController.m; sourceTree = "<group>"; };
-		A0C0A6511EA0C2DD00F44F94 /* MGRepoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepoDetailViewController.h; sourceTree = "<group>"; };
-		A0C0A6521EA0C2DD00F44F94 /* MGRepoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepoDetailViewController.m; sourceTree = "<group>"; };
-		A0C0A6531EA0C2DD00F44F94 /* MGRepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepositoryViewController.h; sourceTree = "<group>"; };
-		A0C0A6541EA0C2DD00F44F94 /* MGRepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRepositoryViewController.m; sourceTree = "<group>"; };
-		A0C0A6551EA0C2DD00F44F94 /* MGSearchRepoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchRepoViewController.h; sourceTree = "<group>"; };
-		A0C0A6561EA0C2DD00F44F94 /* MGSearchRepoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchRepoViewController.m; sourceTree = "<group>"; };
-		A0C0A6571EA0C2DD00F44F94 /* MGSearchUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchUserViewController.h; sourceTree = "<group>"; };
-		A0C0A6581EA0C2DD00F44F94 /* MGSearchUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchUserViewController.m; sourceTree = "<group>"; };
-		A0C0A6591EA0C2DD00F44F94 /* MGSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchViewController.h; sourceTree = "<group>"; };
-		A0C0A65A1EA0C2DD00F44F94 /* MGSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchViewController.m; sourceTree = "<group>"; };
 		A0C0A65B1EA0C2DD00F44F94 /* MGUserDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserDetailViewController.h; sourceTree = "<group>"; };
 		A0C0A65C1EA0C2DD00F44F94 /* MGUserDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserDetailViewController.m; sourceTree = "<group>"; };
 		A0C0A65D1EA0C2DD00F44F94 /* MGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewController.h; sourceTree = "<group>"; };
@@ -255,6 +255,40 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A01833AD1ED6BB98003E5D1C /* CellViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A01833AE1ED6BBAF003E5D1C /* MGExploreCellViewModel.h */,
+				A01833AF1ED6BBAF003E5D1C /* MGExploreCellViewModel.m */,
+			);
+			path = CellViewModel;
+			sourceTree = "<group>";
+		};
+		A01833B11ED6BBF9003E5D1C /* ControllerViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A01833B21ED6BBF9003E5D1C /* MGCreateRepoViewModel.h */,
+				A01833B31ED6BBF9003E5D1C /* MGCreateRepoViewModel.m */,
+				A01833B61ED6BBF9003E5D1C /* MGExploreViewModel.h */,
+				A01833B71ED6BBF9003E5D1C /* MGExploreViewModel.m */,
+				A01833B81ED6BBF9003E5D1C /* MGLoginViewModel.h */,
+				A01833B91ED6BBF9003E5D1C /* MGLoginViewModel.m */,
+				A01833BA1ED6BBF9003E5D1C /* MGMainViewModel.h */,
+				A01833BB1ED6BBF9003E5D1C /* MGMainViewModel.m */,
+				A01833BC1ED6BBF9003E5D1C /* MGProfileViewModel.h */,
+				A01833BD1ED6BBF9003E5D1C /* MGProfileViewModel.m */,
+				A01833BE1ED6BBF9003E5D1C /* MGRepoDetailViewModel.h */,
+				A01833BF1ED6BBF9003E5D1C /* MGRepoDetailViewModel.m */,
+				A01833C01ED6BBF9003E5D1C /* MGRepositoryViewModel.h */,
+				A01833C11ED6BBF9003E5D1C /* MGRepositoryViewModel.m */,
+				A01833C21ED6BBF9003E5D1C /* MGSearchViewModel.h */,
+				A01833C31ED6BBF9003E5D1C /* MGSearchViewModel.m */,
+				A01833C51ED6BBF9003E5D1C /* MGUserDetailViewModel.h */,
+				A01833C61ED6BBF9003E5D1C /* MGUserDetailViewModel.m */,
+			);
+			path = ControllerViewModel;
+			sourceTree = "<group>";
+		};
 		A027E6111E3E3CBA00641D2A /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,8 +300,8 @@
 				A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */,
 				A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */,
 				A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */,
-				A0B748311E64187A00A86AE2 /* UIButton+MGButton.h */,
-				A0B748321E64187A00A86AE2 /* UIButton+MGButton.m */,
+				A01833A51ED6B810003E5D1C /* UILabel+MGAdd.h */,
+				A01833A61ED6B810003E5D1C /* UILabel+MGAdd.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -398,6 +432,68 @@
 			path = ApiImpl;
 			sourceTree = "<group>";
 		};
+		A06F45BC1ED824D400C0DEFE /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				A06F45BD1ED824D400C0DEFE /* MGExploreViewController.h */,
+				A06F45BE1ED824D400C0DEFE /* MGExploreViewController.m */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		A06F45BF1ED824D400C0DEFE /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A06F45C01ED824D400C0DEFE /* MGLoginViewController.h */,
+				A06F45C11ED824D400C0DEFE /* MGLoginViewController.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		A06F45C21ED824D400C0DEFE /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A06F45C31ED824D400C0DEFE /* MGProfileViewController.h */,
+				A06F45C41ED824D400C0DEFE /* MGProfileViewController.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		A06F45C51ED824D400C0DEFE /* Repo */ = {
+			isa = PBXGroup;
+			children = (
+				A06F45CA1ED824D400C0DEFE /* MGRepositoryViewController.h */,
+				A06F45CB1ED824D400C0DEFE /* MGRepositoryViewController.m */,
+				A06F45C81ED824D400C0DEFE /* MGRepoDetailViewController.h */,
+				A06F45C91ED824D400C0DEFE /* MGRepoDetailViewController.m */,
+				A06F45C61ED824D400C0DEFE /* MGCreateRepoViewController.h */,
+				A06F45C71ED824D400C0DEFE /* MGCreateRepoViewController.m */,
+			);
+			path = Repo;
+			sourceTree = "<group>";
+		};
+		A06F45CC1ED824D400C0DEFE /* Searach */ = {
+			isa = PBXGroup;
+			children = (
+				A06F45CD1ED824D400C0DEFE /* MGSearchRepoViewController.h */,
+				A06F45CE1ED824D400C0DEFE /* MGSearchRepoViewController.m */,
+				A06F45CF1ED824D400C0DEFE /* MGSearchUserViewController.h */,
+				A06F45D01ED824D400C0DEFE /* MGSearchUserViewController.m */,
+				A06F45D11ED824D400C0DEFE /* MGSearchViewController.h */,
+				A06F45D21ED824D400C0DEFE /* MGSearchViewController.m */,
+			);
+			path = Searach;
+			sourceTree = "<group>";
+		};
+		A06F45DC1ED824ED00C0DEFE /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				A06F45DD1ED824ED00C0DEFE /* MGMainViewController.h */,
+				A06F45DE1ED824ED00C0DEFE /* MGMainViewController.m */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		A0A815111ED4090A004678CD /* TableViewBinder */ = {
 			isa = PBXGroup;
 			children = (
@@ -411,29 +507,11 @@
 			isa = PBXGroup;
 			children = (
 				A0C0A5EF1EA0770600F44F94 /* MGViewModelProtocol.h */,
-				A0C0A6191EA0B53A00F44F94 /* MGTableViewModelProtocol.h */,
+				A01833D11ED6BC16003E5D1C /* MGTableViewModelProtocol.h */,
 				A0C0A60F1EA0AF7800F44F94 /* MGViewModel.h */,
 				A0C0A6101EA0AF7800F44F94 /* MGViewModel.m */,
-				A0C0A5B51EA0765000F44F94 /* MGMainViewModel.h */,
-				A0C0A5B61EA0765000F44F94 /* MGMainViewModel.m */,
-				A0C0A5B31EA0765000F44F94 /* MGLoginViewModel.h */,
-				A0C0A5B41EA0765000F44F94 /* MGLoginViewModel.m */,
-				A0C0A5B11EA0765000F44F94 /* MGExploreViewModel.h */,
-				A0C0A5B21EA0765000F44F94 /* MGExploreViewModel.m */,
-				A0C0A5B71EA0765000F44F94 /* MGProfileViewModel.h */,
-				A0C0A5B81EA0765000F44F94 /* MGProfileViewModel.m */,
-				A0C0A5BB1EA0765000F44F94 /* MGRepositoryViewModel.h */,
-				A0C0A5BC1EA0765000F44F94 /* MGRepositoryViewModel.m */,
-				A0C0A5AF1EA0765000F44F94 /* MGCreateRepoViewModel.h */,
-				A0C0A5B01EA0765000F44F94 /* MGCreateRepoViewModel.m */,
-				A0C0A5B91EA0765000F44F94 /* MGRepoDetailViewModel.h */,
-				A0C0A5BA1EA0765000F44F94 /* MGRepoDetailViewModel.m */,
-				A0C0A5BD1EA0765000F44F94 /* MGSearchViewModel.h */,
-				A0C0A5BE1EA0765000F44F94 /* MGSearchViewModel.m */,
-				A0C0A5BF1EA0765000F44F94 /* MGUserDetailViewModel.h */,
-				A0C0A5C01EA0765000F44F94 /* MGUserDetailViewModel.m */,
-				A0C0A61D1EA0C0BB00F44F94 /* MGExploreCellViewModel.h */,
-				A0C0A61E1EA0C0BB00F44F94 /* MGExploreCellViewModel.m */,
+				A01833B11ED6BBF9003E5D1C /* ControllerViewModel */,
+				A01833AD1ED6BB98003E5D1C /* CellViewModel */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -441,9 +519,9 @@
 		A0C0A6201EA0C24C00F44F94 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				A0C0A6211EA0C24C00F44F94 /* MGExploreCell.h */,
-				A0C0A6221EA0C24C00F44F94 /* MGExploreCell.m */,
-				A0C0A6231EA0C24C00F44F94 /* MGExploreCell.xib */,
+				A01833A81ED6BAF0003E5D1C /* MGExploreTableViewCell.h */,
+				A01833A91ED6BAF0003E5D1C /* MGExploreTableViewCell.m */,
+				A01833AA1ED6BAF0003E5D1C /* MGExploreTableViewCell.xib */,
 				A0C0A6241EA0C24C00F44F94 /* MGExploreCollectionViewCell.h */,
 				A0C0A6251EA0C24C00F44F94 /* MGExploreCollectionViewCell.m */,
 				A0C0A6261EA0C24C00F44F94 /* MGExploreCollectionViewCell.xib */,
@@ -475,28 +553,14 @@
 			children = (
 				A0C0A65D1EA0C2DD00F44F94 /* MGViewController.h */,
 				A0C0A65E1EA0C2DD00F44F94 /* MGViewController.m */,
-				A0C0A64A1EA0C2DD00F44F94 /* MGMainViewController.h */,
-				A0C0A64B1EA0C2DD00F44F94 /* MGMainViewController.m */,
-				A0C0A6461EA0C2DD00F44F94 /* MGExploreViewController.h */,
-				A0C0A6471EA0C2DD00F44F94 /* MGExploreViewController.m */,
-				A0C0A6481EA0C2DD00F44F94 /* MGLoginViewController.h */,
-				A0C0A6491EA0C2DD00F44F94 /* MGLoginViewController.m */,
-				A0C0A6441EA0C2DD00F44F94 /* MGCreateRepoViewController.h */,
-				A0C0A6451EA0C2DD00F44F94 /* MGCreateRepoViewController.m */,
 				A0C0A64C1EA0C2DD00F44F94 /* MGNavigationController.h */,
 				A0C0A64D1EA0C2DD00F44F94 /* MGNavigationController.m */,
-				A0C0A64E1EA0C2DD00F44F94 /* MGProfileViewController.h */,
-				A0C0A64F1EA0C2DD00F44F94 /* MGProfileViewController.m */,
-				A0C0A6511EA0C2DD00F44F94 /* MGRepoDetailViewController.h */,
-				A0C0A6521EA0C2DD00F44F94 /* MGRepoDetailViewController.m */,
-				A0C0A6531EA0C2DD00F44F94 /* MGRepositoryViewController.h */,
-				A0C0A6541EA0C2DD00F44F94 /* MGRepositoryViewController.m */,
-				A0C0A6551EA0C2DD00F44F94 /* MGSearchRepoViewController.h */,
-				A0C0A6561EA0C2DD00F44F94 /* MGSearchRepoViewController.m */,
-				A0C0A6571EA0C2DD00F44F94 /* MGSearchUserViewController.h */,
-				A0C0A6581EA0C2DD00F44F94 /* MGSearchUserViewController.m */,
-				A0C0A6591EA0C2DD00F44F94 /* MGSearchViewController.h */,
-				A0C0A65A1EA0C2DD00F44F94 /* MGSearchViewController.m */,
+				A06F45DC1ED824ED00C0DEFE /* Main */,
+				A06F45BC1ED824D400C0DEFE /* Explore */,
+				A06F45BF1ED824D400C0DEFE /* Login */,
+				A06F45C21ED824D400C0DEFE /* Profile */,
+				A06F45C51ED824D400C0DEFE /* Repo */,
+				A06F45CC1ED824D400C0DEFE /* Searach */,
 				A0C0A65B1EA0C2DD00F44F94 /* MGUserDetailViewController.h */,
 				A0C0A65C1EA0C2DD00F44F94 /* MGUserDetailViewController.m */,
 			);
@@ -616,8 +680,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0C0A6301EA0C24C00F44F94 /* MGExploreCell.xib in Resources */,
 				A0C0A6361EA0C24C00F44F94 /* MGOCTTreeEntryCell.xib in Resources */,
+				A01833AC1ED6BAF0003E5D1C /* MGExploreTableViewCell.xib in Resources */,
 				A00295471E30587C004AC90E /* github_language_name_slug.plist in Resources */,
 				A044BC181E97292100B836CD /* viewModel-ViewControllerMapper.plist in Resources */,
 				A0C0A6341EA0C24C00F44F94 /* MGExploreCollectionViewDefaultCell.xib in Resources */,
@@ -697,52 +761,52 @@
 			buildActionMask = 2147483647;
 			files = (
 				A027E61B1E3E3CBA00641D2A /* NSString+MGUitl.m in Sources */,
-				A0C0A6621EA0C2DD00F44F94 /* MGLoginViewController.m in Sources */,
 				A0A815141ED4092A004678CD /* MGTableViewBinder.m in Sources */,
-				A0C0A5C61EA0765000F44F94 /* MGMainViewModel.m in Sources */,
-				A0C0A6631EA0C2DD00F44F94 /* MGMainViewController.m in Sources */,
 				A0C0A6111EA0AF7800F44F94 /* MGViewModel.m in Sources */,
-				A0C0A5C71EA0765000F44F94 /* MGProfileViewModel.m in Sources */,
-				A0B748331E64187A00A86AE2 /* UIButton+MGButton.m in Sources */,
-				A0C0A5C81EA0765000F44F94 /* MGRepoDetailViewModel.m in Sources */,
+				A01833CC1ED6BBF9003E5D1C /* MGProfileViewModel.m in Sources */,
 				A0C0A6311EA0C24C00F44F94 /* MGExploreCollectionViewCell.m in Sources */,
 				A00295401E2F63CE004AC90E /* MGShowcasesModel.m in Sources */,
 				A0C0A6421EA0C2A300F44F94 /* MGUserDetailHeaderView.m in Sources */,
-				A0C0A5C51EA0765000F44F94 /* MGLoginViewModel.m in Sources */,
 				A0A2F76B1E422B8800F19F22 /* SAMKeychain+MGUser.m in Sources */,
-				A0C0A61F1EA0C0BB00F44F94 /* MGExploreCellViewModel.m in Sources */,
+				A06F45D31ED824D400C0DEFE /* MGExploreViewController.m in Sources */,
 				A002953D1E2F601B004AC90E /* MGRepositoriesModel.m in Sources */,
+				A01833CE1ED6BBF9003E5D1C /* MGRepositoryViewModel.m in Sources */,
+				A01833CD1ED6BBF9003E5D1C /* MGRepoDetailViewModel.m in Sources */,
+				A06F45D91ED824D400C0DEFE /* MGSearchRepoViewController.m in Sources */,
 				A0C0A6371EA0C24C00F44F94 /* MGRepositoriesCell.m in Sources */,
-				A0C0A62F1EA0C24C00F44F94 /* MGExploreCell.m in Sources */,
+				A06F45D71ED824D400C0DEFE /* MGRepoDetailViewController.m in Sources */,
 				A06DD5A21ED3D14300082DA4 /* MGApiImpl+MGExplore.m in Sources */,
+				A01833B01ED6BBAF003E5D1C /* MGExploreCellViewModel.m in Sources */,
 				A0C0A66B1EA0C2DD00F44F94 /* MGUserDetailViewController.m in Sources */,
-				A0C0A6681EA0C2DD00F44F94 /* MGSearchRepoViewController.m in Sources */,
-				A0C0A6691EA0C2DD00F44F94 /* MGSearchUserViewController.m in Sources */,
+				A01833CF1ED6BBF9003E5D1C /* MGSearchViewModel.m in Sources */,
 				A06DD5A91ED3D26800082DA4 /* MGApiImpl.m in Sources */,
 				A01D51391E5D6AA9002E9925 /* UIView+Extension.m in Sources */,
-				A0C0A5CA1EA0765000F44F94 /* MGSearchViewModel.m in Sources */,
+				A01833D01ED6BBF9003E5D1C /* MGUserDetailViewModel.m in Sources */,
+				A01833AB1ED6BAF0003E5D1C /* MGExploreTableViewCell.m in Sources */,
+				A06F45D41ED824D400C0DEFE /* MGLoginViewController.m in Sources */,
+				A06F45D61ED824D400C0DEFE /* MGCreateRepoViewController.m in Sources */,
 				A06DD5A41ED3D14300082DA4 /* MGApiImpl+MGSearch.m in Sources */,
 				A01D510F1E5BE41B002E9925 /* MGViewModelBasedNavigation.m in Sources */,
 				A0C0A6641EA0C2DD00F44F94 /* MGNavigationController.m in Sources */,
-				A0C0A5C91EA0765000F44F94 /* MGRepositoryViewModel.m in Sources */,
-				A0C0A5CB1EA0765000F44F94 /* MGUserDetailViewModel.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
-				A0C0A6651EA0C2DD00F44F94 /* MGProfileViewController.m in Sources */,
+				A01833A71ED6B810003E5D1C /* UILabel+MGAdd.m in Sources */,
 				A0C0A6411EA0C2A300F44F94 /* MGRepoDetailHeaderView.m in Sources */,
+				A06F45D81ED824D400C0DEFE /* MGRepositoryViewController.m in Sources */,
 				A06DD5A51ED3D14300082DA4 /* MGApiImpl+MGUser.m in Sources */,
 				A0C0A6331EA0C24C00F44F94 /* MGExploreCollectionViewDefaultCell.m in Sources */,
+				A01833CA1ED6BBF9003E5D1C /* MGLoginViewModel.m in Sources */,
+				A06F45DA1ED824D400C0DEFE /* MGSearchUserViewController.m in Sources */,
 				A0C0A6351EA0C24C00F44F94 /* MGOCTTreeEntryCell.m in Sources */,
-				A0C0A6661EA0C2DD00F44F94 /* MGRepoDetailViewController.m in Sources */,
-				A0C0A6611EA0C2DD00F44F94 /* MGExploreViewController.m in Sources */,
+				A01833CB1ED6BBF9003E5D1C /* MGMainViewModel.m in Sources */,
 				A06DD5A31ED3D14300082DA4 /* MGApiImpl+MGRepo.m in Sources */,
-				A0C0A5C41EA0765000F44F94 /* MGExploreViewModel.m in Sources */,
-				A0C0A6601EA0C2DD00F44F94 /* MGCreateRepoViewController.m in Sources */,
 				A080AE0F1E34B54400402510 /* MGViewModelMapper.m in Sources */,
-				A0C0A5C31EA0765000F44F94 /* MGCreateRepoViewModel.m in Sources */,
-				A0C0A6671EA0C2DD00F44F94 /* MGRepositoryViewController.m in Sources */,
+				A06F45DB1ED824D400C0DEFE /* MGSearchViewController.m in Sources */,
+				A01833C91ED6BBF9003E5D1C /* MGExploreViewModel.m in Sources */,
+				A06F45DF1ED824ED00C0DEFE /* MGMainViewController.m in Sources */,
 				A02F76C61E0B6BAC0088470E /* MGAppDelegate.m in Sources */,
 				A02F76C31E0B6BAC0088470E /* main.m in Sources */,
-				A0C0A66A1EA0C2DD00F44F94 /* MGSearchViewController.m in Sources */,
+				A01833C71ED6BBF9003E5D1C /* MGCreateRepoViewModel.m in Sources */,
+				A06F45D51ED824D400C0DEFE /* MGProfileViewController.m in Sources */,
 				A0C0A66C1EA0C2DD00F44F94 /* MGViewController.m in Sources */,
 				A0D3DA481E56D27E00337EF7 /* WKWebView+MGWeb.m in Sources */,
 			);

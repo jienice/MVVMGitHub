@@ -14,7 +14,7 @@
 @interface MGRepoDetailHeaderView ()
 
 @property (nonatomic, strong) UIImageView *owerImageIcon;
-@property (nonatomic, strong) UIButton *nameButton;
+@property (nonatomic, strong) YYLabel *nameLabel;
 @property (nonatomic, strong) UIButton *watchButton;
 @property (nonatomic, strong) UIButton *starButton;
 @property (nonatomic, strong) UIButton *forkButton;
@@ -35,7 +35,7 @@
         [self addSubview:self.createTimeLabel];
         [self addSubview:self.descLabel];
         [self addSubview:self.latestUpdateLabel];
-        [self addSubview:self.nameButton];
+        [self addSubview:self.nameLabel];
         [self addSubview:self.watchButton];
         [self addSubview:self.starButton];
         [self addSubview:self.forkButton];
@@ -52,7 +52,7 @@
         make.size.mas_equalTo(CGSizeMake(60, 60));
     }];
     
-    [self.nameButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.owerImageIcon.mas_top);
         make.right.mas_equalTo(self.mas_right).offset(-10);
         make.left.mas_equalTo(self.owerImageIcon.mas_right).offset(5);
@@ -60,15 +60,15 @@
     }];
     
     [self.createTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.nameButton.mas_left);
-        make.right.mas_equalTo(self.nameButton.mas_right);
-        make.top.mas_equalTo(self.nameButton.mas_bottom).offset(10);
+        make.left.mas_equalTo(self.nameLabel.mas_left);
+        make.right.mas_equalTo(self.nameLabel.mas_right);
+        make.top.mas_equalTo(self.nameLabel.mas_bottom).offset(10);
         make.bottom.mas_equalTo(self.owerImageIcon.mas_bottom);
     }];
     
     [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.owerImageIcon.mas_left);
-        make.right.mas_equalTo(self.nameButton.mas_right);
+        make.right.mas_equalTo(self.nameLabel.mas_right);
         make.top.mas_equalTo(self.owerImageIcon.mas_bottom).offset(LINE_SPACE);
     }];
     
@@ -86,7 +86,7 @@
     }];
     
     [self.forkButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.nameButton.mas_right);
+        make.right.mas_equalTo(self.nameLabel.mas_right);
     }];
     
     [self.defaultBranchButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,7 +98,7 @@
     [self.latestUpdateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.defaultBranchButton.mas_top);
         make.bottom.mas_equalTo(self.defaultBranchButton.mas_bottom);
-        make.right.mas_equalTo(self.nameButton.mas_right);
+        make.right.mas_equalTo(self.nameLabel.mas_right);
         make.left.mas_equalTo(self.defaultBranchButton.mas_right);
     }];
 }
@@ -109,8 +109,7 @@
                                 placeholderImage:nil];
     self.createTimeLabel.text = @"create time";
     self.descLabel.text = repo.repoDescription;
-    [self.nameButton setTitle:repo.ownerLogin
-                     forState:UIControlStateNormal];
+    self.nameLabel.text = repo.ownerLogin;
     [self.watchButton setTitle:[repo.watchers_count stringValue]
                       forState:UIControlStateNormal];
     [self.starButton setTitle:[repo.stargazers_count stringValue]
@@ -120,10 +119,9 @@
     [self.defaultBranchButton setTitle:repo.defaultBranch
                               forState:UIControlStateNormal];
 }
-- (void)setNameBtnClickedCommand:(RACCommand *)nameBtnClickedCommand{
+- (void)setNameLabelClickedCommand:(RACCommand *)nameLabelClickedCommand{
     
-    _nameBtnClickedCommand = nameBtnClickedCommand;
-    self.nameButton.rac_command = _nameBtnClickedCommand;
+    _nameLabelClickedCommand = nameLabelClickedCommand;
 }
 - (void)setWatchBtnClickedCommand:(RACCommand *)watchBtnClickedCommand{
     
@@ -186,13 +184,20 @@
     }
     return _latestUpdateLabel;
 }
-- (UIButton *)nameButton{
+- (YYLabel *)nameLabel{
     
-    if (_nameButton==nil) {
-        _nameButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nameButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    if (_nameLabel==nil) {
+        _nameLabel = [[YYLabel alloc]init];
+        _nameLabel.font = MGFont(14);
+        _nameLabel.textColor = [UIColor blackColor];
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
+        @weakify(self);
+        _nameLabel.textTapAction = ^(UIView *containerView, NSAttributedString *text, NSRange range, CGRect rect){
+            @strongify(self);
+            [self.nameLabelClickedCommand execute:nil];
+        };
     }
-    return _nameButton;
+    return _nameLabel;
 }
 - (UIButton *)watchButton{
     

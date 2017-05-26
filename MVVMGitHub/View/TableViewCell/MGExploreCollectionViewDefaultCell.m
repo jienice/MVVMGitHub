@@ -8,11 +8,23 @@
 
 #import "MGExploreCollectionViewDefaultCell.h"
 
+@interface MGExploreCollectionViewDefaultCell ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@end
+
 @implementation MGExploreCollectionViewDefaultCell
 
 - (void)awakeFromNib {
+    
     [super awakeFromNib];
-    // Initialization code
+}
+
+- (void)bindViewModel:(id)viewModel{
+    
+    OCTUser *user = viewModel;
+    [self.imageView sd_setImageWithURL:user.avatarURL placeholderImage:nil];
 }
 
 @end

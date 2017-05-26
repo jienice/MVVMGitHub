@@ -9,11 +9,10 @@
 #import "MGTableViewBinder.h"
 
 @interface MGTableViewBinder()
-<UITableViewDelegate,UITableViewDataSource,
-DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataSouce;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 
 @end
@@ -29,6 +28,10 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
     binder.tableView.dataSource = binder;
     binder.tableView.emptyDataSetSource = binder;
     binder.tableView.emptyDataSetDelegate = binder;
+    binder.dataSource = [NSMutableArray array];
+    binder.didSelectedCellCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal return:input];
+    }];
     return binder;
 }
 #pragma mark - setter
@@ -51,24 +54,39 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 - (void)setDataSouceSignal:(RACSignal *)dataSouceSignal{
     
     @weakify(self);
-    [dataSouceSignal subscribeNext:^(NSArray *x) {
+    [dataSouceSignal subscribeNext:^(RACTuple *tuple) {
         @strongify(self);
-        self.dataSouce = [x mutableCopy];
-        NSLog(@"self.dataSouce === %@",x);
+        NSNumber *isFirstPage = [tuple first];
+        NSArray *dataArr = [tuple last];
+        if (isFirstPage.boolValue){
+            [self.dataSource removeAllObjects];
+            NSLog(@"%@",self.dataSource);
+        }
+        [self.dataSource addObjectsFromArray:dataArr];
+        NSLog(@"self.dataSouce === %@",dataArr);
         [self.tableView reloadData];
+        if ([self.tableView.mj_header isRefreshing]) {
+            [self.tableView.mj_header endRefreshing];
+        }
+        if ([self.tableView.mj_footer isRefreshing]) {
+            [self.tableView.mj_footer endRefreshing];
+        }
     } error:^(NSError * _Nullable error) {
         NSLog(@"%s数据请求出现错误",__func__);
         @strongify(self);
-        [self.dataSouce removeAllObjects];
+        [self.dataSource removeAllObjects];
         [self.tableView reloadData];
     } completed:^{
+        if ([self.tableView.mj_footer isRefreshing]) {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
         NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
     }];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.dataSouce.count;
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -78,7 +96,7 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
     id<MGReactiveViewProtocol> cell = [tableView dequeueReusableCellWithIdentifier:identifier
                                                                       forIndexPath:indexPath];
     NSAssert([cell conformsToProtocol:@protocol(MGReactiveViewProtocol)],@"必须遵循协议-TableViewProtocol");
-    [cell bindViewModel:self.dataSouce[indexPath.row]];
+    [cell bindViewModel:self.dataSource[indexPath.row]];
     return (UITableViewCell *)cell;
 }
 
@@ -89,9 +107,7 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.cellSelectedBlock) {
-        self.cellSelectedBlock(self.dataSouce[indexPath.row],indexPath);
-    }
+    [self.didSelectedCellCommand execute:indexPath];
 }
 #pragma mark - DZNEmptyDataSetSource
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{

@@ -35,14 +35,19 @@
 #import "SAMKeychain+MGUser.h"
 #import "NSString+MGUitl.h"
 #import "UIView+Extension.h"
+#import "UILabel+MGAdd.h"
 ///----------------------------------------------------------
 #import "MGConst.h"
 #import "MGConfig.h"
 ///----------------------------------------------------------
 #import "MGAppDelegate.h"
 ///----------------------------------------------------------
-
-
+#import "MGViewModelProtocol.h"
+#import "MGViewControllerProtocol.h"
+#import "MGTableViewModelProtocol.h"
+///----------------------------------------------------------
+#import "MGRepositoriesModel.h"
+///----------------------------------------------------------
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

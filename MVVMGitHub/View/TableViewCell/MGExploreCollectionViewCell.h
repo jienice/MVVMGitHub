@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGExploreCollectionViewCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *repoDescLabel;
+@interface MGExploreCollectionViewCell : UICollectionViewCell<MGReactiveViewProtocol>
+
+
 
 @end

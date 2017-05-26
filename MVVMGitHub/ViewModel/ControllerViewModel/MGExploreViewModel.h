@@ -8,7 +8,7 @@
 
 #import "MGViewModel.h"
 #import "MGExploreCellViewModel.h"
-#import "MGTableViewModelProtocol.h"
+
 
 extern NSString *const kTrendReposDataSourceArrayKey;
 extern NSString *const kShowcasesDataSourceArrayKey;

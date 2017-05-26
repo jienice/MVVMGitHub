@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MGViewModelProtocol.h"
 #import "MGReactiveViewProtocol.h"
 
 @protocol MGViewControllerProtocol <NSObject,MGReactiveViewProtocol>

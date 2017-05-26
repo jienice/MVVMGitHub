@@ -53,6 +53,7 @@ UITableViewDataSource,WKNavigationDelegate>
 }
 - (void)configUI{
     
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.scrollView];
     [self.scrollView addSubview:self.contentView];
     [self.contentView addSubview:self.headerView];
@@ -156,6 +157,7 @@ UITableViewDataSource,WKNavigationDelegate>
     
     if(_scrollView==nil){
         _scrollView = [[UIScrollView alloc]init];
+        _scrollView.backgroundColor = [UIColor whiteColor];
         @weakify(self);
         _scrollView.mj_header = ({
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -172,7 +174,7 @@ UITableViewDataSource,WKNavigationDelegate>
     
     if(_contentView==nil){
         _contentView = [[UIView alloc]init];
-//        _contentView.backgroundColor = [UIColor redColor];
+        _contentView.backgroundColor = [UIColor whiteColor];
     }
     return _contentView;
 }

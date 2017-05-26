@@ -12,16 +12,13 @@
 #import "MGCreateRepoViewModel.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGRepositoriesModel.h"
-
+#import "MGTableViewBinder.h"
 
 @interface MGRepositoryViewController ()
-<UITableViewDelegate,
-UITableViewDataSource>
 
 @property (nonatomic, weak, readwrite) MGRepositoryViewModel *viewModel;
-
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) MGTableViewBinder *tableViewBinder;
 
 @end
 
@@ -49,30 +46,28 @@ UITableViewDataSource>
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
-    
     [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] subscribeNext:^(id x) {
         @strongify(self);
         NSLog(@"fetchDataFromServiceCommand === %s",__func__);
         [self.tableView.mj_header beginRefreshing];
     }];
     
-    [[[RACObserve(self.viewModel, dataSource) filter:^BOOL(NSArray *value) {
-        return value;
-    }]deliverOn:[RACScheduler mainThreadScheduler]]
-     subscribeNext:^(NSArray *dataSource) {
-         NSLog(@"dataSource == %@",dataSource);
-         @strongify(self);
-         [self.tableView reloadData];
-         [self.tableView.mj_header endRefreshing];
+    [self.tableViewBinder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
+        @strongify(self);
+        MGRepositoriesModel *repo = self.viewModel.dataSource[indexPath.row];
+        MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,kRepoDetailParamsKeyForRepoName:repo.name}];
+        [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
     }];
     
     [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber*execut) {
         if ([execut boolValue]) {
-            [SVProgressHUD showWithStatus:@"loging..."];
+            [SVProgressHUD showWithStatus:@"loading..."];
         }else{
             [SVProgressHUD dismiss];
         }
     }];
+    
+    
 }
 #pragma mark - Load Data
 
@@ -82,36 +77,19 @@ UITableViewDataSource>
     MGCreateRepoViewModel *viewMode = [[MGCreateRepoViewModel alloc]initWithParams:@{kNavigationTitle:@"Create New Repositioy"}];
     [MGSharedDelegate.viewModelBased presentViewModel:viewMode animated:YES];
 }
+
 #pragma mark - Delegate Method
-//UITableViewDelegate
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return [self.viewModel.dataSource count];
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return [MGRepositoriesCell configCellForTableView:tableView
-                                           repository:self.viewModel.dataSource[indexPath.row]
-                                      reuseIdentifier:@"Cell"];
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return [MGRepositoriesCell cellHeight];
-}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"%s repo -- %@",__func__,self.viewModel.dataSource[indexPath.row]);
-    MGRepositoriesModel *repo = self.viewModel.dataSource[indexPath.row];
-    MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.owner.login,kRepoDetailParamsKeyForRepoName:repo.name}];
-    [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
+    
 }
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
     
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         @weakify(self);
         _tableView.mj_header = ({
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -120,6 +98,18 @@ UITableViewDataSource>
             }];
             [header.lastUpdatedTimeLabel setHidden:YES];
             header;
+        });
+        self.tableViewBinder = ({
+            MGTableViewBinder *binder = [MGTableViewBinder binderWithTable:_tableView];
+            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest];
+            [binder setReuseNoXibCellClass:@[[MGRepositoriesCell class]]];
+            [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
+                return NSStringFromClass([MGRepositoriesCell class]);
+            }];
+            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
+                return [MGRepositoriesCell cellHeight];
+            }];
+            binder;
         });
     }
     return _tableView;

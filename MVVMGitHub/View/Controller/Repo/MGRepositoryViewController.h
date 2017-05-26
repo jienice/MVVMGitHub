@@ -7,7 +7,7 @@
 //
 
 #import "MGViewController.h"
-#import "MGViewControllerProtocol.h"
+
 
 @class MGRepositoryViewModel;
 

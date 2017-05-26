@@ -14,11 +14,16 @@
 
 #define EXPLORE_BASE_URL @"http://trending.codehub-app.com/v2/"
 
-
-NSString *const kTrendReposDataSourceArrayKey = @"kTrendReposDataSourceArrayKey";
-NSString *const kShowcasesDataSourceArrayKey = @"kShowcasesDataSourceArrayKey";
+NSString *const kTrendReposDataSourceArrayKey   = @"kTrendReposDataSourceArrayKey";
+NSString *const kShowcasesDataSourceArrayKey    = @"kShowcasesDataSourceArrayKey";
 NSString *const kPopularUsersDataSourceArrayKey = @"kPopularUsersDataSourceArrayKey";
 NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArrayKey";
+
+static NSString *kTrendReposThisWeek = @"Trend Repos This Week";
+static NSString *kPopularUsers       = @"Popular Users";
+static NSString *kPopularRepos = @"Popular Repos";
+
+
 
 @interface MGExploreViewModel ()
 
@@ -27,23 +32,21 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
 @property (nonatomic, strong, readwrite) RACCommand *requestShowcasesCommand;
 @property (nonatomic, strong, readwrite) RACCommand *requestLanguageCommand;
 @property (nonatomic, strong, readwrite) RACCommand *requestPopularReposCommand;
-@property (nonatomic, strong) NSIndexSet *dataIndexSet;
 
 @end
 
 @implementation MGExploreViewModel
 
-@synthesize page = _page;
-@synthesize dataSource = _dataSource;
-@synthesize didSelectedRowCommand = _didSelectedRowCommand;
+@synthesize page                        = _page;
+@synthesize dataSource                  = _dataSource;
+@synthesize didSelectedRowCommand       = _didSelectedRowCommand;
 @synthesize fetchDataFromServiceCommand = _fetchDataFromServiceCommand;
 
 - (void)initialize{
     
-    self.dataIndexSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 10)];
-    self.dataSource = [NSMutableArray array];
+    self.dataSource            = [NSMutableArray array];
     RACSubject *popularUsersSB = [RACSubject subject];
-    RACSubject *trendReposSB = [RACSubject subject];
+    RACSubject *trendReposSB   = [RACSubject subject];
     RACSubject *popularReposSB = [RACSubject subject];
     
     @weakify(self);
@@ -57,12 +60,12 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
             [[RACSignal zip:@[popularUsersSB,
                               trendReposSB,popularReposSB]] subscribeNext:^(RACTuple *tuple) {
                 NSNumber *popularUsers = [tuple second];
-                NSNumber *trendRepos = [tuple third];
+                NSNumber *trendRepos   = [tuple third];
                 NSNumber *popularRepos = [tuple last];
                 if ([popularRepos boolValue]&&
                     [trendRepos boolValue]&&
                     [popularUsers boolValue]) {
-                    [subscriber sendNext:self.dataSource];
+                    [subscriber sendNext:RACTuplePack(@YES,self.dataSource)];
                     [subscriber sendCompleted];
                 }else{
                     [subscriber sendError:nil];
@@ -72,18 +75,18 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
         }];
     }];
     
-    NSURL *baseUrl = [NSURL URLWithString:EXPLORE_BASE_URL];
-    MGApiImpl *apiImpl = [[MGApiImpl alloc]initWithBaseUrl:baseUrl];
+    NSURL *baseUrl               = [NSURL URLWithString:EXPLORE_BASE_URL];
+    MGApiImpl *apiImpl           = [[MGApiImpl alloc]initWithBaseUrl:baseUrl];
     self.requestShowcasesCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-                [[[[apiImpl fetchShowcases] retry:2] takeUntil:self.rac_willDeallocSignal]
-                 subscribeNext:^(NSArray *dataArr) {
-                NSArray *showcases = [MGShowcasesModel mj_objectArrayWithKeyValuesArray:dataArr];
-                [subscriber sendNext:showcases];
-                [subscriber sendCompleted];
-            } error:^(NSError *error) {
-                [subscriber sendError:error];
-            }];
+            [[[[apiImpl fetchShowcases] retry:2] takeUntil:self.rac_willDeallocSignal]
+             subscribeNext:^(NSArray *dataArr) {
+                 NSArray *showcases = [MGShowcasesModel mj_objectArrayWithKeyValuesArray:dataArr];
+                 [subscriber sendNext:showcases];
+                 [subscriber sendCompleted];
+             } error:^(NSError *error) {
+                 [subscriber sendError:error];
+             }];
             return nil;
         }];
     }];
@@ -97,6 +100,7 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
             }] array];
             NSDictionary *responseDic = [NSDictionary dictionaryWithObject:trending
                                                                     forKey:kTrendReposDataSourceArrayKey];
+            [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kTrendReposThisWeek];
             [self.dataSource addObject:[self responseToCellViewModel:responseDic]];
             [trendReposSB sendNext:@YES];
         }] doError:^(NSError *error) {
@@ -109,33 +113,35 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
                                                            language:@"objective-c"
                                                                sort:@"followers"
                                                               order:@"desc"] retry:2]
-                takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *dict) {
+                  takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *dict) {
             @strongify(self);
             NSArray *popularUsers = [[[[dict valueForKey:@"items"] rac_sequence] map:^id(NSDictionary *usersDic) {
-               return  [MTLJSONAdapter modelOfClass:[OCTUser class] fromJSONDictionary:usersDic error:nil];
+                return  [MTLJSONAdapter modelOfClass:[OCTUser class] fromJSONDictionary:usersDic error:nil];
             }] array];
             NSDictionary *responseDic = [NSDictionary dictionaryWithObject:popularUsers
                                                                     forKey:kPopularUsersDataSourceArrayKey];
+            [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kPopularUsers];
             [self.dataSource addObject:[self responseToCellViewModel:responseDic]];
             [popularUsersSB sendNext:@YES];
         }] doError:^(NSError *error) {
             [popularUsersSB sendNext:@NO];
         }];
     }];
-
+    
     
     self.requestPopularReposCommand =[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[[[[[MGApiImpl sharedApiImpl] searchRepositoriesWithKeyWord:nil
                                                                    language:@"objective-c"
                                                                        sort:@"stars"
                                                                       order:@"desc"] retry:2]
-                    takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *dict) {
+                  takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *dict) {
             @strongify(self);
             NSArray *popularRepo = [[[[dict valueForKey:@"items"] rac_sequence] map:^id(NSDictionary *repoDic) {
                 return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
             }] array];
             NSDictionary *responseDic = [NSDictionary dictionaryWithObject:popularRepo
                                                                     forKey:kPopularReposDataSourceArrayKey];
+            [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kPopularRepos];
             [self.dataSource addObject:[self responseToCellViewModel:responseDic]];
             [popularReposSB sendNext:@YES];
         }] doError:^(NSError *error) {
@@ -148,19 +154,27 @@ NSString *const kPopularReposDataSourceArrayKey = @"kPopularReposDataSourceArray
     
     NSMutableDictionary *parames = [NSMutableDictionary dictionary];
     if ([respon.allKeys.firstObject isEqualToString:kTrendReposDataSourceArrayKey]) {
-        [parames setObject:@"Trend Repos This Week" forKey:kExploreRowViewModelTitleKey];
-        [parames setObject:@(MGExploreRowForTrendRepos) forKey:kExploreRowViewModelRowTypeKey];
+        [parames setObject:kTrendReposThisWeek forKey:kMGExploreCellTitleKey];
+        [parames setObject:@(MGExploreCellTypeOfRepo) forKey:kMGExploreCellTypeKey];
     }else if([respon.allKeys.firstObject isEqualToString:kPopularUsersDataSourceArrayKey]) {
-        [parames setObject:@"Popular Users" forKey:kExploreRowViewModelTitleKey];
-        [parames setObject:@(MGExploreRowForPopularUsers) forKey:kExploreRowViewModelRowTypeKey];
+        [parames setObject:kPopularUsers forKey:kMGExploreCellTitleKey];
+        [parames setObject:@(MGExploreCellTypeOfUser) forKey:kMGExploreCellTypeKey];
     }else if([respon.allKeys.firstObject isEqualToString:kPopularReposDataSourceArrayKey]) {
-        [parames setObject:@"Popular Repos" forKey:kExploreRowViewModelTitleKey];
-        [parames setObject:@(MGExploreRowForPopularRepos) forKey:kExploreRowViewModelRowTypeKey];
+        [parames setObject:kPopularRepos forKey:kMGExploreCellTitleKey];
+        [parames setObject:@(MGExploreCellTypeOfRepo) forKey:kMGExploreCellTypeKey];
     }
-    [parames setObject:[respon objectForKey:respon.allKeys.firstObject] forKey:kExploreRowViewModelDataSourceKey];
-    MGExploreCellViewModel *rowViewModel = [[MGExploreCellViewModel alloc]initWithParams:parames];
-    return rowViewModel;
+    [parames setObject:[respon objectForKey:respon.allKeys.firstObject] forKey:kMGExploreCellDataKey];
+    MGExploreCellViewModel *cellViewModel = [[MGExploreCellViewModel alloc]initWithParams:parames];
+    return cellViewModel;
 }
 
-
+- (void)confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:(NSString *)givenTitle{
+    
+    for (MGExploreCellViewModel *cellViewModel in self.dataSource) {
+        if ([cellViewModel.cellTitle isEqualToString:givenTitle]) {
+            [self.dataSource removeObject:cellViewModel];
+            return;
+        }
+    }
+}
 @end

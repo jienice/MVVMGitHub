@@ -10,8 +10,18 @@
 
 @implementation MGConst
 
-NSString *const kClassMap = @"kClassMap";
+NSString *const kClassMap        = @"kClassMap";
 NSString *const kNavigationTitle = @"kNavigationTitle";
+
+NSString *const kMGExploreCellTypeKey  = @"kMGExploreCellTypeKey";
+NSString *const kMGExploreCellTitleKey = @"kMGExploreCellTitleKey";
+NSString *const kMGExploreCellDataKey  = @"kMGExploreCellDataKey";
+
+
+
+
+
+
 
 
 @end

@@ -61,3 +61,19 @@
 #define MGTAB_BAR_HEIGHT 49
 #define MGSTATUS_BAR_HEIGHT 20
 
+///------------
+///  Block
+///------------
+typedef NSString*(^string_IndexPathBlock)(NSIndexPath *indexPath);
+typedef CGFloat (^float_IndexPathBlock)(NSIndexPath *indexPath);
+
+
+
+
+
+
+
+
+
+
+

@@ -23,12 +23,12 @@
 
 - (void)initialize{
     
-    NSLog(@"%s",__func__);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[self fetchDataFromServiceWithPage:0] takeUntil:self.rac_willDeallocSignal];
+        return [[[RACSignal return:@YES] zipWith:[self fetchDataFromServiceWithPage:0]]
+                takeUntil:self.rac_willDeallocSignal];
     }];
     
-    self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(OCTRepository *repository) {
         return [RACSignal empty];
     }];
 }

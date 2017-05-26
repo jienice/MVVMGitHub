@@ -9,27 +9,28 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-typedef NSString*(^ReuseidentifierConfigBlock)(NSIndexPath *indexPath);
-typedef CGFloat(^HeightConfigBlock)(NSIndexPath *indexPath);
-typedef void(^CellSelectedBlock)(id object,NSIndexPath *indexPath);
-
-
 @interface MGTableViewBinder : NSObject
-
+<UITableViewDelegate,UITableViewDataSource,
+DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 + (instancetype)binderWithTable:(UITableView *)tableView;
 
-@property (nonatomic, copy) ReuseidentifierConfigBlock cellConfigBlock;
-@property (nonatomic, copy) HeightConfigBlock heightConfigBlock;
-@property (nonatomic, copy) CellSelectedBlock cellSelectedBlock;
+@property (nonatomic, copy) string_IndexPathBlock cellConfigBlock;
+@property (nonatomic, copy) float_IndexPathBlock heightConfigBlock;
+@property (nonatomic, strong) RACCommand *didSelectedCellCommand;
 
 @property (nonatomic, strong) NSArray<Class> *reuseNoXibCellClass;
 @property (nonatomic, strong) NSArray<Class> *reuseXibCellClass;
 
 
-- (void)setCellConfigBlock:(ReuseidentifierConfigBlock)cellConfigBlock;
-- (void)setHeightConfigBlock:(HeightConfigBlock)heightConfigBlock;
-- (void)setCellSelectedBlock:(CellSelectedBlock)cellSelectedBlock;
+- (void)setCellConfigBlock:(string_IndexPathBlock)cellConfigBlock;
+- (void)setHeightConfigBlock:(float_IndexPathBlock)heightConfigBlock;
+
+/**
+ *  设置数据信号源
+ *
+ *  @param dataSouceSignal 传值为RACTuple(是否为第一页'NSNumber',数据源'NSArray')
+ */
 - (void)setDataSouceSignal:(RACSignal *)dataSouceSignal;
 
 @end

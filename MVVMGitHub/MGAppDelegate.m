@@ -8,7 +8,7 @@
 
 #import "MGAppDelegate.h"
 #import "MGViewModel.h"
-#import "MGViewControllerProtocol.h"
+
 
 @interface MGAppDelegate ()
 

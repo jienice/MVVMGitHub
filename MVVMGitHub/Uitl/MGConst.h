@@ -13,9 +13,19 @@
  */
 @interface MGConst : NSObject
 
-extern NSString *const kClassMap;
-extern NSString *const kNavigationTitle;
+FOUNDATION_EXTERN NSString *const kClassMap;
+FOUNDATION_EXTERN NSString *const kNavigationTitle;
 
+#pragma mark - MGExplore
 
+FOUNDATION_EXTERN NSString *const kMGExploreCellTypeKey;
+FOUNDATION_EXTERN NSString *const kMGExploreCellTitleKey;
+FOUNDATION_EXTERN NSString *const kMGExploreCellDataKey;
+
+typedef NS_ENUM(NSInteger,MGExploreCellType){
+    
+    MGExploreCellTypeOfUser,
+    MGExploreCellTypeOfRepo
+};
 
 @end

@@ -8,12 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGRepositoriesCell : UITableViewCell
+@interface MGRepositoriesCell : UITableViewCell<MGReactiveViewProtocol>
 
-+ (instancetype)configCellForTableView:(UITableView *)tableView
-                            repository:(OCTRepository *)repository
-                       reuseIdentifier:(NSString *)reuseIdentifier;
-
+@property (nonatomic, strong, readonly) MGRepositoriesModel *repository;
 
 + (CGFloat)cellHeight;
 @end

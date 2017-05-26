@@ -10,6 +10,7 @@
 
 @interface MGRepositoriesCell ()
 
+@property (nonatomic, strong, readwrite) MGRepositoriesModel *repository;
 @property (nonatomic, strong) UILabel *repoDescriptionLabel;
 @property (nonatomic, strong) UILabel *repoTitleLabel;
 @property (nonatomic, strong) UILabel *languageKindLable;
@@ -25,33 +26,32 @@
 
 @implementation MGRepositoriesCell
 
-
-+ (instancetype)configCellForTableView:(UITableView *)tableView
-                            repository:(OCTRepository *)repository
-                       reuseIdentifier:(NSString *)reuseIdentifier{
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     
-    MGRepositoriesCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-    if (!cell) {
-        cell = [[MGRepositoriesCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-        cell.selectionStyle= UITableViewCellSelectionStyleNone;
-        cell.contentView.backgroundColor = MGWhiteColor;
-        [cell.contentView addSubview:cell.repoDescriptionLabel];
-        [cell.contentView addSubview:cell.repoTitleLabel];
-        [cell.contentView addSubview:cell.languageKindLable];
-        [cell.contentView addSubview:cell.starImage];
-        [cell.contentView addSubview:cell.forkImage];
-        [cell.contentView addSubview:cell.repoKindImage];
-        [cell.contentView addSubview:cell.starCountLabel];
-        [cell.contentView addSubview:cell.forkCountLabel];
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle= UITableViewCellSelectionStyleNone;
+        self.contentView.backgroundColor = MGWhiteColor;
+        [self.contentView addSubview:self.repoDescriptionLabel];
+        [self.contentView addSubview:self.repoTitleLabel];
+        [self.contentView addSubview:self.languageKindLable];
+        [self.contentView addSubview:self.starImage];
+        [self.contentView addSubview:self.forkImage];
+        [self.contentView addSubview:self.repoKindImage];
+        [self.contentView addSubview:self.starCountLabel];
+        [self.contentView addSubview:self.forkCountLabel];
     }
-    cell.isContainDesc = repository.repoDescription.isExist;
-    cell.repoTitleLabel.text = repository.SSHURL;
-    cell.repoDescriptionLabel.text = repository.repoDescription;
-    cell.languageKindLable.text = @"所属语言";
-    cell.repoKindImage.image = repository.isFork?[UIImage imageNamed:@"fork"]:[UIImage imageNamed:@"repo"];
-    return cell;
+    return self;
 }
 
+- (void)bindViewModel:(id)viewModel{
+    
+    self.repository = viewModel;
+    self.isContainDesc = self.repository.repoDescription.isExist;
+    self.repoTitleLabel.text = self.repository.SSHURL;
+    self.repoDescriptionLabel.text = self.repository.repoDescription;
+    self.languageKindLable.text = @"所属语言";
+    self.repoKindImage.image = self.repository.isFork?[UIImage imageNamed:@"fork"]:[UIImage imageNamed:@"repo"];
+}
 - (void)layoutSubviews{
     
     [self.repoKindImage autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(5, 5, 5, 0) excludingEdge:ALEdgeRight];

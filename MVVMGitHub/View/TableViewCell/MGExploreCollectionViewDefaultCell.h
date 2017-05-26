@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGExploreCollectionViewDefaultCell : UICollectionViewCell
+@interface MGExploreCollectionViewDefaultCell : UICollectionViewCell<MGReactiveViewProtocol>
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 
 @end
