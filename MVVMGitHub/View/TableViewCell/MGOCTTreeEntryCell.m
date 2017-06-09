@@ -17,15 +17,9 @@
 
 @implementation MGOCTTreeEntryCell
 
-+ (instancetype)configOCTTreeCellWithTableView:(UITableView *)tableView treeEntry:(OCTTreeEntry *)treeEntry{
+- (void)bindViewModel:(id)viewModel{
     
-    MGOCTTreeEntryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MGOCTTreeEntryCell"];
-    if (!cell) {
-        cell = [[[NSBundle mainBundle]loadNibNamed:@"MGOCTTreeEntryCell" owner:nil options:nil] lastObject];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        
-    }
-    cell.treeEntryDesLabel.text = treeEntry.path;
-    return cell;
+    OCTTreeEntry *treeEntry = viewModel;
+    self.treeEntryDesLabel.text = treeEntry.path;
 }
 @end

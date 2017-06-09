@@ -29,4 +29,5 @@ target 'MVVMGitHub' do
         pod 'UIView+Borders',           '~> 0.0.2'
         pod 'WMPageController',         '~> 2.2.1'
         pod 'JSONKit-NoWarning',        '~> 1.2'
+        pod 'LazyScroll',               '~> 0.0.2'
 end

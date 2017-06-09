@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGOCTTreeEntryCell : UITableViewCell
-
-
-+ (instancetype)configOCTTreeCellWithTableView:(UITableView *)tableView treeEntry:(OCTTreeEntry *)treeEntry;
+@interface MGOCTTreeEntryCell : UITableViewCell<MGReactiveViewProtocol>
 
 
 @end

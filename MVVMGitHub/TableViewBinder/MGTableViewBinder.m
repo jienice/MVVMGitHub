@@ -10,24 +10,19 @@
 
 @interface MGTableViewBinder()
 
-
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-
 
 @end
 
 @implementation MGTableViewBinder
 
 #pragma mark - Instancetype
+
 + (instancetype)binderWithTable:(UITableView *)tableView{
     
     MGTableViewBinder *binder = [[MGTableViewBinder alloc]init];
     binder.tableView = tableView;
-    binder.tableView.delegate = binder;
-    binder.tableView.dataSource = binder;
-    binder.tableView.emptyDataSetSource = binder;
-    binder.tableView.emptyDataSetDelegate = binder;
     binder.dataSource = [NSMutableArray array];
     binder.didSelectedCellCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal return:input];
@@ -60,26 +55,21 @@
         NSArray *dataArr = [tuple last];
         if (isFirstPage.boolValue){
             [self.dataSource removeAllObjects];
-            NSLog(@"%@",self.dataSource);
         }
         [self.dataSource addObjectsFromArray:dataArr];
         NSLog(@"self.dataSouce === %@",dataArr);
-        [self.tableView reloadData];
-        if ([self.tableView.mj_header isRefreshing]) {
-            [self.tableView.mj_header endRefreshing];
-        }
-        if ([self.tableView.mj_footer isRefreshing]) {
-            [self.tableView.mj_footer endRefreshing];
-        }
+        [[RACScheduler mainThreadScheduler] schedule:^{
+            [self.tableView reloadData];
+        }];
+        [self.tableView footerEndRefresh];
+        [self.tableView headerEndRefresh];
     } error:^(NSError * _Nullable error) {
-        NSLog(@"%s数据请求出现错误",__func__);
         @strongify(self);
+        [self.tableView endRefresh];
         [self.dataSource removeAllObjects];
-        [self.tableView reloadData];
+        NSLog(@"%s数据请求出现错误",__func__);
     } completed:^{
-        if ([self.tableView.mj_footer isRefreshing]) {
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        }
+        [self.tableView footerEndRefreshWithNoMoreData];
         NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
     }];
 }

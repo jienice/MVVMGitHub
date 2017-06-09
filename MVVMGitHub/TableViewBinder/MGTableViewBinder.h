@@ -22,7 +22,6 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, strong) NSArray<Class> *reuseNoXibCellClass;
 @property (nonatomic, strong) NSArray<Class> *reuseXibCellClass;
 
-
 - (void)setCellConfigBlock:(string_IndexPathBlock)cellConfigBlock;
 - (void)setHeightConfigBlock:(float_IndexPathBlock)heightConfigBlock;
 

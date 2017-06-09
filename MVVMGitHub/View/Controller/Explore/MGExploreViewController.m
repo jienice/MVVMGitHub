@@ -22,7 +22,6 @@
 
 @property (nonatomic, weak, readwrite) MGExploreViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) MGTableViewBinder *tableViewBinder;
 @end
 
 @implementation MGExploreViewController
@@ -59,7 +58,6 @@
         SDCycleScrollView *cycleScrollView = (SDCycleScrollView *)self.tableView.tableHeaderView;
         [cycleScrollView setImageURLStringsGroup:cycleScrollViewDataSource];
     }];
-    
 }
 #pragma mark - Load Data
 
@@ -71,17 +69,10 @@
 - (UITableView *)tableView{
     
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, MGSCREEN_WIDTH, MGSCREEN_HEIGHT)
-                                                 style:UITableViewStylePlain];
-        _tableView.mj_header =
-        [MJRefreshNormalHeader headerWithRefreshingTarget:self.viewModel.fetchDataFromServiceCommand
-                                         refreshingAction:@selector(execute:)];
-        SDCycleScrollView *cycleScrollView = [self cycleScrollView];
-        _tableView.tableHeaderView.frame = cycleScrollView.bounds;
-        _tableView.tableHeaderView = cycleScrollView;
-        self.tableViewBinder = ({
-            MGTableViewBinder *binder = [MGTableViewBinder binderWithTable:_tableView];
-            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest];
+        @weakify(self);
+        _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
+            @strongify(self);
+            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest.dematerialize];
             [binder setReuseXibCellClass:@[[MGExploreTableViewCell class]]];
             binder.cellConfigBlock = ^NSString *(NSIndexPath *indexPath){
                 return NSStringFromClass([MGExploreTableViewCell class]);
@@ -89,8 +80,13 @@
             binder.heightConfigBlock = ^CGFloat(NSIndexPath *indexPath){
                 return [MGExploreTableViewCell cellHeight];
             };
-            binder;
-        });
+        }];
+        _tableView.mj_header =
+        [MJRefreshNormalHeader headerWithRefreshingTarget:self.viewModel.fetchDataFromServiceCommand
+                                         refreshingAction:@selector(execute:)];
+        SDCycleScrollView *cycleScrollView = [self cycleScrollView];
+        _tableView.tableHeaderView.frame = cycleScrollView.bounds;
+        _tableView.tableHeaderView = cycleScrollView;
     }
     return _tableView;
 }

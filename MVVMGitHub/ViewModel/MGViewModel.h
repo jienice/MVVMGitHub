@@ -14,6 +14,5 @@
 
 @property (nonatomic, strong, readonly) NSDictionary *params;
 
-@property (nonatomic, strong) RACSubject *error;
 
 @end

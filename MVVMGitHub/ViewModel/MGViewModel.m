@@ -21,25 +21,17 @@
 @implementation MGViewModel
 #pragma clang diagnostic pop
 
+
+#pragma mark - Instancetype
 - (instancetype)initWithParams:(NSDictionary *)params{
     
     if (self = [super init]) {
         self.params = params;
-        [self.error subscribeNext:^(NSError *error) {
-            NSLog(@"MGViewModel.error %@",error);
-        }];
     }
     return self;
 }
 
-- (RACSubject *)error{
-    
-    if (!_error) {
-        return [RACSubject subject];
-    }
-    return _error;
-}
-
+#pragma mark - setter
 - (void)setParams:(NSDictionary *)params{
     
     _params = params;

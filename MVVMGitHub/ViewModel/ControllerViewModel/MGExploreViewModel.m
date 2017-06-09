@@ -48,7 +48,6 @@ static NSString *kPopularRepos = @"Popular Repos";
     RACSubject *popularUsersSB = [RACSubject subject];
     RACSubject *trendReposSB   = [RACSubject subject];
     RACSubject *popularReposSB = [RACSubject subject];
-    
     @weakify(self);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
@@ -56,9 +55,8 @@ static NSString *kPopularRepos = @"Popular Repos";
         [self.requestShowcasesCommand execute:nil];
         [self.requestPopularUsersCommand execute:nil];
         [self.requestPopularReposCommand execute:nil];
-        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-            [[RACSignal zip:@[popularUsersSB,
-                              trendReposSB,popularReposSB]] subscribeNext:^(RACTuple *tuple) {
+        return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+            [[RACSignal zip:@[popularUsersSB,trendReposSB,popularReposSB]] subscribeNext:^(RACTuple *tuple) {
                 NSNumber *popularUsers = [tuple second];
                 NSNumber *trendRepos   = [tuple third];
                 NSNumber *popularRepos = [tuple last];
@@ -68,15 +66,15 @@ static NSString *kPopularRepos = @"Popular Repos";
                     [subscriber sendNext:RACTuplePack(@YES,self.dataSource)];
                     [subscriber sendCompleted];
                 }else{
-                    [subscriber sendError:nil];
+                    [subscriber sendError:[NSError errorWithDomain:AFNetworkingErrorDomain code:999 userInfo:@{}]];
                 }
             }];
             return nil;
-        }];
+        }] materialize];
     }];
     
-    NSURL *baseUrl               = [NSURL URLWithString:EXPLORE_BASE_URL];
-    MGApiImpl *apiImpl           = [[MGApiImpl alloc]initWithBaseUrl:baseUrl];
+    NSURL *baseUrl = [NSURL URLWithString:EXPLORE_BASE_URL];
+    MGApiImpl *apiImpl = [[MGApiImpl alloc]initWithBaseUrl:baseUrl];
     self.requestShowcasesCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [[[[apiImpl fetchShowcases] retry:2] takeUntil:self.rac_willDeallocSignal]

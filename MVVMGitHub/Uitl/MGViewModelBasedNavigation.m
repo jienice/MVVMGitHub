@@ -39,6 +39,7 @@
 }
 - (void)popViewModelAnimated:(BOOL)animated{
     
+    [self.viewModels removeLastObject];
     [self.navigationController popViewControllerAnimated:animated];
 }
 - (void)popToViewModel:(id<MGViewModelProtocol>)viewModel animated:(BOOL)animated{

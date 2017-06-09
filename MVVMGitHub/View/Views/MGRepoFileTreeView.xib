@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MGRepoFileTreeView">
+            <connections>
+                <outlet property="fileImage" destination="Lxu-SI-Rdu" id="jAv-Uu-iuC"/>
+                <outlet property="fileNameLabel" destination="yLL-bb-53i" id="9mw-FG-jAA"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lxu-SI-Rdu">
+                    <rect key="frame" x="8" y="8" width="76" height="92"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="76" id="yH3-DO-ef7"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLL-bb-53i">
+                    <rect key="frame" x="92" y="8" width="277" height="90"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Lxu-SI-Rdu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="0fA-ax-tsX"/>
+                <constraint firstAttribute="trailing" secondItem="yLL-bb-53i" secondAttribute="trailing" constant="6" id="Ktl-tC-8gQ"/>
+                <constraint firstAttribute="bottom" secondItem="Lxu-SI-Rdu" secondAttribute="bottom" constant="8" id="Nxy-4R-T1w"/>
+                <constraint firstItem="Lxu-SI-Rdu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="QBB-gi-g7v"/>
+                <constraint firstItem="yLL-bb-53i" firstAttribute="leading" secondItem="Lxu-SI-Rdu" secondAttribute="trailing" constant="8" id="fCr-FM-46r"/>
+                <constraint firstItem="yLL-bb-53i" firstAttribute="top" secondItem="Lxu-SI-Rdu" secondAttribute="top" id="h13-2k-b9q"/>
+                <constraint firstAttribute="bottom" secondItem="yLL-bb-53i" secondAttribute="bottom" constant="10" id="ocV-f6-ta2"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-9.5" y="95"/>
+        </view>
+    </objects>
+</document>

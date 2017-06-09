@@ -18,7 +18,6 @@
 
 @property (nonatomic, weak, readwrite) MGRepositoryViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) MGTableViewBinder *tableViewBinder;
 
 @end
 
@@ -52,22 +51,13 @@
         [self.tableView.mj_header beginRefreshing];
     }];
     
-    [self.tableViewBinder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
+    [self.tableView.binder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
         @strongify(self);
         MGRepositoriesModel *repo = self.viewModel.dataSource[indexPath.row];
         MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,kRepoDetailParamsKeyForRepoName:repo.name}];
         [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
     }];
-    
-    [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber*execut) {
-        if ([execut boolValue]) {
-            [SVProgressHUD showWithStatus:@"loading..."];
-        }else{
-            [SVProgressHUD dismiss];
-        }
-    }];
-    
-    
+     
 }
 #pragma mark - Load Data
 
@@ -79,29 +69,15 @@
 }
 
 #pragma mark - Delegate Method
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    NSLog(@"%s repo -- %@",__func__,self.viewModel.dataSource[indexPath.row]);
-    
-}
+
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
     
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         @weakify(self);
-        _tableView.mj_header = ({
-            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                @strongify(self);
-                [self.viewModel.fetchDataFromServiceCommand execute:0];
-            }];
-            [header.lastUpdatedTimeLabel setHidden:YES];
-            header;
-        });
-        self.tableViewBinder = ({
-            MGTableViewBinder *binder = [MGTableViewBinder binderWithTable:_tableView];
-            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest];
+        _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
+            @strongify(self);
+            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest.dematerialize];
             [binder setReuseNoXibCellClass:@[[MGRepositoriesCell class]]];
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGRepositoriesCell class]);
@@ -109,7 +85,13 @@
             [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
                 return [MGRepositoriesCell cellHeight];
             }];
-            binder;
+        }];
+        _tableView.mj_header = ({
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                @strongify(self);
+                [self.viewModel.fetchDataFromServiceCommand execute:0];
+            }];
+            header;
         });
     }
     return _tableView;

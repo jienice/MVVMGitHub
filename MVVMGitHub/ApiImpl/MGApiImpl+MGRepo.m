@@ -9,7 +9,7 @@
 #import "MGApiImpl+MGRepo.h"
 
 @implementation MGApiImpl (MGRepo)
-- (RACSignal *)fetchRepoDetaiWithOwner:(NSString *)ower repoName:(NSString *)repoName{
+- (RACSignal *)fetchRepoDetailWithOwner:(NSString *)ower repoName:(NSString *)repoName{
     
     NSParameterAssert([ower isExist]);
     NSParameterAssert([repoName isExist]);

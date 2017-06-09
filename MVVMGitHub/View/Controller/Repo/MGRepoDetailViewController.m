@@ -12,20 +12,17 @@
 #import "MGRepoDetailHeaderView.h"
 #import "MGOCTTreeEntryCell.h"
 #import "WKWebView+MGWeb.h"
-
-#define TREE_ENTRY_CELL_HEIGHT 40
+#import "MGTableViewBinder.h"
 
 @interface MGRepoDetailViewController ()
-<UITableViewDelegate,
-UITableViewDataSource,WKNavigationDelegate>
+<WKNavigationDelegate>
 
 @property (nonatomic, strong) MGRepoDetailViewModel *viewModel;
 @property (nonatomic, strong) MGRepoDetailHeaderView *headerView;
-@property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) WKWebView *readmeWeb;
-
+@property (nonatomic, strong) MGTableViewBinder *tableViewBinder;
+@property (nonatomic, strong) RACSubject *fileTreeDataSignal;
 @end
 
 @implementation MGRepoDetailViewController
@@ -35,6 +32,7 @@ UITableViewDataSource,WKNavigationDelegate>
     if (self = [super init]) {
         self.viewModel = (MGRepoDetailViewModel *)viewModel;
         self.navigationItem.title = [self.viewModel.params valueForKey:kRepoDetailParamsKeyForRepoName];
+        self.fileTreeDataSignal = [RACSubject subject];
     }
     return self;
 }
@@ -43,84 +41,42 @@ UITableViewDataSource,WKNavigationDelegate>
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemForPopViewController];
+
     [self configUI];
-    [self.viewModel.fetchDataFromServiceCommand execute:nil];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_back"]
-                                                                            style:UIBarButtonItemStyleDone
-                                                                           target:MGSharedDelegate.viewModelBased
-                                                                           action:@selector(popViewModelAnimated:)];
     [self bindViewModel:nil];
+    [self.tableView.mj_header beginRefreshing];
 }
+
 - (void)configUI{
     
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.scrollView];
-    [self.scrollView addSubview:self.contentView];
-    [self.contentView addSubview:self.headerView];
-    [self.contentView addSubview:self.tableView];
-    [self.contentView addSubview:self.readmeWeb];
+    [self.view addSubview:self.tableView];
+    [self.view setNeedsUpdateConstraints];
+    [self.view updateConstraintsIfNeeded];
 }
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
-    [[[RACObserve(self, viewModel.fileTree) ignore:nil] distinctUntilChanged] subscribeNext:^(OCTTree *fileTree) {
+    [self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest subscribeError:^(NSError *error) {
         @strongify(self);
+        [self.fileTreeDataSignal sendError:error];
+    } completed:^{
+        @strongify(self);
+        [self.fileTreeDataSignal sendNext:RACTuplePack(@YES,self.viewModel.fileTree.entries)];
+        [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
         [[RACScheduler mainThreadScheduler] schedule:^{
+            [self.headerView bindViewModel:self.viewModel.repo];
+            self.tableView.tableHeaderView.frame = CGRectMake(0, 0, self.tableView.width, [self.headerView height]);
             [self.tableView reloadData];
-            [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(fileTree.entries.count*TREE_ENTRY_CELL_HEIGHT);
-            }];
         }];
     }];
-    
-    [[[RACObserve(self, viewModel.readMEHtml) ignore:nil] distinctUntilChanged] subscribeNext:^(id x) {
-        @strongify(self);
-        [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
-    }];
-    
-    [[RACObserve(self, viewModel.repo) ignore:nil] subscribeNext:^(MGRepositoriesModel *repo) {
-        @strongify(self);
-        [self.headerView setRepo:repo];
-    }];
-    
-    [self.viewModel.fetchDataFromServiceCommand.executing subscribeNext:^(NSNumber *execut) {
-        if (![execut boolValue]) {
-            if ([self.scrollView.mj_header isRefreshing]) {
-                [self.scrollView.mj_header endRefreshing];
-            }
-            [SVProgressHUD dismiss];
-        }else{
-            [SVProgressHUD showWithStatus:@"loading"];
-        }
-    }];
+
 }
 - (void)updateViewConstraints{
     
-    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
-    }];
-    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
-        make.width.mas_equalTo(MGSCREEN_WIDTH);
-    }];
-    [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.contentView.mas_left);
-        make.top.mas_equalTo(self.contentView.mas_top);
-        make.right.mas_equalTo(self.contentView.mas_right);
-        make.height.mas_equalTo(self.headerView.height);
-    }];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.headerView.mas_bottom);
-        make.left.mas_equalTo(self.contentView.mas_left);
-        make.right.mas_equalTo(self.contentView.mas_right);
-        make.height.mas_equalTo(0.1f);
-    }];
-    [self.readmeWeb mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.tableView.mas_bottom);
-        make.left.mas_equalTo(self.contentView.mas_left);
-        make.right.mas_equalTo(self.contentView.mas_right);
-        make.bottom.mas_equalTo(self.contentView.mas_bottom);
-        make.height.mas_equalTo(0.1f);
+        make.edges.mas_equalTo(UIEdgeInsetsZero);
     }];
     [super updateViewConstraints];
 }
@@ -131,68 +87,53 @@ UITableViewDataSource,WKNavigationDelegate>
 #pragma mark - Delegate Method
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
 
+    @weakify(self);
     [webView autoSetHeightAfterLoaded:^(CGFloat height) {
+        webView.height = height;
+        @strongify(self);
         [[RACScheduler mainThreadScheduler]schedule:^{
-            [webView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(height);
-            }];
+            self.tableView.tableFooterView.frame= CGRectMake(webView.x, webView.y, webView.width, height);
+            self.tableView.height += height;
         }];
     }];
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return self.viewModel.fileTree.entries.count;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return [MGOCTTreeEntryCell configOCTTreeCellWithTableView:tableView
-                                                    treeEntry:self.viewModel.fileTree.entries[indexPath.row]];
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return TREE_ENTRY_CELL_HEIGHT;
-}
+
 #pragma mark - Lazy Load
-- (UIScrollView *)scrollView{
-    
-    if(_scrollView==nil){
-        _scrollView = [[UIScrollView alloc]init];
-        _scrollView.backgroundColor = [UIColor whiteColor];
-        @weakify(self);
-        _scrollView.mj_header = ({
-            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                @strongify(self);
-                [self.viewModel.fetchDataFromServiceCommand execute:nil];
-            }];
-            [header.lastUpdatedTimeLabel setHidden:YES];
-            header;
-        });
-    }
-    return _scrollView;
-}
-- (UIView *)contentView{
-    
-    if(_contentView==nil){
-        _contentView = [[UIView alloc]init];
-        _contentView.backgroundColor = [UIColor whiteColor];
-    }
-    return _contentView;
-}
 - (UITableView *)tableView{
     
     if (_tableView==nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
                                                  style:UITableViewStylePlain];
         _tableView.backgroundColor = MGWhiteColor;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+        _tableView.mj_header = ({
+            @weakify(self);
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                @strongify(self);
+                [self.viewModel.fetchDataFromServiceCommand execute:nil];
+            }];
+            header;
+        });
+        _tableView.tableHeaderView = self.headerView;
+        _tableView.tableFooterView = self.readmeWeb;
+        self.tableViewBinder = ({
+            MGTableViewBinder *binder = [MGTableViewBinder binderWithTable:self.tableView];
+            [binder setReuseXibCellClass:@[[MGOCTTreeEntryCell class]]];
+            [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
+                return NSStringFromClass([MGOCTTreeEntryCell class]);
+            }];
+            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
+                return 40;
+            }];
+            [binder setDataSouceSignal:self.fileTreeDataSignal];
+            binder;
+        });
     }
     return _tableView;
 }
 - (MGRepoDetailHeaderView *)headerView{
     
     if (_headerView==nil) {
-        _headerView=[[MGRepoDetailHeaderView alloc]init];
+        _headerView = [[MGRepoDetailHeaderView alloc]init];
     }
     return _headerView;
 }
@@ -201,9 +142,11 @@ UITableViewDataSource,WKNavigationDelegate>
     if (_readmeWeb==nil) {
         _readmeWeb = [[WKWebView alloc]init];
         _readmeWeb.navigationDelegate = self;
+        _readmeWeb.backgroundColor = [UIColor redColor];
     }
     return _readmeWeb;
 }
+
 - (BOOL)willDealloc{
     
     return NO;

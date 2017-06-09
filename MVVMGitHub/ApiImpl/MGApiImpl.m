@@ -95,8 +95,14 @@ NSString const *kErrorMessageKey = @"kErrorMessageKey";
     NSMutableURLRequest *request = [_client requestWithMethod:method path:path parameters:params];
     request.timeoutInterval = 30;
     AFHTTPRequestOperation *requestOperation = [_client HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (success) {
-            success([responseObject jsonValueDecoded]);
+        if ([responseObject jsonValueDecoded]) {
+            if (success) {
+                success([responseObject jsonValueDecoded]);
+            }
+        }else{
+            if (fail) {
+                fail([self handleError:nil]);
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         @strongify(self);
@@ -111,14 +117,17 @@ NSString const *kErrorMessageKey = @"kErrorMessageKey";
 }
 - (NSError *)handleError:(NSError *)error{
     
-    if (error.code == -1009) {
-        return kNetWorkRequestError(kNetworkRequestFailureErrorCode,@"请检查网络连接");
-    }else if (error.code == -1001) {
-        return kNetWorkRequestError(kNetworkRequestTimeOutErrorCode,@"请求超时");
-    }else if (error.code == -1004) {
-        return kNetWorkRequestError(kNetworkRequestFailureErrorCode,@"连接服务器失败");
+    if (error) {
+        if (error.code == -1009) {
+            return kNetWorkRequestError(kNetworkRequestFailureErrorCode,@"请检查网络连接");
+        }else if (error.code == -1001) {
+            return kNetWorkRequestError(kNetworkRequestTimeOutErrorCode,@"请求超时");
+        }else if (error.code == -1004) {
+            return kNetWorkRequestError(kNetworkRequestFailureErrorCode,@"连接服务器失败");
+        }
+        return error;
     }
-    return error;
+    return [NSError errorWithDomain:OCTClientErrorDomain code:9999 userInfo:@{}];
 }
 
 #pragma mark -----

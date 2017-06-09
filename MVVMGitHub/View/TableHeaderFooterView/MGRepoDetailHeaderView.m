@@ -23,27 +23,29 @@
 @property (nonatomic, strong) UILabel *descLabel;
 @property (nonatomic, strong) UILabel *latestUpdateLabel;
 @property (nonatomic, assign, readwrite) CGFloat height;
-
 @end
 
 @implementation MGRepoDetailHeaderView
 
 - (instancetype)init{
     
-    if(self = [super init]){
-        [self addSubview:self.owerImageIcon];
-        [self addSubview:self.createTimeLabel];
-        [self addSubview:self.descLabel];
-        [self addSubview:self.latestUpdateLabel];
-        [self addSubview:self.nameLabel];
-        [self addSubview:self.watchButton];
-        [self addSubview:self.starButton];
-        [self addSubview:self.forkButton];
-        [self addSubview:self.defaultBranchButton];
+    if (self = [super init]) {
+        [self initView];
     }
     return self;
 }
-
+- (void)initView{
+    
+    [self addSubview:self.owerImageIcon];
+    [self addSubview:self.createTimeLabel];
+    [self addSubview:self.descLabel];
+    [self addSubview:self.latestUpdateLabel];
+    [self addSubview:self.nameLabel];
+    [self addSubview:self.watchButton];
+    [self addSubview:self.starButton];
+    [self addSubview:self.forkButton];
+    [self addSubview:self.defaultBranchButton];
+}
 - (void)layoutSubviews{
     
     [self.owerImageIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,12 +104,13 @@
         make.left.mas_equalTo(self.defaultBranchButton.mas_right);
     }];
 }
-#pragma mark - setter
-- (void)setRepo:(MGRepositoriesModel *)repo{
+- (void)bindViewModel:(id)viewModel{
     
+    MGRepositoriesModel *repo = viewModel;
     [self.owerImageIcon sd_setImageWithURL:repo.owner.avatarURL
-                                placeholderImage:nil];
-    self.createTimeLabel.text = @"create time";
+                          placeholderImage:nil];
+    self.createTimeLabel.text = [NSString stringWithFormat:@"create at:%@",repo.created_at];
+    self.latestUpdateLabel.text = [NSString stringWithFormat:@"%@",repo.datePushed];
     self.descLabel.text = repo.repoDescription;
     self.nameLabel.text = repo.ownerLogin;
     [self.watchButton setTitle:[repo.watchers_count stringValue]
@@ -119,6 +122,8 @@
     [self.defaultBranchButton setTitle:repo.defaultBranch
                               forState:UIControlStateNormal];
 }
+#pragma mark - setter
+
 - (void)setNameLabelClickedCommand:(RACCommand *)nameLabelClickedCommand{
     
     _nameLabelClickedCommand = nameLabelClickedCommand;
@@ -153,6 +158,7 @@
     CGFloat descHeight = contentFrame.size.height + 30;
     return LINE_SPACE+60+LINE_SPACE+descHeight+LINE_SPACE+40+LINE_SPACE+50;
 }
+
 #pragma mark - lazy load
 - (UIImageView *)owerImageIcon{
     
@@ -165,6 +171,7 @@
     
     if (_createTimeLabel==nil) {
         _createTimeLabel=[UILabel new];
+        _createTimeLabel.textColor = [UIColor blackColor];
     }
     return _createTimeLabel;
 }
@@ -174,6 +181,7 @@
     if (_descLabel==nil) {
         _descLabel=[UILabel new];
         _descLabel.numberOfLines = 0;
+        _descLabel.textColor = [UIColor blackColor];
     }
     return _descLabel;
 }
@@ -181,6 +189,7 @@
     
     if (_latestUpdateLabel==nil) {
         _latestUpdateLabel=[UILabel new];
+        _latestUpdateLabel.textColor = [UIColor blackColor];
     }
     return _latestUpdateLabel;
 }

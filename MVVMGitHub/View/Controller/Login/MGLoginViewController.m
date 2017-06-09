@@ -70,6 +70,9 @@
 
     [self.viewModel.loginCommand.errors subscribeNext:^(NSError *error) {
         NSLog(@"error----%@",error);
+        [[RACScheduler mainThreadScheduler]schedule:^{
+            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        }];
     }];
 }
 - (void)updateViewConstraints{
@@ -109,6 +112,7 @@
         }];
         if ([SAMKeychain mg_rawlogin].isExist) {
             [_userNameText setText:[SAMKeychain mg_rawlogin]];
+            self.viewModel.userName = [SAMKeychain mg_rawlogin];
         }
         _userNameText.keyboardType = UIKeyboardTypeEmailAddress;
     }

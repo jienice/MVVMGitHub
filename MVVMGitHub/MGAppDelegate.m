@@ -58,12 +58,20 @@
             [[obj instance] performSelector:@selector(initialize)];
         }
     }error:nil];
-         
+    
+    //配置头视图刷新
+    [MJRefreshStateHeader aspect_hookSelector:@selector(placeSubviews)
+                                  withOptions:AspectPositionAfter
+                                   usingBlock:^(id<AspectInfo> obj){
+                                       MJRefreshNormalHeader *header = [obj instance];
+                                       [header.lastUpdatedTimeLabel setHidden:YES];
+    }error:nil];
 }
 
 - (void)configHUD{
     
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD setMinimumDismissTimeInterval:3];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

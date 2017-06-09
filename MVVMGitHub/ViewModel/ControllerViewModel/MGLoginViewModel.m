@@ -27,7 +27,6 @@
     @weakify(self);
     
     void(^doNext)(OCTClient *authenticatedClient) = ^(OCTClient *authenticatedClient){
-        
         [SAMKeychain mg_setAccessToken:authenticatedClient.token];
         [SAMKeychain mg_setPassWord:self.passWord];
         [SAMKeychain mg_setRawlogin:authenticatedClient.user.rawLogin];
@@ -55,6 +54,7 @@
         }];
     }];
     
+//    self.error = self.loginCommand.errors;
 }
 
 @end
