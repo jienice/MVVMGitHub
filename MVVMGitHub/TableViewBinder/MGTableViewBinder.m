@@ -12,6 +12,9 @@
 
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+//@property (nonatomic, strong, readwrite) NSArray<Class> *reuseNoXibCellClass;
+//@property (nonatomic, strong, readwrite) NSArray<Class> *reuseXibCellClass;
+//@property (nonatomic, strong, readwrite) RACSignal *dataSourceSignal;
 
 @end
 
@@ -49,29 +52,34 @@
 - (void)setDataSouceSignal:(RACSignal *)dataSouceSignal{
     
     @weakify(self);
-    [dataSouceSignal subscribeNext:^(RACTuple *tuple) {
-        @strongify(self);
-        NSNumber *isFirstPage = [tuple first];
-        NSArray *dataArr = [tuple last];
-        if (isFirstPage.boolValue){
-            [self.dataSource removeAllObjects];
-        }
-        [self.dataSource addObjectsFromArray:dataArr];
-        NSLog(@"self.dataSouce === %@",dataArr);
-        [[RACScheduler mainThreadScheduler] schedule:^{
+    _dataSourceSignal = dataSouceSignal;
+    [dataSouceSignal subscribeNext:^(id x) {
+        [x subscribeNext:^(RACTuple *tuple) {
+            NSLog(@"Next ReloadData");
+            NSParameterAssert(tuple.count==2);
+            @strongify(self);
+            NSNumber *isFirstPage = [tuple first];
+            NSArray *dataArr = [tuple last];
+            if (isFirstPage.boolValue){
+                [self.dataSource removeAllObjects];
+            }
+            [self.dataSource addObjectsFromArray:dataArr];
             [self.tableView reloadData];
+            [self.tableView headerEndRefresh];
+            [self.tableView footerEndRefresh];
+        } error:^(NSError *error){
+            @strongify(self);
+            NSLog(@"Error EndRefresh");
+            [self.tableView endRefresh];
+        } completed:^{
+            NSLog(@"Completed EndRefresh");
+            @strongify(self);
+            [self.tableView endRefresh];
+            [self.tableView footerEndRefreshWithNoMoreData];
+            NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
         }];
-        [self.tableView footerEndRefresh];
-        [self.tableView headerEndRefresh];
-    } error:^(NSError * _Nullable error) {
-        @strongify(self);
-        [self.tableView endRefresh];
-        [self.dataSource removeAllObjects];
-        NSLog(@"%s数据请求出现错误",__func__);
-    } completed:^{
-        [self.tableView footerEndRefreshWithNoMoreData];
-        NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
     }];
+    
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -110,6 +118,4 @@
     
     return [UIColor blueColor];
 }
-#pragma mark - DZNEmptyDataSetDelegate
-
 @end

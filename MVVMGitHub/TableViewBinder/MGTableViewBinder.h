@@ -19,11 +19,13 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (nonatomic, copy) float_IndexPathBlock heightConfigBlock;
 @property (nonatomic, strong) RACCommand *didSelectedCellCommand;
 
-@property (nonatomic, strong) NSArray<Class> *reuseNoXibCellClass;
-@property (nonatomic, strong) NSArray<Class> *reuseXibCellClass;
+@property (nonatomic, strong, readonly) NSArray<Class> *reuseNoXibCellClass;
+@property (nonatomic, strong, readonly) NSArray<Class> *reuseXibCellClass;
+@property (nonatomic, strong, readonly) RACSignal *dataSourceSignal;
 
 - (void)setCellConfigBlock:(string_IndexPathBlock)cellConfigBlock;
 - (void)setHeightConfigBlock:(float_IndexPathBlock)heightConfigBlock;
+
 
 /**
  *  设置数据信号源
@@ -31,6 +33,11 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
  *  @param dataSouceSignal 传值为RACTuple(是否为第一页'NSNumber',数据源'NSArray')
  */
 - (void)setDataSouceSignal:(RACSignal *)dataSouceSignal;
+
+- (void)setReuseXibCellClass:(NSArray<Class> *)reuseXibCellClass;
+
+- (void)setReuseNoXibCellClass:(NSArray<Class> *)reuseNoXibCellClass;
+
 
 @end
 

@@ -25,10 +25,10 @@
     
     if (self = [super init]) {
         self.viewModel = (MGMainViewModel *)viewModel;
-        [self addViewModel:self.viewModel.exploreViewModel];
-        [self addViewModel:self.viewModel.searchViewModel];
+//        [self addViewModel:self.viewModel.exploreViewModel];
+//        [self addViewModel:self.viewModel.searchViewModel];
         [self addViewModel:self.viewModel.repositorisViewModel];
-        [self addViewModel:self.viewModel.profileViewModel];
+//        [self addViewModel:self.viewModel.profileViewModel];
         [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers] firstObject]];
     }
     return self;

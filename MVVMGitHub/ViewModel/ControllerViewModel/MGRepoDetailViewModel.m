@@ -35,34 +35,51 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
 
 - (void)initialize{
     
-    NSLog(@"%s",__func__);
     self.repoOwner = [self.params objectForKey:kRepoDetailParamsKeyForRepoOwner];
     self.repoName = [self.params objectForKey:kRepoDetailParamsKeyForRepoName];
     
     @weakify(self);
-    self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        @strongify(self);
-       return [[[[MGApiImpl sharedApiImpl] fetchRepoDetailWithOwner:self.repoOwner
+    
+    RACCommand *fetchRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        return [[[MGApiImpl sharedApiImpl] fetchRepoDetailWithOwner:self.repoOwner
                                                            repoName:self.repoName] doNext:^(NSDictionary *repoDic) {
-           self.repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
-                                 fromJSONDictionary:repoDic error:nil];
-        }] then:^RACSignal *{
-           return [[RACSignal zip:@[[MGSharedDelegate.client
-                                        fetchTreeForReference:self.repo.defaultBranch inRepository:self.repo recursive:NO],
-                                   [MGSharedDelegate.client
-                                        fetchRepositoryReadme:self.repo],
-                                   [[MGSharedDelegate.client
-                                        fetchBranchesForRepositoryWithName:self.repo.name owner:self.repo.ownerLogin] collect]]]
-                   doNext:^(RACTuple *tuple) {
+            self.repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
+                                  fromJSONDictionary:repoDic error:nil];
+        }];
+    }];
+    
+    RACSignal *fetchRepoOthersSignal =
+    [RACSignal zip:@[[MGSharedDelegate.client
+                      fetchTreeForReference:self.repo.defaultBranch inRepository:self.repo recursive:NO],
+                     [MGSharedDelegate.client
+                      fetchRepositoryReadme:self.repo],
+                     [[MGSharedDelegate.client
+                       fetchBranchesForRepositoryWithName:self.repo.name owner:self.repo.ownerLogin] collect]]];
+    
+    self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+       return [[fetchRepoCommand execute:nil] then:^RACSignal *{
+           return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
                @strongify(self);
-               [self setFileTree:[tuple first]];
-               OCTFileContent *file = [tuple second];
-               self.branches = [tuple last];
-               if ([file.encoding isEqualToString:@"base64"]) {
-                   NSString *readME = [file.content base64DecodedString];
-                   self.readMEHtml = [MMMarkdown HTMLStringWithMarkdown:readME extensions:MMMarkdownExtensionsGitHubFlavored error:nil];
+               if (self.repo) {
+                   [fetchRepoOthersSignal subscribeNext:^(RACTuple *tuple) {
+                       [self setFileTree:[tuple first]];
+                       OCTFileContent *file = [tuple second];
+                       self.branches = [tuple last];
+                       if ([file.encoding isEqualToString:@"base64"]) {
+                           NSString *readME = [file.content base64DecodedString];
+                           self.readMEHtml = [MMMarkdown HTMLStringWithMarkdown:readME extensions:MMMarkdownExtensionsGitHubFlavored error:nil];
+                       }
+                       [subscriber sendNext:RACTuplePack(@YES,self.fileTree.entries)];
+                   } error:^(NSError *error) {
+                       [subscriber sendError:error];
+                   } completed:^{
+                       [subscriber sendCompleted];
+                   }];
+               }else{
+                   [subscriber sendError:nil];
                }
-           }];
+               return nil;
+            }];
         }];
     }];
     

@@ -29,6 +29,7 @@ static NSString *bindeKey = @"bindeKey";
     
     NSParameterAssert(tableViewCreateBlock);
     UITableView *tableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStylePlain];
+    tableView.backgroundColor = MGWhiteColor;
     MGTableViewBinder *binder = [MGTableViewBinder binderWithTable:tableView];
     tableView.delegate = binder;
     tableView.dataSource = binder;
@@ -36,6 +37,10 @@ static NSString *bindeKey = @"bindeKey";
     tableView.emptyDataSetDelegate = binder;
     tableView.binder = binder;
     tableViewCreateBlock(binder);
+    NSAssert(binder.reuseXibCellClass.count!=0||binder.reuseNoXibCellClass.count!=0, @"请先注册复用的Cell");
+    NSAssert(binder.dataSourceSignal!=nil, @"设置数据源信号");
+    NSAssert(binder.cellConfigBlock!=nil, @"请设置不同IndexPath Cell的复用标识");
+    NSAssert(binder.heightConfigBlock!=nil, @"请设置不同IndexPath Cell的高度");
     return tableView;
 }
 + (instancetype)createTableWithBinder:(UITableViewCreateBlock)tableViewCreateBlock{

@@ -66,6 +66,7 @@
                                        MJRefreshNormalHeader *header = [obj instance];
                                        [header.lastUpdatedTimeLabel setHidden:YES];
     }error:nil];
+    
 }
 
 - (void)configHUD{

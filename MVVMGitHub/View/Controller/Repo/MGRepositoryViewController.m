@@ -41,13 +41,12 @@
                                                                                           target:self
                                                                                           action:@selector(mg_createRepository)];
     [self bindViewModel:nil];
-}
+    }
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
     [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] subscribeNext:^(id x) {
         @strongify(self);
-        NSLog(@"fetchDataFromServiceCommand === %s",__func__);
         [self.tableView.mj_header beginRefreshing];
     }];
     
@@ -57,7 +56,32 @@
         MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,kRepoDetailParamsKeyForRepoName:repo.name}];
         [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
     }];
-     
+//    
+//    [self.viewModel.fetchDataFromServiceCommand.executionSignals subscribeNext:^(RACSignal *x) {
+//        NSLog(@"subscribeNext %@",x);
+//        [x subscribeNext:^(id x) {
+//            NSLog(@"inner subscribeNext");
+//
+//        } error:^(NSError *error) {
+//            NSLog(@"inner subscribeError");
+//
+//        } completed:^{
+//            NSLog(@"inner subscribeComplete");
+//        }];
+//    } error:^(NSError *error) {
+//        NSLog(@"subscribeError");
+//    } completed:^{
+//        NSLog(@"subscribeCompleted");
+//    }];
+//    [self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
+//        NSLog(@"switchToLatest -- subscribeNext");
+//    } error:^(NSError *error) {
+//        NSLog(@"switchToLatest -- subscribeError");
+//    } completed:^{
+//        NSLog(@"switchToLatest -- subscribeCompleted");
+//    }];
+    
+  
 }
 #pragma mark - Load Data
 
@@ -77,7 +101,7 @@
         @weakify(self);
         _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
             @strongify(self);
-            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest.dematerialize];
+            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals];
             [binder setReuseNoXibCellClass:@[[MGRepositoriesCell class]]];
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGRepositoriesCell class]);

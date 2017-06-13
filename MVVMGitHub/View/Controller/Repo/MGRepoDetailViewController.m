@@ -21,8 +21,6 @@
 @property (nonatomic, strong) MGRepoDetailHeaderView *headerView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) WKWebView *readmeWeb;
-@property (nonatomic, strong) MGTableViewBinder *tableViewBinder;
-@property (nonatomic, strong) RACSubject *fileTreeDataSignal;
 @end
 
 @implementation MGRepoDetailViewController
@@ -32,7 +30,6 @@
     if (self = [super init]) {
         self.viewModel = (MGRepoDetailViewModel *)viewModel;
         self.navigationItem.title = [self.viewModel.params valueForKey:kRepoDetailParamsKeyForRepoName];
-        self.fileTreeDataSignal = [RACSubject subject];
     }
     return self;
 }
@@ -52,34 +49,19 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
-    [self.view setNeedsUpdateConstraints];
-    [self.view updateConstraintsIfNeeded];
 }
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
-    [self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest subscribeError:^(NSError *error) {
+    [self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest subscribeNext:^(id x){
         @strongify(self);
-        [self.fileTreeDataSignal sendError:error];
-    } completed:^{
-        @strongify(self);
-        [self.fileTreeDataSignal sendNext:RACTuplePack(@YES,self.viewModel.fileTree.entries)];
         [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
-        [[RACScheduler mainThreadScheduler] schedule:^{
-            [self.headerView bindViewModel:self.viewModel.repo];
-            self.tableView.tableHeaderView.frame = CGRectMake(0, 0, self.tableView.width, [self.headerView height]);
-            [self.tableView reloadData];
-        }];
+        [self.headerView bindViewModel:self.viewModel.repo];
+        self.tableView.tableHeaderView.frame = CGRectMake(0, 0, self.tableView.width, [self.headerView height]);
+        [self.tableView reloadData];
     }];
+}
 
-}
-- (void)updateViewConstraints{
-    
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsZero);
-    }];
-    [super updateViewConstraints];
-}
 #pragma mark - Load Data
 
 #pragma mark - Touch Action
@@ -102,11 +84,19 @@
 - (UITableView *)tableView{
     
     if (_tableView==nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStylePlain];
-        _tableView.backgroundColor = MGWhiteColor;
+        @weakify(self);
+        _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
+            @strongify(self);
+            [binder setReuseXibCellClass:@[[MGOCTTreeEntryCell class]]];
+            [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
+                return NSStringFromClass([MGOCTTreeEntryCell class]);
+            }];
+            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
+                return 40;
+            }];
+            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals];
+        }];
         _tableView.mj_header = ({
-            @weakify(self);
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
                 @strongify(self);
                 [self.viewModel.fetchDataFromServiceCommand execute:nil];
@@ -115,18 +105,6 @@
         });
         _tableView.tableHeaderView = self.headerView;
         _tableView.tableFooterView = self.readmeWeb;
-        self.tableViewBinder = ({
-            MGTableViewBinder *binder = [MGTableViewBinder binderWithTable:self.tableView];
-            [binder setReuseXibCellClass:@[[MGOCTTreeEntryCell class]]];
-            [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
-                return NSStringFromClass([MGOCTTreeEntryCell class]);
-            }];
-            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return 40;
-            }];
-            [binder setDataSouceSignal:self.fileTreeDataSignal];
-            binder;
-        });
     }
     return _tableView;
 }

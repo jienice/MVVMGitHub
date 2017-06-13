@@ -48,6 +48,7 @@ static NSString *kPopularRepos = @"Popular Repos";
     RACSubject *popularUsersSB = [RACSubject subject];
     RACSubject *trendReposSB   = [RACSubject subject];
     RACSubject *popularReposSB = [RACSubject subject];
+    
     @weakify(self);
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
@@ -55,7 +56,7 @@ static NSString *kPopularRepos = @"Popular Repos";
         [self.requestShowcasesCommand execute:nil];
         [self.requestPopularUsersCommand execute:nil];
         [self.requestPopularReposCommand execute:nil];
-        return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [[RACSignal zip:@[popularUsersSB,trendReposSB,popularReposSB]] subscribeNext:^(RACTuple *tuple) {
                 NSNumber *popularUsers = [tuple second];
                 NSNumber *trendRepos   = [tuple third];
@@ -70,7 +71,7 @@ static NSString *kPopularRepos = @"Popular Repos";
                 }
             }];
             return nil;
-        }] materialize];
+        }];
     }];
     
     NSURL *baseUrl = [NSURL URLWithString:EXPLORE_BASE_URL];

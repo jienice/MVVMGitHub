@@ -23,12 +23,14 @@
 
 - (void)initialize{
     
+    
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[self fetchDataFromServiceWithPage:0] takeUntil:self.rac_willDeallocSignal];
     }];
     self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(OCTRepository *repository) {
         return [RACSignal empty];
     }];
+    
 }
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page{
     
@@ -36,14 +38,17 @@
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         [[[MGSharedDelegate.client fetchUserRepositories] collect] subscribeNext:^(NSArray<OCTRepository *>*repositories) {
             @strongify(self);
+            NSLog(@"Next ----");
             self.dataSource = [repositories mutableCopy];
             [subscriber sendNext:RACTuplePack(@YES,self.dataSource)];
         } error:^(NSError *error) {
+            NSLog(@"Error ----");
             [subscriber sendError:error];
         } completed:^{
+            NSLog(@"Completed ----");
             [subscriber sendCompleted];
         }];
         return nil;
-    }] materialize];
+    }] deliverOn:RACScheduler.mainThreadScheduler];
 }
 @end
