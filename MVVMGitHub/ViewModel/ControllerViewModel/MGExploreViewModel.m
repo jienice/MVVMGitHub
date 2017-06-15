@@ -56,7 +56,7 @@ static NSString *kPopularRepos = @"Popular Repos";
         [self.requestShowcasesCommand execute:nil];
         [self.requestPopularUsersCommand execute:nil];
         [self.requestPopularReposCommand execute:nil];
-        return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [[RACSignal zip:@[popularUsersSB,trendReposSB,popularReposSB]] subscribeNext:^(RACTuple *tuple) {
                 NSNumber *popularUsers = [tuple second];
                 NSNumber *trendRepos   = [tuple third];
@@ -64,14 +64,14 @@ static NSString *kPopularRepos = @"Popular Repos";
                 if ([popularRepos boolValue]&&
                     [trendRepos boolValue]&&
                     [popularUsers boolValue]) {
-                    [subscriber sendNext:RACTuplePack(@YES,self.dataSource)];
+                    [subscriber sendNext:RACTuplePack(@YES,@YES,self.dataSource)];
                     [subscriber sendCompleted];
                 }else{
                     [subscriber sendError:[NSError errorWithDomain:AFNetworkingErrorDomain code:999 userInfo:@{}]];
                 }
             }];
             return nil;
-        }];
+        }] deliverOn:RACScheduler.mainThreadScheduler];
     }];
     
     NSURL *baseUrl = [NSURL URLWithString:EXPLORE_BASE_URL];

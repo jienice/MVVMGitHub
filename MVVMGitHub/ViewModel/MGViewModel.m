@@ -37,4 +37,10 @@
     _params = params;
     self.title = [params valueForKey:kNavigationTitle];
 }
+
+#pragma mark - Dealloc
+- (void)dealloc{
+    
+    NSLog(@"%s",__func__);
+}
 @end

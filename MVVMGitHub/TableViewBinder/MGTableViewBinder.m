@@ -53,33 +53,37 @@
     
     @weakify(self);
     _dataSourceSignal = dataSouceSignal;
-    [dataSouceSignal subscribeNext:^(id x) {
-        [x subscribeNext:^(RACTuple *tuple) {
-            NSLog(@"Next ReloadData");
-            NSParameterAssert(tuple.count==2);
-            @strongify(self);
-            NSNumber *isFirstPage = [tuple first];
-            NSArray *dataArr = [tuple last];
-            if (isFirstPage.boolValue){
-                [self.dataSource removeAllObjects];
-            }
-            [self.dataSource addObjectsFromArray:dataArr];
-            [self.tableView reloadData];
-            [self.tableView headerEndRefresh];
-            [self.tableView footerEndRefresh];
-        } error:^(NSError *error){
-            @strongify(self);
-            NSLog(@"Error EndRefresh");
-            [self.tableView endRefresh];
-        } completed:^{
+    [dataSouceSignal subscribeNext:^(RACTuple *tuple) {
+        NSLog(@"Next ReloadData");
+        NSParameterAssert(tuple.count==3);
+        @strongify(self);
+        NSNumber *isFirstPage = [tuple first];
+        NSNumber *isLastPage = [tuple second];
+        NSArray *dataArr = [tuple last];
+        if (isFirstPage.boolValue){
+            [self.dataSource removeAllObjects];
+        }
+        [self.dataSource addObjectsFromArray:dataArr];
+        [self.tableView reloadData];
+        [self.tableView headerEndRefresh];
+        if (isLastPage) {
             NSLog(@"Completed EndRefresh");
-            @strongify(self);
-            [self.tableView endRefresh];
-            [self.tableView footerEndRefreshWithNoMoreData];
             NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
-        }];
+            [self.tableView footerEndRefreshWithNoMoreData];
+        }else{
+            [self.tableView footerEndRefresh];
+        }
     }];
+}
+- (void)setErrors:(RACSignal *)errors{
     
+    _errors = errors;
+    @weakify(self);
+    [_errors subscribeNext:^(id x) {
+        @strongify(self);
+        NSLog(@"Error EndRefresh");
+        [self.tableView endRefresh];
+    }];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -117,5 +121,10 @@
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView{
     
     return [UIColor blueColor];
+}
+#pragma mark - Dealloc
+- (void)dealloc{
+    
+    NSLog(@"%s",__func__);
 }
 @end

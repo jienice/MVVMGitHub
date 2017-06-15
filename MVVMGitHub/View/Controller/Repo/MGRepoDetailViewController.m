@@ -21,6 +21,7 @@
 @property (nonatomic, strong) MGRepoDetailHeaderView *headerView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) WKWebView *readmeWeb;
+
 @end
 
 @implementation MGRepoDetailViewController
@@ -94,7 +95,8 @@
             [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
                 return 40;
             }];
-            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals];
+            binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
+            binder.errors = self.viewModel.fetchDataFromServiceCommand.errors;
         }];
         _tableView.mj_header = ({
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

@@ -20,7 +20,7 @@
 @interface MGExploreViewController ()
 <SDCycleScrollViewDelegate>
 
-@property (nonatomic, strong, readwrite) MGExploreViewModel *viewModel;
+@property (nonatomic, weak, readwrite) MGExploreViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -73,7 +73,8 @@
         @weakify(self);
         _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
             @strongify(self);
-            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals];
+            binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
+            binder.errors = self.viewModel.fetchDataFromServiceCommand.errors;
             [binder setReuseXibCellClass:@[[MGExploreTableViewCell class]]];
             binder.cellConfigBlock = ^NSString *(NSIndexPath *indexPath){
                 return NSStringFromClass([MGExploreTableViewCell class]);

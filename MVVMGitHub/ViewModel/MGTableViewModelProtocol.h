@@ -29,6 +29,7 @@
  */
 @property (nonatomic, strong) RACCommand *fetchDataFromServiceCommand;
 
+
 @optional
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page;
 

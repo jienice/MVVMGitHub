@@ -16,9 +16,12 @@
 
 - (void)viewDidLoad {
     
-    
     [super viewDidLoad];
 }
 
-
+#pragma mark - Dealloc
+- (void)dealloc{
+    
+    NSLog(@"%s",__func__);
+}
 @end

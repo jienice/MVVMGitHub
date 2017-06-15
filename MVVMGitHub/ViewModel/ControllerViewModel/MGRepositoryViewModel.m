@@ -20,18 +20,19 @@
 @synthesize didSelectedRowCommand = _didSelectedRowCommand;
 
 
-
 - (void)initialize{
-    
     
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[self fetchDataFromServiceWithPage:0] takeUntil:self.rac_willDeallocSignal];
     }];
+    
     self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(OCTRepository *repository) {
         return [RACSignal empty];
     }];
     
+    
 }
+
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page{
     
     @weakify(self);
@@ -40,7 +41,7 @@
             @strongify(self);
             NSLog(@"Next ----");
             self.dataSource = [repositories mutableCopy];
-            [subscriber sendNext:RACTuplePack(@YES,self.dataSource)];
+            [subscriber sendNext:RACTuplePack(@YES,@YES,self.dataSource)];
         } error:^(NSError *error) {
             NSLog(@"Error ----");
             [subscriber sendError:error];
@@ -51,4 +52,5 @@
         return nil;
     }] deliverOn:RACScheduler.mainThreadScheduler];
 }
+
 @end

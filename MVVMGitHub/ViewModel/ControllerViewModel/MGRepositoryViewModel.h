@@ -11,5 +11,4 @@
 @interface MGRepositoryViewModel : MGViewModel <MGTableViewModelProtocol>
 
 
-
 @end

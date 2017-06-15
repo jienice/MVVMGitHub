@@ -56,32 +56,7 @@
         MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,kRepoDetailParamsKeyForRepoName:repo.name}];
         [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
     }];
-//    
-//    [self.viewModel.fetchDataFromServiceCommand.executionSignals subscribeNext:^(RACSignal *x) {
-//        NSLog(@"subscribeNext %@",x);
-//        [x subscribeNext:^(id x) {
-//            NSLog(@"inner subscribeNext");
-//
-//        } error:^(NSError *error) {
-//            NSLog(@"inner subscribeError");
-//
-//        } completed:^{
-//            NSLog(@"inner subscribeComplete");
-//        }];
-//    } error:^(NSError *error) {
-//        NSLog(@"subscribeError");
-//    } completed:^{
-//        NSLog(@"subscribeCompleted");
-//    }];
-//    [self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
-//        NSLog(@"switchToLatest -- subscribeNext");
-//    } error:^(NSError *error) {
-//        NSLog(@"switchToLatest -- subscribeError");
-//    } completed:^{
-//        NSLog(@"switchToLatest -- subscribeCompleted");
-//    }];
     
-  
 }
 #pragma mark - Load Data
 
@@ -101,14 +76,15 @@
         @weakify(self);
         _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
             @strongify(self);
-            [binder setDataSouceSignal:self.viewModel.fetchDataFromServiceCommand.executionSignals];
-            [binder setReuseNoXibCellClass:@[[MGRepositoriesCell class]]];
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGRepositoriesCell class]);
             }];
             [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
                 return [MGRepositoriesCell cellHeight];
             }];
+            binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
+            binder.errors = self.viewModel.fetchDataFromServiceCommand.errors;
+            binder.reuseNoXibCellClass = @[[MGRepositoriesCell class]];
         }];
         _tableView.mj_header = ({
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
