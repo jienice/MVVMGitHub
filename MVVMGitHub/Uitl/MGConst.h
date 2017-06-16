@@ -14,7 +14,6 @@
 @interface MGConst : NSObject
 
 FOUNDATION_EXTERN NSString *const kClassMap;
-FOUNDATION_EXTERN NSString *const kNavigationTitle;
 
 #pragma mark - MGExplore
 

@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class MGTableViewBinder;
+#import "MGTableViewBinder.h"
 
 typedef void (^UITableViewCreateBlock)(MGTableViewBinder *binder);
 

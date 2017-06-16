@@ -13,7 +13,7 @@ extern NSString *const kRepoDetailParamsKeyForRepoName;
 
 @class MGRepositoriesModel;
 
-@interface MGRepoDetailViewModel : MGViewModel
+@interface MGRepoDetailViewModel : MGViewModel<MGTableViewModelProtocol>
 
 @property (nonatomic, strong, readonly) NSString *readMEHtml;
 @property (nonatomic, strong, readonly) MGRepositoriesModel *repo;
@@ -22,7 +22,6 @@ extern NSString *const kRepoDetailParamsKeyForRepoName;
 @property (nonatomic, strong, readonly) RACCommand *starRepoCommand;
 @property (nonatomic, strong, readonly) RACCommand *forkRepoCommand;
 @property (nonatomic, strong, readonly) NSArray *branches;
-
 
 
 @end

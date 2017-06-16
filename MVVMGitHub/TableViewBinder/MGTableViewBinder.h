@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
+typedef NSString *(^String_IndexPathBlock)(NSIndexPath *IndexPath);
+typedef CGFloat(^Float_IndexPathBlock)(NSIndexPath *IndexPath);
+
+
 @interface MGTableViewBinder : NSObject
 <UITableViewDelegate,UITableViewDataSource,
 DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
@@ -22,8 +27,8 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong, setter=setErrors:) RACSignal *errors;
 
-@property (nonatomic, copy) string_IndexPathBlock cellConfigBlock;
-@property (nonatomic, copy) float_IndexPathBlock heightConfigBlock;
+@property (nonatomic, copy) String_IndexPathBlock cellConfigBlock;
+@property (nonatomic, copy) Float_IndexPathBlock heightConfigBlock;
 @property (nonatomic, strong) RACCommand *didSelectedCellCommand;
 
 @property (nonatomic, strong) NSArray<Class> *reuseNoXibCellClass;
@@ -31,9 +36,9 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 
 
-- (void)setCellConfigBlock:(string_IndexPathBlock)cellConfigBlock;
+- (void)setCellConfigBlock:(String_IndexPathBlock)cellConfigBlock;
 
-- (void)setHeightConfigBlock:(float_IndexPathBlock)heightConfigBlock;
+- (void)setHeightConfigBlock:(Float_IndexPathBlock)heightConfigBlock;
 
 
 @end

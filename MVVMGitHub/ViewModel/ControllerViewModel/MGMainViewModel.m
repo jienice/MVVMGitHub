@@ -18,10 +18,6 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
 
 @interface MGMainViewModel ()
 
-@property (nonatomic, strong, readwrite) MGProfileViewModel *profileViewModel;
-@property (nonatomic, strong, readwrite) MGRepositoryViewModel *repositorisViewModel;
-@property (nonatomic, strong, readwrite) MGExploreViewModel *exploreViewModel;
-@property (nonatomic, strong, readwrite) MGSearchViewModel *searchViewModel;
 
 @end
 
@@ -33,31 +29,27 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
     NSDictionary *explpre = @{kTabBarItemTitle:@"Explore",
                            kTabBarSelectedImageName:@"Icon-iPhone",
                            kTabBarNormalImageName:@"Icon-iPhone",
-                           kClassMap:@"Explore",
-                           kNavigationTitle:@"Explore"};
+                           kClassMap:@"Explore"};
     
     NSDictionary *repositories = @{kTabBarItemTitle:@"Repositories",
                             kTabBarSelectedImageName:@"Icon-iPhone",
                             kTabBarNormalImageName:@"Icon-iPhone",
-                            kClassMap:@"Repositories",
-                            kNavigationTitle:@"Repositories"};
+                            kClassMap:@"Repositories"};
     
     NSDictionary *profile = @{kTabBarItemTitle:@"Profile",
                            kTabBarSelectedImageName:@"Icon-iPhone",
                            kTabBarNormalImageName:@"Icon-iPhone",
-                           kClassMap:@"Profile",
-                           kNavigationTitle:@"Profile"};
+                           kClassMap:@"Profile"};
     
     NSDictionary *search = @{kTabBarItemTitle:@"Search",
                               kTabBarSelectedImageName:@"Icon-iPhone",
                               kTabBarNormalImageName:@"Icon-iPhone",
-                              kClassMap:@"Search",
-                              kNavigationTitle:@"Search"};
+                              kClassMap:@"Search"};
     
-    self.exploreViewModel = [[MGExploreViewModel alloc]initWithParams:explpre];
-    self.profileViewModel = [[MGProfileViewModel alloc]initWithParams:profile];
-    self.repositorisViewModel = [[MGRepositoryViewModel alloc]initWithParams:repositories];
-    self.searchViewModel = [[MGSearchViewModel alloc]initWithParams:search];
+    _exploreViewModel = [[MGExploreViewModel alloc]initWithParams:explpre];
+    _profileViewModel = [[MGProfileViewModel alloc]initWithParams:profile];
+    _searchViewModel = [[MGSearchViewModel alloc]initWithParams:search];
+    _repositorisViewModel = [[MGRepositoryViewModel alloc]initWithParams:repositories];
 }
 
 

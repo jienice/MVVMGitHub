@@ -11,7 +11,6 @@
 @implementation MGConst
 
 NSString *const kClassMap        = @"kClassMap";
-NSString *const kNavigationTitle = @"kNavigationTitle";
 
 NSString *const kMGExploreCellTypeKey  = @"kMGExploreCellTypeKey";
 NSString *const kMGExploreCellTitleKey = @"kMGExploreCellTitleKey";

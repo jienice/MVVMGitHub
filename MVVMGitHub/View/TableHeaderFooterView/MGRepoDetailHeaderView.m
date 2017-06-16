@@ -113,7 +113,7 @@
     self.latestUpdateLabel.text = [NSString stringWithFormat:@"%@",repo.datePushed];
     self.descLabel.text = repo.repoDescription;
     self.nameLabel.text = repo.ownerLogin;
-    [self.watchButton setTitle:[repo.watchers_count stringValue]
+    [self.watchButton setTitle:[NSString stringWithFormat:@"watch:%@",[repo.watchers_count stringValue]]
                       forState:UIControlStateNormal];
     [self.starButton setTitle:[repo.stargazers_count stringValue]
                      forState:UIControlStateNormal];

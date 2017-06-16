@@ -27,11 +27,6 @@ static NSString *kPopularRepos = @"Popular Repos";
 
 @interface MGExploreViewModel ()
 
-@property (nonatomic, strong, readwrite) RACCommand *requestTrendReposCommand;
-@property (nonatomic, strong, readwrite) RACCommand *requestPopularUsersCommand;
-@property (nonatomic, strong, readwrite) RACCommand *requestShowcasesCommand;
-@property (nonatomic, strong, readwrite) RACCommand *requestLanguageCommand;
-@property (nonatomic, strong, readwrite) RACCommand *requestPopularReposCommand;
 
 @end
 
@@ -45,6 +40,7 @@ static NSString *kPopularRepos = @"Popular Repos";
 - (void)initialize{
     
     self.dataSource            = [NSMutableArray array];
+    self.title = @"Explore";
     RACSubject *popularUsersSB = [RACSubject subject];
     RACSubject *trendReposSB   = [RACSubject subject];
     RACSubject *popularReposSB = [RACSubject subject];
@@ -76,7 +72,7 @@ static NSString *kPopularRepos = @"Popular Repos";
     
     NSURL *baseUrl = [NSURL URLWithString:EXPLORE_BASE_URL];
     MGApiImpl *apiImpl = [[MGApiImpl alloc]initWithBaseUrl:baseUrl];
-    self.requestShowcasesCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    _requestShowcasesCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [[[[apiImpl fetchShowcases] retry:2] takeUntil:self.rac_willDeallocSignal]
              subscribeNext:^(NSArray *dataArr) {
@@ -89,7 +85,7 @@ static NSString *kPopularRepos = @"Popular Repos";
             return nil;
         }];
     }];
-    self.requestTrendReposCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
+    _requestTrendReposCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
         return [[[[[apiImpl fetchTrendReposSince:@"weekly"
                                         language:@"objective-c"] retry:2]
                   takeUntil:self.rac_willDeallocSignal] doNext:^(NSArray *dataArr) {
@@ -107,7 +103,7 @@ static NSString *kPopularRepos = @"Popular Repos";
         }];
     }];
     
-    self.requestPopularUsersCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
+    _requestPopularUsersCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
         return [[[[[[MGApiImpl sharedApiImpl] searchUserWithKeyWord:nil
                                                            language:@"objective-c"
                                                                sort:@"followers"
@@ -128,7 +124,7 @@ static NSString *kPopularRepos = @"Popular Repos";
     }];
     
     
-    self.requestPopularReposCommand =[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    _requestPopularReposCommand =[[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[[[[[MGApiImpl sharedApiImpl] searchRepositoriesWithKeyWord:nil
                                                                    language:@"objective-c"
                                                                        sort:@"stars"

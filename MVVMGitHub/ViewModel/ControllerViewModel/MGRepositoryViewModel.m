@@ -22,15 +22,14 @@
 
 - (void)initialize{
     
+    self.title = @"Repository";
     self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[self fetchDataFromServiceWithPage:0] takeUntil:self.rac_willDeallocSignal];
     }];
     
     self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(OCTRepository *repository) {
         return [RACSignal empty];
-    }];
-    
-    
+    }];    
 }
 
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page{

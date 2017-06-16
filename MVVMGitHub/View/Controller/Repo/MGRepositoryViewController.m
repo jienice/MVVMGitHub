@@ -37,9 +37,6 @@
     
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                          target:self
-                                                                                          action:@selector(mg_createRepository)];
     [self bindViewModel:nil];
     }
 - (void)bindViewModel:(id)viewModel{
@@ -61,9 +58,9 @@
 #pragma mark - Load Data
 
 #pragma mark - Touch Action
-- (void)mg_createRepository{
+- (void)createRepository{
     
-    MGCreateRepoViewModel *viewMode = [[MGCreateRepoViewModel alloc]initWithParams:@{kNavigationTitle:@"Create New Repositioy"}];
+    MGCreateRepoViewModel *viewMode = [[MGCreateRepoViewModel alloc]initWithParams:@{}];
     [MGSharedDelegate.viewModelBased presentViewModel:viewMode animated:YES];
 }
 

@@ -19,7 +19,6 @@
 @property (nonatomic, strong) RACCommand *branchBtnClickedCommand;
 @property (nonatomic, assign, readonly) CGFloat height;
 
-- (void)setRepo:(MGRepositoriesModel *)repo;
 
 
 @end

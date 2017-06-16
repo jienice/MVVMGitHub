@@ -15,14 +15,6 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
 
 @interface MGRepoDetailViewModel()
 
-@property (nonatomic, strong, readwrite) NSString *readMEHtml;
-@property (nonatomic, strong, readwrite) RACCommand *watchRepoCommand;
-@property (nonatomic, strong, readwrite) RACCommand *starRepoCommand;
-@property (nonatomic, strong, readwrite) RACCommand *forkRepoCommand;
-@property (nonatomic, strong, readwrite) MGRepositoriesModel *repo;
-@property (nonatomic, strong, readwrite) NSArray *branches;
-@property (nonatomic, strong, readwrite) OCTTree *fileTree;
-
 @property (nonatomic, copy) NSString *repoOwner;
 @property (nonatomic, copy) NSString *repoName;
 
@@ -32,45 +24,50 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
 @implementation MGRepoDetailViewModel
 
 @synthesize fetchDataFromServiceCommand = _fetchDataFromServiceCommand;
+@synthesize page                        = _page;
+@synthesize dataSource                  = _dataSource;
+@synthesize didSelectedRowCommand       = _didSelectedRowCommand;
+
+
 
 - (void)initialize{
     
-    self.repoOwner = [self.params objectForKey:kRepoDetailParamsKeyForRepoOwner];
-    self.repoName = [self.params objectForKey:kRepoDetailParamsKeyForRepoName];
+    _repoOwner = [self.params objectForKey:kRepoDetailParamsKeyForRepoOwner];
+    _repoName = [self.params objectForKey:kRepoDetailParamsKeyForRepoName];
     
-    @weakify(self);
     RACCommand *fetchRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[[MGApiImpl sharedApiImpl] fetchRepoDetailWithOwner:self.repoOwner
-                                                           repoName:self.repoName] doNext:^(NSDictionary *repoDic) {
-            self.repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
+        return [[[MGApiImpl sharedApiImpl] fetchRepoDetailWithOwner:_repoOwner
+                                                           repoName:_repoName] doNext:^(NSDictionary *repoDic) {
+            _repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
                                   fromJSONDictionary:repoDic error:nil];
         }];
     }];
     
     RACCommand *fetchRepoOthersCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal zip:@[[MGSharedDelegate.client
-                                 fetchTreeForReference:self.repo.defaultBranch inRepository:self.repo recursive:NO],
+                                 fetchTreeForReference:_repo.defaultBranch inRepository:_repo recursive:NO],
                                 [MGSharedDelegate.client
-                                 fetchRepositoryReadme:self.repo],
+                                 fetchRepositoryReadme:_repo],
                                 [[MGSharedDelegate.client
-                                  fetchBranchesForRepositoryWithName:self.repo.name owner:self.repo.ownerLogin] collect]]];
+                                  fetchBranchesForRepositoryWithName:_repo.name owner:_repo.ownerLogin] collect]]];
     }];
     
     
-    self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         RACSignal *fetchRepoSignal = [fetchRepoCommand execute:nil];
         return  [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [fetchRepoSignal subscribeNext:^(id x) {
                 [[fetchRepoOthersCommand execute:nil] subscribeNext:^(RACTuple *tuple) {
-                    @strongify(self);
-                    [self setFileTree:[tuple first]];
+                    _fileTree = [tuple first];
                     OCTFileContent *file = [tuple second];
-                    self.branches = [tuple last];
+                    _branches = [tuple last];
                     if ([file.encoding isEqualToString:@"base64"]) {
                         NSString *readME = [file.content base64DecodedString];
-                        self.readMEHtml = [MMMarkdown HTMLStringWithMarkdown:readME extensions:MMMarkdownExtensionsGitHubFlavored error:nil];
+                        _readMEHtml = [[MMMarkdown HTMLStringWithMarkdown:readME
+                                                                   extensions:MMMarkdownExtensionsGitHubFlavored
+                                                                        error:nil] readMeHtmlString];
                     }
-                    [subscriber sendNext:RACTuplePack(@YES,@YES,self.fileTree.entries)];
+                    [subscriber sendNext:RACTuplePack(@YES,@YES,_fileTree.entries)];
                 } error:^(NSError *error) {
                     [subscriber sendError:error];
                 } completed:^{
@@ -83,10 +80,11 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
         }] deliverOn:RACScheduler.mainThreadScheduler];
     }];
     
-    self.starRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [MGSharedDelegate.client starRepository:self.repo];
+    _starRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        return [MGSharedDelegate.client starRepository:_repo];
     }];
   
+    
     
 }
 @end

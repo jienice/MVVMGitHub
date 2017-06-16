@@ -64,8 +64,7 @@
 ///------------
 ///  Block
 ///------------
-typedef NSString*(^string_IndexPathBlock)(NSIndexPath *indexPath);
-typedef CGFloat (^float_IndexPathBlock)(NSIndexPath *indexPath);
+
 
 
 

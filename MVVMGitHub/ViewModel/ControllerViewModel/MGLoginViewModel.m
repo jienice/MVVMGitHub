@@ -10,10 +10,7 @@
 
 @interface MGLoginViewModel()
 
-@property (nonatomic, strong, readwrite) RACSignal *canLoginSignal;
-@property (nonatomic, strong, readwrite) RACCommand *loginCommand;
 @property (nonatomic, strong, readwrite) RACCommand *loginSuccessCommand;
-@property (nonatomic, strong, readwrite) RACCommand *exchangeTokenCommand;
 
 @end
 
@@ -33,7 +30,7 @@
         [MGSharedDelegate setClient:authenticatedClient];
     };
     
-    self.loginCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSString *oneTimePassword) {
+    _loginCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSString *oneTimePassword) {
         @strongify(self);
         OCTUser *user = [OCTUser userWithRawLogin:self.userName server:OCTServer.dotComServer];
         return [[OCTClient signInAsUser:user
@@ -43,7 +40,7 @@
                 doNext:doNext];
     }];
     
-    self.canLoginSignal = [RACSignal combineLatest:@[RACObserve(self, userName),RACObserve(self, passWord)] reduce:^id(NSString *userName, NSString *passWord){
+    _canLoginSignal = [RACSignal combineLatest:@[RACObserve(self, userName),RACObserve(self, passWord)] reduce:^id(NSString *userName, NSString *passWord){
         return @(userName.length>0 && passWord.length>0);
     }];
     

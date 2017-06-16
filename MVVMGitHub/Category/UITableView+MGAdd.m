@@ -7,7 +7,7 @@
 //
 
 #import "UITableView+MGAdd.h"
-#import "MGTableViewBinder.h"
+
 
 @implementation UITableView (MGAdd)
 

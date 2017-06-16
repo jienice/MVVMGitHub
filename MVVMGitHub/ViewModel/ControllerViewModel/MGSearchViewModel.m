@@ -11,8 +11,6 @@
 
 @interface MGSearchViewModel ()
 
-@property (nonatomic, strong, readwrite) RACCommand *searchCommand;
-@property (nonatomic, strong, readwrite) RACSignal *enabledSignal;
 
 @end
 
@@ -20,12 +18,12 @@
 
 - (void)initialize{
     
-    self.enabledSignal = [[RACObserve(self, searchText) distinctUntilChanged] map:^id(NSString *value) {
+    _enabledSignal = [[RACObserve(self, searchText) distinctUntilChanged] map:^id(NSString *value) {
         NSLog(@"searchText --- %@",value);
         return value.length>=3?@YES:@NO;
     }];
     
-    self.searchCommand = [[RACCommand alloc]initWithEnabled:self.enabledSignal signalBlock:^RACSignal *(id input) {
+    _searchCommand = [[RACCommand alloc]initWithEnabled:self.enabledSignal signalBlock:^RACSignal *(id input) {
         switch (self.searchType) {
             case MGSearchForUsers:
                 return [[MGApiImpl sharedApiImpl] searchUserWithKeyWord:self.searchText

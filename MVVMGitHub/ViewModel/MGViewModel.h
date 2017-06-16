@@ -10,7 +10,7 @@
 
 @interface MGViewModel : NSObject<MGViewModelProtocol>
 
-@property (nonatomic, copy, readonly) NSString *title;
+@property (nonatomic, copy) NSString *title;
 
 @property (nonatomic, strong, readonly) NSDictionary *params;
 

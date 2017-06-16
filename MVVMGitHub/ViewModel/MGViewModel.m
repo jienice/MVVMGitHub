@@ -10,8 +10,6 @@
 
 @interface MGViewModel ()
 
-@property (nonatomic, copy, readwrite) NSString *title;
-@property (nonatomic, strong, readwrite) NSDictionary *params;
 
 @end
 
@@ -26,17 +24,11 @@
 - (instancetype)initWithParams:(NSDictionary *)params{
     
     if (self = [super init]) {
-        self.params = params;
+        _params = params;
     }
     return self;
 }
 
-#pragma mark - setter
-- (void)setParams:(NSDictionary *)params{
-    
-    _params = params;
-    self.title = [params valueForKey:kNavigationTitle];
-}
 
 #pragma mark - Dealloc
 - (void)dealloc{

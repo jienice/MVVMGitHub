@@ -34,7 +34,7 @@
 //#import "UIView+Borders.h"
 ///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"
-#import "NSString+MGUitl.h"
+#import "NSString+MGAdd.h"
 #import "UIView+Extension.h"
 #import "UILabel+MGAdd.h"
 #import "UIBarButtonItem+MGAdd.h"

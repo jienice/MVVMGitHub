@@ -12,7 +12,7 @@
 #import "MGRepoDetailHeaderView.h"
 #import "MGOCTTreeEntryCell.h"
 #import "WKWebView+MGWeb.h"
-#import "MGTableViewBinder.h"
+#import "MGRepoCommitsViewModel.h"
 
 @interface MGRepoDetailViewController ()
 <WKNavigationDelegate>
@@ -41,11 +41,23 @@
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemForPopViewController];
 
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"ceshi"
+                                                                             style:UIBarButtonItemStyleDone
+                                                                            target:self
+                                                                            action:@selector(test)];
     [self configUI];
     [self bindViewModel:nil];
     [self.tableView.mj_header beginRefreshing];
-}
 
+}
+- (void)test{
+    
+    MGRepoCommitsViewModel *commits = [[MGRepoCommitsViewModel alloc]
+                                       initWithParams:@{kRepoForKnowCommits:self.viewModel.repo,
+                                                        kSHAForKnowCommits:self.viewModel.repo.defaultBranch}];
+    [MGSharedDelegate.viewModelBased pushViewModel:commits animated:YES];
+    
+}
 - (void)configUI{
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -75,7 +87,7 @@
         webView.height = height;
         @strongify(self);
         [[RACScheduler mainThreadScheduler]schedule:^{
-            self.tableView.tableFooterView.frame= CGRectMake(webView.x, webView.y, webView.width, height);
+            self.tableView.tableFooterView.frame= CGRectMake(webView.x, webView.y, self.tableView.width, height);
             self.tableView.height += height;
         }];
     }];
@@ -123,6 +135,7 @@
         _readmeWeb = [[WKWebView alloc]init];
         _readmeWeb.navigationDelegate = self;
         _readmeWeb.backgroundColor = [UIColor redColor];
+        _readmeWeb.scrollView.showsVerticalScrollIndicator = NO;
     }
     return _readmeWeb;
 }
