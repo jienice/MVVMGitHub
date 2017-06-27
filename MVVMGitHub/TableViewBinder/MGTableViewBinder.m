@@ -8,13 +8,18 @@
 
 #import "MGTableViewBinder.h"
 
+typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
+    MGTableViewLoading,
+    MGTableViewLoadNoData,
+    MGTableViewLoadDataFail
+};
+
+
 @interface MGTableViewBinder()
 
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-//@property (nonatomic, strong, readwrite) NSArray<Class> *reuseNoXibCellClass;
-//@property (nonatomic, strong, readwrite) NSArray<Class> *reuseXibCellClass;
-//@property (nonatomic, strong, readwrite) RACSignal *dataSourceSignal;
+@property (nonatomic, assign) MGTableViewLoadDataType loadDataType;
 
 @end
 
@@ -30,6 +35,7 @@
     binder.didSelectedCellCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal return:input];
     }];
+    binder.loadDataType = MGTableViewLoading;
     return binder;
 }
 #pragma mark - setter
@@ -54,18 +60,22 @@
     @weakify(self);
     _dataSourceSignal = dataSouceSignal;
     [dataSouceSignal subscribeNext:^(RACTuple *tuple) {
-        NSLog(@"Next ReloadData");
         NSParameterAssert(tuple.count==3);
         @strongify(self);
+        NSLog(@"Next ReloadData");
         NSNumber *isFirstPage = [tuple first];
-        NSNumber *isLastPage = [tuple second];
+        NSNumber *isLastPage  = [tuple second];
         NSArray *dataArr = [tuple last];
-        if (isFirstPage.boolValue){
+        [self.tableView headerEndRefresh];
+        if (isFirstPage.boolValue){//第一页
             [self.dataSource removeAllObjects];
+            if (dataArr.count==0) {//第一页且无数据
+                self.loadDataType = MGTableViewLoadNoData;
+                [self.tableView reloadEmptyDataSet];
+            }
         }
         [self.dataSource addObjectsFromArray:dataArr];
         [self.tableView reloadData];
-        [self.tableView headerEndRefresh];
         if (isLastPage) {
             NSLog(@"Completed EndRefresh");
             NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
@@ -82,9 +92,12 @@
     [_errors subscribeNext:^(id x) {
         @strongify(self);
         NSLog(@"Error EndRefresh");
+        self.loadDataType = MGTableViewLoadDataFail;
+        [self.tableView reloadEmptyDataSet];
         [self.tableView endRefresh];
     }];
 }
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -114,14 +127,96 @@
 #pragma mark - DZNEmptyDataSetSource
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [[NSAttributedString alloc]initWithString:@"测试"
-                                          attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
-                                                       NSForegroundColorAttributeName:[UIColor redColor]}];
+    switch (self.loadDataType) {
+        case MGTableViewLoadDataFail:{
+            return [[NSAttributedString alloc]initWithString:@"loading..."
+                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                                               NSForegroundColorAttributeName:[UIColor redColor]}];
+        }
+            break;
+        case MGTableViewLoadNoData:{
+            return [[NSAttributedString alloc]initWithString:@""
+                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                                               NSForegroundColorAttributeName:[UIColor redColor]}];
+        }
+            break;
+        case MGTableViewLoading:{
+            return nil;
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView{
     
-    return [UIColor blueColor];
+    return [UIColor whiteColor];
 }
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
+    
+    switch (self.loadDataType) {
+        case MGTableViewLoadDataFail:{
+            return [[NSAttributedString alloc]initWithString:@"重新加载"
+                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                                               NSForegroundColorAttributeName:[UIColor redColor]}];
+        }
+            
+            break;
+        case MGTableViewLoadNoData:{
+            return [[NSAttributedString alloc]initWithString:@"无数据"
+                                                  attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
+                                                               NSForegroundColorAttributeName:[UIColor redColor]}];
+        }
+            break;
+        case MGTableViewLoading:{
+            return nil;
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - DZNEmptyDataSetDelegate
+- (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
+    
+    switch (self.loadDataType) {
+        case MGTableViewLoadDataFail:{
+            [self.tableView.mj_header beginRefreshing];
+        }
+            break;
+        case MGTableViewLoadNoData:{
+            [MGSharedDelegate.viewModelBased popViewModelAnimated:YES];
+        }
+            break;
+        case MGTableViewLoading:{
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView{
+    
+    switch (self.loadDataType) {
+        case MGTableViewLoadDataFail:{
+            return YES;
+        }
+            break;
+        case MGTableViewLoadNoData:{
+            return YES;
+        }
+            break;
+        case MGTableViewLoading:{
+            return NO;
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 #pragma mark - Dealloc
 - (void)dealloc{
     

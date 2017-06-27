@@ -2,16 +2,13 @@
 //  MGSearchRepoViewController.h
 //  MVVMGitHub
 //
-//  Created by XingJie on 2017/4/11.
+//  Created by XingJie on 2017/6/21.
 //  Copyright © 2017年 xingjie. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MGViewController.h"
 
-@class MGSearchViewModel;
-@interface MGSearchRepoViewController : UITableViewController
-
-@property (nonatomic, weak) MGSearchViewModel *viewModel;
+@interface MGSearchRepoViewController : MGViewController<MGViewControllerProtocol>
 
 
 @end

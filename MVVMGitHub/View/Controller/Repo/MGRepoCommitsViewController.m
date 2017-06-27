@@ -42,8 +42,10 @@
     @weakify(self);
     [[self rac_signalForSelector:@selector(viewDidAppear:)] subscribeNext:^(id x) {
         @strongify(self);
-        [self.viewModel.fetchDataFromServiceCommand execute:nil];
+        [self.tableView.mj_header beginRefreshing];
     }];
+    
+    
 }
 
 - (void)configUI{
@@ -69,10 +71,17 @@
             [binder setCellConfigBlock:^NSString *(NSIndexPath *IndexPath) {
                 return NSStringFromClass([MGRepoCommitsCell class]);
             }];
-            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *IndexPath) {
-                return 45;
+            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
+                return [MGRepoCommitsCell cellHeight];
             }];
         }];
+        _tableView.mj_header = ({
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                @strongify(self);
+                [self.viewModel.fetchDataFromServiceCommand execute:nil];
+            }];
+            header;
+        });
 	}
 	return _tableView;
 }

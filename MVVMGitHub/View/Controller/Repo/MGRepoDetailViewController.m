@@ -60,6 +60,9 @@
 }
 - (void)configUI{
     
+    if ([self.navigationController.navigationBar isHidden]) {
+        [self.navigationController.navigationBar setHidden:NO];
+    }
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
 }

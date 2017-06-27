@@ -1,19 +1,85 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MGRepoCommitsCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="114" id="KGk-i7-Jjw" customClass="MGRepoCommitsCell">
+            <rect key="frame" x="0.0" y="0.0" width="357" height="114"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="357" height="113.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQt-eb-Lmh">
+                        <rect key="frame" x="16" y="8" width="333" height="97.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commits on Jun 20, 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jss-3a-Ccm">
+                                <rect key="frame" x="0.0" y="0.0" width="325" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="glY-Ed-Ls3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D1E-yp-xNC">
+                                <rect key="frame" x="0.0" y="28" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="1YC-K0-MYp"/>
+                                    <constraint firstAttribute="height" constant="40" id="FmC-TK-EGH"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="对iOS7的支持问题" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMq-6s-00x">
+                                <rect key="frame" x="49" y="28" width="276" height="19.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MJ Lee committed on Jun 20 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DsR-Jk-PxB">
+                                <rect key="frame" x="49" y="52.5" width="276" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DsR-Jk-PxB" firstAttribute="top" secondItem="zMq-6s-00x" secondAttribute="bottom" constant="5" id="6Q4-MM-1qJ"/>
+                            <constraint firstItem="jss-3a-Ccm" firstAttribute="leading" secondItem="QQt-eb-Lmh" secondAttribute="leading" id="7fq-pp-xZ9"/>
+                            <constraint firstItem="jss-3a-Ccm" firstAttribute="top" secondItem="QQt-eb-Lmh" secondAttribute="top" id="7kZ-Ys-ax5"/>
+                            <constraint firstItem="zMq-6s-00x" firstAttribute="top" secondItem="D1E-yp-xNC" secondAttribute="top" id="Qte-dm-Y75"/>
+                            <constraint firstItem="DsR-Jk-PxB" firstAttribute="trailing" secondItem="zMq-6s-00x" secondAttribute="trailing" id="R59-6W-0Lv"/>
+                            <constraint firstItem="D1E-yp-xNC" firstAttribute="top" secondItem="jss-3a-Ccm" secondAttribute="bottom" constant="7.5" id="SXb-v4-okp"/>
+                            <constraint firstItem="zMq-6s-00x" firstAttribute="trailing" secondItem="jss-3a-Ccm" secondAttribute="trailing" id="fQz-gF-icV"/>
+                            <constraint firstItem="DsR-Jk-PxB" firstAttribute="leading" secondItem="zMq-6s-00x" secondAttribute="leading" id="gwx-4D-qzA"/>
+                            <constraint firstAttribute="trailing" secondItem="jss-3a-Ccm" secondAttribute="trailing" constant="8" id="hE6-1x-V5U"/>
+                            <constraint firstItem="D1E-yp-xNC" firstAttribute="leading" secondItem="jss-3a-Ccm" secondAttribute="leading" id="u2I-Pv-cuH"/>
+                            <constraint firstItem="zMq-6s-00x" firstAttribute="leading" secondItem="D1E-yp-xNC" secondAttribute="trailing" constant="9" id="xCl-zd-UKr"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="QQt-eb-Lmh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="7TM-3p-M18"/>
+                    <constraint firstItem="QQt-eb-Lmh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="8lI-U4-8PP"/>
+                    <constraint firstAttribute="trailing" secondItem="QQt-eb-Lmh" secondAttribute="trailing" constant="8" id="GYS-v2-ZoT"/>
+                    <constraint firstAttribute="bottom" secondItem="QQt-eb-Lmh" secondAttribute="bottom" constant="8" id="U3N-5p-TBm"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="commitDateLabel" destination="jss-3a-Ccm" id="YYN-Do-ktO"/>
+                <outlet property="commitMessageLabel" destination="zMq-6s-00x" id="oGF-B0-O6Z"/>
+                <outlet property="committerAndDateLabel" destination="DsR-Jk-PxB" id="x7P-Gc-p52"/>
+                <outlet property="committerImage" destination="D1E-yp-xNC" id="Vfl-Ix-pja"/>
+            </connections>
+            <point key="canvasLocation" x="167.5" y="84"/>
         </tableViewCell>
     </objects>
 </document>

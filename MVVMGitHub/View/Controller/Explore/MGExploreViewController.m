@@ -59,6 +59,10 @@
         SDCycleScrollView *cycleScrollView = (SDCycleScrollView *)self.tableView.tableHeaderView;
         [cycleScrollView setImageURLStringsGroup:cycleScrollViewDataSource];
     }];
+
+    [self.viewModel.fetchDataFromServiceCommand.errors subscribeNext:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:[error.userInfo objectForKey:kErrorMessageKey]];
+    }];
 }
 #pragma mark - Load Data
 
@@ -80,7 +84,7 @@
                 return NSStringFromClass([MGExploreTableViewCell class]);
             };
             binder.heightConfigBlock = ^CGFloat(NSIndexPath *indexPath){
-                return [MGExploreTableViewCell cellHeight];
+                return 155;
             };
         }];
         _tableView.mj_header =

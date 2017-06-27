@@ -11,5 +11,7 @@
 @interface MGExploreCollectionViewCell : UICollectionViewCell<MGReactiveViewProtocol>
 
 
++ (CGSize)itemSize;
+
 
 @end

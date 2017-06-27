@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger,MGExploreCellType){
+    
+    MGExploreCellTypeOfUser,
+    MGExploreCellTypeOfRepo
+};
+
 @interface MGExploreCellViewModel : NSObject<MGViewModelProtocol>
 
 @property (nonatomic, assign, readonly) MGExploreCellType cellType;
 @property (nonatomic, strong, readonly) NSArray *cellData;
-@property (nonatomic, copy, readonly) NSString *cellTitle;
 @property (nonatomic, strong, readonly) NSDictionary *params;
+@property (nonatomic, copy, readonly) NSString *cellTitle;
 
 @end

@@ -12,7 +12,7 @@
 @interface MGExploreCollectionViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *repoDescLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end
 
@@ -21,12 +21,27 @@
 - (void)awakeFromNib {
     
     [super awakeFromNib];
+    MGViewCornerRadius(self.imageView, 10);
+    self.imageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.imageView.layer.borderWidth = 0.5;
 }
 
 - (void)bindViewModel:(id)viewModel{
     
-    MGRepositoriesModel *repo = viewModel;
-    self.repoDescLabel.text = repo.repoDescription;
-    [self.imageView sd_setImageWithURL:repo.owner.avatarURL placeholderImage:nil];
+    if ([viewModel isKindOfClass:[MGRepositoriesModel class]]) {
+        MGRepositoriesModel *repo = viewModel;
+        self.nameLabel.text = repo.name;
+        [self.imageView sd_setImageWithURL:repo.owner.avatarURL placeholderImage:nil];
+    }else if([viewModel isKindOfClass:[OCTUser class]]){
+        OCTUser *user = viewModel;
+        self.nameLabel.text = user.name;
+        [self.imageView sd_setImageWithURL:user.avatarURL placeholderImage:nil];
+    }
+    
+}
+
++ (CGSize)itemSize{
+    
+    return CGSizeMake(65, 110);
 }
 @end

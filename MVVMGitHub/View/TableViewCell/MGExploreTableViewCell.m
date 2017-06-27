@@ -7,10 +7,9 @@
 //
 
 #import "MGExploreTableViewCell.h"
-#import "MGExploreCellViewModel.h"
 #import "MGExploreCollectionViewCell.h"
-#import "MGExploreCollectionViewDefaultCell.h"
 #import "MGRepositoriesModel.h"
+#import "MGRepoDetailViewModel.h"
 
 @interface MGExploreTableViewCell ()
 <UICollectionViewDelegate,UICollectionViewDataSource,
@@ -19,7 +18,6 @@ UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet UILabel  *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *seeAllButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, strong) MGExploreCellViewModel *cellViewModel;
 
 @end
 
@@ -28,15 +26,11 @@ UICollectionViewDelegateFlowLayout>
 - (void)awakeFromNib {
     
     [super awakeFromNib];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MGExploreCollectionViewCell class])
                                                     bundle:nil]
           forCellWithReuseIdentifier:NSStringFromClass([MGExploreCollectionViewCell class])];
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MGExploreCollectionViewDefaultCell class])
-                                                    bundle:nil]
-          forCellWithReuseIdentifier:NSStringFromClass([MGExploreCollectionViewDefaultCell class])];
 }
 
 - (void)bindViewModel:(id)viewModel{
@@ -45,11 +39,7 @@ UICollectionViewDelegateFlowLayout>
     self.titleLabel.text = self.cellViewModel.cellTitle;
 }
 
-#pragma mark - Class Method
-+ (CGFloat)cellHeight{
-    
-    return 175;
-}
+
 #pragma mark - UICollectionViewDelegate\UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     
@@ -63,40 +53,52 @@ UICollectionViewDelegateFlowLayout>
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                            cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    MGExploreCollectionViewCell *cell= [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MGExploreCollectionViewCell class]) forIndexPath:indexPath];
     switch (self.cellViewModel.cellType) {
         case MGExploreCellTypeOfRepo:{
-            MGExploreCollectionViewCell *cell= [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MGExploreCollectionViewCell class]) forIndexPath:indexPath];
             MGRepositoriesModel *repo = self.cellViewModel.cellData[indexPath.item];
             [cell bindViewModel:repo];
-            return cell;
         }
             break;
         case MGExploreCellTypeOfUser:{
-            MGExploreCollectionViewDefaultCell *cell= [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MGExploreCollectionViewDefaultCell class]) forIndexPath:indexPath];
             OCTUser *user = self.cellViewModel.cellData[indexPath.item];
             [cell bindViewModel:user];
-            return cell;
         }
             break;
         default:
             break;
     }
+    return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    switch (self.cellViewModel.cellType) {
+        case MGExploreCellTypeOfRepo:{
+            MGRepositoriesModel *repo = self.cellViewModel.cellData[indexPath.item];
+            MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
+                                                 initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,
+                                                                  kRepoDetailParamsKeyForRepoName:repo.name}];
+            [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
+        }
+            break;
+        case MGExploreCellTypeOfUser:
+            
+            break;
+        default:
+            break;
+    }
 }
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    return CGSizeMake(80, 80);
+    return [MGExploreCollectionViewCell itemSize];
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
     
-    return UIEdgeInsetsMake(2, 2, 2, 2);
+    return UIEdgeInsetsMake(0, 2, 0, 2);
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
     
-    return 2;
+    return 5;
 }
 @end

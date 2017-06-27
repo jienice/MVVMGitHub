@@ -7,41 +7,70 @@
 //
 
 #import "MGSearchUserViewController.h"
+#import "MGUserCell.h"
 #import "MGSearchViewModel.h"
-#import "UIScrollView+EmptyDataSet.h"
 
+@interface MGSearchUserViewController ()
 
-@interface MGSearchUserViewController ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-
-
-
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, weak)  MGSearchViewModel*viewModel;
 @end
 
 @implementation MGSearchUserViewController
 
+- (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
+    
+    if (self = [super init]) {
+        self.viewModel = (MGSearchViewModel *)viewModel;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor blueColor]];
-    self.tableView.emptyDataSetSource = self;
-    self.tableView.emptyDataSetDelegate = self;
-    self.tableView.mj_header = ({
-        @weakify(self);
-        MJRefreshStateHeader *header = [MJRefreshStateHeader headerWithRefreshingBlock:^{
-            @strongify(self);
-            self.viewModel.searchType = MGSearchForUsers;
-            [self.viewModel.searchCommand execute:nil];
-        }];
-        header;
-    });
+    [self configUI];
+    [self bindViewModel:nil];
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (void)bindViewModel:(id)viewModel{
     
-    return self.viewModel.resultForUser.count;
+    [self.viewModel.searchUserCommand.executing subscribeNext:^(NSNumber *execut) {
+        if ([execut boolValue]) {
+            [SVProgressHUD show];
+        }else{
+            [SVProgressHUD dismiss];
+        }
+    }];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)configUI{
     
-    return nil;
+    [self.view addSubview:self.tableView];
+}
+- (UITableView *)tableView{
+    
+    if (_tableView == nil) {
+        @weakify(self);
+        _tableView = [UITableView createTableWithFrame:self.viewModel.tableViewFrame binder:^(MGTableViewBinder *binder) {
+            @strongify(self);
+            binder.dataSourceSignal = self.viewModel.searchUserCommand.executionSignals.switchToLatest;
+            binder.errors = self.viewModel.searchUserCommand.errors;
+            binder.reuseXibCellClass = @[[MGUserCell class]];
+            [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
+                return NSStringFromClass([MGUserCell class]);
+            }];
+            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
+                return [MGUserCell cellHeight];
+            }];
+        }];
+        _tableView.mj_header = ({
+            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                @strongify(self);
+                [self.viewModel.searchUserCommand execute:nil];
+            }];
+            header;
+        });
+    }
+    return _tableView;
 }
 @end

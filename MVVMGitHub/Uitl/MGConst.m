@@ -16,9 +16,14 @@ NSString *const kMGExploreCellTypeKey  = @"kMGExploreCellTypeKey";
 NSString *const kMGExploreCellTitleKey = @"kMGExploreCellTitleKey";
 NSString *const kMGExploreCellDataKey  = @"kMGExploreCellDataKey";
 
+NSString *const MGCocoaErrorDomain = @"MGCocoaErrorDomain";
 
+NSInteger const kNetworkRequestFailureErrorCode = 900001;
+NSInteger const kNetworkRequestTimeOutErrorCode = 900011;
+NSInteger const kNetworkRequestBackErrorMessageErrorCode = 900111;
 
-
+NSInteger const kNetworkRequestTimeoutInterval = 30;
+NSString const *kErrorMessageKey = @"kErrorMessageKey";
 
 
 

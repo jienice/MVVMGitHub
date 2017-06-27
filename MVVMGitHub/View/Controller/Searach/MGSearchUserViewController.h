@@ -6,11 +6,8 @@
 //  Copyright © 2017年 xingjie. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "MGViewController.h"
 
-@class MGSearchViewModel;
-@interface MGSearchUserViewController : UITableViewController
-
-@property (nonatomic, weak) MGSearchViewModel *viewModel;
+@interface MGSearchUserViewController : MGViewController<MGViewControllerProtocol>
 
 @end

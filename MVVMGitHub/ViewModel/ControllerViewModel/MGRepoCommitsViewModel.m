@@ -28,17 +28,16 @@ NSString *const kSHAForKnowCommits = @"kSHAForKnowCommits";
     
     NSParameterAssert([self.params objectForKey:kRepoForKnowCommits]);
     NSParameterAssert([self.params objectForKey:kSHAForKnowCommits]);
-    
-    self.title = [NSString stringWithFormat:@"Commits-%@",self.repo.name];
     _repo = [self.params objectForKey:kRepoForKnowCommits];
     _SHA = [self.params objectForKey:kSHAForKnowCommits];
-    
+    self.title = [NSString stringWithFormat:@"Commits-%@",self.repo.name];
+
     _fetchCommitCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[MGSharedDelegate.client fetchCommitsFromRepository:_repo SHA:_SHA] collect];
     }];
-
     
-    self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+
+    _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
             [[_fetchCommitCommand execute:nil] subscribeNext:^(NSArray<OCTGitCommit *> *commits) {
                 _dataSource = [commits mutableCopy];

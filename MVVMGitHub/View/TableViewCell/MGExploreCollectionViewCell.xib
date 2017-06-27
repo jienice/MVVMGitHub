@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="MGExploreCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="210" height="253"/>
+            <rect key="frame" x="0.0" y="0.0" width="124" height="163"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="210" height="253"/>
+                <rect key="frame" x="0.0" y="0.0" width="124" height="163"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="X2v-Md-g8T" userLabel="第一位创建者icon">
-                        <rect key="frame" x="8" y="8" width="194" height="192"/>
-                        <color key="backgroundColor" red="1" green="0.40784313729999999" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="0.0" y="0.0" width="124" height="123"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A complete daily plan for studying to become a Google software engineer." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BG6-6r-clP" userLabel="描述文字">
-                        <rect key="frame" x="8" y="208" width="194" height="40"/>
+                        <rect key="frame" x="0.0" y="123" width="124" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="xR7-L8-C2X"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="X2v-Md-g8T" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="4FW-jJ-9WT"/>
-                <constraint firstAttribute="trailing" secondItem="X2v-Md-g8T" secondAttribute="trailing" constant="8" id="88I-MS-bga"/>
-                <constraint firstAttribute="bottom" secondItem="BG6-6r-clP" secondAttribute="bottom" constant="5" id="Nm6-LA-IaF"/>
-                <constraint firstItem="X2v-Md-g8T" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="SwO-LX-2mo"/>
+                <constraint firstItem="X2v-Md-g8T" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="4FW-jJ-9WT"/>
+                <constraint firstAttribute="trailing" secondItem="X2v-Md-g8T" secondAttribute="trailing" id="88I-MS-bga"/>
+                <constraint firstAttribute="bottom" secondItem="BG6-6r-clP" secondAttribute="bottom" id="Nm6-LA-IaF"/>
+                <constraint firstItem="X2v-Md-g8T" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="SwO-LX-2mo"/>
                 <constraint firstItem="BG6-6r-clP" firstAttribute="leading" secondItem="X2v-Md-g8T" secondAttribute="leading" id="VL8-qo-3ZR"/>
                 <constraint firstItem="BG6-6r-clP" firstAttribute="trailing" secondItem="X2v-Md-g8T" secondAttribute="trailing" id="aQ1-oO-D4k"/>
-                <constraint firstItem="BG6-6r-clP" firstAttribute="top" secondItem="X2v-Md-g8T" secondAttribute="bottom" constant="8" id="er6-Nb-JEe"/>
+                <constraint firstItem="BG6-6r-clP" firstAttribute="top" secondItem="X2v-Md-g8T" secondAttribute="bottom" id="er6-Nb-JEe"/>
             </constraints>
-            <size key="customSize" width="210" height="253"/>
+            <size key="customSize" width="124" height="163"/>
             <connections>
                 <outlet property="imageView" destination="X2v-Md-g8T" id="N7h-e6-f7S"/>
-                <outlet property="repoDescLabel" destination="BG6-6r-clP" id="4zb-rB-phh"/>
+                <outlet property="nameLabel" destination="BG6-6r-clP" id="5xw-Aq-eg4"/>
             </connections>
-            <point key="canvasLocation" x="-88" y="126.5"/>
+            <point key="canvasLocation" x="-131" y="81.5"/>
         </collectionViewCell>
     </objects>
 </document>

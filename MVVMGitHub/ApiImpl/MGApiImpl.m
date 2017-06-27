@@ -11,17 +11,8 @@
 typedef void(^RequestSuccessCallBack)(id responseData);     /**请求成功代码块*/
 typedef void(^RequestFailureCallBack)(NSError* error);      /**请求失败代码块*/
 
-NSInteger const kNetworkRequestFailureErrorCode = 900001;
-NSInteger const kNetworkRequestTimeOutErrorCode = 900011;
-NSInteger const kNetworkRequestBackErrorMessageErrorCode = 900111;
 
-NSInteger const kNetworkRequestTimeoutInterval = 30;
-NSString const *kErrorMessageKey = @"kErrorMessageKey";
 
-#define kNetWorkRequestError(ErrorCode,ErrorMessage)\
-    [NSError errorWithDomain:NSCocoaErrorDomain\
-                        code:ErrorCode\
-                    userInfo:@{kErrorMessageKey:ErrorMessage}]
 
 #define BASE_URL @"https://api.github.com/"
 
@@ -91,7 +82,7 @@ NSString const *kErrorMessageKey = @"kErrorMessageKey";
             break;
     }
     @weakify(self);
-    NSLog(@"URL===%@/%@/%@",_client.baseURL,path,[params JSONString]);
+    NSLog(@"URL===%@%@?%@",_client.baseURL,path,[params JSONString]);
     NSMutableURLRequest *request = [_client requestWithMethod:method path:path parameters:params];
     request.timeoutInterval = 30;
     AFHTTPRequestOperation *requestOperation = [_client HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {

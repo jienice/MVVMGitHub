@@ -10,14 +10,16 @@
 #import "MGSearchViewModel.h"
 #import "MGSearchRepoViewController.h"
 #import "MGSearchUserViewController.h"
+#import "MGSearchBar.h"
+
 
 @interface MGSearchViewController ()<UISearchBarDelegate>
 
 @property (nonatomic, strong) MGSearchViewModel *viewModel;
 @property (nonatomic, strong) MGSearchRepoViewController *repoResult;
 @property (nonatomic, strong) MGSearchUserViewController *userResult;
-@property (nonatomic, strong) UISearchBar *searchBar;
-
+@property (nonatomic, strong) MGSearchBar *searchBar;
+@property (nonatomic, strong) UIView *maskView;
 
 @end
 
@@ -40,6 +42,7 @@
         self.progressHeight = 1;
         self.titleSizeSelected = 14;
         self.titleSizeNormal = 14;
+        self.menuHeight = MGSEARCH_MENU_HEIGHT;
     }
     return self;
 }
@@ -47,17 +50,52 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.navigationController.navigationBar addSubview:self.searchBar];
+    [self configUI];
     [self bindViewModel:nil];
     
+    [self.searchBar.startInputCommand execute:@YES];
 }
-
+- (void)configUI{
+    
+    [self.navigationController.navigationBar setHidden:YES];
+    [self.view addSubview:self.searchBar];
+    [self.view addSubview:self.maskView];
+}
+#pragma mark - Bind ViewModel
 - (void)bindViewModel:(id)viewModel{
     
+    @weakify(self);
+    [self.searchBar.searchTextSignal subscribeNext:^(NSString *x) {
+        @strongify(self);
+        self.viewModel.searchText = x;
+    }];
     
+    [self.searchBar.didClickedSearchBtn subscribeNext:^(id x) {
+        @strongify(self);
+        switch (self.viewModel.searchType) {
+            case MGSearchForUsers:{
+                [self.viewModel.searchUserCommand execute:nil];
+            }
+                break;
+            case MGSearchForRepositories:{
+                [self.viewModel.searchRepoCommand execute:nil];
+            }
+                break;
+            default:
+                break;
+        }
+    }];
+    
+    [self.searchBar.becomeFirstResponder subscribeNext:^(id x) {
+        @strongify(self);
+        [self.maskView setHidden:NO];
+    }];
+    
+    [self.searchBar.resignFirstResponder subscribeNext:^(id x) {
+        @strongify(self);
+        [self.maskView setHidden:YES];
+    }];
 }
-#pragma mark - Load Data
-
 #pragma mark - Touch Action
 
 #pragma mark - Delegate Method
@@ -92,7 +130,7 @@
 }
 
 - (void)pageController:(WMPageController *)pageController
-didEnterViewController:(UIViewController * )viewController
+didEnterViewController:(UIViewController *)viewController
               withInfo:(NSDictionary *)info{
     
     if (viewController==self.userResult) {
@@ -100,52 +138,44 @@ didEnterViewController:(UIViewController * )viewController
     }else if (viewController==self.repoResult){
         self.viewModel.searchType = MGSearchForRepositories;
     }
-    [self.viewModel.searchCommand execute:nil];
-}
-#pragma mark - UISearchBarDelegate
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    
-    [searchBar setShowsCancelButton:YES animated:YES];
-    return YES;
-}
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-    
-    [searchBar setShowsCancelButton:NO animated:YES];
-    return YES;
-}
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
-    self.viewModel.searchText = searchText;
-}
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    
-    [searchBar endEditing:YES];
 }
 #pragma mark - Lazy Load
 - (MGSearchRepoViewController *)repoResult{
     
     if (_repoResult==nil) {
-        _repoResult = [[MGSearchRepoViewController alloc]initWithStyle:UITableViewStylePlain];
-        _repoResult.viewModel = self.viewModel;
+        _repoResult = [[MGSearchRepoViewController alloc]initWithViewModel:self.viewModel];
     }
     return _repoResult;
 }
 - (MGSearchUserViewController *)userResult{
     
     if (_userResult==nil) {
-        _userResult = [[MGSearchUserViewController alloc]initWithStyle:UITableViewStylePlain];
-        _userResult.viewModel = self.viewModel;
+        _userResult = [[MGSearchUserViewController alloc]initWithViewModel:self.viewModel];
     }
     return _userResult;
 }
-- (UISearchBar *)searchBar{
+- (MGSearchBar *)searchBar{
     
     if(_searchBar==nil){
-        _searchBar = [[UISearchBar alloc]initWithFrame:self.navigationController.navigationBar.bounds];
-        _searchBar.delegate = self;
-        _searchBar.placeholder = @"Please Input Repo's Or User's Name";
-        [_searchBar setTintColor:MGClickedColor];
+        _searchBar = [MGSearchBar showWithFrame:CGRectMake(0, 0, MGSCREEN_WIDTH, MGNAV_STATUS_BAR_HEIGHT)];
     }
     return _searchBar;
 }
+- (UIView *)maskView {
+    
+	if(_maskView == nil) {
+		_maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, MGSCREEN_WIDTH, MGSCREEN_HEIGHT-MGNAV_STATUS_BAR_HEIGHT)];
+        _maskView.alpha = 0.4;
+        _maskView.backgroundColor = [UIColor blackColor];
+        _maskView.userInteractionEnabled=YES;
+        @weakify(self);
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+            @strongify(self);
+            [self.searchBar endEditing:YES];
+        }];
+        [_maskView addGestureRecognizer:tap];
+	}
+	return _maskView;
+}
+
 @end

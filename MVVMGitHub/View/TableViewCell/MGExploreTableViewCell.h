@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGExploreCellViewModel.h"
 
 @interface MGExploreTableViewCell : UITableViewCell<MGReactiveViewProtocol>
 
-+ (CGFloat)cellHeight;
+@property (nonatomic, strong) MGExploreCellViewModel *cellViewModel;
 
 @end

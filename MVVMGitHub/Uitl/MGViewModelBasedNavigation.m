@@ -88,6 +88,7 @@
 #pragma mark - 
 - (void)resetRootNavigationController:(UINavigationController *)rootNavigationController{
     
+    NSParameterAssert([rootNavigationController isKindOfClass:[UINavigationController class]]);
     if(self.navigationController == rootNavigationController) return;
     self.navigationController = rootNavigationController;
 }

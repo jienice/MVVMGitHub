@@ -23,6 +23,7 @@
     [self configMethodHooks];
     [self configLaunchView];
     [self configHUD];
+    [SAMKeychain mg_setPreferenceLanguage:@"objective-c"];
     return YES;
 }
 - (void)configLaunchView{
@@ -30,10 +31,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = MGWhiteColor;
     UIViewController *launchVC = [self configLaunchViewController];
-    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:launchVC];
-    [mainNav setNavigationBarHidden:YES];
-    [self.viewModelBased resetRootNavigationController:mainNav];
-    self.window.rootViewController = mainNav;
+    self.window.rootViewController = launchVC;
     [self.window makeKeyAndVisible];
 }
 
@@ -67,6 +65,16 @@
                                        [header.lastUpdatedTimeLabel setHidden:YES];
     }error:nil];
     
+    //设置UITabelViewCell选中style
+    [UITableViewCell aspect_hookSelector:@selector(initWithStyle:reuseIdentifier:) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> obj){
+        UITableViewCell *cell = [obj instance];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }error:nil];
+    
+    [UITableViewCell aspect_hookSelector:@selector(awakeFromNib) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> obj){
+        UITableViewCell *cell = [obj instance];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }error:nil];
 }
 
 - (void)configHUD{

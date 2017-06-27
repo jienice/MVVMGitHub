@@ -13,20 +13,24 @@ typedef NS_ENUM(NSInteger,MGSearchType){
     MGSearchForRepositories
 };
 
-@interface MGSearchViewModel : MGViewModel
-
-
-@property (nonatomic, assign) MGSearchType searchType;
+@interface MGSearchViewModel : MGViewModel<MGViewModelProtocol>
 
 @property (nonatomic, copy) NSString *searchText;
 
-@property (nonatomic, strong, readonly) RACCommand *searchCommand;
+@property (nonatomic, assign) MGSearchType searchType;
+
+@property (nonatomic, strong) NSString *searchLanguage;
+
+@property (nonatomic, strong, readonly) RACCommand *searchUserCommand;
+
+@property (nonatomic, strong, readonly) RACCommand *searchRepoCommand;
 
 @property (nonatomic, strong, readonly) RACSignal *enabledSignal;
 
-@property (nonatomic, strong, readonly) NSArray *resultForUser;
+@property (nonatomic, assign, readonly) CGRect tableViewFrame;
 
-@property (nonatomic, strong, readonly) NSArray *resultForRepo;
+@property (nonatomic, strong, readonly) NSMutableArray *searchUserResultData;
 
+@property (nonatomic, strong, readonly) NSMutableArray *searchRepoResultData;
 
 @end

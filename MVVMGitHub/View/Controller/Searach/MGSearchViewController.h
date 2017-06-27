@@ -9,7 +9,7 @@
 #import <WMPageController/WMPageController.h>
 
 
-
 @interface MGSearchViewController : WMPageController<MGViewControllerProtocol>
+
 
 @end

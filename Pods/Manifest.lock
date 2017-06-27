@@ -2,6 +2,23 @@ PODS:
   - AFNetworking (1.3.4)
   - Aspects (1.4.1)
   - CocoaSecurity (1.2.4)
+  - DTCoreText (1.6.20):
+    - DTCoreText/Core (= 1.6.20)
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTCoreText/Core (1.6.20):
+    - DTFoundation/Core (~> 1.7.5)
+    - DTFoundation/DTAnimatedGIF (~> 1.7.5)
+    - DTFoundation/DTHTMLParser (~> 1.7.5)
+    - DTFoundation/UIKit (~> 1.7.5)
+  - DTFoundation/Core (1.7.12)
+  - DTFoundation/DTAnimatedGIF (1.7.12)
+  - DTFoundation/DTHTMLParser (1.7.12):
+    - DTFoundation/Core
+  - DTFoundation/UIKit (1.7.12):
+    - DTFoundation/Core
   - DZNEmptyDataSet (1.8.1)
   - FBRetainCycleDetector (0.1.3)
   - FMDB (2.6.2):
@@ -26,6 +43,7 @@ PODS:
     - ISO8601DateFormatter (~> 0.7.0)
     - Mantle (~> 1.3.1)
     - ReactiveCocoa (~> 2.2.2)
+  - pop (1.0.9)
   - PureLayout (3.0.2)
   - Reachability (3.2)
   - ReactiveCocoa (2.2.4):
@@ -52,6 +70,7 @@ PODS:
 DEPENDENCIES:
   - Aspects (~> 1.4.1)
   - CocoaSecurity (~> 1.2.4)
+  - DTCoreText (~> 1.6.20)
   - DZNEmptyDataSet (~> 1.8.1)
   - FMDB (~> 2.6.2)
   - HMSegmentedControl (~> 1.5.2)
@@ -64,6 +83,7 @@ DEPENDENCIES:
   - MLeaksFinder (~> 0.2.1)
   - MMMarkdown (~> 0.5.5)
   - OctoKit (~> 0.5)
+  - pop (~> 1.0.9)
   - PureLayout (~> 3.0.1)
   - Reachability (~> 3.2)
   - SAMKeychain (~> 1.5.2)
@@ -79,6 +99,8 @@ SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   Aspects: 7595ba96a6727a58ebcbfc954497fc5d2fdde546
   CocoaSecurity: d288a6f87e0f363823d2cb83e753814a6944f71a
+  DTCoreText: 51904f2374af443e0d270d6fdc76035ab6f9ef8a
+  DTFoundation: 26a164ef510877387906fb92bff524a792db4bf8
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FBRetainCycleDetector: f0c7b290bf48ae77f6ae060843ce34ae341781eb
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
@@ -94,6 +116,7 @@ SPEC CHECKSUMS:
   MLeaksFinder: 0850e2f2abc7227adc4d4e2d1992b431264eb4d5
   MMMarkdown: 1af97166ce0f6d6e0cb05695665492195d27c3f1
   OctoKit: 0ecbb097747eb801582dc89e34dbacc24d8ec1d1
+  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: 78d9d1057f6e2595a67285b5adb0c90d0fc2237c
@@ -107,6 +130,6 @@ SPEC CHECKSUMS:
   WMPageController: 181bcc9b1fb7c9c3466bff66012552953a547d28
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 5daad5cac31a618754ec639d52fe9647838ddd98
+PODFILE CHECKSUM: 99d7dbe3538b52d47319664b10d05113418174c1
 
 COCOAPODS: 1.2.0

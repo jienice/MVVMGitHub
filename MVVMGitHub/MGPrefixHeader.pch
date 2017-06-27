@@ -31,6 +31,7 @@
 #import <JSONKit_NoWarning/JSONKit.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import "TMMuiLazyScrollView.h"
+#import <DTCoreText/DTCoreText.h>
 //#import "UIView+Borders.h"
 ///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"

@@ -21,10 +21,14 @@ FOUNDATION_EXTERN NSString *const kMGExploreCellTypeKey;
 FOUNDATION_EXTERN NSString *const kMGExploreCellTitleKey;
 FOUNDATION_EXTERN NSString *const kMGExploreCellDataKey;
 
-typedef NS_ENUM(NSInteger,MGExploreCellType){
-    
-    MGExploreCellTypeOfUser,
-    MGExploreCellTypeOfRepo
-};
+#pragma mark - Error
 
+FOUNDATION_EXTERN NSString *const MGCocoaErrorDomain;
+
+#pragma mark - Network
+FOUNDATION_EXTERN NSInteger const kNetworkRequestFailureErrorCode;
+FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeOutErrorCode;
+FOUNDATION_EXTERN NSInteger const kNetworkRequestBackErrorMessageErrorCode;
+FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeoutInterval;
+FOUNDATION_EXTERN NSString const *kErrorMessageKey;
 @end

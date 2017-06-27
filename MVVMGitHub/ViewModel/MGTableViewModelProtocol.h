@@ -12,22 +12,22 @@
 /**
  current page number
  */
-@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, assign, readonly) NSInteger page;
 
 /**
  tableView's dataSource
  */
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong, readonly) NSMutableArray *dataSource;
 
 /**
  user did selected tableView row will invoke this command
  */
-@property (nonatomic, strong) RACCommand *didSelectedRowCommand;
+@property (nonatomic, strong, readonly) RACCommand *didSelectedRowCommand;
 
 /**
  invoke this command fetch data from service
  */
-@property (nonatomic, strong) RACCommand *fetchDataFromServiceCommand;
+@property (nonatomic, strong, readonly) RACCommand *fetchDataFromServiceCommand;
 
 
 @optional

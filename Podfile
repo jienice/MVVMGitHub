@@ -30,4 +30,8 @@ target 'MVVMGitHub' do
         pod 'WMPageController',         '~> 2.2.1'
         pod 'JSONKit-NoWarning',        '~> 1.2'
         pod 'LazyScroll',               '~> 0.0.2'
+        #pod 'XLForm',                   '~> 3.3.0'
+        pod 'pop',                      '~> 1.0.9'
+        pod 'DTCoreText',               '~> 1.6.20'
+        
 end

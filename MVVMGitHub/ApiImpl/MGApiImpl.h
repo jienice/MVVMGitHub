@@ -16,12 +16,6 @@ typedef NS_ENUM(NSInteger,HTTP_METHOD){
     DELETE
 };
 
-FOUNDATION_EXTERN NSInteger const kNetworkRequestFailureErrorCode;
-FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeOutErrorCode;
-FOUNDATION_EXTERN NSInteger const kNetworkRequestBackErrorMessageErrorCode;
-FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeoutInterval;
-FOUNDATION_EXTERN NSString const *kErrorMessageKey;
-
 
 @interface MGApiImpl : NSObject
 

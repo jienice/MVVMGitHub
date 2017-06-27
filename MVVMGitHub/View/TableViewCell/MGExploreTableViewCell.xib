@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +23,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68E-6p-hdu">
-                                <rect key="frame" x="20" y="20" width="209" height="30"/>
+                                <rect key="frame" x="13" y="4" width="225" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="OmK-4a-vBJ"/>
                                 </constraints>
@@ -32,14 +32,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLO-wG-tEd">
-                                <rect key="frame" x="230" y="20" width="68" height="30"/>
+                                <rect key="frame" x="239" y="4" width="68" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="68" id="l13-bH-0R3"/>
                                 </constraints>
                                 <state key="normal" title="See All"/>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="UaK-cV-lB0">
-                                <rect key="frame" x="20" y="51" width="280" height="48.5"/>
+                                <rect key="frame" x="13" y="35" width="294" height="76.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dM5-jx-ifp">
                                     <size key="itemSize" width="50" height="50"/>
@@ -51,15 +51,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="UaK-cV-lB0" firstAttribute="trailing" secondItem="DLO-wG-tEd" secondAttribute="trailing" id="33N-hd-Sfi"/>
                             <constraint firstItem="DLO-wG-tEd" firstAttribute="top" secondItem="68E-6p-hdu" secondAttribute="top" id="Bb3-ab-W5E"/>
                             <constraint firstItem="DLO-wG-tEd" firstAttribute="leading" secondItem="68E-6p-hdu" secondAttribute="trailing" constant="1" id="C3c-r0-oH7"/>
-                            <constraint firstItem="68E-6p-hdu" firstAttribute="leading" secondItem="eXD-Nj-BRP" secondAttribute="leadingMargin" constant="12" id="CrK-Tt-svK"/>
+                            <constraint firstItem="68E-6p-hdu" firstAttribute="leading" secondItem="eXD-Nj-BRP" secondAttribute="leadingMargin" constant="5" id="CrK-Tt-svK"/>
                             <constraint firstItem="DLO-wG-tEd" firstAttribute="bottom" secondItem="68E-6p-hdu" secondAttribute="bottom" id="IUS-wx-7vS"/>
                             <constraint firstItem="UaK-cV-lB0" firstAttribute="top" secondItem="68E-6p-hdu" secondAttribute="bottom" constant="1" id="MvE-RH-Vnf"/>
-                            <constraint firstItem="68E-6p-hdu" firstAttribute="top" secondItem="eXD-Nj-BRP" secondAttribute="topMargin" constant="12" id="Nxc-e9-otk"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="UaK-cV-lB0" secondAttribute="bottom" constant="12" id="PDY-e6-LMw"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="UaK-cV-lB0" secondAttribute="trailing" constant="12" id="PbP-yA-6jS"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="DLO-wG-tEd" secondAttribute="trailing" constant="14" id="kXM-wo-EaM"/>
+                            <constraint firstItem="68E-6p-hdu" firstAttribute="top" secondItem="eXD-Nj-BRP" secondAttribute="topMargin" constant="-4" id="Nxc-e9-otk"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="UaK-cV-lB0" secondAttribute="bottom" id="PDY-e6-LMw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DLO-wG-tEd" secondAttribute="trailing" constant="5" id="kXM-wo-EaM"/>
                             <constraint firstItem="UaK-cV-lB0" firstAttribute="leading" secondItem="68E-6p-hdu" secondAttribute="leading" id="xvj-yY-PSZ"/>
                         </constraints>
                     </view>

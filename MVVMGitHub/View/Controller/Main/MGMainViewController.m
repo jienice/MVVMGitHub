@@ -26,10 +26,11 @@
     if (self = [super init]) {
         self.viewModel = (MGMainViewModel *)viewModel;
         [self addViewModel:self.viewModel.exploreViewModel];
-//        [self addViewModel:self.viewModel.searchViewModel];
+        [self addViewModel:self.viewModel.searchViewModel];
         [self addViewModel:self.viewModel.repositorisViewModel];
 //        [self addViewModel:self.viewModel.profileViewModel];
-        [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers] firstObject]];
+        [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers]
+                                                                        firstObject]];
     }
     return self;
 }
@@ -63,7 +64,7 @@
 #pragma mark - Delegate Method
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
     
-    UINavigationController *nav = (UINavigationController*)viewController;
+    MGNavigationController *nav = (MGNavigationController*)viewController;
     [MGSharedDelegate.viewModelBased resetRootNavigationController:nav];
 }
 @end

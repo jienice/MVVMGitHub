@@ -23,8 +23,8 @@
 ///-------------
 ///  UIFont
 ///-------------
-#define MGFont(Size) [UIFont systemFontOfSize:Size]
-
+#define MGFont(size) [UIFont systemFontOfSize:size]
+#define MGBlodFont(size) [UIFont boldSystemFontOfSize:size]
 ///----------
 ///  UIView
 ///----------
@@ -60,14 +60,23 @@
 #define MGSCREEN_HEIGHT  [UIScreen mainScreen].bounds.size.height
 #define MGTAB_BAR_HEIGHT 49
 #define MGSTATUS_BAR_HEIGHT 20
+#define MGNAV_BAR_HEIGHT 44
+#define MGNAV_STATUS_BAR_HEIGHT 64
+
+
 
 ///------------
-///  Block
+///  Error
 ///------------
+#define kNetWorkRequestError(ErrorCode,ErrorMessage)\
+                [NSError errorWithDomain:MGCocoaErrorDomain\
+                                    code:ErrorCode\
+                                userInfo:@{kErrorMessageKey:ErrorMessage}]
 
-
-
-
+///------------
+///  Search
+///------------
+#define MGSEARCH_MENU_HEIGHT 40
 
 
 

@@ -32,6 +32,8 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
 
 - (void)initialize{
     
+    NSParameterAssert([self.params objectForKey:kRepoDetailParamsKeyForRepoOwner]);
+    NSParameterAssert([self.params objectForKey:kRepoDetailParamsKeyForRepoName]);
     _repoOwner = [self.params objectForKey:kRepoDetailParamsKeyForRepoOwner];
     _repoName = [self.params objectForKey:kRepoDetailParamsKeyForRepoName];
     

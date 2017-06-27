@@ -10,4 +10,6 @@
 
 @interface MGRepoCommitsCell : UITableViewCell<MGReactiveViewProtocol>
 
+
++ (CGFloat)cellHeight;
 @end

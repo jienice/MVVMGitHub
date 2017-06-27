@@ -12,7 +12,7 @@
 
 @property (nonatomic, copy) NSString *title;
 
-@property (nonatomic, strong, readonly) NSDictionary *params;
+@property (nonatomic, strong) NSDictionary *params;
 
 
 @end

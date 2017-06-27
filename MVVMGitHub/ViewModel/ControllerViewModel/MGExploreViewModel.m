@@ -24,7 +24,6 @@ static NSString *kPopularUsers       = @"Popular Users";
 static NSString *kPopularRepos = @"Popular Repos";
 
 
-
 @interface MGExploreViewModel ()
 
 
@@ -39,14 +38,14 @@ static NSString *kPopularRepos = @"Popular Repos";
 
 - (void)initialize{
     
-    self.dataSource            = [NSMutableArray array];
     self.title = @"Explore";
+    _dataSource                = [NSMutableArray array];
     RACSubject *popularUsersSB = [RACSubject subject];
     RACSubject *trendReposSB   = [RACSubject subject];
     RACSubject *popularReposSB = [RACSubject subject];
     
     @weakify(self);
-    self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         [self.requestTrendReposCommand execute:nil];
         [self.requestShowcasesCommand execute:nil];
@@ -60,10 +59,10 @@ static NSString *kPopularRepos = @"Popular Repos";
                 if ([popularRepos boolValue]&&
                     [trendRepos boolValue]&&
                     [popularUsers boolValue]) {
-                    [subscriber sendNext:RACTuplePack(@YES,@YES,self.dataSource)];
+                    [subscriber sendNext:RACTuplePack(@YES,@YES,_dataSource)];
                     [subscriber sendCompleted];
                 }else{
-                    [subscriber sendError:[NSError errorWithDomain:AFNetworkingErrorDomain code:999 userInfo:@{}]];
+                    [subscriber sendError:kNetWorkRequestError(9999, @"Fetch Data Fail.")];
                 }
             }];
             return nil;
@@ -96,7 +95,7 @@ static NSString *kPopularRepos = @"Popular Repos";
             NSDictionary *responseDic = [NSDictionary dictionaryWithObject:trending
                                                                     forKey:kTrendReposDataSourceArrayKey];
             [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kTrendReposThisWeek];
-            [self.dataSource addObject:[self responseToCellViewModel:responseDic]];
+            [_dataSource addObject:[self responseToCellViewModel:responseDic]];
             [trendReposSB sendNext:@YES];
         }] doError:^(NSError *error) {
             [trendReposSB sendNext:@NO];
@@ -104,10 +103,8 @@ static NSString *kPopularRepos = @"Popular Repos";
     }];
     
     _requestPopularUsersCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(RACTuple *input) {
-        return [[[[[[MGApiImpl sharedApiImpl] searchUserWithKeyWord:nil
-                                                           language:@"objective-c"
-                                                               sort:@"followers"
-                                                              order:@"desc"] retry:2]
+        return [[[[[[MGApiImpl sharedApiImpl]
+                    searchPopularUsersWithLanguage:[SAMKeychain mg_preferenceLanguage]] retry:2]
                   takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *dict) {
             @strongify(self);
             NSArray *popularUsers = [[[[dict valueForKey:@"items"] rac_sequence] map:^id(NSDictionary *usersDic) {
@@ -116,7 +113,7 @@ static NSString *kPopularRepos = @"Popular Repos";
             NSDictionary *responseDic = [NSDictionary dictionaryWithObject:popularUsers
                                                                     forKey:kPopularUsersDataSourceArrayKey];
             [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kPopularUsers];
-            [self.dataSource addObject:[self responseToCellViewModel:responseDic]];
+            [_dataSource addObject:[self responseToCellViewModel:responseDic]];
             [popularUsersSB sendNext:@YES];
         }] doError:^(NSError *error) {
             [popularUsersSB sendNext:@NO];
@@ -137,7 +134,7 @@ static NSString *kPopularRepos = @"Popular Repos";
             NSDictionary *responseDic = [NSDictionary dictionaryWithObject:popularRepo
                                                                     forKey:kPopularReposDataSourceArrayKey];
             [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kPopularRepos];
-            [self.dataSource addObject:[self responseToCellViewModel:responseDic]];
+            [_dataSource addObject:[self responseToCellViewModel:responseDic]];
             [popularReposSB sendNext:@YES];
         }] doError:^(NSError *error) {
             [popularReposSB sendNext:@NO];
@@ -165,9 +162,9 @@ static NSString *kPopularRepos = @"Popular Repos";
 
 - (void)confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:(NSString *)givenTitle{
     
-    for (MGExploreCellViewModel *cellViewModel in self.dataSource) {
+    for (MGExploreCellViewModel *cellViewModel in _dataSource) {
         if ([cellViewModel.cellTitle isEqualToString:givenTitle]) {
-            [self.dataSource removeObject:cellViewModel];
+            [_dataSource removeObject:cellViewModel];
             return;
         }
     }

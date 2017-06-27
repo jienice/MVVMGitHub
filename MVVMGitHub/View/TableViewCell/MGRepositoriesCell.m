@@ -10,7 +10,6 @@
 
 @interface MGRepositoriesCell ()
 
-@property (nonatomic, strong, readwrite) MGRepositoriesModel *repository;
 @property (nonatomic, strong) UILabel *repoDescriptionLabel;
 @property (nonatomic, strong) UILabel *repoTitleLabel;
 @property (nonatomic, strong) UILabel *languageKindLable;
@@ -29,7 +28,6 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle= UITableViewCellSelectionStyleNone;
         self.contentView.backgroundColor = MGWhiteColor;
         [self.contentView addSubview:self.repoDescriptionLabel];
         [self.contentView addSubview:self.repoTitleLabel];
@@ -45,7 +43,7 @@
 
 - (void)bindViewModel:(id)viewModel{
     
-    self.repository = viewModel;
+    _repository = viewModel;
     self.isContainDesc = self.repository.repoDescription.isExist;
     self.repoTitleLabel.text = self.repository.SSHURL;
     self.repoDescriptionLabel.text = self.repository.repoDescription;

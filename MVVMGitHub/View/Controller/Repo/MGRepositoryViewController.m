@@ -50,7 +50,9 @@
     [self.tableView.binder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
         @strongify(self);
         MGRepositoriesModel *repo = self.viewModel.dataSource[indexPath.row];
-        MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,kRepoDetailParamsKeyForRepoName:repo.name}];
+        MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
+                                             initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,
+                                                              kRepoDetailParamsKeyForRepoName:repo.name}];
         [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
     }];
     
