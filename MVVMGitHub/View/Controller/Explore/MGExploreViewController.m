@@ -13,7 +13,6 @@
 #import "MGExploreCellViewModel.h"
 #import "MGRepositoriesModel.h"
 #import "MGRepoDetailViewModel.h"
-#import "MGUserDetailViewModel.h"
 #import "MGSearchViewModel.h"
 #import "MGTableViewBinder.h"
 
@@ -32,7 +31,6 @@
     
     if (self = [super init]) {
         self.viewModel = (MGExploreViewModel *)viewModel;
-        self.navigationItem.title = self.viewModel.title;
     }
     return self;
 }
@@ -40,6 +38,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.navigationItem.title = self.viewModel.title;
     [self configUI];
     [self bindViewModel:nil];
     [self.tableView.mj_header beginRefreshing];
@@ -61,7 +60,8 @@
     }];
 
     [self.viewModel.fetchDataFromServiceCommand.errors subscribeNext:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:[error.userInfo objectForKey:kErrorMessageKey]];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = [error.userInfo objectForKey:kErrorMessageKey];
     }];
 }
 #pragma mark - Load Data

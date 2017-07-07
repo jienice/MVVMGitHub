@@ -7,8 +7,14 @@
 //
 
 #import "MGRepositoryViewModel.h"
+#import "MGApiImpl+MGRepo.h"
+
+NSString *const kListRepositoriesUserName = @"kListRepositoriesUserName";
 
 @interface MGRepositoryViewModel ()
+
+@property (nonatomic, copy) NSString *ownerName;
+
 
 @end
 
@@ -22,7 +28,10 @@
 
 - (void)initialize{
     
+    NSParameterAssert([self.params objectForKey:kListRepositoriesUserName]);
     self.title = @"Repository";
+    self.ownerName = [self.params objectForKey:kListRepositoriesUserName];
+    
     _dataSource = [NSMutableArray array];
     _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[self fetchDataFromServiceWithPage:0] takeUntil:self.rac_willDeallocSignal];
@@ -35,10 +44,18 @@
 
 - (RACSignal *)fetchDataFromServiceWithPage:(NSInteger)page{
     
+    @weakify(self);
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        [[[MGSharedDelegate.client fetchUserRepositories] collect] subscribeNext:^(NSArray<OCTRepository *>*repositories) {
+        @strongify(self);
+        [[[MGApiImpl sharedApiImpl] fetchRepoListWithOwnerName:self.ownerName
+                                                      repoType:MGRepoTypeDefault]
+         subscribeNext:^(NSArray *repoDicArr) {
             NSLog(@"Next ----");
-            [_dataSource addObjectsFromArray:repositories];
+            NSArray *repos = [[[repoDicArr rac_sequence] map:^id(NSDictionary *repoDic) {
+                return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
+                                 fromJSONDictionary:repoDic error:nil];
+            }] array];
+            [_dataSource addObjectsFromArray:repos];
             [subscriber sendNext:RACTuplePack(@YES,@YES,_dataSource)];
         } error:^(NSError *error) {
             NSLog(@"Error ----");

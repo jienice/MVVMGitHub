@@ -8,7 +8,8 @@
 
 #import "MGViewController.h"
 
-
 @interface MGProfileViewController : MGViewController<MGViewControllerProtocol>
+
+
 
 @end

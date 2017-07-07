@@ -71,7 +71,9 @@
     @weakify(self);
     [self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest subscribeNext:^(id x){
         @strongify(self);
-        [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
+        if (self.viewModel.readMEHtml) {
+            [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
+        }
         [self.headerView bindViewModel:self.viewModel.repo];
         self.tableView.tableHeaderView.frame = CGRectMake(0, 0, self.tableView.width, [self.headerView height]);
         [self.tableView reloadData];
@@ -91,7 +93,10 @@
         @strongify(self);
         [[RACScheduler mainThreadScheduler]schedule:^{
             self.tableView.tableFooterView.frame= CGRectMake(webView.x, webView.y, self.tableView.width, height);
-            self.tableView.height += height;
+            self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
+                                              self.tableView.frame.origin.y,
+                                              CGRectGetWidth(self.tableView.frame),
+                                              CGRectGetHeight(self.tableView.frame)+height);
         }];
     }];
 }

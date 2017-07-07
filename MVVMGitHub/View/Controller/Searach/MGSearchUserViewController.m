@@ -9,6 +9,7 @@
 #import "MGSearchUserViewController.h"
 #import "MGUserCell.h"
 #import "MGSearchViewModel.h"
+#import "MGProfileViewModel.h"
 
 @interface MGSearchUserViewController ()
 
@@ -34,13 +35,23 @@
 }
 - (void)bindViewModel:(id)viewModel{
     
+    @weakify(self);
     [self.viewModel.searchUserCommand.executing subscribeNext:^(NSNumber *execut) {
         if ([execut boolValue]) {
-            [SVProgressHUD show];
+//            [SVProgressHUD show];
         }else{
-            [SVProgressHUD dismiss];
+//            [SVProgressHUD dismiss];
         }
     }];
+    
+    [self.tableView.binder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
+        @strongify(self);
+        OCTUser *user = self.viewModel.searchUserResultData[indexPath.row];
+        MGProfileViewModel *profile = [[MGProfileViewModel alloc]
+                                       initWithParams:@{kProfileOfUserLoginName:user.login}];
+        [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
+    }];
+    
 }
 
 - (void)configUI{
@@ -63,13 +74,6 @@
                 return [MGUserCell cellHeight];
             }];
         }];
-        _tableView.mj_header = ({
-            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                @strongify(self);
-                [self.viewModel.searchUserCommand execute:nil];
-            }];
-            header;
-        });
     }
     return _tableView;
 }

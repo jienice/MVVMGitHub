@@ -26,7 +26,7 @@
                     </state>
                 </button>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="M5V-dg-eIl">
-                    <rect key="frame" x="0.0" y="20" width="333" height="44"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
@@ -37,7 +37,7 @@
                 <constraint firstItem="M5V-dg-eIl" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OFl-3p-7Da"/>
                 <constraint firstAttribute="trailing" secondItem="iLm-mQ-U1h" secondAttribute="trailing" constant="5" id="XFd-nh-ZT7"/>
                 <constraint firstItem="iLm-mQ-U1h" firstAttribute="bottom" secondItem="M5V-dg-eIl" secondAttribute="bottom" id="khe-S4-aNV"/>
-                <constraint firstAttribute="trailing" secondItem="M5V-dg-eIl" secondAttribute="trailing" constant="42" id="m8F-xp-hnK"/>
+                <constraint firstAttribute="trailing" secondItem="M5V-dg-eIl" secondAttribute="trailing" id="m8F-xp-hnK"/>
                 <constraint firstItem="M5V-dg-eIl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="ygU-po-r9k"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

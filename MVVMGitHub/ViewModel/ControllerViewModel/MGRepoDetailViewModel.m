@@ -65,9 +65,11 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
                     _branches = [tuple last];
                     if ([file.encoding isEqualToString:@"base64"]) {
                         NSString *readME = [file.content base64DecodedString];
-                        _readMEHtml = [[MMMarkdown HTMLStringWithMarkdown:readME
+                        if (readME) {
+                            _readMEHtml = [[MMMarkdown HTMLStringWithMarkdown:readME
                                                                    extensions:MMMarkdownExtensionsGitHubFlavored
                                                                         error:nil] readMeHtmlString];
+                        }
                     }
                     [subscriber sendNext:RACTuplePack(@YES,@YES,_fileTree.entries)];
                 } error:^(NSError *error) {

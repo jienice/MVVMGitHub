@@ -8,8 +8,8 @@
 
 #import "MGSearchRepoViewController.h"
 #import "MGSearchViewModel.h"
-#import "MGRepositoriesCell.h"
 #import "MGRepoDetailViewModel.h"
+#import "MGRepoCell.h"
 
 @interface MGSearchRepoViewController ()
 
@@ -39,9 +39,9 @@
     @weakify(self);
     [self.viewModel.searchRepoCommand.executing subscribeNext:^(NSNumber *execut) {
         if ([execut boolValue]) {
-            [SVProgressHUD show];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }else{
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     }];
     
@@ -68,21 +68,14 @@
             @strongify(self);
             binder.dataSourceSignal = self.viewModel.searchRepoCommand.executionSignals.switchToLatest;
             binder.errors = self.viewModel.searchRepoCommand.errors;
-            binder.reuseNoXibCellClass = @[[MGRepositoriesCell class]];
+            binder.reuseXibCellClass = @[[MGRepoCell class]];
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
-                return NSStringFromClass([MGRepositoriesCell class]);
+                return NSStringFromClass([MGRepoCell class]);
             }];
             [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return [MGRepositoriesCell cellHeight];
+                return [MGRepoCell cellHeightWithViewModel:self.viewModel.searchRepoResultData[indexPath.row]];
             }];
         }];
-        _tableView.mj_header = ({
-            MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                @strongify(self);
-                [self.viewModel.searchRepoCommand execute:0];
-            }];
-            header;
-        });
     }
     return _tableView;
 }

@@ -52,12 +52,12 @@
     
     _becomeFirstResponder = [self rac_signalForSelector:@selector(searchBarTextDidBeginEditing:)
                                            fromProtocol:@protocol(UISearchBarDelegate)];
-    
+
     _resignFirstResponder = [self rac_signalForSelector:@selector(searchBarTextDidEndEditing:)
                                            fromProtocol:@protocol(UISearchBarDelegate)];
-    
+
     @weakify(self);
-    _didClickedSearchBtn = [[self rac_signalForSelector:@selector(searchBarSearchButtonClicked:)
+    _didClickedSearchBtn  = [[self rac_signalForSelector:@selector(searchBarSearchButtonClicked:)
                                           fromProtocol:@protocol(UISearchBarDelegate)] doNext:^(id x) {
         @strongify(self);
         [self.searchBar resignFirstResponder];

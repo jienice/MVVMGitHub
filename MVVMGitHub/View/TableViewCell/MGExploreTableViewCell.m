@@ -10,6 +10,7 @@
 #import "MGExploreCollectionViewCell.h"
 #import "MGRepositoriesModel.h"
 #import "MGRepoDetailViewModel.h"
+#import "MGProfileViewModel.h"
 
 @interface MGExploreTableViewCell ()
 <UICollectionViewDelegate,UICollectionViewDataSource,
@@ -81,7 +82,12 @@ UICollectionViewDelegateFlowLayout>
             [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
         }
             break;
-        case MGExploreCellTypeOfUser:
+        case MGExploreCellTypeOfUser:{
+            OCTUser *user = self.cellViewModel.cellData[indexPath.row];
+            MGProfileViewModel *profile = [[MGProfileViewModel alloc]
+                                           initWithParams:@{kProfileOfUserLoginName:user.login}];
+            [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
+        }
             
             break;
         default:

@@ -205,7 +205,9 @@
                                               path:@"/search/users"
                                             params:@{@"q":qStringForNetWork,
                                                      @"sort":sortString.isExist?sortString:@"",
-                                                     @"order":orderString.isExist?orderString:@"desc"}];
+                                                     @"order":orderString.isExist?orderString:@"desc",
+                                                     @"page":@1,
+                                                     @"per_page":@10}];
 }
 
 @end

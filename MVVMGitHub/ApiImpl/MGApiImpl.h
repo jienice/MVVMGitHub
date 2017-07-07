@@ -34,6 +34,6 @@ typedef NS_ENUM(NSInteger,HTTP_METHOD){
                                           params:(NSDictionary *)params;
 
 
-
+- (NSDictionary *)paramsWithPage:(NSInteger)page;
 
 @end

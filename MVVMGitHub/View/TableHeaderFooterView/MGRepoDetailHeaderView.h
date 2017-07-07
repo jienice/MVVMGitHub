@@ -13,12 +13,7 @@
 @interface MGRepoDetailHeaderView : UIView<MGReactiveViewProtocol>
 
 @property (nonatomic, strong) RACCommand *nameLabelClickedCommand;
-@property (nonatomic, strong) RACCommand *watchBtnClickedCommand;
-@property (nonatomic, strong) RACCommand *starBtnClickedCommand;
-@property (nonatomic, strong) RACCommand *forkBtnClickedCommand;
-@property (nonatomic, strong) RACCommand *branchBtnClickedCommand;
+
 @property (nonatomic, assign, readonly) CGFloat height;
-
-
 
 @end

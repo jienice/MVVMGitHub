@@ -17,11 +17,19 @@
 
 @end
 
-@implementation MGUserCell
+@implementation MGUserCell{
+    UIImage *_followImage;
+}
 
 - (void)awakeFromNib {
     
     [super awakeFromNib];
+    _followImage = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconPersonAdd]
+                                  backgroundColor:MGWhiteColor
+                                        iconColor:MGClickedColor
+                                        iconScale:1.0
+                                          andSize:CGSizeMake(30, [MGUserCell cellHeight])];
+    
 }
 
 - (void)bindViewModel:(id)viewModel{
@@ -29,11 +37,14 @@
     NSParameterAssert([viewModel isKindOfClass:[OCTUser class]]);
     OCTUser *user = viewModel;
     [self.logoImageView sd_setImageWithURL:user.avatarURL placeholderImage:nil];
-    self.userNameLabel.text = user.name;    
+    self.userNameLabel.text = user.name;
+    [self.followBtn setImage:_followImage forState:UIControlStateNormal];
+    [self.followBtn setImage:_followImage forState:UIControlStateHighlighted];
+    [self.followBtn setImage:_followImage forState:UIControlStateSelected];
 }
 
 + (CGFloat)cellHeight{
     
-    return 60;
+    return 55;
 }
 @end

@@ -33,4 +33,7 @@ typedef NS_ENUM(NSInteger,MGSearchType){
 
 @property (nonatomic, strong, readonly) NSMutableArray *searchRepoResultData;
 
+
+
+
 @end

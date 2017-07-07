@@ -10,4 +10,17 @@
 
 @interface MGApiImpl (MGUser)
 
+
+- (RACSignal *)fetchUserInfoWithLoginName:(NSString *)loginName;
+
+
+- (RACSignal *)fetchUserFollowersListWithLoginName:(NSString *)loginName page:(NSInteger)page;
+
+
+- (RACSignal *)fetchUserFollowingListWithLoginName:(NSString *)loginName page:(NSInteger)page;
+
+
+
+
+
 @end

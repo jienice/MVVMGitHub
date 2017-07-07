@@ -74,10 +74,10 @@
     }];
     
     [self.viewModel.createRepoCommand.executionSignals.switchToLatest subscribeError:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:error.localizedFailureReason];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = [error.userInfo objectForKey:kErrorMessageKey];
     } completed:^{
-        [SVProgressHUD showSuccessWithStatus:@"Success"];
-        [SVProgressHUD dismissWithDelay:0.3];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         });
@@ -85,9 +85,9 @@
     
     [[self.viewModel.createRepoCommand.executing skip:1] subscribeNext:^(NSNumber *execut) {
         if ([execut boolValue]) {
-            [SVProgressHUD showWithStatus:@"Creating..."];
+            
         }else{
-            [SVProgressHUD dismiss];
+            
         }
     }];
 }

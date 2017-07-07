@@ -1,14 +1,13 @@
 platform :ios, '8.0'
-
 use_frameworks!
 inhibit_all_warnings!
 
 target 'MVVMGitHub' do
-        pod 'PureLayout',               '~> 3.0.1'
+        pod 'GPUImage',                 '~> 0.1.7'
         pod 'FMDB',                     '~> 2.6.2'
         pod 'HMSegmentedControl',       '~> 1.5.2'
         pod 'MJExtension',              '~> 3.0.10'
-        pod 'SVProgressHUD',            '~> 2.0.3'
+        pod 'MBProgressHUD',            '~> 1.0.0'
         #pod 'Routable',                 '~> 0.2.0'
         pod 'DZNEmptyDataSet',          '~> 1.8.1'
         pod 'MJRefresh',                '~> 3.1.12'
@@ -29,9 +28,7 @@ target 'MVVMGitHub' do
         pod 'UIView+Borders',           '~> 0.0.2'
         pod 'WMPageController',         '~> 2.2.1'
         pod 'JSONKit-NoWarning',        '~> 1.2'
-        pod 'LazyScroll',               '~> 0.0.2'
-        #pod 'XLForm',                   '~> 3.3.0'
         pod 'pop',                      '~> 1.0.9'
         pod 'DTCoreText',               '~> 1.6.20'
-        
+        pod 'OcticonsIOS'
 end

@@ -11,7 +11,6 @@
 @interface MGUserCell : UITableViewCell<MGReactiveViewProtocol>
 
 
-
 + (CGFloat)cellHeight;
 
 @end

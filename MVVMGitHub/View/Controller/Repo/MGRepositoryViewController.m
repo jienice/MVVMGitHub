@@ -8,11 +8,12 @@
 
 #import "MGRepositoryViewController.h"
 #import "MGRepositoryViewModel.h"
-#import "MGRepositoriesCell.h"
 #import "MGCreateRepoViewModel.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGRepositoriesModel.h"
 #import "MGTableViewBinder.h"
+
+#import "MGRepoCell.h"
 
 @interface MGRepositoryViewController ()
 
@@ -28,7 +29,6 @@
     
     if (self = [super init]) {
         self.viewModel = (MGRepositoryViewModel *)viewModel;
-        self.navigationItem.title = self.viewModel.title;
     }
     return self;
 }
@@ -36,6 +36,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.navigationItem.title = self.viewModel.title;
     [self.view addSubview:self.tableView];
     [self bindViewModel:nil];
     }
@@ -76,14 +77,14 @@
         _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
             @strongify(self);
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
-                return NSStringFromClass([MGRepositoriesCell class]);
+                return NSStringFromClass([MGRepoCell class]);
             }];
             [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return [MGRepositoriesCell cellHeight];
+                return [MGRepoCell cellHeightWithViewModel:self.viewModel.dataSource[indexPath.row]];
             }];
             binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
             binder.errors = self.viewModel.fetchDataFromServiceCommand.errors;
-            binder.reuseNoXibCellClass = @[[MGRepositoriesCell class]];
+            binder.reuseXibCellClass = @[[MGRepoCell class]];
         }];
         _tableView.mj_header = ({
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

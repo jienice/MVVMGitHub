@@ -40,6 +40,7 @@
 ///-------------
 #define MGSSKeychain_LoginService @"com.xingjie.mvvmgithub.login"
 #define MGSSKeychain_UserName @"userName"
+#define MGSSKeychain_Login @"login"
 #define MGSSKeychain_PassWord @"passWord"
 #define MGSSKeychain_RawLogin @"rawLogin"
 #define MGSSKeychain_AccessToken @"accessToken"
@@ -53,6 +54,7 @@
 #define MGClickedColor MGRGBColor(97, 186, 58)
 #define MGNormalColor [UIColor lightGrayColor]
 #define MGWhiteColor [UIColor whiteColor]
+#define MGBlackColor [UIColor blackColor]
 ///------------
 ///  system
 ///------------

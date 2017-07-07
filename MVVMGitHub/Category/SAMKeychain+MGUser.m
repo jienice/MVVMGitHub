@@ -27,6 +27,14 @@
     
     return [[NSUserDefaults standardUserDefaults] valueForKey:MGSSKeychain_PreferenceLanguage];
 }
++ (NSString *)mg_name{
+    
+    return [[NSUserDefaults standardUserDefaults] valueForKey:MGSSKeychain_UserName];
+}
++ (NSString *)mg_login{
+    
+    return [[NSUserDefaults standardUserDefaults] valueForKey:MGSSKeychain_Login];
+}
 #pragma mark - setter
 + (void)mg_setAccessToken:(NSString *)accessToken{
     
@@ -50,6 +58,20 @@
     [[NSUserDefaults standardUserDefaults] setObject:preferenceLanguage forKey:MGSSKeychain_PreferenceLanguage];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
++ (void)mg_setlogin:(NSString *)login{
+    
+    if (login == nil) NSLog(@"%s preferenceLanguage is nil",__func__);
+    [[NSUserDefaults standardUserDefaults] setObject:login forKey:MGSSKeychain_Login];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)mg_setName:(NSString *)name{
+    
+    if (name == nil) NSLog(@"%s name is nil",__func__);
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:MGSSKeychain_UserName];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 #pragma mark - delete
 + (void)mg_deleteAccessToken{
     
@@ -65,5 +87,14 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:MGSSKeychain_RawLogin];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
++ (void)mg_deleteLogin{
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:MGSSKeychain_Login];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (void)mg_deleteName{
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:MGSSKeychain_UserName];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 @end

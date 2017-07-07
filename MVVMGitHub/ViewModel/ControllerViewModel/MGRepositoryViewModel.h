@@ -8,6 +8,8 @@
 
 #import "MGViewModel.h"
 
+extern NSString *const kListRepositoriesUserName;
+
 @interface MGRepositoryViewModel : MGViewModel <MGTableViewModelProtocol>
 
 

@@ -28,12 +28,7 @@
     }
     [self.viewModels addObject:viewModel];
     UIViewController *vc = [self.viewModelMapper viewControllerForViewModel:viewModel];
-    if (![vc isKindOfClass:NSClassFromString(@"MGMainViewController")]&&
-        ![vc isKindOfClass:NSClassFromString(@"MGExploreViewController")]&&
-        ![vc isKindOfClass:NSClassFromString(@"MGProfileViewController")]&&
-        ![vc isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]) {
-        [vc setHidesBottomBarWhenPushed:YES];
-    }
+    [vc setHidesBottomBarWhenPushed:YES];
     NSLog(@"self.viewModels ==== %@",self.viewModels);
     [self.navigationController pushViewController:vc animated:animated];
 }
@@ -92,5 +87,15 @@
     if(self.navigationController == rootNavigationController) return;
     self.navigationController = rootNavigationController;
 }
-
+- (BOOL)viewControllerIsRootVC:(UIViewController *)vc{
+    
+    if (![vc isKindOfClass:NSClassFromString(@"MGMainViewController")]&&
+        ![vc isKindOfClass:NSClassFromString(@"MGExploreViewController")]&&
+        ![vc isKindOfClass:NSClassFromString(@"MGProfileViewController")]&&
+        ![vc isKindOfClass:NSClassFromString(@"MGRepositoryViewController")]){
+        
+        return NO;
+    }
+    return YES;
+}
 @end

@@ -110,8 +110,10 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     NSString *identifier = self.cellConfigBlock(indexPath);
     id<MGReactiveViewProtocol> cell = [tableView dequeueReusableCellWithIdentifier:identifier
                                                                       forIndexPath:indexPath];
-    NSAssert([cell conformsToProtocol:@protocol(MGReactiveViewProtocol)],@"必须遵循协议-TableViewProtocol");
-    [cell bindViewModel:self.dataSource[indexPath.row]];
+//    NSAssert([cell conformsToProtocol:@protocol(MGReactiveViewProtocol)],@"必须遵循协议-TableViewProtocol");
+    if ([cell conformsToProtocol:@protocol(MGReactiveViewProtocol)]) {
+        [cell bindViewModel:self.dataSource[indexPath.row]];
+    }
     return (UITableViewCell *)cell;
 }
 

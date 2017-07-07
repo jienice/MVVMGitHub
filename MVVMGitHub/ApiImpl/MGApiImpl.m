@@ -146,7 +146,15 @@ typedef void(^RequestFailureCallBack)(NSError* error);      /**请求失败代�
     return signal;
 }
 
-
+- (NSDictionary *)paramsWithPage:(NSInteger)page{
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (page) {
+        [params setObject:@(page) forKey:@"page"];
+        [params setObject:@10 forKey:@"per_page"];
+    }
+    return params;
+}
 @end
 
 

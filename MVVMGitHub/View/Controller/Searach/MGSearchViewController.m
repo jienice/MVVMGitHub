@@ -52,12 +52,15 @@
     [super viewDidLoad];
     [self configUI];
     [self bindViewModel:nil];
+    [self.searchBar.startInputCommand execute:@NO];
+}
+- (void)viewWillAppear:(BOOL)animated{
     
-    [self.searchBar.startInputCommand execute:@YES];
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
 }
 - (void)configUI{
     
-    [self.navigationController.navigationBar setHidden:YES];
     [self.view addSubview:self.searchBar];
     [self.view addSubview:self.maskView];
 }
@@ -174,6 +177,7 @@ didEnterViewController:(UIViewController *)viewController
             [self.searchBar endEditing:YES];
         }];
         [_maskView addGestureRecognizer:tap];
+        _maskView.hidden =YES;
 	}
 	return _maskView;
 }

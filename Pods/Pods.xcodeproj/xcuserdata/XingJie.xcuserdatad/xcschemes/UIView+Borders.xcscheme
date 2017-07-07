@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2E7D17C43A8DA847C2A41206DAFEC824"
+               BlueprintIdentifier = "7DB308B828CEA6DBE73FF5E51D0ED504"
                BuildableName = "UIView_Borders.framework"
                BlueprintName = "UIView+Borders"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2E7D17C43A8DA847C2A41206DAFEC824"
+            BlueprintIdentifier = "7DB308B828CEA6DBE73FF5E51D0ED504"
             BuildableName = "UIView_Borders.framework"
             BlueprintName = "UIView+Borders"
             ReferencedContainer = "container:Pods.xcodeproj">

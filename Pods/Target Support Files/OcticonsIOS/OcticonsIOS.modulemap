@@ -1,0 +1,6 @@
+framework module OcticonsIOS {
+  umbrella header "OcticonsIOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

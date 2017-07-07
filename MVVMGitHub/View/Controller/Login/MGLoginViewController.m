@@ -55,9 +55,9 @@
         [self.view endEditing:YES];
     }]subscribeNext:^(NSNumber *isExecut) {
         if ([isExecut boolValue]) {
-            [SVProgressHUD showWithStatus:@"loging..."];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }else{
-            [SVProgressHUD dismiss];
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
         }
     }];
     
@@ -71,7 +71,7 @@
     [self.viewModel.loginCommand.errors subscribeNext:^(NSError *error) {
         NSLog(@"error----%@",error);
         [[RACScheduler mainThreadScheduler]schedule:^{
-            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+//            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }];
     }];
 }
