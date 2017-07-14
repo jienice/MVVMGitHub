@@ -28,4 +28,9 @@
     OCTTreeEntry *treeEntry = viewModel;
     self.treeEntryDesLabel.text = treeEntry.path;
 }
+
+- (NSNumber *)cellHeightWithModel:(id)model{
+    
+    return @40;
+}
 @end

@@ -27,6 +27,7 @@ static NSString *kPopularRepos = @"Popular Repos";
 @interface MGExploreViewModel ()
 
 
+- (void)confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:(NSString *)givenTitle;
 @end
 
 @implementation MGExploreViewModel
@@ -92,8 +93,7 @@ static NSString *kPopularRepos = @"Popular Repos";
             NSArray *trending = [[[dataArr rac_sequence] map:^id(NSDictionary *repoDic) {
                 return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
             }] array];
-            NSDictionary *responseDic = [NSDictionary dictionaryWithObject:trending
-                                                                    forKey:kTrendReposDataSourceArrayKey];
+            NSDictionary *responseDic = @{kTrendReposDataSourceArrayKey: trending};
             [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kTrendReposThisWeek];
             [_dataSource addObject:[self responseToCellViewModel:responseDic]];
             [trendReposSB sendNext:@YES];
@@ -110,8 +110,7 @@ static NSString *kPopularRepos = @"Popular Repos";
             NSArray *popularUsers = [[[[dict valueForKey:@"items"] rac_sequence] map:^id(NSDictionary *usersDic) {
                 return  [MTLJSONAdapter modelOfClass:[OCTUser class] fromJSONDictionary:usersDic error:nil];
             }] array];
-            NSDictionary *responseDic = [NSDictionary dictionaryWithObject:popularUsers
-                                                                    forKey:kPopularUsersDataSourceArrayKey];
+            NSDictionary *responseDic = @{kPopularUsersDataSourceArrayKey: popularUsers};
             [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kPopularUsers];
             [_dataSource addObject:[self responseToCellViewModel:responseDic]];
             [popularUsersSB sendNext:@YES];
@@ -131,8 +130,7 @@ static NSString *kPopularRepos = @"Popular Repos";
             NSArray *popularRepo = [[[[dict valueForKey:@"items"] rac_sequence] map:^id(NSDictionary *repoDic) {
                 return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class] fromJSONDictionary:repoDic error:nil];
             }] array];
-            NSDictionary *responseDic = [NSDictionary dictionaryWithObject:popularRepo
-                                                                    forKey:kPopularReposDataSourceArrayKey];
+            NSDictionary *responseDic = @{kPopularReposDataSourceArrayKey: popularRepo};
             [self confirmDataSourceOnlyHaveOneGivenTitleCellViewMolde:kPopularRepos];
             [_dataSource addObject:[self responseToCellViewModel:responseDic]];
             [popularReposSB sendNext:@YES];
@@ -146,16 +144,16 @@ static NSString *kPopularRepos = @"Popular Repos";
     
     NSMutableDictionary *parames = [NSMutableDictionary dictionary];
     if ([respon.allKeys.firstObject isEqualToString:kTrendReposDataSourceArrayKey]) {
-        [parames setObject:kTrendReposThisWeek forKey:kMGExploreCellTitleKey];
-        [parames setObject:@(MGExploreCellTypeOfRepo) forKey:kMGExploreCellTypeKey];
+        parames[kMGExploreCellTitleKey] = kTrendReposThisWeek;
+        parames[kMGExploreCellTypeKey] = @(MGExploreCellTypeOfRepo);
     }else if([respon.allKeys.firstObject isEqualToString:kPopularUsersDataSourceArrayKey]) {
-        [parames setObject:kPopularUsers forKey:kMGExploreCellTitleKey];
-        [parames setObject:@(MGExploreCellTypeOfUser) forKey:kMGExploreCellTypeKey];
+        parames[kMGExploreCellTitleKey] = kPopularUsers;
+        parames[kMGExploreCellTypeKey] = @(MGExploreCellTypeOfUser);
     }else if([respon.allKeys.firstObject isEqualToString:kPopularReposDataSourceArrayKey]) {
-        [parames setObject:kPopularRepos forKey:kMGExploreCellTitleKey];
-        [parames setObject:@(MGExploreCellTypeOfRepo) forKey:kMGExploreCellTypeKey];
+        parames[kMGExploreCellTitleKey] = kPopularRepos;
+        parames[kMGExploreCellTypeKey] = @(MGExploreCellTypeOfRepo);
     }
-    [parames setObject:[respon objectForKey:respon.allKeys.firstObject] forKey:kMGExploreCellDataKey];
+    parames[kMGExploreCellDataKey] = respon[respon.allKeys.firstObject];
     MGExploreCellViewModel *cellViewModel = [[MGExploreCellViewModel alloc]initWithParams:parames];
     return cellViewModel;
 }

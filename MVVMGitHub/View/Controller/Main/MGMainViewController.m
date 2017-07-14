@@ -27,10 +27,8 @@
         self.viewModel = (MGMainViewModel *)viewModel;
         [self addViewModel:self.viewModel.exploreViewModel];
         [self addViewModel:self.viewModel.searchViewModel];
-        [self addViewModel:self.viewModel.repositorisViewModel];
-        [self addViewModel:self.viewModel.profileViewModel];
-        [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers]
-                                                                        firstObject]];
+//        [self addViewModel:self.viewModel.repositorisViewModel];
+//        [self addViewModel:self.viewModel.profileViewModel];
     }
     return self;
 }
@@ -42,7 +40,13 @@
     [super viewDidLoad];
     self.delegate = self;
     //关闭滑屏返回
-    [self.navigationController.interactivePopGestureRecognizer setEnabled:NO];
+//    [self.navigationController.interactivePopGestureRecognizer setEnabled:NO];
+}
+- (void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    [MGSharedDelegate.viewModelBased resetRootNavigationController:[[self childViewControllers]
+                                                                    firstObject]];
 }
 - (void)bindViewModel:(id)viewModel{}
 

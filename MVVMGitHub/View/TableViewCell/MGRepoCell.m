@@ -64,17 +64,17 @@
     self.repoTypeImage.image    = _repository.isFork?_repoForkedImage:_repoImage;
 }
 
-+ (CGFloat)cellHeightWithViewModel:(id)viewModel{
+- (NSNumber *)cellHeightWithModel:(id)model{
     
-    MGRepositoriesModel *repo = viewModel;
+    MGRepositoriesModel *repo = model;
     if (repo.repoDescription.isExist) {
-        return [self calculationRepoDescLabelHeight:repo.repoDescription]+(70-16);
+        return @([self calculationRepoDescLabelHeight:repo.repoDescription]+(70-16));
     }else{
-        return 75-16-5-2;
+        return @(75-16-5-2);
     }
 }
 
-+ (CGFloat)calculationRepoDescLabelHeight:(NSString *)repoDesc{
+- (CGFloat)calculationRepoDescLabelHeight:(NSString *)repoDesc{
     
     CGRect contentFrame =
     [repoDesc boundingRectWithSize:CGSizeMake(MGSCREEN_WIDTH - 45, MAXFLOAT)

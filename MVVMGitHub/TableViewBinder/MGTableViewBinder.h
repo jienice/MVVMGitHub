@@ -11,7 +11,6 @@
 
 
 typedef NSString *(^String_IndexPathBlock)(NSIndexPath *IndexPath);
-typedef CGFloat(^Float_IndexPathBlock)(NSIndexPath *IndexPath);
 
 
 @interface MGTableViewBinder : NSObject
@@ -24,21 +23,18 @@ DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
  设置数据信号源，传值为RACTuple(是否为第一页'NSNumber',是否为最后一页'NSNumber'，数据源'NSArray')
  */
 @property (nonatomic, strong, setter=setDataSouceSignal:) RACSignal *dataSourceSignal;
-
 @property (nonatomic, strong, setter=setErrors:) RACSignal *errors;
 
 @property (nonatomic, copy) String_IndexPathBlock cellConfigBlock;
-@property (nonatomic, copy) Float_IndexPathBlock heightConfigBlock;
-@property (nonatomic, strong) RACCommand *didSelectedCellCommand;
 
 @property (nonatomic, strong) NSArray<Class> *reuseNoXibCellClass;
 @property (nonatomic, strong) NSArray<Class> *reuseXibCellClass;
 
+@property (nonatomic, strong) RACCommand *didSelectedCellCommand;
 
+@property (nonatomic, strong, readonly) NSMutableDictionary *indexPathAndCellHeightMap;
 
 - (void)setCellConfigBlock:(String_IndexPathBlock)cellConfigBlock;
-
-- (void)setHeightConfigBlock:(Float_IndexPathBlock)heightConfigBlock;
 
 
 @end

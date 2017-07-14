@@ -70,9 +70,6 @@
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGUserCell class]);
             }];
-            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return [MGUserCell cellHeight];
-            }];
         }];
     }
     return _tableView;

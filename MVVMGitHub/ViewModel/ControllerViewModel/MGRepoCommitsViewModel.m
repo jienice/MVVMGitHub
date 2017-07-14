@@ -26,10 +26,10 @@ NSString *const kSHAForKnowCommits = @"kSHAForKnowCommits";
 
 - (void)initialize{
     
-    NSParameterAssert([self.params objectForKey:kRepoForKnowCommits]);
-    NSParameterAssert([self.params objectForKey:kSHAForKnowCommits]);
-    _repo = [self.params objectForKey:kRepoForKnowCommits];
-    _SHA = [self.params objectForKey:kSHAForKnowCommits];
+    NSParameterAssert(self.params[kRepoForKnowCommits]);
+    NSParameterAssert(self.params[kSHAForKnowCommits]);
+    _repo = self.params[kRepoForKnowCommits];
+    _SHA = self.params[kSHAForKnowCommits];
     self.title = [NSString stringWithFormat:@"Commits-%@",self.repo.name];
 
     _fetchCommitCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {

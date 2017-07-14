@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGUserCell : UITableViewCell<MGReactiveViewProtocol>
+@interface MGUserCell : UITableViewCell<MGTableViewCellProtocol>
 
 
-+ (CGFloat)cellHeight;
 
 @end

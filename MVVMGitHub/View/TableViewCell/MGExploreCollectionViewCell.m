@@ -7,7 +7,6 @@
 //
 
 #import "MGExploreCollectionViewCell.h"
-#import "MGRepositoriesModel.h"
 
 @interface MGExploreCollectionViewCell ()
 

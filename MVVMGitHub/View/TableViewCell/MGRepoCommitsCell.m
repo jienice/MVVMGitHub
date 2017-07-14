@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *committerAndDateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *committerImage;
 
+@property (nonatomic, assign) CGFloat nibHeight;
 @end
 
 
@@ -23,30 +24,48 @@
 - (void)awakeFromNib {
     
     [super awakeFromNib];
+    self.nibHeight = self.height;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    
-    [super setSelected:selected animated:animated];
-}
 - (void)bindViewModel:(id)viewModel{
     
     OCTGitCommit *commit = viewModel;
     self.commitDateLabel.text       = [NSString stringWithFormat:@"Commits on %@",commit.commitDate];
-    self.commitMessageLabel.text    = commit.message;
+    self.commitMessageLabel.text    = [self messageRewrite:commit.message];
     self.committerAndDateLabel.text = [NSString stringWithFormat:@"%@ committed on %@",commit.committerName,commit.commitDate];
-    [self.committerImage sd_setImageWithURL:commit.committer.avatarURL placeholderImage:nil];
-    
-    [commit.message boundingRectWithSize:CGSizeMake(100 - 30, MAXFLOAT)
-                                 options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
-                              attributes:@{NSFontAttributeName:MGBlodFont(16)}
-                                 context:nil];
+    [self.committerImage sd_setImageWithURL:commit.author.avatarURL placeholderImage:nil];
 }
 
-+ (CGFloat)cellHeight{
+- (NSNumber *)cellHeightWithModel:(id)model{
     
-    
-    return 110;
+    OCTGitCommit *commit = model;
+    NSString *showString = [self messageRewrite:commit.message];
+    CGFloat height = [showString heightForFont:self.commitMessageLabel.font
+                                         width:self.commitMessageLabel.width];
+    NSLog(@"%f %@",ceilf(height),[self messageRewrite:commit.message]);
+    return @(ceilf(height)+(self.nibHeight-33.5));
 }
 
+- (NSString *)messageRewrite:(NSString *)message{
+    
+    NSMutableString *mutMessage = [NSMutableString stringWithString:message];
+    [mutMessage stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; //去除掉首尾的空白字符和换行字符
+    [self removeLastLineBreak:mutMessage];
+    [self removeDouleLineBreak:mutMessage];
+    return mutMessage;
+}
+- (void)removeLastLineBreak:(NSMutableString *)string{
+    
+    if ([string hasSuffix:@"\n"]) {
+        [string deleteCharactersInRange:NSMakeRange(string.length, 1)];
+    }
+}
+- (void)removeDouleLineBreak:(NSMutableString *)string{
+    
+    if ([string containsString:@"\n\n"]){
+        NSRange range = [string rangeOfString:@"\n\n"];
+        [string replaceCharactersInRange:range withString:@";"];
+        [self messageRewrite:string];
+    }
+}
 @end

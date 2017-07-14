@@ -72,9 +72,6 @@
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGRepoCell class]);
             }];
-            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return [MGRepoCell cellHeightWithViewModel:self.viewModel.searchRepoResultData[indexPath.row]];
-            }];
         }];
     }
     return _tableView;

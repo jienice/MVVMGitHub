@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MGExploreCellViewModel.h"
 
-@interface MGExploreTableViewCell : UITableViewCell<MGReactiveViewProtocol>
+@interface MGExploreTableViewCell : UITableViewCell<MGTableViewCellProtocol>
 
 @property (nonatomic, strong) MGExploreCellViewModel *cellViewModel;
+
+
 
 @end

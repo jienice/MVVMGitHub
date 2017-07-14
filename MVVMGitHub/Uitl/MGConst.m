@@ -26,6 +26,7 @@ NSInteger const kNetworkRequestTimeoutInterval = 30;
 NSString const *kErrorMessageKey = @"kErrorMessageKey";
 
 
+NSString *const kProfileOfUserLoginName = @"kProfileOfUserLoginName";
 
 
 @end

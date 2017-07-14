@@ -22,7 +22,7 @@
     
     self.canCreateSignal = [RACSignal combineLatest:@[RACObserve(self, repoName),RACObserve(self,repoDesc)]
                                              reduce:^id(NSString *repoName,NSString*repoDesc){
-        return @(repoName.length>0&&repoName.length>0);
+        return @(repoName.length>0);
     }];
     
     

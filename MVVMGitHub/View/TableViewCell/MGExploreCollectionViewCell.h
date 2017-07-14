@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGExploreCollectionViewCell : UICollectionViewCell<MGReactiveViewProtocol>
+@interface MGExploreCollectionViewCell : UICollectionViewCell<MGTableViewCellProtocol>
 
 
 + (CGSize)itemSize;

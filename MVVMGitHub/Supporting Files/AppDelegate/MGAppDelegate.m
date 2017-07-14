@@ -8,6 +8,8 @@
 
 #import "MGAppDelegate.h"
 #import "MGViewModel.h"
+#import "MGMainViewModel.h"
+#import "MGLoginViewModel.h"
 
 
 @interface MGAppDelegate ()
@@ -41,11 +43,14 @@
         OCTUser *user = [OCTUser userWithRawLogin:[SAMKeychain mg_rawlogin] server:OCTServer.dotComServer];
         OCTClient *client = [OCTClient authenticatedClientWithUser:user token:[SAMKeychain mg_accessToken]];
         [self setClient:client];
-        MGViewModel *viewModel = [[NSClassFromString(@"MGMainViewModel") alloc]initWithParams:nil];
-        return [[NSClassFromString(@"MGMainViewController") alloc]initWithViewModel:viewModel];
+        MGMainViewModel *viewModel = [[MGMainViewModel alloc] initWithParams:nil];
+        return [self.viewModelBased.viewModelMapper viewControllerForViewModel:viewModel];;
     }
-    MGViewModel *viewModel = [[NSClassFromString(@"MGLoginViewModel") alloc]initWithParams:nil];
-    return [[NSClassFromString(@"MGLoginViewController") alloc]initWithViewModel:viewModel];
+    MGLoginViewModel *viewModel = [[MGLoginViewModel alloc]initWithParams:nil];
+    UINavigationController *loginNav = [[UINavigationController alloc]initWithRootViewController:
+                                        [self.viewModelBased.viewModelMapper viewControllerForViewModel:viewModel]];
+    [self.viewModelBased resetRootNavigationController:loginNav];
+    return loginNav;
 }
 - (void)configMethodHooks{
         

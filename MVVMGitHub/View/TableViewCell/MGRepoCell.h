@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGRepoCell : UITableViewCell<MGReactiveViewProtocol>
+@interface MGRepoCell : UITableViewCell<MGTableViewCellProtocol>
 
 @property (nonatomic, strong, readonly) MGRepositoriesModel *repository;
 
-+ (CGFloat)cellHeightWithViewModel:(id)viewModel;
 
 @end

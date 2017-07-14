@@ -31,4 +31,12 @@ FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeOutErrorCode;
 FOUNDATION_EXTERN NSInteger const kNetworkRequestBackErrorMessageErrorCode;
 FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeoutInterval;
 FOUNDATION_EXTERN NSString const *kErrorMessageKey;
+
+
+#pragma mark - profile
+
+extern NSString *const kProfileOfUserLoginName;
+
+
+
 @end

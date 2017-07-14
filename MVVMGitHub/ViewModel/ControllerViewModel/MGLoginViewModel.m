@@ -26,9 +26,10 @@
         @strongify(self);
         OCTUser *user = [OCTUser userWithRawLogin:self.userName server:OCTServer.dotComServer];
         return [[[[OCTClient signInAsUser:user
-                               password:self.passWord
-                        oneTimePassword:oneTimePassword
-                                 scopes:OCTClientAuthorizationScopesRepository|OCTClientAuthorizationScopesUserFollow]
+                                 password:self.passWord
+                          oneTimePassword:oneTimePassword
+                                   scopes:OCTClientAuthorizationScopesRepository|
+                   OCTClientAuthorizationScopesUserFollow|OCTClientAuthorizationScopesUserEmail]
                   doNext:^(OCTClient *authenticatedClient){
                       [SAMKeychain mg_setAccessToken:authenticatedClient.token];
                       [SAMKeychain mg_setPassWord:self.passWord];
@@ -42,7 +43,9 @@
         }];
     }];
     
-    _canLoginSignal = [RACSignal combineLatest:@[RACObserve(self, userName),RACObserve(self, passWord)] reduce:^id(NSString *userName, NSString *passWord){
+    _canLoginSignal = [RACSignal combineLatest:@[RACObserve(self, userName),
+                                                 RACObserve(self, passWord)]
+                                        reduce:^id(NSString *userName, NSString *passWord){
         return @(userName.length>0 && passWord.length>0);
     }];
     
@@ -52,6 +55,9 @@
             return nil;
         }];
     }];
+    
+    
+    
     
 }
 

@@ -6,8 +6,8 @@
 //  Copyright © 2017年 xingjie. All rights reserved.
 //
 
+#import <CocoaSecurity/Base64.h>
 #import "MGRepoDetailViewModel.h"
-#import "MGRepositoriesModel.h"
 #import "MGApiImpl+MGRepo.h"
 
 NSString *const kRepoDetailParamsKeyForRepoOwner = @"kRepoDetailParamsKeyForRepoOwner";
@@ -32,10 +32,10 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
 
 - (void)initialize{
     
-    NSParameterAssert([self.params objectForKey:kRepoDetailParamsKeyForRepoOwner]);
-    NSParameterAssert([self.params objectForKey:kRepoDetailParamsKeyForRepoName]);
-    _repoOwner = [self.params objectForKey:kRepoDetailParamsKeyForRepoOwner];
-    _repoName = [self.params objectForKey:kRepoDetailParamsKeyForRepoName];
+    NSParameterAssert(self.params[kRepoDetailParamsKeyForRepoOwner]);
+    NSParameterAssert(self.params[kRepoDetailParamsKeyForRepoName]);
+    _repoOwner = self.params[kRepoDetailParamsKeyForRepoOwner];
+    _repoName = self.params[kRepoDetailParamsKeyForRepoName];
     
     RACCommand *fetchRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[[MGApiImpl sharedApiImpl] fetchRepoDetailWithOwner:_repoOwner

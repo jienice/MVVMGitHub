@@ -28,8 +28,7 @@
                                   backgroundColor:MGWhiteColor
                                         iconColor:MGClickedColor
                                         iconScale:1.0
-                                          andSize:CGSizeMake(30, [MGUserCell cellHeight])];
-    
+                                          andSize:CGSizeMake(30, [[self cellHeightWithModel:nil] floatValue])];
 }
 
 - (void)bindViewModel:(id)viewModel{
@@ -42,9 +41,9 @@
     [self.followBtn setImage:_followImage forState:UIControlStateHighlighted];
     [self.followBtn setImage:_followImage forState:UIControlStateSelected];
 }
-
-+ (CGFloat)cellHeight{
+- (NSNumber *)cellHeightWithModel:(id)model{
     
-    return 55;
+    return @55;
 }
+
 @end

@@ -18,10 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *followersCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followingCountLabel;
 
-@property (weak, nonatomic) IBOutlet UIImageView *repoImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *followerimageView;
-
-
 @property (weak, nonatomic) IBOutlet UIView *repoShowView;
 @property (weak, nonatomic) IBOutlet UIView *followerShowView;
 @property (weak, nonatomic) IBOutlet UIView *followingShowView;
@@ -56,14 +52,10 @@
         @strongify(self);
         self.userBigImageView.image = [image imageByBlurSoft];
     }];
-    self.publicRepoCountLabel.text = [NSString stringWithFormat:@"%ld",_user.publicRepoCount];
-    self.followersCountLabel.text = [NSString stringWithFormat:@"%ld",_user.followersCount];
-    self.followingCountLabel.text = [NSString stringWithFormat:@"%ld",_user.followingCount];
+    self.publicRepoCountLabel.text = [NSString stringWithFormat:@"%ld", (long) _user.publicRepoCount];
+    self.followersCountLabel.text = [NSString stringWithFormat:@"%ld", (long) _user.followersCount];
+    self.followingCountLabel.text = [NSString stringWithFormat:@"%ld", (long) _user.followingCount];
 
-    self.repoImageView.image = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconRepo]
-                                              backgroundColor:MGWhiteColor
-                                                    iconColor:MGBlackColor
-                                                    iconScale:1.0 andSize:CGSizeMake(20, 20)];
 }
 - (IBAction)categoryBtnClicked:(UIButton *)sender {
     

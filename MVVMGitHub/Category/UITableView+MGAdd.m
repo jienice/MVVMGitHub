@@ -40,7 +40,6 @@ static NSString *bindeKey = @"bindeKey";
     NSAssert(binder.reuseXibCellClass.count!=0||binder.reuseNoXibCellClass.count!=0, @"请先注册复用的Cell");
     NSAssert(binder.dataSourceSignal!=nil, @"设置数据源信号");
     NSAssert(binder.cellConfigBlock!=nil, @"请设置不同IndexPath Cell的复用标识");
-    NSAssert(binder.heightConfigBlock!=nil, @"请设置不同IndexPath Cell的高度");
     NSAssert(binder.errors!=nil, @"设置数据请求失败信号");
     return tableView;
 }

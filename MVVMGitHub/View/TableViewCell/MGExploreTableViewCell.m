@@ -8,7 +8,6 @@
 
 #import "MGExploreTableViewCell.h"
 #import "MGExploreCollectionViewCell.h"
-#import "MGRepositoriesModel.h"
 #import "MGRepoDetailViewModel.h"
 #import "MGProfileViewModel.h"
 
@@ -40,7 +39,10 @@ UICollectionViewDelegateFlowLayout>
     self.titleLabel.text = self.cellViewModel.cellTitle;
 }
 
-
+- (NSNumber *)cellHeightWithModel:(id)model{
+    
+    return @(155);
+}
 #pragma mark - UICollectionViewDelegate\UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     

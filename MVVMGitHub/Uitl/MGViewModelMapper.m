@@ -26,7 +26,9 @@
                         @"MGUserDetailViewModel":@"MGUserDetailViewController",
                         @"MGSearchViewModel":@"MGSearchViewController",
                         @"MGMainViewModel":@"MGMainViewController",
-                        @"MGRepoCommitsViewModel":@"MGRepoCommitsViewController"};
+                        @"MGRepoCommitsViewModel":@"MGRepoCommitsViewController",
+                        @"MGFollowerViewModel":@"MGFollowerViewController",
+                        @"MGFollowingViewModel":@"MGFollowingViewController"};
     }
     return self;
 }

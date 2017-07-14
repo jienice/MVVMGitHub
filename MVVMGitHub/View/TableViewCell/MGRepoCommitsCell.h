@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGRepoCommitsCell : UITableViewCell<MGReactiveViewProtocol>
+@interface MGRepoCommitsCell : UITableViewCell<MGTableViewCellProtocol>
 
 
-+ (CGFloat)cellHeight;
+
 @end

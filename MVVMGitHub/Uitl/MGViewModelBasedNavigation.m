@@ -85,6 +85,7 @@
     
     NSParameterAssert([rootNavigationController isKindOfClass:[UINavigationController class]]);
     if(self.navigationController == rootNavigationController) return;
+    [self.viewModels removeAllObjects];
     self.navigationController = rootNavigationController;
 }
 - (BOOL)viewControllerIsRootVC:(UIViewController *)vc{

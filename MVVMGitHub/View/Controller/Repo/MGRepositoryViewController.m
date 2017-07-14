@@ -10,9 +10,6 @@
 #import "MGRepositoryViewModel.h"
 #import "MGCreateRepoViewModel.h"
 #import "MGRepoDetailViewModel.h"
-#import "MGRepositoriesModel.h"
-#import "MGTableViewBinder.h"
-
 #import "MGRepoCell.h"
 
 @interface MGRepositoryViewController ()
@@ -36,10 +33,17 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [self configUI];
+    [self bindViewModel:nil];
+}
+- (void)configUI{
+    
+    if (self.navigationController.childViewControllers.count>1) {
+        self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemForPopViewController];
+    }
     self.navigationItem.title = self.viewModel.title;
     [self.view addSubview:self.tableView];
-    [self bindViewModel:nil];
-    }
+}
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
@@ -79,17 +83,16 @@
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGRepoCell class]);
             }];
-            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return [MGRepoCell cellHeightWithViewModel:self.viewModel.dataSource[indexPath.row]];
+            binder.dataSourceSignal = [[RACObserve(self, viewModel.dataSource) ignore:nil] map:^id(id value) {
+                return RACTuplePack(@YES,@YES,value);
             }];
-            binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
             binder.errors = self.viewModel.fetchDataFromServiceCommand.errors;
             binder.reuseXibCellClass = @[[MGRepoCell class]];
         }];
         _tableView.mj_header = ({
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
                 @strongify(self);
-                [self.viewModel.fetchDataFromServiceCommand execute:0];
+                [self.viewModel.fetchDataFromServiceCommand execute:nil];
             }];
             header;
         });

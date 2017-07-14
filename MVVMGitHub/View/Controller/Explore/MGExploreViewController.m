@@ -10,11 +10,6 @@
 #import "MGExploreViewModel.h"
 #import "MGExploreTableViewCell.h"
 #import "MGShowcasesModel.h"
-#import "MGExploreCellViewModel.h"
-#import "MGRepositoriesModel.h"
-#import "MGRepoDetailViewModel.h"
-#import "MGSearchViewModel.h"
-#import "MGTableViewBinder.h"
 
 @interface MGExploreViewController ()
 <SDCycleScrollViewDelegate>
@@ -61,7 +56,7 @@
 
     [self.viewModel.fetchDataFromServiceCommand.errors subscribeNext:^(NSError *error) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.label.text = [error.userInfo objectForKey:kErrorMessageKey];
+        hud.label.text = error.userInfo[kErrorMessageKey];
     }];
 }
 #pragma mark - Load Data
@@ -82,9 +77,6 @@
             [binder setReuseXibCellClass:@[[MGExploreTableViewCell class]]];
             binder.cellConfigBlock = ^NSString *(NSIndexPath *indexPath){
                 return NSStringFromClass([MGExploreTableViewCell class]);
-            };
-            binder.heightConfigBlock = ^CGFloat(NSIndexPath *indexPath){
-                return 155;
             };
         }];
         _tableView.mj_header =

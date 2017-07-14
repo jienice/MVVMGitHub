@@ -49,6 +49,7 @@
 #import "MGViewModelProtocol.h"
 #import "MGViewControllerProtocol.h"
 #import "MGTableViewModelProtocol.h"
+#import "MGTableViewCellProtocol.h"
 ///----------------------------------------------------------
 #import "MGRepositoriesModel.h"
 ///----------------------------------------------------------

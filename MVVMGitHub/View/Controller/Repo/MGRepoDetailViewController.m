@@ -8,7 +8,6 @@
 
 #import "MGRepoDetailViewController.h"
 #import "MGRepoDetailViewModel.h"
-#import "MGRepositoriesModel.h"
 #import "MGRepoDetailHeaderView.h"
 #import "MGOCTTreeEntryCell.h"
 #import "WKWebView+MGWeb.h"
@@ -111,9 +110,6 @@
             [binder setReuseXibCellClass:@[[MGOCTTreeEntryCell class]]];
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGOCTTreeEntryCell class]);
-            }];
-            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return 40;
             }];
             binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
             binder.errors = self.viewModel.fetchDataFromServiceCommand.errors;

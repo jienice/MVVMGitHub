@@ -32,14 +32,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-    [self.view addSubview:self.userNameText];
-    [self.view addSubview:self.passWordText];
-    [self.view addSubview:self.loginButton];
-    [self.view setNeedsUpdateConstraints];
-    [self.view updateConstraintsIfNeeded];
+    [self configUI];
     [self bindViewModel:nil];
 }
+
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
@@ -62,18 +58,24 @@
     }];
     
     [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
-        [[RACScheduler mainThreadScheduler] schedule:^{
-            MGViewModel *mainViewModel = [[NSClassFromString(@"MGMainViewModel") alloc]initWithParams:nil];
-            [MGSharedDelegate.viewModelBased pushViewModel:mainViewModel animated:YES];
-        }];
+        MGViewModel *mainViewModel = [[NSClassFromString(@"MGMainViewModel") alloc]initWithParams:nil];
+        [MGSharedDelegate.viewModelBased pushViewModel:mainViewModel animated:YES];
     }];
 
     [self.viewModel.loginCommand.errors subscribeNext:^(NSError *error) {
         NSLog(@"error----%@",error);
-        [[RACScheduler mainThreadScheduler]schedule:^{
 //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-        }];
     }];
+}
+- (void)configUI{
+    
+    [self.navigationController setNavigationBarHidden:YES];
+    [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [self.view addSubview:self.userNameText];
+    [self.view addSubview:self.passWordText];
+    [self.view addSubview:self.loginButton];
+    [self.view setNeedsUpdateConstraints];
+    [self.view updateConstraintsIfNeeded];
 }
 - (void)updateViewConstraints{
     
@@ -107,12 +109,14 @@
         _userNameText.font = MGFont(14);
         _userNameText.clearButtonMode = UITextFieldViewModeWhileEditing;
         _userNameText.placeholder  = @"Please input your github userName!";
+        @weakify(self);
         [_userNameText. rac_textSignal subscribeNext:^(NSString *userName) {
+            @strongify(self);
             self.viewModel.userName = userName;
         }];
         if ([SAMKeychain mg_rawlogin].isExist) {
             [_userNameText setText:[SAMKeychain mg_rawlogin]];
-            self.viewModel.userName = [SAMKeychain mg_rawlogin];
+            [_userNameText sendActionsForControlEvents:UIControlEventValueChanged];
         }
         _userNameText.keyboardType = UIKeyboardTypeEmailAddress;
     }

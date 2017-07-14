@@ -11,6 +11,9 @@
 #import "MGProfileHeaderView.h"
 #import "MGUser.h"
 #import "MGTableViewCell.h"
+#import "MGFollowerViewModel.h"
+#import "MGFollowingViewModel.h"
+#import "MGRepositoryViewModel.h"
 
 @interface MGProfileViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,7 +31,6 @@
     
     if (self = [super init]) {
         self.viewModel = (MGProfileViewModel *)viewModel;
-        self.navigationItem.title = self.viewModel.title;
     }
     return self;
 }
@@ -50,17 +52,27 @@
     }];
     
     [self.headerView.didClickedCategoryCommand.executionSignals.switchToLatest subscribeNext:^(NSNumber *typeNumber) {
-        MGProfileCategoryType type = typeNumber.integerValue;
+        @strongify(self);
+        MGProfileCategoryType type = (MGProfileCategoryType) typeNumber.integerValue;
         switch (type) {
             case MGProfileCategoryTypeOfFollower:{
+                MGFollowerViewModel *follower =
+                [[MGFollowerViewModel alloc]initWithParams:@{kProfileOfUserLoginName:self.viewModel.loginName}];
+                [MGSharedDelegate.viewModelBased pushViewModel:follower animated:YES];
                 NSLog(@"MGProfileCategoryTypeOfFollower - %s",__func__);
             }
                 break;
             case MGProfileCategoryTypeOfFollowing:{
+                MGFollowingViewModel *following =
+                [[MGFollowingViewModel alloc]initWithParams:@{kProfileOfUserLoginName:self.viewModel.loginName}];
+                [MGSharedDelegate.viewModelBased pushViewModel:following animated:YES];
                 NSLog(@"MGProfileCategoryTypeOfFollowing - %s",__func__);
             }
                 break;
             case MGProfileCategoryTypeOfPublicRepo:{
+                MGRepositoryViewModel *repo =
+                [[MGRepositoryViewModel alloc]initWithParams:@{kListRepositoriesUserName:self.viewModel.loginName}];
+                [MGSharedDelegate.viewModelBased pushViewModel:repo animated:YES];
                 NSLog(@"MGProfileCategoryTypeOfPublicRepo - %s",__func__);
             }
                 break;
@@ -71,6 +83,7 @@
 }
 - (void)configUI{
     
+    self.navigationItem.title = self.viewModel.title;
     self.view.backgroundColor = MGWhiteColor;
     if ([self.navigationController.navigationBar isHidden]) {
         [self.navigationController.navigationBar setHidden:NO];
@@ -96,7 +109,7 @@
     if (section==0) {
         return 4;
     }
-    return 2;
+    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -134,14 +147,6 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }else if (indexPath.section==1){
         if (indexPath.row==0) {
-            cell.text.text = @"Feed";
-            cell.image.image = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconMail]
-                                              backgroundColor:MGWhiteColor
-                                                    iconColor:MGBlackColor
-                                                    iconScale:1.0
-                                                      andSize:CGSizeMake(15, 15)];
-            
-        }else if (indexPath.row==1) {
             cell.text.text = @"Contribution Activity";
             cell.image.image = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconRepoPush]
                                               backgroundColor:MGWhiteColor

@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger,MGSearchType){
     MGSearchForRepositories
 };
 
-@interface MGSearchViewModel : MGViewModel<MGViewModelProtocol>
+@interface MGSearchViewModel : MGViewModel
 
 @property (nonatomic, copy) NSString *searchText;
 

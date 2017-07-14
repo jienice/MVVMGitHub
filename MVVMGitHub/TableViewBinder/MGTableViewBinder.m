@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) MGTableViewLoadDataType loadDataType;
+@property (nonatomic, strong, readwrite) NSMutableDictionary *indexPathAndCellHeightMap;
 
 @end
 
@@ -35,6 +36,7 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     binder.didSelectedCellCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal return:input];
     }];
+    binder.indexPathAndCellHeightMap = [NSMutableDictionary dictionary];
     binder.loadDataType = MGTableViewLoading;
     return binder;
 }
@@ -69,6 +71,7 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
         [self.tableView headerEndRefresh];
         if (isFirstPage.boolValue){//第一页
             [self.dataSource removeAllObjects];
+            [self.indexPathAndCellHeightMap removeAllObjects];
             if (dataArr.count==0) {//第一页且无数据
                 self.loadDataType = MGTableViewLoadNoData;
                 [self.tableView reloadEmptyDataSet];
@@ -108,20 +111,27 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     
     NSAssert(self.cellConfigBlock, @"请先设置Cell复用的Block,-setCellConfigBlock");
     NSString *identifier = self.cellConfigBlock(indexPath);
-    id<MGReactiveViewProtocol> cell = [tableView dequeueReusableCellWithIdentifier:identifier
-                                                                      forIndexPath:indexPath];
-//    NSAssert([cell conformsToProtocol:@protocol(MGReactiveViewProtocol)],@"必须遵循协议-TableViewProtocol");
-    if ([cell conformsToProtocol:@protocol(MGReactiveViewProtocol)]) {
-        [cell bindViewModel:self.dataSource[indexPath.row]];
-    }
+    id<MGTableViewCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    [cell bindViewModel:self.dataSource[indexPath.row]];
     return (UITableViewCell *)cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSAssert(self.heightConfigBlock, @"请先设置Cell高度的Block,-setHeightConfigBlock");
-    return self.heightConfigBlock(indexPath);
+    NSString *identifier = self.cellConfigBlock(indexPath);
+    id<MGTableViewCellProtocol>cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[NSClassFromString(identifier) alloc]init];
+    }
+    NSAssert([cell conformsToProtocol:@protocol(MGTableViewCellProtocol)],
+             @"%@ must conform to protocol '-MGTableViewCellProtocol'",identifier);
+    if (![_indexPathAndCellHeightMap.allKeys containsObject:indexPath]) {
+        _indexPathAndCellHeightMap[indexPath] = [cell performSelector:@selector(cellHeightWithModel:)
+                                                           withObject:self.dataSource[indexPath.row]];
+    }
+    return [(NSNumber *)[self.indexPathAndCellHeightMap objectForKey:indexPath] floatValue];
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [self.didSelectedCellCommand execute:indexPath];

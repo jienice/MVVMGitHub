@@ -7,7 +7,6 @@
 //
 
 #import "MGRepoDetailHeaderView.h"
-#import "MGRepositoriesModel.h"
 
 @interface MGRepoDetailHeaderView ()
 

@@ -17,17 +17,12 @@
 /**
  tableView's dataSource
  */
-@property (nonatomic, strong, readonly) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataSource;
 
 /**
  user did selected tableView row will invoke this command
  */
 @property (nonatomic, strong, readonly) RACCommand *didSelectedRowCommand;
-
-/**
- invoke this command fetch data from service
- */
-@property (nonatomic, strong, readonly) RACCommand *fetchDataFromServiceCommand;
 
 
 @optional

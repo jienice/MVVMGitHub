@@ -22,12 +22,12 @@
 - (instancetype)initWithParams:(NSDictionary *)params{
     
     if (self=[super init]) {
-        NSParameterAssert([params objectForKey:kMGExploreCellTypeKey]);
-        NSParameterAssert([params objectForKey:kMGExploreCellTitleKey]);
-        NSParameterAssert([params objectForKey:kMGExploreCellDataKey]);
-        self.cellType = [[params objectForKey:kMGExploreCellTypeKey] integerValue];
-        self.cellData = [params objectForKey:kMGExploreCellDataKey];
-        self.cellTitle = [params objectForKey:kMGExploreCellTitleKey];
+        NSParameterAssert(params[kMGExploreCellTypeKey]);
+        NSParameterAssert(params[kMGExploreCellTitleKey]);
+        NSParameterAssert(params[kMGExploreCellDataKey]);
+        self.cellType = (MGExploreCellType) [params[kMGExploreCellTypeKey] integerValue];
+        self.cellData = params[kMGExploreCellDataKey];
+        self.cellTitle = params[kMGExploreCellTitleKey];
         self.params = params;
     }
     return self;

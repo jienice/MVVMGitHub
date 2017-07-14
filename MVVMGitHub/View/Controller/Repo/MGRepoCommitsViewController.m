@@ -71,9 +71,6 @@
             [binder setCellConfigBlock:^NSString *(NSIndexPath *IndexPath) {
                 return NSStringFromClass([MGRepoCommitsCell class]);
             }];
-            [binder setHeightConfigBlock:^CGFloat(NSIndexPath *indexPath) {
-                return [MGRepoCommitsCell cellHeight];
-            }];
         }];
         _tableView.mj_header = ({
             MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

@@ -9,18 +9,19 @@
 #import "MGProfileViewModel.h"
 #import "MGApiImpl+MGUser.h"
 #import "MGUser.h"
+#import "MGOrganizations.h"
 
-NSString *const kProfileOfUserLoginName = @"kProfileOfUserLoginName";
 
 @interface MGProfileViewModel ()
 
-@property (nonatomic, copy) NSString *loginName;
 
 @property (nonatomic, strong, readwrite) MGUser *user;
 
-@property (nonatomic, assign) NSInteger followersPage;
-@property (nonatomic, assign) NSInteger followingPage;
-
+/**
+ *  KVO,使用点语法赋值
+ */
+@property (nonatomic, strong, readwrite) NSMutableArray *notificationsArray;
+@property (nonatomic, strong, readwrite) NSMutableArray *orgArray;
 
 @end
 
@@ -33,12 +34,9 @@ NSString *const kProfileOfUserLoginName = @"kProfileOfUserLoginName";
 - (void)initialize{
     
     @weakify(self);
-    self.followersPage = 1;
-    self.followingPage = 1;
-    
-    NSParameterAssert([self.params objectForKey:kProfileOfUserLoginName]);
-    
-    self.loginName = [self.params objectForKey:kProfileOfUserLoginName];
+    NSParameterAssert(self.params[kProfileOfUserLoginName]);
+    self.title = @"Profile";
+    _loginName = self.params[kProfileOfUserLoginName];
     
     _fetchUserInfoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
@@ -49,30 +47,42 @@ NSString *const kProfileOfUserLoginName = @"kProfileOfUserLoginName";
         }];
     }];
     
-    _fetchFollowersCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    _fetchUserOrgCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[[MGApiImpl sharedApiImpl] fetchUserFollowersListWithLoginName:self.loginName
-                                                                          page:self.followersPage] doNext:^(id x) {
-            self.followersPage++;
+        return [[[MGApiImpl sharedApiImpl]fetchUserOrgListWithLoginName:self.loginName] doNext:^(NSArray *orgs) {
+            self.orgArray =[[[orgs.rac_sequence map:^id(NSDictionary *value) {
+                return [MTLJSONAdapter modelOfClass:[MGOrganizations class]
+                                 fromJSONDictionary:value error:nil];
+            }] array] mutableCopy];
+            NSLog(@"_orgArray --- %@",_orgArray);
         }];
     }];
     
-    
-    
-    _fetchFollowingUsersCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    _fetchNotificationsCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[[MGApiImpl sharedApiImpl] fetchUserFollowingListWithLoginName:self.loginName
-                                                                          page:self.followingPage] doNext:^(id x) {
-            self.followingPage++;
+        return [[[MGSharedDelegate.client fetchNotificationsNotMatchingEtag:nil
+                                                   includeReadNotifications:YES
+                                                               updatedSince:nil] collect] doNext:^(NSArray *responseArray) {
+            self.notificationsArray = [[[responseArray.rac_sequence map:^OCTNotification *(OCTResponse *response) {
+                return response.parsedResult;
+            }] array] mutableCopy];
+            NSLog(@"_notificationsArray---%@",_notificationsArray);
         }];
+    }];
+    
+    _markNotificationAsReadCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSURL *input) {
+        return [MGSharedDelegate.client markNotificationThreadAsReadAtURL:input];
+    }];
+    
+    _muteNotificationCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSURL *input) {
+        return [MGSharedDelegate.client muteNotificationThreadAtURL:input];
     }];
     
     _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         [_fetchUserInfoCommand execute:nil];
-        [_fetchFollowingUsersCommand execute:nil];
-        [_fetchFollowersCommand execute:nil];
-        NSArray *ARR = @[@"1",@"1212"];
-        return [RACSignal return:RACTuplePack(@YES,@YES,ARR)];
+        [_fetchUserOrgCommand execute:nil];
+        [_fetchNotificationsCommand execute:nil];
+        return [RACSignal empty];
     }];
     
 }

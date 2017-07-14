@@ -14,11 +14,13 @@
 - (RACSignal *)fetchUserInfoWithLoginName:(NSString *)loginName;
 
 
-- (RACSignal *)fetchUserFollowersListWithLoginName:(NSString *)loginName page:(NSInteger)page;
+- (RACSignal *)fetchUserFollowersListWithLoginName:(NSString *)loginName;
 
 
-- (RACSignal *)fetchUserFollowingListWithLoginName:(NSString *)loginName page:(NSInteger)page;
+- (RACSignal *)fetchUserFollowingListWithLoginName:(NSString *)loginName;
 
+
+- (RACSignal *)fetchUserOrgListWithLoginName:(NSString *)loginName;
 
 
 
