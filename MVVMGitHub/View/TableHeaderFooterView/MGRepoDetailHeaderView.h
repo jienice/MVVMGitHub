@@ -14,6 +14,6 @@
 
 @property (nonatomic, strong) RACCommand *nameLabelClickedCommand;
 
-@property (nonatomic, assign, readonly) CGFloat height;
+@property (nonatomic, strong) RACCommand *didEndLayoutCommand;
 
 @end

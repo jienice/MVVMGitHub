@@ -39,9 +39,9 @@
     @weakify(self);
     [self.viewModel.searchRepoCommand.executing subscribeNext:^(NSNumber *execut) {
         if ([execut boolValue]) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [SVProgressHUD show];
         }else{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [SVProgressHUD dismiss];
         }
     }];
     

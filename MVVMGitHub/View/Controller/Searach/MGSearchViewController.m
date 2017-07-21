@@ -34,11 +34,11 @@
         self.menuBGColor = [UIColor whiteColor];
         self.automaticallyCalculatesItemWidths = YES;
         self.titleColorNormal = MGNormalColor;
-        self.titleColorSelected = MGClickedColor;
+        self.titleColorSelected = MGSystemColor;
         self.pageAnimatable = YES;
         self.menuViewStyle = WMMenuViewStyleLine;
         self.menuViewLayoutMode = WMMenuViewLayoutModeScatter;
-        self.progressColor = MGClickedColor;
+        self.progressColor = MGSystemColor;
         self.progressHeight = 1;
         self.titleSizeSelected = 14;
         self.titleSizeNormal = 14;

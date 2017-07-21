@@ -43,7 +43,7 @@
        @strongify(self);
        [self.loginButton setEnabled:[value boolValue]];
     }] map:^id(NSNumber *value) {
-        return [value boolValue]?MGClickedColor:MGNormalColor;
+        return [value boolValue]?MGSystemColor:MGNormalColor;
     }];
     
     [[[self.viewModel.loginCommand.executing skip:1] doNext:^(id x) {
@@ -51,9 +51,9 @@
         [self.view endEditing:YES];
     }]subscribeNext:^(NSNumber *isExecut) {
         if ([isExecut boolValue]) {
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [SVProgressHUD show];
         }else{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [SVProgressHUD dismiss];
         }
     }];
     

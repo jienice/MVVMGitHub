@@ -26,7 +26,7 @@
     [super awakeFromNib];
     _followImage = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconPersonAdd]
                                   backgroundColor:MGWhiteColor
-                                        iconColor:MGClickedColor
+                                        iconColor:MGSystemColor
                                         iconScale:1.0
                                           andSize:CGSizeMake(30, [[self cellHeightWithModel:nil] floatValue])];
 }
@@ -36,6 +36,7 @@
     NSParameterAssert([viewModel isKindOfClass:[OCTUser class]]);
     OCTUser *user = viewModel;
     [self.logoImageView sd_setImageWithURL:user.avatarURL placeholderImage:nil];
+    
     self.userNameLabel.text = user.name;
     [self.followBtn setImage:_followImage forState:UIControlStateNormal];
     [self.followBtn setImage:_followImage forState:UIControlStateHighlighted];

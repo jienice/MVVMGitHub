@@ -51,10 +51,10 @@
 ///------------
 #define MGRGBAlphaColor(R,G,B, alp) [UIColor colorWithRed:((R) / 255.0) green:((G) / 255.0) blue:((B) / 255.0) alpha:alp]
 #define MGRGBColor(R, G, B) MGRGBAlphaColor(R,G,B, 1.f)
-#define MGClickedColor MGRGBColor(97, 186, 58)
 #define MGNormalColor [UIColor lightGrayColor]
 #define MGWhiteColor [UIColor whiteColor]
 #define MGBlackColor [UIColor blackColor]
+#define MGSystemColor MGRGBColor(3, 102, 214)
 ///------------
 ///  system
 ///------------

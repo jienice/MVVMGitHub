@@ -92,7 +92,7 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     
     _errors = errors;
     @weakify(self);
-    [_errors subscribeNext:^(id x) {
+    [_errors subscribeNext:^(NSError *error) {
         @strongify(self);
         NSLog(@"Error EndRefresh");
         self.loadDataType = MGTableViewLoadDataFail;
@@ -136,18 +136,26 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     
     [self.didSelectedCellCommand execute:indexPath];
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    
+    return CGFLOAT_MIN;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return CGFLOAT_MIN;
+}
 #pragma mark - DZNEmptyDataSetSource
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
     
     switch (self.loadDataType) {
         case MGTableViewLoadDataFail:{
-            return [[NSAttributedString alloc]initWithString:@"loading..."
+            return [[NSAttributedString alloc]initWithString:@""
                                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
                                                                NSForegroundColorAttributeName:[UIColor redColor]}];
         }
             break;
         case MGTableViewLoadNoData:{
-            return [[NSAttributedString alloc]initWithString:@""
+            return [[NSAttributedString alloc]initWithString:@"No Data"
                                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
                                                                NSForegroundColorAttributeName:[UIColor redColor]}];
         }
@@ -175,7 +183,7 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
             
             break;
         case MGTableViewLoadNoData:{
-            return [[NSAttributedString alloc]initWithString:@"无数据"
+            return [[NSAttributedString alloc]initWithString:@""
                                                   attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],
                                                                NSForegroundColorAttributeName:[UIColor redColor]}];
         }

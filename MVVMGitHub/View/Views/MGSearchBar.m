@@ -27,12 +27,12 @@
     bar.frame=frame;
     bar.searchBar.placeholder = @"Please Input Repo's Or User's Name";
     bar.searchBar.autocapitalizationType =UITextAutocapitalizationTypeNone;
-    bar.searchBar.tintColor = MGClickedColor;
+    bar.searchBar.tintColor = MGSystemColor;
     bar.searchBar.delegate = bar;
     [bar bindViewModel:nil];
-    [bar.cancelSearchBtn setTitleColor:MGClickedColor forState:UIControlStateNormal];
-    [bar.cancelSearchBtn setTitleColor:MGClickedColor forState:UIControlStateHighlighted];
-    [bar.cancelSearchBtn setTitleColor:MGClickedColor forState:UIControlStateSelected];
+    [bar.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateNormal];
+    [bar.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateHighlighted];
+    [bar.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateSelected];
     return bar;
 }
 #pragma mark - Life Cycle

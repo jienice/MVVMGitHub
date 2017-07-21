@@ -11,60 +11,73 @@
 @interface MGRepoDetailHeaderView ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *repoOwnerImage;
-@property (weak, nonatomic) IBOutlet UILabel *repoFullNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *repoCreateTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *createDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *repoNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *latestUpdateDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *repoDescLabel;
-@property (weak, nonatomic) IBOutlet UILabel *latestUpdateTimeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *repoBranchBtn;
+@property (nonatomic, strong) MGRepositoriesModel *repo;
 
-@property (nonatomic, assign) CGFloat viewHeightAtNib;
 @end
 
-@implementation MGRepoDetailHeaderView{
-    MGRepositoriesModel *_repo;
-}
+@implementation MGRepoDetailHeaderView
 
 - (instancetype)init{
     
     MGRepoDetailHeaderView *view = [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([MGRepoDetailHeaderView class])
-                                                                 owner:self options:nil]
-                                    firstObject];
-    view.viewHeightAtNib = view.frame.size.height;
+                                                                 owner:self options:nil] firstObject];
     return view;
 }
-
+- (void)layoutSubviews{
+    
+    if (self.repo) {
+        [self.didEndLayoutCommand execute:nil];
+    }
+}
 
 - (void)bindViewModel:(id)viewModel{
     
-    _repo = viewModel;
-    self.repoCreateTimeLabel.text = _repo.created_at;
-    self.repoDescLabel.text = _repo.repoDescription;
-    self.latestUpdateTimeLabel.text = _repo.updated_at;
-
-    [self.repoOwnerImage sd_setImageWithURL:_repo.owner.avatarURL placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        [self.repoOwnerImage.image imageByRoundCornerRadius:5];
-    }];
+    [self setRepo:viewModel];
+    NSString *repoNameString = [NSString stringWithFormat:@"%@/%@",self.repo.owner.name,self.repo.name];
+    self.repoNameLabel.attributedText=[self repoNameTransformer:repoNameString];
+    self.repoDescLabel.text = self.repo.repoDescription;
+    self.createDateLabel.text = [NSString stringWithFormat:@"Create at :%@",self.repo.createdDate];
+    self.latestUpdateDateLabel.text = [NSString stringWithFormat:@"Latest commit on :%@",self.repo.updatedDate];
+    [self.repoOwnerImage sd_setImageWithURL:self.repo.owner.avatarURL placeholderImage:nil];
+    [self.repoBranchBtn setTitle:self.repo.defaultBranch forState:UIControlStateNormal];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
 }
-#pragma mark - setter
-- (void)setNameLabelClickedCommand:(RACCommand *)nameLabelClickedCommand{
-    
-    _nameLabelClickedCommand = nameLabelClickedCommand;
+- (NSMutableAttributedString *)repoNameTransformer:(NSString *)repoName{
+    NSMutableAttributedString *muatt = [[NSMutableAttributedString alloc]initWithString:repoName];
+    NSRange sepRang = [repoName rangeOfString:@"/"];
+    NSRange ownerNameRange = NSMakeRange(0, sepRang.location);
+    NSRange repoNameRange = NSMakeRange(sepRang.location+sepRang.length, repoName.length-(sepRang.location+sepRang.length));
+    [muatt addAttributes:@{NSForegroundColorAttributeName:MGSystemColor,NSFontAttributeName:MGFont(14)} range:ownerNameRange];
+    [muatt addAttributes:@{NSForegroundColorAttributeName:MGSystemColor,NSFontAttributeName:MGBlodFont(14)} range:repoNameRange];
+    return muatt;
 }
-
-#pragma mark -getter
-- (CGFloat)height{
-    
-    if (_repo.repoDescription) {
-        CGRect contentFrame = [self.repoDescLabel.text
-                               boundingRectWithSize:CGSizeMake(CGRectGetWidth(self.repoDescLabel.frame),
-                                                               MAXFLOAT)
-                               options:NSStringDrawingUsesLineFragmentOrigin|
-                               NSStringDrawingUsesFontLeading
-                               attributes:@{NSFontAttributeName:MGFont(14)}
-                               context:nil];
-        return self.viewHeightAtNib+ceil(contentFrame.size.height);
+#pragma mark - lazy load
+- (RACCommand *)didEndLayoutCommand{
+    if (_didEndLayoutCommand==nil) {
+        @weakify(self);
+        _didEndLayoutCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self);
+            return [[RACSignal return:@(self.repoBranchBtn.height+self.repoBranchBtn.top)]
+                    deliverOn:RACScheduler.mainThreadScheduler];
+        }];
     }
-    return self.viewHeightAtNib-10;
+    return _didEndLayoutCommand;
 }
-
-
+- (RACCommand *)nameLabelClickedCommand{
+    if (_nameLabelClickedCommand==nil) {
+        @weakify(self);
+        _nameLabelClickedCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+            @strongify(self);
+            return [RACSignal return:self.repo.owner.login];
+        }];
+    }
+    return _nameLabelClickedCommand;
+    
+}
 @end

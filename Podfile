@@ -7,7 +7,6 @@ target 'MVVMGitHub' do
         pod 'FMDB',                     '~> 2.6.2'
         pod 'HMSegmentedControl',       '~> 1.5.2'
         pod 'MJExtension',              '~> 3.0.10'
-        pod 'MBProgressHUD',            '~> 1.0.0'
         #pod 'Routable',                 '~> 0.2.0'
         pod 'DZNEmptyDataSet',          '~> 1.8.1'
         pod 'MJRefresh',                '~> 3.1.12'
@@ -31,4 +30,5 @@ target 'MVVMGitHub' do
         pod 'pop',                      '~> 1.0.9'
         pod 'DTCoreText',               '~> 1.6.20'
         pod 'OcticonsIOS'
+        pod 'SVProgressHUD', '~> 2.1.2'
 end

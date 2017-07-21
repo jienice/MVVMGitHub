@@ -22,12 +22,12 @@
             h1 {font-family: Georgia; font-size: 34px;}\
             h2 {font-family: Georgia; font-size: 32px;}\
             h3 {font-family: Georgia; font-size: 28px;}\
-            p  {font-family: Georgia; font-size: 28px;};\
+            p  {font-family: Georgia; font-size: 28px;}\
             </style>\
             <head>\
             <title></title>\
             </head>\
-            <body>\
+            <body width = \"device-width\",initial-scale=1.0, user-scalable=no>\
              %@ \
             </body>\
             </html>",self];

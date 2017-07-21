@@ -12,6 +12,8 @@
 #import "MGOCTTreeEntryCell.h"
 #import "WKWebView+MGWeb.h"
 #import "MGRepoCommitsViewModel.h"
+#import "MGProfileViewModel.h"
+#import "MGSourceCodeViewModel.h"
 
 @interface MGRepoDetailViewController ()
 <WKNavigationDelegate>
@@ -29,6 +31,7 @@
     
     if (self = [super init]) {
         self.viewModel = (MGRepoDetailViewModel *)viewModel;
+        self.headerView = [[MGRepoDetailHeaderView alloc]init];
         self.navigationItem.title = [self.viewModel.params valueForKey:kRepoDetailParamsKeyForRepoName];
     }
     return self;
@@ -39,7 +42,6 @@
     
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemForPopViewController];
-
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"ceshi"
                                                                              style:UIBarButtonItemStyleDone
                                                                             target:self
@@ -47,7 +49,6 @@
     [self configUI];
     [self bindViewModel:nil];
     [self.tableView.mj_header beginRefreshing];
-
 }
 - (void)test{
     
@@ -68,14 +69,65 @@
 - (void)bindViewModel:(id)viewModel{
     
     @weakify(self);
-    [self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest subscribeNext:^(id x){
+    [[RACObserve(self, viewModel.repo) ignore:nil] subscribeNext:^(id x) {
         @strongify(self);
-        if (self.viewModel.readMEHtml) {
-            [self.readmeWeb loadHTMLString:self.viewModel.readMEHtml baseURL:nil];
-        }
         [self.headerView bindViewModel:self.viewModel.repo];
-        self.tableView.tableHeaderView.frame = CGRectMake(0, 0, self.tableView.width, [self.headerView height]);
+    }];
+    
+    __block CGFloat headerViewHeight_;
+    [[[self.headerView.didEndLayoutCommand.executionSignals.switchToLatest filter:^BOOL(NSNumber *headerViewHeight) {
+        if (headerViewHeight_&&(headerViewHeight_==headerViewHeight.floatValue)) {
+            return NO;
+        }else{
+            headerViewHeight_=headerViewHeight.floatValue;
+            return YES;
+        }
+    }] deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(NSNumber *headerViewHeight) {
+        NSLog(@"headerViewHeight ---- %f",headerViewHeight.floatValue);
+        @strongify(self);
+        self.headerView.height = ceil([headerViewHeight floatValue]);
+        self.tableView.tableHeaderView = self.headerView;
+        self.tableView.tableHeaderView.frame = CGRectMake(0, 0, self.tableView.width, ceil([headerViewHeight floatValue]));
+        [self.tableView setTableHeaderView:self.headerView];
         [self.tableView reloadData];
+    }];
+    
+    [self.headerView.nameLabelClickedCommand.executionSignals.switchToLatest subscribeNext:^(NSString *login) {
+        MGProfileViewModel *profile = [[MGProfileViewModel alloc]
+                                       initWithParams:@{kProfileOfUserLoginName:login}];
+        [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
+    }];
+    
+    
+    [self.tableView.binder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
+        @strongify(self);
+        OCTTreeEntry *tree = self.viewModel.dataSource[indexPath.row];
+        switch (tree.type) {
+            case OCTTreeEntryTypeBlob:{
+                [[MGSharedDelegate.client fetchBlob:tree.SHA inRepository:self.viewModel.repo] subscribeNext:^(NSData *data) {
+                    NSLog(@"OCTTreeEntryTypeBlob -- %@",[data utf8String]);
+                }];
+            }
+                break;
+            case OCTTreeEntryTypeTree:{
+                [[MGSharedDelegate.client fetchTreeForReference:tree.SHA inRepository:self.viewModel.repo recursive:NO] subscribeNext:^(OCTTree *tree) {
+                    NSLog(@"OCTTreeEntryTypeTree --- %@",tree);
+                }];
+            }
+                break;
+            case OCTTreeEntryTypeCommit:{
+                [[MGSharedDelegate.client fetchCommit:tree.SHA inRepository:self.viewModel.repo] subscribeNext:^(id x) {
+                    NSLog(@"OCTTreeEntryTypeCommit -- %@",x);
+                }];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        MGSourceCodeViewModel *soureCode = [[MGSourceCodeViewModel alloc]initWithParams:nil];
+        [MGSharedDelegate.viewModelBased pushViewModel:soureCode animated:YES];
+        
     }];
 }
 
@@ -84,21 +136,6 @@
 #pragma mark - Touch Action
 
 #pragma mark - Delegate Method
-- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
-
-    @weakify(self);
-    [webView autoSetHeightAfterLoaded:^(CGFloat height) {
-        webView.height = height;
-        @strongify(self);
-        [[RACScheduler mainThreadScheduler]schedule:^{
-            self.tableView.tableFooterView.frame= CGRectMake(webView.x, webView.y, self.tableView.width, height);
-            self.tableView.frame = CGRectMake(self.tableView.frame.origin.x,
-                                              self.tableView.frame.origin.y,
-                                              CGRectGetWidth(self.tableView.frame),
-                                              CGRectGetHeight(self.tableView.frame)+height);
-        }];
-    }];
-}
 
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
@@ -121,17 +158,8 @@
             }];
             header;
         });
-        _tableView.tableHeaderView = self.headerView;
-        _tableView.tableFooterView = self.readmeWeb;
     }
     return _tableView;
-}
-- (MGRepoDetailHeaderView *)headerView{
-    
-    if (_headerView==nil) {
-        _headerView = [[MGRepoDetailHeaderView alloc]init];
-    }
-    return _headerView;
 }
 - (WKWebView *)readmeWeb{
     
@@ -144,8 +172,4 @@
     return _readmeWeb;
 }
 
-- (BOOL)willDealloc{
-    
-    return NO;
-}
 @end

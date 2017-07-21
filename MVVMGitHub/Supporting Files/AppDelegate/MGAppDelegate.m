@@ -64,10 +64,11 @@
     
     //配置头视图刷新
     [MJRefreshStateHeader aspect_hookSelector:@selector(placeSubviews)
-                                  withOptions:AspectPositionAfter
+                                  withOptions:AspectPositionBefore
                                    usingBlock:^(id<AspectInfo> obj){
                                        MJRefreshNormalHeader *header = [obj instance];
                                        [header.lastUpdatedTimeLabel setHidden:YES];
+                                       [header.stateLabel setHidden:YES];
     }error:nil];
     
     //设置UITabelViewCell选中style
@@ -75,7 +76,6 @@
         UITableViewCell *cell = [obj instance];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }error:nil];
-    
     [UITableViewCell aspect_hookSelector:@selector(awakeFromNib) withOptions:AspectPositionAfter usingBlock:^(id<AspectInfo> obj){
         UITableViewCell *cell = [obj instance];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

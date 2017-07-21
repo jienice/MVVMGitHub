@@ -28,7 +28,7 @@ static NSString *bindeKey = @"bindeKey";
 + (instancetype)createTableWithFrame:(CGRect)frame binder:(UITableViewCreateBlock)tableViewCreateBlock{
     
     NSParameterAssert(tableViewCreateBlock);
-    UITableView *tableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStyleGrouped];
     tableView.backgroundColor = MGWhiteColor;
     MGTableViewBinder *binder = [MGTableViewBinder binderWithTable:tableView];
     tableView.delegate = binder;

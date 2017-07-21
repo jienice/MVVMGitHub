@@ -70,14 +70,13 @@
     RAC(self.commitButton,backgroundColor) = [[self.viewModel.canCreateSignal doNext:^(NSNumber *can) {
         self.commitButton.enabled =[can boolValue];
     }]map:^id(NSNumber *can) {
-        return [can boolValue]?MGClickedColor:[UIColor lightGrayColor];
+        return [can boolValue]?MGSystemColor:[UIColor lightGrayColor];
     }];
     
     [self.viewModel.createRepoCommand.executionSignals.switchToLatest subscribeError:^(NSError *error) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.label.text = error.userInfo[kErrorMessageKey];
+        [SVProgressHUD showErrorWithStatus:error.userInfo[kErrorMessageKey]];
     } completed:^{
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [SVProgressHUD dismiss];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self dismissViewControllerAnimated:YES completion:nil];
         });

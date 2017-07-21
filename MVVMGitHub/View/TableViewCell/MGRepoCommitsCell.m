@@ -49,9 +49,9 @@
 - (NSString *)messageRewrite:(NSString *)message{
     
     NSMutableString *mutMessage = [NSMutableString stringWithString:message];
-    [mutMessage stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; //去除掉首尾的空白字符和换行字符
     [self removeLastLineBreak:mutMessage];
     [self removeDouleLineBreak:mutMessage];
+    [mutMessage stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]; //去除掉首尾的空白字符和换行字符
     return mutMessage;
 }
 - (void)removeLastLineBreak:(NSMutableString *)string{
@@ -64,7 +64,7 @@
     
     if ([string containsString:@"\n\n"]){
         NSRange range = [string rangeOfString:@"\n\n"];
-        [string replaceCharactersInRange:range withString:@";"];
+        [string replaceCharactersInRange:range withString:@"\n"];
         [self messageRewrite:string];
     }
 }

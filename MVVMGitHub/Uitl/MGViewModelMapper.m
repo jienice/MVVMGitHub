@@ -28,7 +28,8 @@
                         @"MGMainViewModel":@"MGMainViewController",
                         @"MGRepoCommitsViewModel":@"MGRepoCommitsViewController",
                         @"MGFollowerViewModel":@"MGFollowerViewController",
-                        @"MGFollowingViewModel":@"MGFollowingViewController"};
+                        @"MGFollowingViewModel":@"MGFollowingViewController",
+                        @"MGSourceCodeViewModel":@"MGSourceCodeViewController"};
     }
     return self;
 }

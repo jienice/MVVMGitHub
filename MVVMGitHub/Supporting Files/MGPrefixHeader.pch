@@ -32,11 +32,10 @@
 #import "UIView+Borders.h"
 #import <OcticonsIOS/NSString+Octicons.h>
 #import <OcticonsIOS/UIImage+Octions.h>
-#import <MBProgressHUD/MBProgressHUD.h>
+#import <SVProgressHUD/SVProgressHUD.h>
 ///----------------------------------------------------------
 #import "SAMKeychain+MGUser.h"
 #import "NSString+MGAdd.h"
-#import "UIView+MGAdd.h"
 #import "UILabel+MGAdd.h"
 #import "UIBarButtonItem+MGAdd.h"
 #import "UITableView+MGAdd.h"

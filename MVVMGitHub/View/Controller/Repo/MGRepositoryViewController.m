@@ -34,6 +34,8 @@
     
     [super viewDidLoad];
     [self configUI];
+
+    
     [self bindViewModel:nil];
 }
 - (void)configUI{

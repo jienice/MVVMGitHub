@@ -17,6 +17,7 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
 
 @property (nonatomic, copy) NSString *repoOwner;
 @property (nonatomic, copy) NSString *repoName;
+@property (nonatomic, strong, readwrite) MGRepositoriesModel *repo;
 
 
 @end
@@ -37,11 +38,13 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
     _repoOwner = self.params[kRepoDetailParamsKeyForRepoOwner];
     _repoName = self.params[kRepoDetailParamsKeyForRepoName];
     
+    @weakify(self);
     RACCommand *fetchRepoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [[[MGApiImpl sharedApiImpl] fetchRepoDetailWithOwner:_repoOwner
                                                            repoName:_repoName] doNext:^(NSDictionary *repoDic) {
-            _repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
-                                  fromJSONDictionary:repoDic error:nil];
+            @strongify(self);
+            self.repo = [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
+                                    fromJSONDictionary:repoDic error:nil];
         }];
     }];
     
@@ -63,15 +66,17 @@ NSString *const kRepoDetailParamsKeyForRepoName = @"kRepoDetailParamsKeyForRepoN
                     _fileTree = [tuple first];
                     OCTFileContent *file = [tuple second];
                     _branches = [tuple last];
-                    if ([file.encoding isEqualToString:@"base64"]) {
-                        NSString *readME = [file.content base64DecodedString];
-                        if (readME) {
+                    if (file.content) {
+                        if ([file.encoding isEqualToString:@"base64"]) {
+                            NSString *readME = [file.content base64DecodedString];
                             _readMEHtml = [[MMMarkdown HTMLStringWithMarkdown:readME
                                                                    extensions:MMMarkdownExtensionsGitHubFlavored
                                                                         error:nil] readMeHtmlString];
                         }
                     }
-                    [subscriber sendNext:RACTuplePack(@YES,@YES,_fileTree.entries)];
+                    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"mode" ascending:NO];
+                    _dataSource = [[_fileTree.entries sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]] mutableCopy];
+                    [subscriber sendNext:RACTuplePack(@YES,@YES,_dataSource)];
                 } error:^(NSError *error) {
                     [subscriber sendError:error];
                 } completed:^{

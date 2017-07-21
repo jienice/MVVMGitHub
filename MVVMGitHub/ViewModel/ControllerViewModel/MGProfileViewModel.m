@@ -40,7 +40,7 @@
     
     _fetchUserInfoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[[MGApiImpl sharedApiImpl] fetchUserInfoWithLoginName:self.loginName] doNext:^(NSDictionary *x) {
+        return [[[[MGApiImpl sharedApiImpl] fetchUserInfoWithLoginName:self.loginName] takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *x) {
             self.user = [MTLJSONAdapter modelOfClass:[MGUser class]
                                   fromJSONDictionary:x error:nil];
             NSLog(@"%@",_user);
@@ -49,7 +49,7 @@
     
     _fetchUserOrgCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[[MGApiImpl sharedApiImpl]fetchUserOrgListWithLoginName:self.loginName] doNext:^(NSArray *orgs) {
+        return [[[[MGApiImpl sharedApiImpl]fetchUserOrgListWithLoginName:self.loginName] takeUntil:self.rac_willDeallocSignal] doNext:^(NSArray *orgs) {
             self.orgArray =[[[orgs.rac_sequence map:^id(NSDictionary *value) {
                 return [MTLJSONAdapter modelOfClass:[MGOrganizations class]
                                  fromJSONDictionary:value error:nil];
@@ -60,9 +60,9 @@
     
     _fetchNotificationsCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        return [[[MGSharedDelegate.client fetchNotificationsNotMatchingEtag:nil
-                                                   includeReadNotifications:YES
-                                                               updatedSince:nil] collect] doNext:^(NSArray *responseArray) {
+        return [[[[MGSharedDelegate.client fetchNotificationsNotMatchingEtag:nil
+                                                    includeReadNotifications:YES
+                                                                updatedSince:nil] collect] takeUntil:self.rac_willDeallocSignal] doNext:^(NSArray *responseArray) {
             self.notificationsArray = [[[responseArray.rac_sequence map:^OCTNotification *(OCTResponse *response) {
                 return response.parsedResult;
             }] array] mutableCopy];

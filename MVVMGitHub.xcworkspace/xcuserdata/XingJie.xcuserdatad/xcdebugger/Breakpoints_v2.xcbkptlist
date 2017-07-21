@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVVMGitHub/TableViewBinder/MGTableViewBinder.m"
-            timestampString = "517222478.450654"
+            filePath = "MVVMGitHub/ViewModel/ControllerViewModel/MGLoginViewModel.m"
+            timestampString = "521541001.732952"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-initialize"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVVMGitHub/View/TableViewCell/MGExploreCell.m"
-            timestampString = "517223244.98666"
+            filePath = "MVVMGitHub/View/Controller/SourceCode/MGSourceCodeViewController.m"
+            timestampString = "522317001.627196"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "-awakeFromNib"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-bindViewModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MVVMGitHub/View/TableViewCell/MGExploreCell.m"
-            timestampString = "517223244.98666"
+            filePath = "MVVMGitHub/View/Controller/SourceCode/MGSourceCodeViewController.m"
+            timestampString = "522317050.9216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-collectionView:cellForItemAtIndexPath:"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "-bindViewModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

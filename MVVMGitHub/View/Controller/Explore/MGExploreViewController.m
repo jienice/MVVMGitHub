@@ -55,8 +55,7 @@
     }];
 
     [self.viewModel.fetchDataFromServiceCommand.errors subscribeNext:^(NSError *error) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.label.text = error.userInfo[kErrorMessageKey];
+        [SVProgressHUD showErrorWithStatus:error.userInfo[kErrorMessageKey]];
     }];
 }
 #pragma mark - Load Data
