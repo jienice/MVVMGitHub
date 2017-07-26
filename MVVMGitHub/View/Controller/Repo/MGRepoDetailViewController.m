@@ -104,9 +104,10 @@
         OCTTreeEntry *tree = self.viewModel.dataSource[indexPath.row];
         switch (tree.type) {
             case OCTTreeEntryTypeBlob:{
-                [[MGSharedDelegate.client fetchBlob:tree.SHA inRepository:self.viewModel.repo] subscribeNext:^(NSData *data) {
-                    NSLog(@"OCTTreeEntryTypeBlob -- %@",[data utf8String]);
-                }];
+                MGSourceCodeViewModel *soureCode = [[MGSourceCodeViewModel alloc]initWithParams:@{kSourceCodeOfRepo:self.viewModel.repo,
+                                                                                                  kSourceCodeSHA:tree.SHA,
+                                                                                                  kSourceCodeFileName:tree.path}];
+                [MGSharedDelegate.viewModelBased pushViewModel:soureCode animated:YES];
             }
                 break;
             case OCTTreeEntryTypeTree:{
@@ -124,10 +125,6 @@
             default:
                 break;
         }
-        
-        MGSourceCodeViewModel *soureCode = [[MGSourceCodeViewModel alloc]initWithParams:nil];
-        [MGSharedDelegate.viewModelBased pushViewModel:soureCode animated:YES];
-        
     }];
 }
 

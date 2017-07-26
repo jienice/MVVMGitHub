@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     binder.tableView = tableView;
     binder.dataSource = [NSMutableArray array];
     binder.didSelectedCellCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [RACSignal return:input];
+        return [[RACSignal return:input] deliverOn:RACScheduler.mainThreadScheduler];
     }];
     binder.indexPathAndCellHeightMap = [NSMutableDictionary dictionary];
     binder.loadDataType = MGTableViewLoading;

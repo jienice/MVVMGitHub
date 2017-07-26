@@ -33,13 +33,12 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.navigationItem.title = self.viewModel.title;
     [self configUI];
     [self bindViewModel:nil];
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)configUI{
-    
+    self.navigationItem.title = self.viewModel.title;
     [self.view addSubview:self.tableView];
 }
 - (void)bindViewModel:(id)viewModel{
@@ -77,7 +76,7 @@
             binder.cellConfigBlock = ^NSString *(NSIndexPath *indexPath){
                 return NSStringFromClass([MGExploreTableViewCell class]);
             };
-        }];
+        }];        
         _tableView.mj_header =
         [MJRefreshNormalHeader headerWithRefreshingTarget:self.viewModel.fetchDataFromServiceCommand
                                          refreshingAction:@selector(execute:)];

@@ -30,6 +30,7 @@
 }
 - (void)layoutSubviews{
     
+    //赋值后自动布局，获取布局后的整个View的高度并传值。
     if (self.repo) {
         [self.didEndLayoutCommand execute:nil];
     }

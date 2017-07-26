@@ -40,10 +40,10 @@
     
     OCTGitCommit *commit = model;
     NSString *showString = [self messageRewrite:commit.message];
-    CGFloat height = [showString heightForFont:self.commitMessageLabel.font
-                                         width:self.commitMessageLabel.width];
-    NSLog(@"%f %@",ceilf(height),[self messageRewrite:commit.message]);
-    return @(ceilf(height)+(self.nibHeight-33.5));
+    CGFloat height       = [showString heightForFont:self.commitMessageLabel.font
+                                               width:self.commitMessageLabel.width];
+    NSLog(@"%f %@",ceil(height),showString);
+    return @(ceil(height)+(self.nibHeight-33.5));
 }
 
 - (NSString *)messageRewrite:(NSString *)message{

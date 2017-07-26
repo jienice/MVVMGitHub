@@ -24,27 +24,24 @@
 
 - (void)bindViewModel:(id)viewModel{
     
-    CGFloat cornerRadius = 30;
+    CGFloat cornerRadius = 60;
+    NSURL *imageURL;
     @weakify(self);
     if ([viewModel isKindOfClass:[MGRepositoriesModel class]]) {
         MGRepositoriesModel *repo = viewModel;
         self.nameLabel.text = repo.name;
-        [self.imageView sd_setImageWithURL:repo.owner.avatarURL placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            @strongify(self);
-            self.imageView.image = [image imageByRoundCornerRadius:cornerRadius
-                                                       borderWidth:1
-                                                       borderColor:[UIColor lightGrayColor]];
-        }];
+        imageURL = repo.owner.avatarURL;
     }else if([viewModel isKindOfClass:[OCTUser class]]){
         OCTUser *user = viewModel;
         self.nameLabel.text = user.name;
-        [self.imageView sd_setImageWithURL:user.avatarURL placeholderImage:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            @strongify(self);
-            self.imageView.image = [image imageByRoundCornerRadius:cornerRadius
-                                                       borderWidth:1
-                                                       borderColor:[UIColor lightGrayColor]];
-        }];
+        imageURL = user.avatarURL;
     }
+    [self.imageView sd_setImageWithURL:imageURL placeholderImage:[UIImage imageWithColor:[UIColor lightGrayColor]]
+                             completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                                 @strongify(self);
+                                 self.imageView.image = [image imageByRoundCornerRadius:cornerRadius];
+                             }];
+    
 }
 
 + (CGSize)itemSize{
