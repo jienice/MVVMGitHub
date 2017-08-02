@@ -45,26 +45,27 @@
     }] map:^id(NSNumber *value) {
         return [value boolValue]?MGSystemColor:MGNormalColor;
     }];
-    
-    [[[self.viewModel.loginCommand.executing skip:1] doNext:^(id x) {
+
+    [[[[self.viewModel.loginCommand.executing filter:^BOOL(NSNumber *isExecut) {
+        return isExecut.boolValue;
+    }] deliverOn:RACScheduler.mainThreadScheduler] doNext:^(id x) {
         @strongify(self);
         [self.view endEditing:YES];
-    }]subscribeNext:^(NSNumber *isExecut) {
-        if ([isExecut boolValue]) {
-            [SVProgressHUD show];
-        }else{
+    }]subscribeNext:^(id x) {
+        [SVProgressHUD show];
+    }];
+
+    [[[self.viewModel.loginCommand.executionSignals.switchToLatest deliverOn:RACScheduler.mainThreadScheduler] doNext:^(id x) {
+        if ([SVProgressHUD isVisible]) {
             [SVProgressHUD dismiss];
         }
-    }];
-    
-    [self.viewModel.loginCommand.executionSignals.switchToLatest subscribeNext:^(id x) {
+    }]subscribeNext:^(id x) {
         MGViewModel *mainViewModel = [[NSClassFromString(@"MGMainViewModel") alloc]initWithParams:nil];
         [MGSharedDelegate.viewModelBased pushViewModel:mainViewModel animated:YES];
     }];
 
     [self.viewModel.loginCommand.errors subscribeNext:^(NSError *error) {
-        NSLog(@"error----%@",error);
-//            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
 - (void)configUI{

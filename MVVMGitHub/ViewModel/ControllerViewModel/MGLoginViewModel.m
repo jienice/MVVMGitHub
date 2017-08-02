@@ -25,21 +25,25 @@
     _loginCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSString *oneTimePassword) {
         @strongify(self);
         OCTUser *user = [OCTUser userWithRawLogin:self.userName server:OCTServer.dotComServer];
-        return [[[[OCTClient signInAsUser:user
+       return [[[[[[OCTClient signInAsUser:user
                                  password:self.passWord
-                          oneTimePassword:oneTimePassword
-                                   scopes:OCTClientAuthorizationScopesRepository|
-                   OCTClientAuthorizationScopesUserFollow|OCTClientAuthorizationScopesUserEmail]
-                  doNext:^(OCTClient *authenticatedClient){
-                      [SAMKeychain mg_setAccessToken:authenticatedClient.token];
-                      [SAMKeychain mg_setPassWord:self.passWord];
-                      [SAMKeychain mg_setRawlogin:authenticatedClient.user.rawLogin];
-                      [MGSharedDelegate setClient:authenticatedClient];
-                  }] then:^RACSignal *{
+                          oneTimePassword:nil
+                                   scopes:OCTClientAuthorizationScopesRepository|OCTClientAuthorizationScopesUser]
+                  doNext:^(OCTClient *authenticatedClient) {
+            [SAMKeychain mg_setAccessToken:authenticatedClient.token];
+            [SAMKeychain mg_setPassWord:self.passWord];
+            [SAMKeychain mg_setRawlogin:authenticatedClient.user.rawLogin];
+            [MGSharedDelegate setClient:authenticatedClient];
+        }] catch:^RACSignal *(NSError *error) {
+            return [RACSignal error:error];
+        }] then:^RACSignal *{
             return [MGSharedDelegate.client fetchUserInfo];
+        }] catch:^RACSignal *(NSError *error) {
+            return [RACSignal error:error];
         }] doNext:^(OCTUser *user) {
             [SAMKeychain mg_setName:user.name];
             [SAMKeychain mg_setlogin:user.login];
+            [SAMKeychain mg_setObjectID:user.objectID];
         }];
     }];
     
