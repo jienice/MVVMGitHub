@@ -18,14 +18,11 @@ typedef void(^RequestFailureCallBack)(NSError* error);      /**请求失败代�
 
 @interface MGApiImpl ()
 
-@property (nonatomic, copy, readwrite) NSURL *baseUrl;
+@property (nonatomic, strong) AFHTTPClient *client;
 
 @end
 
-@implementation MGApiImpl{
-    
-    AFHTTPClient *_client;
-}
+@implementation MGApiImpl
 
 #pragma mark - Instancetype Method
 + (instancetype)sharedApiImpl{
@@ -42,16 +39,15 @@ typedef void(^RequestFailureCallBack)(NSError* error);      /**请求失败代�
 - (instancetype)initWithBaseUrl:(NSURL *)baseUrl{
     
     if(self = [super init]){
-        _baseUrl = baseUrl;
-        _client = [[AFHTTPClient alloc]initWithBaseURL:baseUrl];
+        self.client = [[AFHTTPClient alloc]initWithBaseURL:baseUrl];
     }
     return self;
 }
 
 - (void)setBaseUrlToDefault{
     
-    if (![_client.baseURL.absoluteString isEqualToString:BASE_URL]) {
-        _client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:BASE_URL]];
+    if (![self.client.baseURL.absoluteString isEqualToString:BASE_URL]) {
+        self.client = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:BASE_URL]];
     }
 }
 #pragma mark -----

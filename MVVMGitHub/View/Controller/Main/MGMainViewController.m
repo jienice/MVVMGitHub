@@ -26,7 +26,7 @@
     if (self = [super init]) {
         self.viewModel = (MGMainViewModel *)viewModel;
         [self addViewModel:self.viewModel.exploreViewModel];
-        [self addViewModel:self.viewModel.searchViewModel];
+//        [self addViewModel:self.viewModel.searchViewModel];
         [self addViewModel:self.viewModel.repositorisViewModel];
         [self addViewModel:self.viewModel.profileViewModel];
     }

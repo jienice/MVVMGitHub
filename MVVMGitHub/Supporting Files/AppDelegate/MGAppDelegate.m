@@ -84,8 +84,8 @@
 
 - (void)configHUD{
     
-//    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
-//    [SVProgressHUD setMinimumDismissTimeInterval:3];
+    [SVProgressHUD setDefaultStyle:SVProgressHUDStyleDark];
+    [SVProgressHUD setMinimumDismissTimeInterval:3];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

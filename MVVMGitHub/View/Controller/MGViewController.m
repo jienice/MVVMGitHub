@@ -8,7 +8,7 @@
 
 #import "MGViewController.h"
 
-@interface MGViewController ()
+@interface MGViewController ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
 }
 
 #pragma mark - Dealloc
@@ -24,4 +28,6 @@
     
     NSLog(@"%s",__func__);
 }
+
+
 @end

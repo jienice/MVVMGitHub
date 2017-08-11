@@ -79,7 +79,7 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
         }
         [self.dataSource addObjectsFromArray:dataArr];
         [self.tableView reloadData];
-        if (isLastPage) {
+        if (isLastPage.boolValue) {
             NSLog(@"Completed EndRefresh");
             NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
             [self.tableView footerEndRefreshWithNoMoreData];

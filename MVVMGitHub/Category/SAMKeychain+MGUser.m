@@ -35,6 +35,10 @@
     
     return [[NSUserDefaults standardUserDefaults] valueForKey:MGSSKeychain_Login];
 }
++ (NSString *)mg_objectID{
+    
+    return [[NSUserDefaults standardUserDefaults] valueForKey:MGSSKeychain_ObjectID];
+}
 #pragma mark - setter
 + (void)mg_setAccessToken:(NSString *)accessToken{
     
@@ -72,11 +76,16 @@
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:MGSSKeychain_UserName];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
++ (void)mg_setObjectID:(NSString *)objectID{
+    
+    if (objectID == nil) NSLog(@"%s objectID is nil",__func__);
+    [[NSUserDefaults standardUserDefaults] setObject:objectID forKey:MGSSKeychain_ObjectID];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 #pragma mark - delete
 + (void)mg_deleteAccessToken{
     
     [self deletePasswordForService:MGSSKeychain_LoginService account:MGSSKeychain_AccessToken];
-    
 }
 + (void)mg_deletePassWord{
     
@@ -95,6 +104,11 @@
 + (void)mg_deleteName{
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:MGSSKeychain_UserName];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (void)mg_deleteObjectID{
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:MGSSKeychain_ObjectID];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end

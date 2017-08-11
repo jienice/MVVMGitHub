@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^MGBarButtonItemActionBlock)();
+
 @interface UIBarButtonItem (MGAdd)
 
 
 + (instancetype)barButtonItemForPopViewController;
+
+
++ (instancetype)barButtonItemWithImage:(NSString *)imageName actionBlock:(MGBarButtonItemActionBlock)block;
 
 
 @end

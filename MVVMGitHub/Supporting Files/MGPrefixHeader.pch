@@ -39,6 +39,7 @@
 #import "UILabel+MGAdd.h"
 #import "UIBarButtonItem+MGAdd.h"
 #import "UITableView+MGAdd.h"
+#import "OCTClient+MGAdd.h"
 ///----------------------------------------------------------
 #import "MGConst.h"
 #import "MGConfig.h"

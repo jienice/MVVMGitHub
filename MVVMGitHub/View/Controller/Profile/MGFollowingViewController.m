@@ -55,7 +55,8 @@
         @strongify(self);
         OCTUser *user = self.viewModel.dataSource[indexPath.row];
         MGProfileViewModel *profile = [[MGProfileViewModel alloc]
-                                       initWithParams:@{kProfileOfUserLoginName:user.login}];
+                                       initWithParams:@{kProfileOfUserLoginName:user.login,
+                                                        kProfileIsShowOnTabBar:@NO}];
         [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
     }];
 }

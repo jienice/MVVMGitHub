@@ -13,29 +13,28 @@
  */
 @interface MGConst : NSObject
 
-FOUNDATION_EXTERN NSString *const kClassMap;
+extern NSString *const kClassMap;
 
 #pragma mark - MGExplore
 
-FOUNDATION_EXTERN NSString *const kMGExploreCellTypeKey;
-FOUNDATION_EXTERN NSString *const kMGExploreCellTitleKey;
-FOUNDATION_EXTERN NSString *const kMGExploreCellDataKey;
+extern NSString *const kMGExploreCellTypeKey;
+extern NSString *const kMGExploreCellTitleKey;
+extern NSString *const kMGExploreCellDataKey;
 
 #pragma mark - Error
 
-FOUNDATION_EXTERN NSString *const MGCocoaErrorDomain;
+extern NSString *const MGCocoaErrorDomain;
 
 #pragma mark - Network
-FOUNDATION_EXTERN NSInteger const kNetworkRequestFailureErrorCode;
-FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeOutErrorCode;
-FOUNDATION_EXTERN NSInteger const kNetworkRequestBackErrorMessageErrorCode;
-FOUNDATION_EXTERN NSInteger const kNetworkRequestTimeoutInterval;
-FOUNDATION_EXTERN NSString const *kErrorMessageKey;
+extern NSInteger const kNetworkRequestFailureErrorCode;
+extern NSInteger const kNetworkRequestTimeOutErrorCode;
+extern NSInteger const kNetworkRequestBackErrorMessageErrorCode;
+extern NSInteger const kNetworkRequestTimeoutInterval;
+extern NSString const *kErrorMessageKey;
 
 
-#pragma mark - profile
-
-extern NSString *const kProfileOfUserLoginName;
+#pragma mark - search
+extern NSString *const kSearchBarPlaceholderString;
 
 
 

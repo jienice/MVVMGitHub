@@ -50,7 +50,6 @@
 }
 #pragma mark - Bind ViewModel
 - (void)bindViewModel:(id)viewModel{
-    
     @weakify(self);
     [[RACObserve(self, viewModel.UTF8String) ignore:nil]subscribeNext:^(id x) {
         @strongify(self);
@@ -100,7 +99,9 @@
         configuration.processPool = [[WKProcessPool alloc]init];
         configuration.allowsInlineMediaPlayback = YES;
         configuration.userContentController = [[WKUserContentController alloc] init];
-		_webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, MGNAV_STATUS_BAR_HEIGHT,
+                                                               MGSCREEN_WIDTH, MGSCREEN_HEIGHT-MGNAV_STATUS_BAR_HEIGHT)
+                                      configuration:configuration];
         [_webView loadFileURL:self.viewModel.fileURL allowingReadAccessToURL:self.viewModel.fileURL];
 	}
 	return _webView;

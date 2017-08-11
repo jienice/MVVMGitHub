@@ -72,12 +72,14 @@
 		A0C0A6411EA0C2A300F44F94 /* MGRepoDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A63E1EA0C2A300F44F94 /* MGRepoDetailHeaderView.m */; };
 		A0C0A6641EA0C2DD00F44F94 /* MGNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A64D1EA0C2DD00F44F94 /* MGNavigationController.m */; };
 		A0C0A66C1EA0C2DD00F44F94 /* MGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C0A65E1EA0C2DD00F44F94 /* MGViewController.m */; };
+		A0C603831F3D95D7000BFF59 /* UIViewController+MGNav.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C603821F3D95D7000BFF59 /* UIViewController+MGNav.m */; };
 		A0D28D011EF280B800C7974A /* NSString+MGAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D28D001EF280B800C7974A /* NSString+MGAdd.m */; };
 		A0D28D091EF3C93E00C7974A /* MGRepoCommitsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D28D081EF3C93E00C7974A /* MGRepoCommitsViewModel.m */; };
 		A0D28D0C1EF3CB5A00C7974A /* MGRepoCommitsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D28D0B1EF3CB5A00C7974A /* MGRepoCommitsViewController.m */; };
 		A0D28D101EF3CE2400C7974A /* MGRepoCommitsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D28D0E1EF3CE2400C7974A /* MGRepoCommitsCell.m */; };
 		A0D28D111EF3CE2400C7974A /* MGRepoCommitsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D28D0F1EF3CE2400C7974A /* MGRepoCommitsCell.xib */; };
 		A0D3DA481E56D27E00337EF7 /* WKWebView+MGWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */; };
+		A0E7ED621F29B4A100FA78C6 /* OCTClient+MGAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E7ED611F29B4A100FA78C6 /* OCTClient+MGAdd.m */; };
 		A0EC6EB91F0E18AF00A4067B /* MGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EC6EAF1F0E18AF00A4067B /* MGAppDelegate.m */; };
 		A0EC6EBA1F0E18AF00A4067B /* lanchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EC6EB01F0E18AF00A4067B /* lanchScreen.storyboard */; };
 		A0EC6EBB1F0E18AF00A4067B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EC6EB11F0E18AF00A4067B /* main.m */; };
@@ -243,6 +245,8 @@
 		A0C0A64D1EA0C2DD00F44F94 /* MGNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGNavigationController.m; sourceTree = "<group>"; };
 		A0C0A65D1EA0C2DD00F44F94 /* MGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewController.h; sourceTree = "<group>"; };
 		A0C0A65E1EA0C2DD00F44F94 /* MGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewController.m; sourceTree = "<group>"; };
+		A0C603811F3D95D7000BFF59 /* UIViewController+MGNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MGNav.h"; sourceTree = "<group>"; };
+		A0C603821F3D95D7000BFF59 /* UIViewController+MGNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MGNav.m"; sourceTree = "<group>"; };
 		A0D28CFF1EF280B800C7974A /* NSString+MGAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MGAdd.h"; sourceTree = "<group>"; };
 		A0D28D001EF280B800C7974A /* NSString+MGAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MGAdd.m"; sourceTree = "<group>"; };
 		A0D28D071EF3C93E00C7974A /* MGRepoCommitsViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRepoCommitsViewModel.h; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 		A0D28D0F1EF3CE2400C7974A /* MGRepoCommitsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGRepoCommitsCell.xib; sourceTree = "<group>"; };
 		A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+MGWeb.h"; sourceTree = "<group>"; };
 		A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+MGWeb.m"; sourceTree = "<group>"; };
+		A0E7ED601F29B4A100FA78C6 /* OCTClient+MGAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCTClient+MGAdd.h"; sourceTree = "<group>"; };
+		A0E7ED611F29B4A100FA78C6 /* OCTClient+MGAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCTClient+MGAdd.m"; sourceTree = "<group>"; };
 		A0EC6EAE1F0E18AF00A4067B /* MGAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGAppDelegate.h; sourceTree = "<group>"; };
 		A0EC6EAF1F0E18AF00A4067B /* MGAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGAppDelegate.m; sourceTree = "<group>"; };
 		A0EC6EB01F0E18AF00A4067B /* lanchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = lanchScreen.storyboard; sourceTree = "<group>"; };
@@ -405,6 +411,8 @@
 				A0A3D4C91EE92B6A009E629F /* UITableView+MGAdd.m */,
 				A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */,
 				A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */,
+				A0C603811F3D95D7000BFF59 /* UIViewController+MGNav.h */,
+				A0C603821F3D95D7000BFF59 /* UIViewController+MGNav.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -504,12 +512,12 @@
 		A02F77081E0B7EF70088470E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E88F43C9A73CBE645B92D0D7 /* MGViewControllerProtocol.h */,
+				E88F4675531220CFB6997D95 /* MGReactiveViewProtocol.h */,
 				A0C0A6431EA0C2DD00F44F94 /* Controller */,
 				A085F5281EE649E800F12DD6 /* Views */,
 				A0C0A63C1EA0C2A300F44F94 /* TableHeaderFooterView */,
 				A0C0A6201EA0C24C00F44F94 /* TableViewCell */,
-				E88F43C9A73CBE645B92D0D7 /* MGViewControllerProtocol.h */,
-				E88F4675531220CFB6997D95 /* MGReactiveViewProtocol.h */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -547,6 +555,8 @@
 				A06DD59F1ED3D14300082DA4 /* MGApiImpl+MGUser.m */,
 				A0FFF9D11F1359C500D6C554 /* MGApiImpl+MGActivity.h */,
 				A0FFF9D21F1359C500D6C554 /* MGApiImpl+MGActivity.m */,
+				A0E7ED601F29B4A100FA78C6 /* OCTClient+MGAdd.h */,
+				A0E7ED611F29B4A100FA78C6 /* OCTClient+MGAdd.m */,
 			);
 			path = ApiImpl;
 			sourceTree = "<group>";
@@ -999,6 +1009,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDVersion/SDVersion.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeBack/SwipeBack.framework",
 				"${BUILT_PRODUCTS_DIR}/UIView+Borders/UIView_Borders.framework",
 				"${BUILT_PRODUCTS_DIR}/WMPageController/WMPageController.framework",
 				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
@@ -1035,6 +1046,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDVersion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeBack.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIView_Borders.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WMPageController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
@@ -1092,6 +1104,7 @@
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A01833A71ED6B810003E5D1C /* UILabel+MGAdd.m in Sources */,
 				A0C0A6411EA0C2A300F44F94 /* MGRepoDetailHeaderView.m in Sources */,
+				A0C603831F3D95D7000BFF59 /* UIViewController+MGNav.m in Sources */,
 				A06F45D81ED824D400C0DEFE /* MGRepositoryViewController.m in Sources */,
 				A06DD5A51ED3D14300082DA4 /* MGApiImpl+MGUser.m in Sources */,
 				A0FFF9D01F13479800D6C554 /* MGEvent.m in Sources */,
@@ -1102,6 +1115,7 @@
 				A0D28D091EF3C93E00C7974A /* MGRepoCommitsViewModel.m in Sources */,
 				A0EC6EBB1F0E18AF00A4067B /* main.m in Sources */,
 				A0FFF9D91F1364CE00D6C554 /* MGEventsViewModel.m in Sources */,
+				A0E7ED621F29B4A100FA78C6 /* OCTClient+MGAdd.m in Sources */,
 				A0EC6EC91F0F131200A4067B /* MGUser.m in Sources */,
 				A01833CA1ED6BBF9003E5D1C /* MGLoginViewModel.m in Sources */,
 				A06F45DA1ED824D400C0DEFE /* MGSearchUserViewController.m in Sources */,

@@ -87,7 +87,8 @@ UICollectionViewDelegateFlowLayout>
         case MGExploreCellTypeOfUser:{
             OCTUser *user = self.cellViewModel.cellData[indexPath.row];
             MGProfileViewModel *profile = [[MGProfileViewModel alloc]
-                                           initWithParams:@{kProfileOfUserLoginName:user.login}];
+                                           initWithParams:@{kProfileOfUserLoginName:user.login,
+                                                            kProfileIsShowOnTabBar:@NO}];
             [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
         }
             

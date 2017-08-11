@@ -10,6 +10,9 @@
 #import "MGApiImpl+MGSearch.h"
 #import "MGSearchResultModel.h"
 
+NSString *const kSearchText = @"kSearchText";
+
+
 @interface MGSearchViewModel ()
 
 @end

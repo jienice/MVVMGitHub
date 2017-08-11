@@ -26,7 +26,6 @@ static NSString *bindeKey = @"bindeKey";
 #pragma mark - Instancetype
 
 + (instancetype)createTableWithFrame:(CGRect)frame binder:(UITableViewCreateBlock)tableViewCreateBlock{
-    
     NSParameterAssert(tableViewCreateBlock);
     UITableView *tableView = [[UITableView alloc]initWithFrame:frame style:UITableViewStyleGrouped];
     tableView.backgroundColor = MGWhiteColor;
@@ -44,34 +43,29 @@ static NSString *bindeKey = @"bindeKey";
     return tableView;
 }
 + (instancetype)createTableWithBinder:(UITableViewCreateBlock)tableViewCreateBlock{
-    
     return [UITableView createTableWithFrame:CGRectZero binder:tableViewCreateBlock];
 }
 
 #pragma mark - EndRefresh
 - (void)headerEndRefresh{
-    
     if ([self.mj_header isRefreshing]) {
         [self.mj_header endRefreshing];
     }
 }
 
 - (void)footerEndRefresh{
-    
     if ([self.mj_footer isRefreshing]) {
         [self.mj_footer endRefreshing];
     }
 }
 
 - (void)footerEndRefreshWithNoMoreData{
-    
     if ([self.mj_footer isRefreshing]) {
         [self.mj_footer endRefreshingWithNoMoreData];
     }
 }
 
 - (void)endRefresh{
-    
     if ([self.mj_header isRefreshing]) {
         [self.mj_header endRefreshing];
     }

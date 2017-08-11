@@ -10,12 +10,14 @@
 #import "MGExploreViewModel.h"
 #import "MGExploreTableViewCell.h"
 #import "MGShowcasesModel.h"
+#import "MGSearchViewModel.h"
 
 @interface MGExploreViewController ()
-<SDCycleScrollViewDelegate>
+<SDCycleScrollViewDelegate,UISearchBarDelegate>
 
 @property (nonatomic, weak, readwrite) MGExploreViewModel *viewModel;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIView *maskView;
 
 @end
 
@@ -23,7 +25,6 @@
 
 #pragma mark - Instance Method
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
-    
     if (self = [super init]) {
         self.viewModel = (MGExploreViewModel *)viewModel;
     }
@@ -31,14 +32,21 @@
 }
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self configUI];
     [self bindViewModel:nil];
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)configUI{
-    self.navigationItem.title = self.viewModel.title;
+    @weakify(self);
+    self.navigationItem.titleView = ({
+        @strongify(self);
+        UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:self.navigationController.navigationBar.bounds];
+        searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        searchBar.placeholder = kSearchBarPlaceholderString;
+        searchBar.delegate = self;
+        searchBar;
+    });
     [self.view addSubview:self.tableView];
 }
 - (void)bindViewModel:(id)viewModel{
@@ -56,6 +64,14 @@
     [self.viewModel.fetchDataFromServiceCommand.errors subscribeNext:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.userInfo[kErrorMessageKey]];
     }];
+    
+    [[[self rac_signalForSelector:@selector(searchBarShouldBeginEditing:) fromProtocol:@protocol(UISearchBarDelegate)]
+      deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(id x) {
+        MGSearchViewModel *searchViewModel = [[MGSearchViewModel alloc]initWithParams:nil];
+        [MGSharedDelegate.viewModelBased presentViewModel:searchViewModel animated:YES];
+    }];
+    
+    
 }
 #pragma mark - Load Data
 
@@ -65,10 +81,11 @@
 
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
-    
     if (_tableView == nil) {
         @weakify(self);
-        _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
+        _tableView = [UITableView createTableWithFrame:CGRectMake(0, MGNAV_STATUS_BAR_HEIGHT,
+                                                                  MGSCREEN_WIDTH, MGSCREEN_HEIGHT-MGNAV_STATUS_BAR_HEIGHT)
+                                                binder:^(MGTableViewBinder *binder) {
             @strongify(self);
             binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
             binder.errors = self.viewModel.fetchDataFromServiceCommand.errors;
@@ -88,7 +105,6 @@
 }
 
 - (SDCycleScrollView *)cycleScrollView{
-    
     CGRect cycleScrollViewFrame = CGRectMake(0, 0, MGSCREEN_WIDTH, 150);
     SDCycleScrollView *cycleScrollView =
     [SDCycleScrollView cycleScrollViewWithFrame:cycleScrollViewFrame

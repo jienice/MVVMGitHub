@@ -23,12 +23,6 @@ typedef NS_ENUM(NSInteger,HTTP_METHOD){
  *  使用自定义的网络请求，请求列表数据时不进行分页。
  *  若添加‘per_page’,'page'参数返回的数据中不包含‘total’、‘pageNumber’之类的字段，无法确定是否加载完毕。
  */
-
-
-
-
-@property (nonatomic, copy, readonly) NSURL *baseUrl;
-
 + (instancetype)sharedApiImpl;
 
 - (instancetype)initWithBaseUrl:(NSURL *)baseUrl;

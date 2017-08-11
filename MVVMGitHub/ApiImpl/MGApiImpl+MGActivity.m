@@ -9,8 +9,6 @@
 #import "MGApiImpl+MGActivity.h"
 
 @implementation MGApiImpl (MGActivity)
-
-
 - (RACSignal *)fetchUserPublicEventsWithLoginName:(NSString *)loginName{
     
     NSString *path = [NSString stringWithFormat:@"users/%@/events",loginName];

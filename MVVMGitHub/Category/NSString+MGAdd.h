@@ -14,4 +14,5 @@
 
 - (NSString *)readMeHtmlString;
 
++ (NSString *)onlyYearMouthDayDateStringForCommitDate:(NSDate *)date;
 @end

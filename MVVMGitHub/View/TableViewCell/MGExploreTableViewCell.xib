@@ -23,20 +23,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="119.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="68E-6p-hdu">
-                                <rect key="frame" x="13" y="4" width="263" height="30"/>
+                                <rect key="frame" x="13" y="4" width="243" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="OmK-4a-vBJ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" red="0.01059473306" green="0.40189474819999998" blue="0.84017771480000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLO-wG-tEd">
-                                <rect key="frame" x="277" y="4" width="30" height="30"/>
+                                <rect key="frame" x="257" y="4" width="50" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="l13-bH-0R3"/>
+                                    <constraint firstAttribute="width" constant="50" id="l13-bH-0R3"/>
                                 </constraints>
-                                <state key="normal" title="See All" image="icon_more"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="See All">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="UaK-cV-lB0">
                                 <rect key="frame" x="13" y="35" width="294" height="76.5"/>
@@ -80,7 +82,4 @@
             <point key="canvasLocation" x="-118" y="91"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="icon_more" width="45" height="45"/>
-    </resources>
 </document>

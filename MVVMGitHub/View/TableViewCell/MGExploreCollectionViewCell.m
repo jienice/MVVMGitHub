@@ -18,15 +18,15 @@
 @implementation MGExploreCollectionViewCell
 
 - (void)awakeFromNib {
-    
     [super awakeFromNib];
+    self.imageView.layer.cornerRadius = 15;
+    self.imageView.layer.masksToBounds = YES;
+    self.imageView.layer.borderColor = MGNormalColor.CGColor;
+    self.imageView.layer.borderWidth = 0.3f;
 }
 
 - (void)bindViewModel:(id)viewModel{
-    
-    CGFloat cornerRadius = 60;
     NSURL *imageURL;
-    @weakify(self);
     if ([viewModel isKindOfClass:[MGRepositoriesModel class]]) {
         MGRepositoriesModel *repo = viewModel;
         self.nameLabel.text = repo.name;
@@ -36,16 +36,10 @@
         self.nameLabel.text = user.name;
         imageURL = user.avatarURL;
     }
-    [self.imageView sd_setImageWithURL:imageURL placeholderImage:[UIImage imageWithColor:[UIColor lightGrayColor]]
-                             completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                                 @strongify(self);
-                                 self.imageView.image = [image imageByRoundCornerRadius:cornerRadius];
-                             }];
-    
+    [self.imageView sd_setImageWithURL:imageURL placeholderImage:[UIImage imageWithColor:MGNormalColor]];
 }
 
 + (CGSize)itemSize{
-    
     return CGSizeMake(65, 110);
 }
 @end

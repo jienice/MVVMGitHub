@@ -51,7 +51,7 @@
         [self.tableView reloadData];
     }];
     
-    [self.headerView.didClickedCategoryCommand.executionSignals.switchToLatest subscribeNext:^(NSNumber *typeNumber) {
+    [[self.headerView.didClickedCategoryCommand.executionSignals.switchToLatest deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(NSNumber *typeNumber) {
         @strongify(self);
         MGProfileCategoryType type = (MGProfileCategoryType) typeNumber.integerValue;
         switch (type) {
@@ -153,9 +153,10 @@
                                                     iconColor:MGBlackColor
                                                     iconScale:1.0
                                                       andSize:CGSizeMake(15, 15)];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }else if(indexPath.row == 1){
             
         }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return cell;

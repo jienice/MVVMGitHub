@@ -9,6 +9,7 @@
 #import "MGFollowerViewModel.h"
 #import "MGApiImpl+MGUser.h"
 #import "MGUser.h"
+#import "MGProfileViewModel.h"
 
 @interface MGFollowerViewModel()
 

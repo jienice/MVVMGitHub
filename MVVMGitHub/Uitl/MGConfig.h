@@ -45,6 +45,7 @@
 #define MGSSKeychain_RawLogin @"rawLogin"
 #define MGSSKeychain_AccessToken @"accessToken"
 #define MGSSKeychain_PreferenceLanguage @"preferenceLanguage"
+#define MGSSKeychain_ObjectID @"ObjectID"
 
 ///------------
 ///  UIColor
@@ -65,8 +66,6 @@
 #define MGSTATUS_BAR_HEIGHT 20
 #define MGNAV_BAR_HEIGHT 44
 #define MGNAV_STATUS_BAR_HEIGHT 64
-
-
 
 ///------------
 ///  Error

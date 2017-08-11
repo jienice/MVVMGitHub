@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="124" height="123"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A complete daily plan for studying to become a Google software engineer." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BG6-6r-clP" userLabel="描述文字">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A complete daily plan for studying to become a Google software engineer." lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BG6-6r-clP" userLabel="描述文字">
                         <rect key="frame" x="0.0" y="123" width="124" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="xR7-L8-C2X"/>

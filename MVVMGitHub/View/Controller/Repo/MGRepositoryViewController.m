@@ -23,7 +23,6 @@
 
 #pragma mark - Instance Method
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
-    
     if (self = [super init]) {
         self.viewModel = (MGRepositoryViewModel *)viewModel;
     }
@@ -31,15 +30,11 @@
 }
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self configUI];
-
-    
     [self bindViewModel:nil];
 }
 - (void)configUI{
-    
     if (self.navigationController.childViewControllers.count>1) {
         self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemForPopViewController];
     }
@@ -47,7 +42,6 @@
     [self.view addSubview:self.tableView];
 }
 - (void)bindViewModel:(id)viewModel{
-    
     @weakify(self);
     [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] subscribeNext:^(id x) {
         @strongify(self);
@@ -68,7 +62,6 @@
 
 #pragma mark - Touch Action
 - (void)createRepository{
-    
     MGCreateRepoViewModel *viewMode = [[MGCreateRepoViewModel alloc]initWithParams:@{}];
     [MGSharedDelegate.viewModelBased presentViewModel:viewMode animated:YES];
 }
@@ -77,10 +70,11 @@
 
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
-    
     if (_tableView == nil) {
         @weakify(self);
-        _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
+        _tableView = [UITableView createTableWithFrame:CGRectMake(0, MGNAV_STATUS_BAR_HEIGHT,
+                                                                  MGSCREEN_WIDTH, MGSCREEN_HEIGHT-MGNAV_STATUS_BAR_HEIGHT)
+                                                binder:^(MGTableViewBinder *binder) {
             @strongify(self);
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
                 return NSStringFromClass([MGRepoCell class]);

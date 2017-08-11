@@ -11,17 +11,15 @@
 #import "MGUser.h"
 #import "MGOrganizations.h"
 
+NSString *const kProfileOfUserLoginName = @"kProfileOfUserLoginName";
+NSString *const kProfileIsShowOnTabBar = @"kProfileIsShowOnTabBar";
 
 @interface MGProfileViewModel ()
 
-
 @property (nonatomic, strong, readwrite) MGUser *user;
-
-/**
- *  KVO,使用点语法赋值
- */
 @property (nonatomic, strong, readwrite) NSMutableArray *notificationsArray;
 @property (nonatomic, strong, readwrite) NSMutableArray *orgArray;
+@property (nonatomic, assign) BOOL isShowOnTabBar;
 
 @end
 
@@ -35,9 +33,15 @@
     
     @weakify(self);
     NSParameterAssert(self.params[kProfileOfUserLoginName]);
-    self.title = @"Profile";
+    NSParameterAssert(self.params[kProfileIsShowOnTabBar]);
     _loginName = self.params[kProfileOfUserLoginName];
+    self.isShowOnTabBar=[self.params[kProfileIsShowOnTabBar] boolValue];
     
+    if (self.isShowOnTabBar) {
+        self.title = @"Profile";
+    }else{
+        self.title = _loginName;
+    }
     _fetchUserInfoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[[[MGApiImpl sharedApiImpl] fetchUserInfoWithLoginName:self.loginName] takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *x) {
@@ -79,9 +83,12 @@
     }];
     
     _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        @strongify(self);
         [_fetchUserInfoCommand execute:nil];
         [_fetchUserOrgCommand execute:nil];
-        [_fetchNotificationsCommand execute:nil];
+        if (self.isShowOnTabBar) {
+            [_fetchNotificationsCommand execute:nil];
+        }
         return [RACSignal empty];
     }];
     

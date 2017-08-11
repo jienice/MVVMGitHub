@@ -11,11 +11,9 @@
 @implementation NSString (MGAdd)
 
 - (BOOL)isExist{
-    
     return self&&![self isKindOfClass:[NSNull class]]&&![self isEqualToString:@""];
 }
 - (NSString *)readMeHtmlString{
-    
     return [NSString stringWithFormat:@"<!DOCTYPE html>\
             <html>\
             <style type=\"text/css\">\
@@ -32,6 +30,18 @@
             </body>\
             </html>",self];
 }
++ (NSString *)onlyYearMouthDayDateStringForCommitDate:(NSDate *)date{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:date];
+    NSInteger year=[components year];
+    NSInteger month=[components month];
+    NSInteger day=[components day];
+    NSDictionary *en_mouthDic = @{@1:@"Jan",@2:@"Feb",@3:@"Mar",@4:@"Apr",@5:@"May",@6:@"Jun",
+                                  @7:@"Jul",@8:@"Aug",@9:@"Sep",@10:@"Oct",@11:@"Nov",@12:@"Dec"};
+    NSString *string = [NSString stringWithFormat:@"%@ %ld, %ld",en_mouthDic[@(month)],day,year];
+    return string;
+}
+
 @end
 
 

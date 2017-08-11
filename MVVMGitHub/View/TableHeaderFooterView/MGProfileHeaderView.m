@@ -34,7 +34,6 @@
     
     MGProfileHeaderView *view = [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([MGProfileHeaderView class]) owner:self options:nil]
                                     firstObject];
-    
     view.didClickedCategoryCommand = [[RACCommand alloc]initWithEnabled:[[view rac_signalForSelector:@selector(bindViewModel:)] map:^id(id value) {
         return @YES;
     }] signalBlock:^RACSignal *(id input) {

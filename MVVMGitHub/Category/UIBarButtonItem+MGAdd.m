@@ -10,17 +10,23 @@
 
 @implementation UIBarButtonItem (MGAdd)
 
-+ (instancetype)barButtonItemForPopViewController{
-    
++ (instancetype)barButtonItemWithImage:(NSString *)imageName actionBlock:(MGBarButtonItemActionBlock)block{
+    MGBarButtonItemActionBlock blockCopy = [block copy];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 40, 40);
-    [btn setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateHighlighted];
+    [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
     UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     [btn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [MGSharedDelegate.viewModelBased popViewModelAnimated:YES];
+        if (blockCopy) {
+            blockCopy();
+        }
     }];
     return item;
 }
-
++ (instancetype)barButtonItemForPopViewController{
+    return [UIBarButtonItem barButtonItemWithImage:@"icon_back" actionBlock:^{
+        [MGSharedDelegate.viewModelBased popViewModelAnimated:YES];
+    }];
+}
 @end

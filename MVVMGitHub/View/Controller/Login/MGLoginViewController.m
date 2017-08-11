@@ -21,7 +21,6 @@
 @implementation MGLoginViewController
 
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
-    
     if (self= [super init]) {
         self.viewModel = (MGLoginViewModel *)viewModel;
     }
@@ -30,7 +29,6 @@
 #pragma mark - Life Cycle
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self configUI];
     [self bindViewModel:nil];
@@ -69,7 +67,6 @@
     }];
 }
 - (void)configUI{
-    
     [self.navigationController setNavigationBarHidden:YES];
     [self.view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
     [self.view addSubview:self.userNameText];
@@ -79,7 +76,6 @@
     [self.view updateConstraintsIfNeeded];
 }
 - (void)updateViewConstraints{
-    
     [self.userNameText mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.view.mas_top).offset(200);
         make.left.mas_equalTo(self.view.mas_left).offset(10);
@@ -109,6 +105,7 @@
         _userNameText.backgroundColor = MGWhiteColor;
         _userNameText.font = MGFont(14);
         _userNameText.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _userNameText.autocapitalizationType =UITextAutocapitalizationTypeNone;
         _userNameText.placeholder  = @"Please input your github userName!";
         @weakify(self);
         [_userNameText. rac_textSignal subscribeNext:^(NSString *userName) {
@@ -130,6 +127,7 @@
         _passWordText.backgroundColor = MGWhiteColor;
         _passWordText.font = MGFont(14);
         _passWordText.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _passWordText.autocapitalizationType =UITextAutocapitalizationTypeNone;
         _passWordText.placeholder  = @"Please input your password!";
         _passWordText.secureTextEntry = YES;
         [_passWordText. rac_textSignal subscribeNext:^(NSString *passWord) {

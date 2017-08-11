@@ -28,7 +28,6 @@
 @implementation MGRepoDetailViewController
 #pragma mark - Instance Method
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
-    
     if (self = [super init]) {
         self.viewModel = (MGRepoDetailViewModel *)viewModel;
         self.headerView = [[MGRepoDetailHeaderView alloc]init];
@@ -39,7 +38,6 @@
 
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemForPopViewController];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"ceshi"
@@ -51,7 +49,6 @@
     [self.tableView.mj_header beginRefreshing];
 }
 - (void)test{
-    
     MGRepoCommitsViewModel *commits = [[MGRepoCommitsViewModel alloc]
                                        initWithParams:@{kRepoForKnowCommits:self.viewModel.repo,
                                                         kSHAForKnowCommits:self.viewModel.repo.defaultBranch}];
@@ -59,7 +56,6 @@
     
 }
 - (void)configUI{
-    
     if ([self.navigationController.navigationBar isHidden]) {
         [self.navigationController.navigationBar setHidden:NO];
     }
@@ -67,7 +63,6 @@
     [self.view addSubview:self.tableView];
 }
 - (void)bindViewModel:(id)viewModel{
-    
     @weakify(self);
     [[RACObserve(self, viewModel.repo) ignore:nil] subscribeNext:^(id x) {
         @strongify(self);
@@ -94,7 +89,8 @@
     
     [self.headerView.nameLabelClickedCommand.executionSignals.switchToLatest subscribeNext:^(NSString *login) {
         MGProfileViewModel *profile = [[MGProfileViewModel alloc]
-                                       initWithParams:@{kProfileOfUserLoginName:login}];
+                                       initWithParams:@{kProfileOfUserLoginName:login,
+                                                        kProfileIsShowOnTabBar:@NO}];
         [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
     }];
     
@@ -136,10 +132,10 @@
 
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
-    
     if (_tableView==nil) {
         @weakify(self);
-        _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
+        _tableView = [UITableView createTableWithFrame:CGRectMake(0, MGNAV_STATUS_BAR_HEIGHT,
+                                                                  MGSCREEN_WIDTH, MGSCREEN_HEIGHT-MGNAV_STATUS_BAR_HEIGHT) binder:^(MGTableViewBinder *binder) {
             @strongify(self);
             [binder setReuseXibCellClass:@[[MGOCTTreeEntryCell class]]];
             [binder setCellConfigBlock:^NSString *(NSIndexPath *indexPath) {
@@ -159,7 +155,6 @@
     return _tableView;
 }
 - (WKWebView *)readmeWeb{
-    
     if (_readmeWeb==nil) {
         _readmeWeb = [[WKWebView alloc]init];
         _readmeWeb.navigationDelegate = self;

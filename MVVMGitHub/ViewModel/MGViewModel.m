@@ -22,7 +22,6 @@
 
 #pragma mark - Instancetype
 - (instancetype)initWithParams:(NSDictionary *)params{
-    
     if (self = [super init]) {
         _params = params;
     }
@@ -32,7 +31,6 @@
 
 #pragma mark - Dealloc
 - (void)dealloc{
-    
     NSLog(@"%s",__func__);
 }
 @end

@@ -16,7 +16,7 @@
 + (NSString *)mg_preferenceLanguage;
 + (NSString *)mg_login;
 + (NSString *)mg_name;
-
++ (NSString *)mg_objectID;
 
 + (void)mg_setAccessToken:(NSString *)accessToken;
 + (void)mg_setPassWord:(NSString *)passWord;
@@ -24,13 +24,13 @@
 + (void)mg_setPreferenceLanguage:(NSString *)preferenceLanguage;
 + (void)mg_setlogin:(NSString *)login;
 + (void)mg_setName:(NSString *)name;
-
++ (void)mg_setObjectID:(NSString *)objectID;
 
 + (void)mg_deleteAccessToken;
 + (void)mg_deletePassWord;
 + (void)mg_deleteRawlogin;
 + (void)mg_deleteLogin;
 + (void)mg_deleteName;
-
++ (void)mg_deleteObjectID;
 
 @end

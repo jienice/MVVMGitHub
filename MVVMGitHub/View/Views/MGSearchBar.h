@@ -10,16 +10,12 @@
 
 @interface MGSearchBar : UIView
 
+@property (nonatomic, strong, readonly) RACCommand *cancelSearchCommand;
 
-@property (nonatomic, strong, readonly) RACSignal *searchTextSignal;
 
-@property (nonatomic, strong, readonly) RACSignal *becomeFirstResponder;
+@property (nonatomic, strong, readonly) RACCommand *searchCommand;
 
-@property (nonatomic, strong, readonly) RACSignal *resignFirstResponder;
-
-@property (nonatomic, strong, readonly) RACSignal *didClickedSearchBtn;
-
-@property (nonatomic, strong, readonly) RACCommand *startInputCommand;
+@property (nonatomic, copy, readonly) NSString *searchText;
 
 + (instancetype)showWithFrame:(CGRect)frame;
 

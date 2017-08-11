@@ -8,12 +8,12 @@
 
 #import "MGViewModel.h"
 
+extern NSString *const kProfileOfUserLoginName;
+extern NSString *const kProfileIsShowOnTabBar;
+
 @class MGUser;
 
-
-
 @interface MGProfileViewModel : MGViewModel
-
 
 @property (nonatomic, strong, readonly) RACCommand *fetchFeedsCommand;
 
@@ -22,8 +22,6 @@
 @property (nonatomic, strong, readonly) RACCommand *fetchUserOrgCommand;
 
 @property (nonatomic, strong, readonly) RACCommand *fetchNotificationsCommand;
-
-@property (nonatomic, strong, readonly) MGUser *user;
 
 @property (nonatomic, strong, readonly) RACCommand *markNotificationAsReadCommand;
 
@@ -35,5 +33,14 @@
 
 @property (nonatomic, copy, readonly) NSString *loginName;
 
+@property (nonatomic, strong, readonly) MGUser *user;
 
+    
+
+    
+
+    
+    
+    
+    
 @end

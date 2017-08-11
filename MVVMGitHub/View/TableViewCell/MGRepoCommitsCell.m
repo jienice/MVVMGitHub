@@ -22,22 +22,20 @@
 @implementation MGRepoCommitsCell
 
 - (void)awakeFromNib {
-    
     [super awakeFromNib];
     self.nibHeight = self.height;
 }
 
 - (void)bindViewModel:(id)viewModel{
-    
     OCTGitCommit *commit = viewModel;
-    self.commitDateLabel.text       = [NSString stringWithFormat:@"Commits on %@",commit.commitDate];
+    NSString *commitString = [NSString onlyYearMouthDayDateStringForCommitDate:commit.commitDate];
+    self.commitDateLabel.text       = [NSString stringWithFormat:@"Commits on %@",commitString];
     self.commitMessageLabel.text    = [self messageRewrite:commit.message];
-    self.committerAndDateLabel.text = [NSString stringWithFormat:@"%@ committed on %@",commit.committerName,commit.commitDate];
+    self.committerAndDateLabel.text = [NSString stringWithFormat:@"%@ committed on %@",commit.committerName,commitString];
     [self.committerImage sd_setImageWithURL:commit.author.avatarURL placeholderImage:nil];
 }
 
 - (NSNumber *)cellHeightWithModel:(id)model{
-    
     OCTGitCommit *commit = model;
     NSString *showString = [self messageRewrite:commit.message];
     CGFloat height       = [showString heightForFont:self.commitMessageLabel.font
@@ -47,7 +45,6 @@
 }
 
 - (NSString *)messageRewrite:(NSString *)message{
-    
     NSMutableString *mutMessage = [NSMutableString stringWithString:message];
     [self removeLastLineBreak:mutMessage];
     [self removeDouleLineBreak:mutMessage];
@@ -55,17 +52,16 @@
     return mutMessage;
 }
 - (void)removeLastLineBreak:(NSMutableString *)string{
-    
     if ([string hasSuffix:@"\n"]) {
         [string deleteCharactersInRange:NSMakeRange(string.length, 1)];
     }
 }
 - (void)removeDouleLineBreak:(NSMutableString *)string{
-    
     if ([string containsString:@"\n\n"]){
         NSRange range = [string rangeOfString:@"\n\n"];
         [string replaceCharactersInRange:range withString:@"\n"];
         [self messageRewrite:string];
     }
 }
+
 @end

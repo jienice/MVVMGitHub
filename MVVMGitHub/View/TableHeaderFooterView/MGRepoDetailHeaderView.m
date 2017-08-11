@@ -23,13 +23,11 @@
 @implementation MGRepoDetailHeaderView
 
 - (instancetype)init{
-    
     MGRepoDetailHeaderView *view = [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([MGRepoDetailHeaderView class])
                                                                  owner:self options:nil] firstObject];
     return view;
 }
 - (void)layoutSubviews{
-    
     //赋值后自动布局，获取布局后的整个View的高度并传值。
     if (self.repo) {
         [self.didEndLayoutCommand execute:nil];
@@ -37,7 +35,6 @@
 }
 
 - (void)bindViewModel:(id)viewModel{
-    
     [self setRepo:viewModel];
     NSString *repoNameString = [NSString stringWithFormat:@"%@/%@",self.repo.owner.name,self.repo.name];
     self.repoNameLabel.attributedText=[self repoNameTransformer:repoNameString];

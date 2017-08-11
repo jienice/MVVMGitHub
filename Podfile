@@ -31,4 +31,5 @@ target 'MVVMGitHub' do
         pod 'DTCoreText',               '~> 1.6.20'
         pod 'OcticonsIOS'
         pod 'SVProgressHUD', '~> 2.1.2'
+        pod 'SwipeBack', '~> 1.1.1'
 end

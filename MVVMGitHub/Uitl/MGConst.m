@@ -26,7 +26,8 @@ NSInteger const kNetworkRequestTimeoutInterval = 30;
 NSString const *kErrorMessageKey = @"kErrorMessageKey";
 
 
-NSString *const kProfileOfUserLoginName = @"kProfileOfUserLoginName";
+NSString *const kSearchBarPlaceholderString = @"Please Input Repo's Or User's Name";
+
 
 
 @end

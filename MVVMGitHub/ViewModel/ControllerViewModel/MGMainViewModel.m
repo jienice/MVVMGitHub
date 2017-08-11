@@ -41,6 +41,7 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
                               kTabBarSelectedImageName:@"Icon-iPhone",
                               kTabBarNormalImageName:@"Icon-iPhone",
                               kClassMap:@"Profile",
+                              kProfileIsShowOnTabBar:@YES,
                               kProfileOfUserLoginName:[SAMKeychain mg_login]};
     
     NSDictionary *search = @{kTabBarItemTitle:@"Search",

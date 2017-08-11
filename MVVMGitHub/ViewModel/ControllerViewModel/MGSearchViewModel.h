@@ -8,6 +8,12 @@
 
 #import "MGViewModel.h"
 
+
+
+extern NSString *const kSearchText;
+
+
+
 typedef NS_ENUM(NSInteger,MGSearchType){
     MGSearchForUsers = 0,
     MGSearchForRepositories

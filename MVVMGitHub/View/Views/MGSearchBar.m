@@ -7,12 +7,14 @@
 //
 
 #import "MGSearchBar.h"
-#import <pop/POP.h>
 
-@interface MGSearchBar ()<MGReactiveViewProtocol,UITextFieldDelegate,UISearchBarDelegate>
+@interface MGSearchBar ()<MGReactiveViewProtocol,UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIButton *cancelSearchBtn;
+@property (weak, nonatomic) IBOutlet UISearchBar *searcBar;
+@property (nonatomic, strong, readwrite) RACCommand *cancelSearchCommand;
+@property (nonatomic, strong, readwrite) RACCommand *selecteSearchTypeCommand;
+@property (nonatomic, strong, readwrite) RACCommand *searchCommand;
 
 @end
 
@@ -21,89 +23,43 @@
 
 #pragma mark - Instance Method
 + (instancetype)showWithFrame:(CGRect)frame{
-    
     MGSearchBar *bar=[[[NSBundle mainBundle]loadNibNamed:NSStringFromClass(self) owner:self options:nil]
                       lastObject];
     bar.frame=frame;
-    bar.searchBar.placeholder = @"Please Input Repo's Or User's Name";
-    bar.searchBar.autocapitalizationType =UITextAutocapitalizationTypeNone;
-    bar.searchBar.tintColor = MGSystemColor;
-    bar.searchBar.delegate = bar;
+    [bar configUI];
     [bar bindViewModel:nil];
-    [bar.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateNormal];
-    [bar.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateHighlighted];
-    [bar.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateSelected];
     return bar;
 }
 #pragma mark - Life Cycle
-
+- (void)configUI{
+    [self.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateNormal];
+    [self.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateHighlighted];
+    [self.cancelSearchBtn setTitleColor:MGSystemColor forState:UIControlStateSelected];
+    self.searcBar.autocapitalizationType =UITextAutocapitalizationTypeNone;
+    self.searcBar.tintColor = MGSystemColor;
+}
 #pragma mark - Bind ViewModel
 - (void)bindViewModel:(id)viewModel{
-    
-    [self.cancelSearchBtn addTarget:self.searchBar
-                             action:@selector(resignFirstResponder)
-                   forControlEvents:UIControlEventTouchUpInside];
-    
-    _searchTextSignal = [[self rac_signalForSelector:@selector(searchBar:textDidChange:)
-                                        fromProtocol:@protocol(UISearchBarDelegate)]
-                         map:^NSString *(RACTuple *value) {
-        return (NSString *)[value last];
-    }];
-    
-    _becomeFirstResponder = [self rac_signalForSelector:@selector(searchBarTextDidBeginEditing:)
-                                           fromProtocol:@protocol(UISearchBarDelegate)];
-
-    _resignFirstResponder = [self rac_signalForSelector:@selector(searchBarTextDidEndEditing:)
-                                           fromProtocol:@protocol(UISearchBarDelegate)];
-
     @weakify(self);
-    _didClickedSearchBtn  = [[self rac_signalForSelector:@selector(searchBarSearchButtonClicked:)
-                                          fromProtocol:@protocol(UISearchBarDelegate)] doNext:^(id x) {
-        @strongify(self);
-        [self.searchBar resignFirstResponder];
-    }];
-    
-    _startInputCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSNumber *isStart) {
-        if ([isStart boolValue]) {
-            [self.searchBar becomeFirstResponder];
-        }else{
-            [self.searchBar resignFirstResponder];
-        }
+    self.cancelSearchBtn.rac_command = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         return [RACSignal empty];
     }];
-}
-#pragma mark - Touch Action
-
-#pragma mark - UITextFieldDelegate
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    
-    NSString *beginEditing = @"BeginEditing";
-    POPSpringAnimation *spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
-    spring.fromValue = [NSValue valueWithCGRect:searchBar.frame];
-    spring.toValue = [NSValue valueWithCGRect:CGRectMake(searchBar.frame.origin.x, searchBar.frame.origin.y,
-                                                         self.width-42, CGRectGetHeight(searchBar.frame))];
-    [spring setCompletionBlock:^(POPAnimation *anim, BOOL complete){
-        [searchBar pop_removeAnimationForKey:beginEditing];
+    self.selecteSearchTypeCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal empty];
     }];
-    [searchBar pop_addAnimation:spring forKey:beginEditing];
-    return YES;
-}
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-    
-    NSString *endEditing = @"EndEditing";
-    POPSpringAnimation *spring = [POPSpringAnimation animationWithPropertyNamed:kPOPViewFrame];
-    spring.fromValue = [NSValue valueWithCGRect:searchBar.frame];
-    spring.toValue = [NSValue valueWithCGRect:CGRectMake(searchBar.frame.origin.x, searchBar.frame.origin.y,
-                                                         self.width, CGRectGetHeight(searchBar.frame))];
-    [spring setCompletionBlock:^(POPAnimation *anim, BOOL complete){
-        [searchBar pop_removeAnimationForKey:endEditing];
+    self.searchCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        return [RACSignal empty];
     }];
-    [searchBar pop_addAnimation:spring forKey:endEditing];
-    return YES;
+    [[self rac_signalForSelector:@selector(searchBarSearchButtonClicked:) fromProtocol:@protocol(UISearchBarDelegate)] subscribeNext:^(id x) {
+        @strongify(self);
+        [self.searchCommand execute:nil];
+    }];
 }
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    
-    [searchBar endEditing:YES];
+- (NSString *)searchText{
+    return self.searcBar.text;
+}
+- (RACCommand *)cancelSearchCommand{
+    return self.cancelSearchBtn.rac_command;
 }
 
 @end
