@@ -54,7 +54,8 @@
 		A074845F1EFA4C44007689AE /* MGUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A074845D1EFA4C44007689AE /* MGUserCell.m */; };
 		A07484601EFA4C44007689AE /* MGUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A074845E1EFA4C44007689AE /* MGUserCell.xib */; };
 		A07484631EFA5231007689AE /* MGSearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A07484621EFA5230007689AE /* MGSearchResultModel.m */; };
-		A07781181F417CFA0001E37B /* UIButton+MGAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = A07781171F417CFA0001E37B /* UIButton+MGAdd.m */; };
+		A07484711EFB97DA007689AE /* MGSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = A07484701EFB97DA007689AE /* MGSearchBar.m */; };
+		A07484751EFBADA7007689AE /* MGSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = A07484741EFBADA7007689AE /* MGSearchBar.xib */; };
 		A080AE0F1E34B54400402510 /* MGViewModelMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A080AE0E1E34B54400402510 /* MGViewModelMapper.m */; };
 		A085F51D1EE5551700F12DD6 /* MGTrendRopsListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A085F51C1EE5551700F12DD6 /* MGTrendRopsListViewModel.m */; };
 		A08FACCA1F037BED0070B311 /* MGRepoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A08FACC81F037BED0070B311 /* MGRepoCell.m */; };
@@ -210,8 +211,9 @@
 		A074845E1EFA4C44007689AE /* MGUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGUserCell.xib; sourceTree = "<group>"; };
 		A07484611EFA5230007689AE /* MGSearchResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchResultModel.h; sourceTree = "<group>"; };
 		A07484621EFA5230007689AE /* MGSearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchResultModel.m; sourceTree = "<group>"; };
-		A07781161F417CFA0001E37B /* UIButton+MGAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+MGAdd.h"; sourceTree = "<group>"; };
-		A07781171F417CFA0001E37B /* UIButton+MGAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+MGAdd.m"; sourceTree = "<group>"; };
+		A074846F1EFB97DA007689AE /* MGSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSearchBar.h; sourceTree = "<group>"; };
+		A07484701EFB97DA007689AE /* MGSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSearchBar.m; sourceTree = "<group>"; };
+		A07484741EFBADA7007689AE /* MGSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGSearchBar.xib; sourceTree = "<group>"; };
 		A080AE0D1E34B54400402510 /* MGViewModelMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGViewModelMapper.h; sourceTree = "<group>"; };
 		A080AE0E1E34B54400402510 /* MGViewModelMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGViewModelMapper.m; sourceTree = "<group>"; };
 		A085F51B1EE5551700F12DD6 /* MGTrendRopsListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTrendRopsListViewModel.h; sourceTree = "<group>"; };
@@ -403,16 +405,14 @@
 				A0A2F76A1E422B8800F19F22 /* SAMKeychain+MGUser.m */,
 				A0A3D4C11EE7CDD4009E629F /* UIBarButtonItem+MGAdd.h */,
 				A0A3D4C21EE7CDD4009E629F /* UIBarButtonItem+MGAdd.m */,
-				A07781161F417CFA0001E37B /* UIButton+MGAdd.h */,
-				A07781171F417CFA0001E37B /* UIButton+MGAdd.m */,
 				A01833A51ED6B810003E5D1C /* UILabel+MGAdd.h */,
 				A01833A61ED6B810003E5D1C /* UILabel+MGAdd.m */,
 				A0A3D4C81EE92B6A009E629F /* UITableView+MGAdd.h */,
 				A0A3D4C91EE92B6A009E629F /* UITableView+MGAdd.m */,
-				A0C603811F3D95D7000BFF59 /* UIViewController+MGNav.h */,
-				A0C603821F3D95D7000BFF59 /* UIViewController+MGNav.m */,
 				A0D3DA461E56D27E00337EF7 /* WKWebView+MGWeb.h */,
 				A0D3DA471E56D27E00337EF7 /* WKWebView+MGWeb.m */,
+				A0C603811F3D95D7000BFF59 /* UIViewController+MGNav.h */,
+				A0C603821F3D95D7000BFF59 /* UIViewController+MGNav.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -635,6 +635,9 @@
 				A07484521EFA09B3007689AE /* MGRepoDetailToolBar.h */,
 				A07484531EFA09B3007689AE /* MGRepoDetailToolBar.m */,
 				A07484571EFA09CA007689AE /* MGRepoDetailToolBar.xib */,
+				A074846F1EFB97DA007689AE /* MGSearchBar.h */,
+				A07484701EFB97DA007689AE /* MGSearchBar.m */,
+				A07484741EFBADA7007689AE /* MGSearchBar.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -897,6 +900,7 @@
 				A0EC6ED51F0F774C00A4067B /* MGTableViewCell.xib in Resources */,
 				A0491F881F273A5F006930EF /* codeMirror in Resources */,
 				A0FFF9ED1F15BA3300D6C554 /* octicons.ttf in Resources */,
+				A07484751EFBADA7007689AE /* MGSearchBar.xib in Resources */,
 				A07484581EFA09CA007689AE /* MGRepoDetailToolBar.xib in Resources */,
 				A01833AC1ED6BAF0003E5D1C /* MGExploreTableViewCell.xib in Resources */,
 				A08FACCB1F037BED0070B311 /* MGRepoCell.xib in Resources */,
@@ -1085,6 +1089,7 @@
 				A02F95631F21CF120030C947 /* MGSourceCodeViewController.m in Sources */,
 				A01833CF1ED6BBF9003E5D1C /* MGSearchViewModel.m in Sources */,
 				A06DD5A91ED3D26800082DA4 /* MGApiImpl.m in Sources */,
+				A07484711EFB97DA007689AE /* MGSearchBar.m in Sources */,
 				A085F51D1EE5551700F12DD6 /* MGTrendRopsListViewModel.m in Sources */,
 				A07484541EFA09B3007689AE /* MGRepoDetailToolBar.m in Sources */,
 				A0FFF9DF1F14B48D00D6C554 /* RACSignal+MGAdd.m in Sources */,
@@ -1095,7 +1100,6 @@
 				A06DD5A41ED3D14300082DA4 /* MGApiImpl+MGSearch.m in Sources */,
 				A0FFF9E51F14C04800D6C554 /* MGFollowingViewController.m in Sources */,
 				A01D510F1E5BE41B002E9925 /* MGViewModelBasedNavigation.m in Sources */,
-				A07781181F417CFA0001E37B /* UIButton+MGAdd.m in Sources */,
 				A0C0A6641EA0C2DD00F44F94 /* MGNavigationController.m in Sources */,
 				A02F770E1E0B7F0E0088470E /* MGConst.m in Sources */,
 				A01833A71ED6B810003E5D1C /* UILabel+MGAdd.m in Sources */,

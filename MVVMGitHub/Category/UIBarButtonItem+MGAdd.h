@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^MGBarButtonItemActionBlock)();
 
 @interface UIBarButtonItem (MGAdd)
 
+
 + (instancetype)barButtonItemForPopViewController;
 
-+ (instancetype)barButtonItemWithImage:(NSString *)imageName actionBlock:(void(^)())block;
 
-+ (instancetype)barButtonItemWithTitle:(NSString *)title titleFont:(UIFont *)font titleColor:(UIColor *)titleColor actionBlock:(void (^)())block;
++ (instancetype)barButtonItemWithImage:(NSString *)imageName actionBlock:(MGBarButtonItemActionBlock)block;
 
 
 @end

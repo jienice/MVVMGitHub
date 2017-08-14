@@ -55,8 +55,7 @@
 #define MGNormalColor [UIColor lightGrayColor]
 #define MGWhiteColor [UIColor whiteColor]
 #define MGBlackColor [UIColor blackColor]
-#define MGHighlightedColor MGRGBColor(3, 102, 214)//x0366D6
-
+#define MGSystemColor MGRGBColor(3, 102, 214)//x0366D6
 
 ///------------
 ///  system

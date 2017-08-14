@@ -90,6 +90,7 @@ NSString *const kSearchText = @"kSearchText";
     _tableViewFrame = CGRectMake(0, 0,
                                  MGSCREEN_WIDTH,
                                  MGSCREEN_HEIGHT-
+                                 MGTAB_BAR_HEIGHT-
                                  MGSEARCH_MENU_HEIGHT-
                                  MGNAV_BAR_HEIGHT-
                                  MGSTATUS_BAR_HEIGHT);

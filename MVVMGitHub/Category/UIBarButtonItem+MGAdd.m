@@ -10,27 +10,18 @@
 
 @implementation UIBarButtonItem (MGAdd)
 
-+ (instancetype)barButtonItemWithImage:(NSString *)imageName actionBlock:(void(^)())block{
-    UIImage *image = [UIImage imageNamed:imageName];
-    UIButton *btn = [UIButton buttonWithImage:image actionBlock:^(id sender) {
-        if (block) {
-            block();
++ (instancetype)barButtonItemWithImage:(NSString *)imageName actionBlock:(MGBarButtonItemActionBlock)block{
+    MGBarButtonItemActionBlock blockCopy = [block copy];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(0, 0, 40, 40);
+    [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    [btn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        if (blockCopy) {
+            blockCopy();
         }
     }];
-    btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
-    return item;
-}
-+ (instancetype)barButtonItemWithTitle:(NSString *)title titleFont:(UIFont *)font titleColor:(UIColor *)titleColor actionBlock:(void (^)())block{
-    UIButton *btn = [UIButton buttonWithTitle:title titleFont:font titleColor:titleColor actionBlock:^(id sender) {
-        if (block) {
-            block();
-        }
-    }];
-    CGFloat width = [title widthForFont:font];
-    CGFloat height = 40.f;
-    btn.frame = CGRectMake(0, 0, width, height);
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
     return item;
 }
 + (instancetype)barButtonItemForPopViewController{

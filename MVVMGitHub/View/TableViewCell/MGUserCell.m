@@ -26,7 +26,7 @@
     [super awakeFromNib];
     _followImage = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconPersonAdd]
                                   backgroundColor:MGWhiteColor
-                                        iconColor:MGHighlightedColor
+                                        iconColor:MGSystemColor
                                         iconScale:1.0
                                           andSize:CGSizeMake(30, [[self cellHeightWithModel:nil] floatValue])];
 }

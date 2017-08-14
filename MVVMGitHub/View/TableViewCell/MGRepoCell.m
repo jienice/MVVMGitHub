@@ -45,16 +45,16 @@
     
     _repoImage = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconRepo]
                                 backgroundColor:MGWhiteColor
-                                      iconColor:MGHighlightedColor
+                                      iconColor:MGSystemColor
                                       iconScale:1.0
                                         andSize:CGSizeMake(20, 20)];
     
     _repoForkedImage = [UIImage octicon_imageWithIcon:[NSString octicon_iconDescriptionForEnum:OCTIconRepoForked]
                                       backgroundColor:MGWhiteColor
-                                            iconColor:MGHighlightedColor
+                                            iconColor:MGSystemColor
                                             iconScale:1.0
                                               andSize:CGSizeMake(20, 20)];
-    self.repoNameLabel.textColor = MGHighlightedColor;
+    self.repoNameLabel.textColor = MGSystemColor;
 }
 - (void)bindViewModel:(id)viewModel{
     

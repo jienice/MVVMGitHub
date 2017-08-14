@@ -7,16 +7,18 @@
 //
 
 #import "MGSearchViewController.h"
+#import "MGSearchViewModel.h"
 #import "MGSearchRepoViewController.h"
 #import "MGSearchUserViewController.h"
-#import "MGSearchViewModel.h"
+#import "MGSearchBar.h"
+
 
 @interface MGSearchViewController ()<UISearchBarDelegate>
 
 @property (nonatomic, strong) MGSearchViewModel *viewModel;
 @property (nonatomic, strong) MGSearchRepoViewController *repoResult;
 @property (nonatomic, strong) MGSearchUserViewController *userResult;
-@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) MGSearchBar *searchBar;
 
 @end
 
@@ -30,11 +32,11 @@
         self.menuBGColor = [UIColor whiteColor];
         self.automaticallyCalculatesItemWidths = YES;
         self.titleColorNormal = MGNormalColor;
-        self.titleColorSelected = MGHighlightedColor;
+        self.titleColorSelected = MGSystemColor;
         self.pageAnimatable = YES;
         self.menuViewStyle = WMMenuViewStyleLine;
         self.menuViewLayoutMode = WMMenuViewLayoutModeScatter;
-        self.progressColor = MGHighlightedColor;
+        self.progressColor = MGSystemColor;
         self.progressHeight = 1;
         self.titleSizeSelected = 14;
         self.titleSizeNormal = 14;
@@ -49,58 +51,37 @@
     [self bindViewModel:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.searchBar resignFirstResponder];
-}
 - (void)configUI{
     @weakify(self);
-    self.navigationItem.titleView = self.searchBar;
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonItemWithTitle:@"取消" titleFont:MGFont(14) titleColor:MGHighlightedColor actionBlock:^{
+    self.navigationItem.titleView = ({
         @strongify(self);
-        [RACScheduler.mainThreadScheduler schedule:^{
-            [self dismissViewControllerAnimated:YES completion:^{
-                
-            }];
-        }];
-    }];
+        UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:self.navigationController.navigationBar.bounds];
+        searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        searchBar.placeholder = kSearchBarPlaceholderString;
+        searchBar.delegate = self;
+        searchBar;
+    });
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStyleDone target:nil action:nil];
+    
 }
 #pragma mark - Bind ViewModel
 - (void)bindViewModel:(id)viewModel{
     @weakify(self);
-    Protocol *searchBarDelegate = @protocol(UISearchBarDelegate);
-    [[self rac_signalForSelector:@selector(searchBar:textDidChange:) fromProtocol:searchBarDelegate] subscribeNext:^(RACTuple *tuple) {
-        NSLog(@"searchText --- %@",((UISearchBar *)[tuple first]).text);
+    [[RACObserve(self, searchBar.searchText) ignore:@""] subscribeNext:^(id x) {
         @strongify(self);
-        self.viewModel.searchText = ((UISearchBar *)[tuple first]).text;
+        self.viewModel.searchText = x;
     }];
     
-    [[self rac_signalForSelector:@selector(searchBarSearchButtonClicked:) fromProtocol:searchBarDelegate] subscribeNext:^(id x) {
+    [self.searchBar.cancelSearchCommand.executionSignals subscribeNext:^(id x) {
         @strongify(self);
-        [self.searchBar resignFirstResponder];
-        switch (self.viewModel.searchType) {
-            case MGSearchForUsers:{
-                [self.viewModel.searchUserCommand execute:nil];
-            }
-                break;
-            case MGSearchForRepositories:{
-                [self.viewModel.searchRepoCommand execute:nil];
-            }
-                break;
-            default:
-                break;
-        }
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
     }];
     
-    [[[RACSignal combineLatest:@[self.viewModel.searchRepoCommand.executing,
-                               self.viewModel.searchUserCommand.executing] reduce:^NSNumber *(NSNumber *repoExecut,NSNumber *userExecut){
-                                   return @(repoExecut.boolValue|userExecut.boolValue);
-    }] deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(NSNumber *execut) {
-        if (execut.boolValue) {
-            [SVProgressHUD show];
-        }else{
-            [SVProgressHUD dismiss];
-        }
+    [self.searchBar.searchCommand.executionSignals subscribeNext:^(id x) {
+        
     }];
 }
 #pragma mark - Touch Action
@@ -114,41 +95,31 @@
 
 - (NSString *)pageController:(WMPageController *)pageController
                 titleAtIndex:(NSInteger)index{
-    switch ((MGSearchType)index) {
-        case MGSearchForUsers:
-            return @"Users";
-            break;
-        case MGSearchForRepositories:
-            return @"Repositories";
-            break;
-        default:
-            return nil;
-            break;
+    if (index==MGSearchForUsers) {
+        return @"Users";
     }
+    if (index == MGSearchForRepositories) {
+        return @"Repositories";
+    }
+    return nil;
 }
 - (UIViewController *)pageController:(WMPageController *)pageController
                viewControllerAtIndex:(NSInteger)index{
-    switch ((MGSearchType)index) {
-        case MGSearchForUsers:
-            return self.userResult;
-            break;
-        case MGSearchForRepositories:
-            return self.repoResult;
-            break;
-        default:
-            return nil;
-            break;
+    if (index==MGSearchForUsers) {
+        return self.userResult;
     }
+    if (index == MGSearchForRepositories) {
+        return self.repoResult;
+    }
+    return nil;
 }
 
 - (void)pageController:(WMPageController *)pageController
 didEnterViewController:(UIViewController *)viewController
               withInfo:(NSDictionary *)info{
     if (viewController==self.userResult) {
-        self.searchBar.placeholder = @"Search Users";
         self.viewModel.searchType = MGSearchForUsers;
     }else if (viewController==self.repoResult){
-        self.searchBar.placeholder = @"Search Repositories";
         self.viewModel.searchType = MGSearchForRepositories;
     }
 }
@@ -165,16 +136,10 @@ didEnterViewController:(UIViewController *)viewController
     }
     return _userResult;
 }
-
-- (UISearchBar *)searchBar {
-	if(_searchBar == nil) {
-        _searchBar = [[UISearchBar alloc]initWithFrame:self.navigationController.navigationBar.bounds];
-        _searchBar.searchBarStyle = UISearchBarStyleMinimal;
-        _searchBar.placeholder = @"Search";
-        _searchBar.delegate = self;
-        _searchBar.autocapitalizationType =UITextAutocapitalizationTypeNone;
+- (MGSearchBar *)searchBar{
+    if(_searchBar==nil){
+        _searchBar = [MGSearchBar showWithFrame:CGRectMake(0, MGSTATUS_BAR_HEIGHT, MGSCREEN_WIDTH, MGNAV_BAR_HEIGHT)];
     }
-	return _searchBar;
+    return _searchBar;
 }
-
 @end

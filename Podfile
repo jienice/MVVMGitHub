@@ -13,6 +13,7 @@ target 'MVVMGitHub' do
         pod 'Reachability',             '~> 3.2'
         pod 'Aspects',                  '~> 1.4.1'
         pod 'SDCycleScrollView',        '~> 1.65'
+        pod 'HMSegmentedControl',       '~> 1.5.2'
         pod 'OctoKit',                  '~> 0.5'
         pod 'YYKit',                    '~> 1.0.7'
         pod 'SAMKeychain',              '~> 1.5.2'
