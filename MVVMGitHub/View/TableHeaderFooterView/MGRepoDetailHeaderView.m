@@ -51,8 +51,8 @@
     NSRange sepRang = [repoName rangeOfString:@"/"];
     NSRange ownerNameRange = NSMakeRange(0, sepRang.location);
     NSRange repoNameRange = NSMakeRange(sepRang.location+sepRang.length, repoName.length-(sepRang.location+sepRang.length));
-    [muatt addAttributes:@{NSForegroundColorAttributeName:MGSystemColor,NSFontAttributeName:MGFont(14)} range:ownerNameRange];
-    [muatt addAttributes:@{NSForegroundColorAttributeName:MGSystemColor,NSFontAttributeName:MGBlodFont(14)} range:repoNameRange];
+    [muatt addAttributes:@{NSForegroundColorAttributeName:MGHighlightedColor,NSFontAttributeName:MGFont(14)} range:ownerNameRange];
+    [muatt addAttributes:@{NSForegroundColorAttributeName:MGHighlightedColor,NSFontAttributeName:MGBlodFont(14)} range:repoNameRange];
     return muatt;
 }
 #pragma mark - lazy load
