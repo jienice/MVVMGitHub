@@ -14,6 +14,4 @@
 
 + (instancetype)buttonWithImage:(UIImage *)image actionBlock:(void(^)(id sender))block;
 
-
-
 @end
