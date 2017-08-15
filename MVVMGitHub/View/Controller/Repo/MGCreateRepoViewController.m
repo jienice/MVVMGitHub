@@ -70,7 +70,7 @@
     RAC(self.commitButton,backgroundColor) = [[self.viewModel.canCreateSignal doNext:^(NSNumber *can) {
         self.commitButton.enabled =[can boolValue];
     }]map:^id(NSNumber *can) {
-        return [can boolValue]?MGSystemColor:[UIColor lightGrayColor];
+        return [can boolValue]?MGHighlightedColor:[UIColor lightGrayColor];
     }];
     
     [self.viewModel.createRepoCommand.executionSignals.switchToLatest subscribeError:^(NSError *error) {

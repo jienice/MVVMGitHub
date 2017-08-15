@@ -41,7 +41,7 @@
        @strongify(self);
        [self.loginButton setEnabled:[value boolValue]];
     }] map:^id(NSNumber *value) {
-        return [value boolValue]?MGSystemColor:MGNormalColor;
+        return [value boolValue]?MGHighlightedColor:MGNormalColor;
     }];
 
     [[[[self.viewModel.loginCommand.executing filter:^BOOL(NSNumber *isExecut) {

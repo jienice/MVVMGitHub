@@ -57,7 +57,7 @@
                                                              imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
                                               selectedImage:[[UIImage imageNamed:[viewModel.params valueForKey:kTabBarSelectedImageName]]
                                                              imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:MGSystemColor} forState:UIControlStateSelected];
+    [item setTitleTextAttributes:@{NSForegroundColorAttributeName:MGHighlightedColor} forState:UIControlStateSelected];
     [item setTitleTextAttributes:@{NSForegroundColorAttributeName:MGRGBAlphaColor(0, 0, 0, 1)} forState:UIControlStateNormal];
     item.titlePositionAdjustment = UIOffsetMake(0, -2);
     UIViewController *vc = [MGSharedDelegate.viewModelBased.viewModelMapper viewControllerForViewModel:viewModel];

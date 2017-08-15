@@ -47,6 +47,7 @@
         searchBar.delegate = self;
         searchBar;
     });
+//    UIButtonType
     [self.view addSubview:self.tableView];
 }
 - (void)bindViewModel:(id)viewModel{
@@ -84,7 +85,8 @@
     if (_tableView == nil) {
         @weakify(self);
         _tableView = [UITableView createTableWithFrame:CGRectMake(0, MGNAV_STATUS_BAR_HEIGHT,
-                                                                  MGSCREEN_WIDTH, MGSCREEN_HEIGHT-MGNAV_STATUS_BAR_HEIGHT)
+                                                                  MGSCREEN_WIDTH,
+                                                                  MGSCREEN_HEIGHT-MGNAV_STATUS_BAR_HEIGHT-MGTAB_BAR_HEIGHT)
                                                 binder:^(MGTableViewBinder *binder) {
             @strongify(self);
             binder.dataSourceSignal = self.viewModel.fetchDataFromServiceCommand.executionSignals.switchToLatest;
