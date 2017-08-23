@@ -14,5 +14,6 @@
 
 @property (nonatomic, strong) NSDictionary *params;
 
+@property (nonatomic, strong) RACSignal *errors;
 
 @end

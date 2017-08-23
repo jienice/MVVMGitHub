@@ -7,6 +7,8 @@
 //
 
 #import "MGExploreCellViewModel.h"
+#import "MGRepoDetailViewModel.h"
+#import "MGProfileViewModel.h"
 
 @interface MGExploreCellViewModel ()
 
@@ -14,6 +16,7 @@
 @property (nonatomic, strong, readwrite) NSArray *cellData;
 @property (nonatomic, copy, readwrite) NSString *cellTitle;
 @property (nonatomic, strong, readwrite) NSDictionary *params;
+@property (nonatomic, strong, readwrite) RACCommand *itemClickedCommand;
 @end
 
 
@@ -33,4 +36,35 @@
     return self;
 }
 - (void)initialize{}
+- (RACCommand *)itemClickedCommand {
+	if(_itemClickedCommand == nil) {
+        @weakify(self);
+		_itemClickedCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(NSIndexPath *indexPath) {
+            @strongify(self);
+            switch (self.cellType) {
+                case MGExploreCellTypeOfRepo:{
+                    MGRepositoriesModel *repo = self.cellData[indexPath.item];
+                    MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
+                                                         initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,
+                                                                          kRepoDetailParamsKeyForRepoName:repo.name}];
+                    [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
+                }
+                    break;
+                case MGExploreCellTypeOfUser:{
+                    OCTUser *user = self.cellData[indexPath.row];
+                    MGProfileViewModel *profile = [[MGProfileViewModel alloc]
+                                                   initWithParams:@{kProfileOfUserLoginName:user.login,
+                                                                    kProfileIsShowOnTabBar:@NO}];
+                    [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
+            return [RACSignal empty];
+        }];
+	}
+	return _itemClickedCommand;
+}
+
 @end

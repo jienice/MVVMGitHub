@@ -37,6 +37,38 @@
     [self bindViewModel:nil];
     [self.tableView.mj_header beginRefreshing];
 }
+#pragma mark - Bind ViewModel
+- (void)bindViewModel:(id)viewModel{
+    @weakify(self);
+    [[RACObserve(self, viewModel.showCasesArray) ignore:nil] subscribeNext:^(NSArray *x) {
+        @strongify(self);
+        NSArray *cycleScrollViewDataSource = [[[[x rac_sequence] map:^id(MGShowcasesModel *showcase) {
+            return showcase.image_url;
+        }] take:10] array];
+        SDCycleScrollView *cycleScrollView = (SDCycleScrollView *)self.tableView.tableHeaderView;
+        [cycleScrollView setImageURLStringsGroup:cycleScrollViewDataSource];
+    }];
+    
+    [[[self rac_signalForSelector:@selector(searchBarShouldBeginEditing:)
+                     fromProtocol:@protocol(UISearchBarDelegate)] deliverOn:RACScheduler.mainThreadScheduler]
+     subscribeNext:^(id x) {
+        @strongify(self);
+        [self.viewModel.beginSearchCommand execute:nil];
+    }];
+    
+    
+    [self.viewModel.fetchDataFromServiceCommand.errors subscribeNext:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.userInfo[kErrorMessageKey]];
+    }];
+}
+
+#pragma mark - Load Data
+
+#pragma mark - Touch Action
+
+#pragma mark - Delegate Method
+
+#pragma mark - About UI
 - (void)configUI{
     @weakify(self);
     self.navigationItem.titleView = ({
@@ -49,33 +81,6 @@
     });
     [self.view addSubview:self.tableView];
 }
-- (void)bindViewModel:(id)viewModel{
-    @weakify(self);
-    [self.viewModel.requestShowcasesCommand.executionSignals.switchToLatest subscribeNext:^(NSArray *x) {
-        @strongify(self);
-        NSArray *cycleScrollViewDataSource = [[[[x rac_sequence] map:^id(MGShowcasesModel *showcase) {
-            return showcase.image_url;
-        }] take:10] array];
-        SDCycleScrollView *cycleScrollView = (SDCycleScrollView *)self.tableView.tableHeaderView;
-        [cycleScrollView setImageURLStringsGroup:cycleScrollViewDataSource];
-    }];
-
-    [self.viewModel.fetchDataFromServiceCommand.errors subscribeNext:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:error.userInfo[kErrorMessageKey]];
-    }];
-    
-    [[[self rac_signalForSelector:@selector(searchBarShouldBeginEditing:) fromProtocol:@protocol(UISearchBarDelegate)]
-      deliverOn:RACScheduler.mainThreadScheduler] subscribeNext:^(id x) {
-        MGSearchViewModel *searchViewModel = [[MGSearchViewModel alloc]initWithParams:nil];
-        [MGSharedDelegate.viewModelBased presentViewModel:searchViewModel animated:YES];
-    }];
-}
-#pragma mark - Load Data
-
-#pragma mark - Touch Action
-
-#pragma mark - Delegate Method
-
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
     if (_tableView == nil) {

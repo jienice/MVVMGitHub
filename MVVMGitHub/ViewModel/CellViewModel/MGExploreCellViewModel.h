@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger,MGExploreCellType){
-    
     MGExploreCellTypeOfUser,
     MGExploreCellTypeOfRepo
 };
@@ -20,5 +19,7 @@ typedef NS_ENUM(NSInteger,MGExploreCellType){
 @property (nonatomic, strong, readonly) NSArray *cellData;
 @property (nonatomic, strong, readonly) NSDictionary *params;
 @property (nonatomic, copy, readonly) NSString *cellTitle;
+
+@property (nonatomic, strong, readonly) RACCommand *itemClickedCommand;
 
 @end
