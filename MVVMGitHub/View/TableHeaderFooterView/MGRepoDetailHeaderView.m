@@ -53,7 +53,7 @@
     self.repoDescLabel.text = self.repo.repoDescription;
     self.createDateLabel.text = [NSString stringWithFormat:@"Create at :%@",self.repo.createdDate];
     self.latestUpdateDateLabel.text = [NSString stringWithFormat:@"Latest commit on :%@",self.repo.updatedDate];
-    [self.repoOwnerImage sd_setImageWithURL:self.repo.owner.avatarURL placeholderImage:nil];
+    [self.repoOwnerImage sd_setImageWithURL:self.repo.owner.avatarURL placeholderImage:[UIImage imageWithColor:MGNormalColor]];
     [self.repoBranchBtn setTitle:self.repo.defaultBranch forState:UIControlStateNormal];
     [self setNeedsLayout];
     [self layoutIfNeeded];

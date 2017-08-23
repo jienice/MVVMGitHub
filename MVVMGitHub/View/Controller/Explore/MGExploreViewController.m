@@ -113,7 +113,6 @@
     [SDCycleScrollView cycleScrollViewWithFrame:cycleScrollViewFrame
                                        delegate:self
                                placeholderImage:nil];
-    cycleScrollView.backgroundColor = [UIColor greenColor];
     return cycleScrollView;
 }
 @end

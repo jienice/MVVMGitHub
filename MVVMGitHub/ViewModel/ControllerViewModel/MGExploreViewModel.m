@@ -57,6 +57,7 @@ static NSString *kPopularRepos = @"Popular Repos";
                                                                                        NSArray *showcase){
                                   @strongify(self)
                                   self.showCasesArray = showcase;
+                                  [self.dataSource removeAllObjects];
                                   [self.dataSource addObject:trendRepo];
                                   [self.dataSource addObject:popularRepos];
                                   [self.dataSource addObject:popularUsers];
@@ -166,22 +167,22 @@ static NSString *kPopularRepos = @"Popular Repos";
     }
     return _requestShowcasesCommand;
 }
-
+- (RACCommand *)beginSearchCommand {
+	if(_beginSearchCommand == nil) {
+		_beginSearchCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+            MGSearchViewModel *searchViewModel = [[MGSearchViewModel alloc]initWithParams:nil];
+            [MGSharedDelegate.viewModelBased presentViewModel:searchViewModel animated:YES];
+            return [RACSignal empty];
+        }];
+	}
+	return _beginSearchCommand;
+}
 - (RACCommand *)requestLanguageCommand {
     if(_requestLanguageCommand == nil) {
         _requestLanguageCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-            MGSearchViewModel *searchViewModel = [[MGSearchViewModel alloc]initWithParams:nil];
-            [MGSharedDelegate.viewModelBased presentViewModel:searchViewModel animated:YES];
             return [RACSignal empty];
         }];
     }
     return _requestLanguageCommand;
 }
-- (RACCommand *)beginSearchCommand {
-	if(_beginSearchCommand == nil) {
-		_beginSearchCommand = [[RACCommand alloc] init];
-	}
-	return _beginSearchCommand;
-}
-
 @end

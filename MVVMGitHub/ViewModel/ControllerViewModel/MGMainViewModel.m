@@ -26,20 +26,20 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
 
 - (void)initialize{
     NSDictionary *explpre = @{kTabBarItemTitle:@"Explore",
-                              kTabBarSelectedImageName:@"Icon-iPhone",
-                              kTabBarNormalImageName:@"Icon-iPhone",
+                              kTabBarSelectedImageName:@"tab_explore_selected",
+                              kTabBarNormalImageName:@"tab_explore_normal",
                               kClassMap:@"Explore"};
     
-    NSDictionary *repositories = @{kTabBarItemTitle:@"Repositories",
-                                   kTabBarSelectedImageName:@"Icon-iPhone",
-                                   kTabBarNormalImageName:@"Icon-iPhone",
+    NSDictionary *repositories = @{kTabBarItemTitle:@"Repo",
+                                   kTabBarSelectedImageName:@"tab_repo_selected",
+                                   kTabBarNormalImageName:@"tab_repo_normal",
                                    kClassMap:@"Repositories",
                                    kRepositorIsShowOnTabBar:@YES,
                                    kListRepositoriesUserName:[SAMKeychain mg_login]};
     
     NSDictionary *profile = @{kTabBarItemTitle:@"Profile",
-                              kTabBarSelectedImageName:@"Icon-iPhone",
-                              kTabBarNormalImageName:@"Icon-iPhone",
+                              kTabBarSelectedImageName:@"tab_profile_selected",
+                              kTabBarNormalImageName:@"tab_profile_normal",
                               kClassMap:@"Profile",
                               kProfileIsShowOnTabBar:@YES,
                               kProfileOfUserLoginName:[SAMKeychain mg_login]};

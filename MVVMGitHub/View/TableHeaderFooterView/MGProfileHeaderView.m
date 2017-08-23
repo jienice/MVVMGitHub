@@ -31,9 +31,10 @@
 
 
 - (instancetype)init{
-    
     MGProfileHeaderView *view = [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([MGProfileHeaderView class]) owner:self options:nil]
                                     firstObject];
+    view.userBigImageView.image = [[UIImage imageWithColor:MGNormalColor] imageByBlurSoft];
+    view.userImageView.image = [UIImage imageWithColor:MGNormalColor];
     return view;
 }
 
@@ -41,9 +42,10 @@
     _user = viewModel;
     @weakify(self);
     self.userNameLabel.text = _user.name;
-    [self.userImageView sd_setImageWithURL:_user.avatarURL completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [SDWebImageManager.sharedManager loadImageWithURL:_user.avatarURL options:SDWebImageRetryFailed progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
         @strongify(self);
         self.userBigImageView.image = [image imageByBlurSoft];
+        self.userImageView.image = image;
     }];
     self.publicRepoCountLabel.text = [NSString stringWithFormat:@"%ld", (long) _user.publicRepoCount];
     self.followersCountLabel.text = [NSString stringWithFormat:@"%ld", (long) _user.followersCount];
