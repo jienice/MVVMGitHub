@@ -12,7 +12,7 @@
 /**
  current page number
  */
-@property (nonatomic, assign, readonly) NSInteger page;
+@property (nonatomic, assign) NSInteger page;
 
 /**
  tableView's dataSource
@@ -22,7 +22,7 @@
 /**
  user did selected tableView row will invoke this command
  */
-@property (nonatomic, strong, readonly) RACCommand *didSelectedRowCommand;
+@property (nonatomic, strong) RACCommand *didSelectedRowCommand;
 
 
 @optional

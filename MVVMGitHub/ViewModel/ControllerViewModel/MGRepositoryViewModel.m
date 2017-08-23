@@ -8,13 +8,15 @@
 
 #import "MGRepositoryViewModel.h"
 #import "MGApiImpl+MGRepo.h"
+#import "MGRepoDetailViewModel.h"
 
 NSString *const kListRepositoriesUserName = @"kListRepositoriesUserName";
+NSString *const kRepositorIsShowOnTabBar = @"kRepositorIsShowOnTabBar";
 
 @interface MGRepositoryViewModel ()
 
 @property (nonatomic, copy) NSString *ownerName;
-
+@property (nonatomic, assign) BOOL isShowOnTabBar;
 
 @end
 
@@ -30,21 +32,36 @@ NSString *const kListRepositoriesUserName = @"kListRepositoriesUserName";
     
     NSParameterAssert(self.params[kListRepositoriesUserName]);
     @weakify(self);
-    self.title = @"Repository";
     self.ownerName = self.params[kListRepositoriesUserName];
+    self.isShowOnTabBar = [self.params[kRepositorIsShowOnTabBar] boolValue];
+    if (self.isShowOnTabBar) {
+        self.title = @"Repository";
+    }else{
+        self.title = [NSString stringWithFormat:@"%@-Repository",self.ownerName];
+    }
     
-    _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[[MGApiImpl sharedApiImpl] fetchRepoListWithOwnerName:self.ownerName
                                                             repoType:MGRepoTypeDefault] doNext:^(NSArray *repoDicArr) {
+            @strongify(self);
            self.dataSource = [[[[repoDicArr rac_sequence] map:^id(NSDictionary *repoDic) {
                 return [MTLJSONAdapter modelOfClass:[MGRepositoriesModel class]
                                  fromJSONDictionary:repoDic error:nil];
            }] array] mutableCopy];
         }];
     }];
-    _didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(OCTRepository *repository) {
+    self.didSelectedRowCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSIndexPath *indexPath) {
+        @strongify(self);
+        MGRepositoriesModel *repo = self.dataSource[indexPath.row];
+        MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
+                                             initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,
+                                                              kRepoDetailParamsKeyForRepoName:repo.name}];
+        [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
         return [RACSignal empty];
-    }];    
+    }];
+    
+    
+    
 }
 @end

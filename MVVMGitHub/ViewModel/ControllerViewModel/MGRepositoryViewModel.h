@@ -9,6 +9,8 @@
 #import "MGViewModel.h"
 
 extern NSString *const kListRepositoriesUserName;
+extern NSString *const kRepositorIsShowOnTabBar;
+
 
 @interface MGRepositoryViewModel : MGViewModel <MGTableViewModelProtocol>
 

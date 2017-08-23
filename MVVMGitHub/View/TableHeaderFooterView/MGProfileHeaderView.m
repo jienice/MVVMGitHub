@@ -34,16 +34,10 @@
     
     MGProfileHeaderView *view = [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([MGProfileHeaderView class]) owner:self options:nil]
                                     firstObject];
-    view.didClickedCategoryCommand = [[RACCommand alloc]initWithEnabled:[[view rac_signalForSelector:@selector(bindViewModel:)] map:^id(id value) {
-        return @YES;
-    }] signalBlock:^RACSignal *(id input) {
-        return [RACSignal return:input];
-    }];
     return view;
 }
 
 - (void)bindViewModel:(id)viewModel{
-    
     _user = viewModel;
     @weakify(self);
     self.userNameLabel.text = _user.name;
@@ -57,7 +51,6 @@
 
 }
 - (IBAction)categoryBtnClicked:(UIButton *)sender {
-    
     [self.didClickedCategoryCommand execute:@(sender.tag)];
 }
 

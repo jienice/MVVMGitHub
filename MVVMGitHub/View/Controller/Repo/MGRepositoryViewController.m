@@ -12,6 +12,7 @@
 #import "MGRepoDetailViewModel.h"
 #import "MGRepoCell.h"
 
+
 @interface MGRepositoryViewController ()
 
 @property (nonatomic, weak, readwrite) MGRepositoryViewModel *viewModel;
@@ -47,16 +48,7 @@
         @strongify(self);
         [self.tableView.mj_header beginRefreshing];
     }];
-    
-    [self.tableView.binder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
-        @strongify(self);
-        MGRepositoriesModel *repo = self.viewModel.dataSource[indexPath.row];
-        MGRepoDetailViewModel *repoDetail = [[MGRepoDetailViewModel alloc]
-                                             initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,
-                                                              kRepoDetailParamsKeyForRepoName:repo.name}];
-        [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
-    }];
-    
+    self.tableView.binder.didSelectedCellCommand = self.viewModel.didSelectedRowCommand;
 }
 #pragma mark - Load Data
 

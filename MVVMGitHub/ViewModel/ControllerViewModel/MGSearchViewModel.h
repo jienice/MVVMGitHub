@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger,MGSearchType){
     MGSearchForRepositories
 };
 
-@interface MGSearchViewModel : MGViewModel
+@interface MGSearchViewModel : MGViewModel<MGTableViewModelProtocol>
 
 @property (nonatomic, copy) NSString *searchText;
 

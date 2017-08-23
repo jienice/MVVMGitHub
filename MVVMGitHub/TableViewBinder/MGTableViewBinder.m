@@ -29,20 +29,15 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
 #pragma mark - Instancetype
 
 + (instancetype)binderWithTable:(UITableView *)tableView{
-    
     MGTableViewBinder *binder = [[MGTableViewBinder alloc]init];
     binder.tableView = tableView;
     binder.dataSource = [NSMutableArray array];
-    binder.didSelectedCellCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
-        return [[RACSignal return:input] deliverOn:RACScheduler.mainThreadScheduler];
-    }];
     binder.indexPathAndCellHeightMap = [NSMutableDictionary dictionary];
     binder.loadDataType = MGTableViewLoading;
     return binder;
 }
 #pragma mark - setter
 - (void)setReuseXibCellClass:(NSArray *)reuseXibCellClass{
-    
     _reuseXibCellClass = reuseXibCellClass;
     for (Class className in _reuseXibCellClass) {
         [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass(className) bundle:nil]
@@ -50,7 +45,6 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     }
 }
 - (void)setReuseNoXibCellClass:(NSArray *)reuseNoXibCellClass{
-    
     _reuseNoXibCellClass = reuseNoXibCellClass;
     for (Class className in _reuseNoXibCellClass) {
         [self.tableView registerClass:className
@@ -58,7 +52,6 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     }
 }
 - (void)setDataSouceSignal:(RACSignal *)dataSouceSignal{
-    
     @weakify(self);
     _dataSourceSignal = dataSouceSignal;
     [dataSouceSignal subscribeNext:^(RACTuple *tuple) {
@@ -78,7 +71,10 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
             }
         }
         [self.dataSource addObjectsFromArray:dataArr];
-        [self.tableView reloadData];
+        [RACScheduler.mainThreadScheduler schedule:^{
+            @strongify(self);
+            [self.tableView reloadData];
+        }];
         if (isLastPage.boolValue) {
             NSLog(@"Completed EndRefresh");
             NSLog(@"%s数据全部加载完成，可以统一设置上拉加载的视图",__func__);
@@ -103,12 +99,10 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
     return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     NSAssert(self.cellConfigBlock, @"请先设置Cell复用的Block,-setCellConfigBlock");
     NSString *identifier = self.cellConfigBlock(indexPath);
     id<MGTableViewCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -117,7 +111,6 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     NSString *identifier = self.cellConfigBlock(indexPath);
     id<MGTableViewCellProtocol>cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
@@ -133,20 +126,18 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [self.didSelectedCellCommand execute:indexPath];
+    if (self.didSelectedCellCommand) {
+        [self.didSelectedCellCommand execute:indexPath];
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
     return CGFLOAT_MIN;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
     return CGFLOAT_MIN;
 }
 #pragma mark - DZNEmptyDataSetSource
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView{
-    
     switch (self.loadDataType) {
         case MGTableViewLoadDataFail:{
             return [[NSAttributedString alloc]initWithString:@""
@@ -169,11 +160,9 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     }
 }
 - (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView{
-    
     return [UIColor whiteColor];
 }
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state{
-    
     switch (self.loadDataType) {
         case MGTableViewLoadDataFail:{
             return [[NSAttributedString alloc]initWithString:@"重新加载"
@@ -199,7 +188,6 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
 
 #pragma mark - DZNEmptyDataSetDelegate
 - (void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
-    
     switch (self.loadDataType) {
         case MGTableViewLoadDataFail:{
             [self.tableView.mj_header beginRefreshing];
@@ -218,7 +206,6 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
     }
 }
 - (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView{
-    
     switch (self.loadDataType) {
         case MGTableViewLoadDataFail:{
             return YES;
@@ -239,7 +226,6 @@ typedef NS_ENUM(NSInteger,MGTableViewLoadDataType){
 
 #pragma mark - Dealloc
 - (void)dealloc{
-    
     NSLog(@"%s",__func__);
 }
 @end

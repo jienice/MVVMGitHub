@@ -14,8 +14,7 @@
 
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel;
 
-
 @optional
 - (void)configUI;
-
+- (void)updateConstraints;
 @end

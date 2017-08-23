@@ -21,7 +21,6 @@
 @implementation MGSearchRepoViewController
 
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
-    
     if (self = [super init]) {
         self.viewModel = (MGSearchViewModel *)viewModel;
     }
@@ -29,14 +28,11 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self configUI];
     [self bindViewModel:nil];
 }
 - (void)bindViewModel:(id)viewModel{
-    
-    @weakify(self);
     [self.viewModel.searchRepoCommand.executing subscribeNext:^(NSNumber *execut) {
         if ([execut boolValue]) {
             [SVProgressHUD show];
@@ -44,24 +40,13 @@
             [SVProgressHUD dismiss];
         }
     }];
-    
-    [self.tableView.binder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
-        @strongify(self);
-        MGRepositoriesModel *repo = self.viewModel.searchRepoResultData[indexPath.row];
-        MGRepoDetailViewModel *repoDetail =
-        [[MGRepoDetailViewModel alloc]
-         initWithParams:@{kRepoDetailParamsKeyForRepoOwner:repo.ownerLogin,
-                          kRepoDetailParamsKeyForRepoName:repo.name}];
-        [MGSharedDelegate.viewModelBased pushViewModel:repoDetail animated:YES];
-    }];
+    self.tableView.binder.didSelectedCellCommand = self.viewModel.didSelectedRowCommand;
 }
 - (void)configUI{
-    
     [self.view addSubview:self.tableView];
 }
 
 - (UITableView *)tableView{
-    
     if (_tableView == nil) {
         @weakify(self);
         _tableView = [UITableView createTableWithFrame:self.viewModel.tableViewFrame binder:^(MGTableViewBinder *binder) {

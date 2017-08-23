@@ -25,6 +25,18 @@
 - (instancetype)init{
     MGRepoDetailHeaderView *view = [[[NSBundle mainBundle]loadNibNamed:NSStringFromClass([MGRepoDetailHeaderView class])
                                                                  owner:self options:nil] firstObject];
+    @weakify(view);
+    [[view.repoBranchBtn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        @strongify(view);
+        [view.branchClickedCommand execute:nil];
+    }];
+    
+    UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        @strongify(view);
+        [view.nameLabelClickedCommand execute:nil];
+    }];
+    [view.repoNameLabel setUserInteractionEnabled:YES];
+    [view.repoNameLabel addGestureRecognizer:nameTap];
     return view;
 }
 - (void)layoutSubviews{
@@ -67,15 +79,15 @@
     }
     return _didEndLayoutCommand;
 }
-- (RACCommand *)nameLabelClickedCommand{
-    if (_nameLabelClickedCommand==nil) {
+- (RACCommand *)changeBranchCommand{
+    if (_changeBranchCommand==nil) {
         @weakify(self);
-        _nameLabelClickedCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+        _changeBranchCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSString *input) {
             @strongify(self);
-            return [RACSignal return:self.repo.owner.login];
+            [self.repoBranchBtn setTitleForAllState:input];
+            return [RACSignal empty];
         }];
     }
-    return _nameLabelClickedCommand;
-    
+    return _changeBranchCommand;
 }
 @end

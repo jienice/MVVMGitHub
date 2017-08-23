@@ -16,7 +16,7 @@
 
 @optional
 
-@property (nonatomic, strong, readonly) RACCommand *fetchDataFromServiceCommand;
+@property (nonatomic, strong) RACCommand *fetchDataFromServiceCommand;
 
 
 

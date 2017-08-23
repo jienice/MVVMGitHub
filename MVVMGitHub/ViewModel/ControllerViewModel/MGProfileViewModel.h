@@ -11,6 +11,12 @@
 extern NSString *const kProfileOfUserLoginName;
 extern NSString *const kProfileIsShowOnTabBar;
 
+typedef NS_ENUM(NSInteger,MGProfileCategoryType){
+    MGProfileCategoryTypeOfPublicRepo,
+    MGProfileCategoryTypeOfFollower,
+    MGProfileCategoryTypeOfFollowing
+};
+
 @class MGUser;
 
 @interface MGProfileViewModel : MGViewModel
@@ -36,7 +42,7 @@ extern NSString *const kProfileIsShowOnTabBar;
 @property (nonatomic, strong, readonly) MGUser *user;
 
     
-
+@property (nonatomic, strong, readonly) RACCommand *clickedCategoryCommand;
     
 
     

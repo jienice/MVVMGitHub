@@ -25,7 +25,6 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
 
 
 - (void)initialize{
- 
     NSDictionary *explpre = @{kTabBarItemTitle:@"Explore",
                               kTabBarSelectedImageName:@"Icon-iPhone",
                               kTabBarNormalImageName:@"Icon-iPhone",
@@ -35,6 +34,7 @@ NSString *const kTabBarNormalImageName = @"kTabBarNormalImageName";
                                    kTabBarSelectedImageName:@"Icon-iPhone",
                                    kTabBarNormalImageName:@"Icon-iPhone",
                                    kClassMap:@"Repositories",
+                                   kRepositorIsShowOnTabBar:@YES,
                                    kListRepositoriesUserName:[SAMKeychain mg_login]};
     
     NSDictionary *profile = @{kTabBarItemTitle:@"Profile",

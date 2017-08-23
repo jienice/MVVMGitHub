@@ -14,4 +14,6 @@
 
 + (instancetype)buttonWithImage:(UIImage *)image actionBlock:(void(^)(id sender))block;
 
+
+- (void)setTitleForAllState:(NSString *)title;
 @end

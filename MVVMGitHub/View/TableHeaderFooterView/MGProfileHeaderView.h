@@ -9,11 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-typedef NS_ENUM(NSInteger,MGProfileCategoryType){
-    MGProfileCategoryTypeOfPublicRepo,
-    MGProfileCategoryTypeOfFollower,
-    MGProfileCategoryTypeOfFollowing
-};
+
 
 
 @interface MGProfileHeaderView : UIView<MGReactiveViewProtocol>

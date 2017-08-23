@@ -24,7 +24,6 @@
 
 #pragma mark - Instance Method
 - (instancetype)initWithViewModel:(id<MGViewModelProtocol>)viewModel{
-    
     if (self = [super init]) {
         self.viewModel = (MGFollowerViewModel *)viewModel;
     }
@@ -32,35 +31,33 @@
 }
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self configUI];
     [self bindViewModel:nil];
 }
 - (void)configUI{
-    
     self.title = self.viewModel.title;
     self.navigationItem.leftBarButtonItem = [UIBarButtonItem barButtonItemForPopViewController];
     self.view.backgroundColor = MGWhiteColor;
     [self.view addSubview:self.tableView];
+    [self updateConstraints];
+}
+- (void)updateConstraints{
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.mas_topLayoutGuideBottom);
+        make.bottom.mas_equalTo(self.view.mas_bottom);
+        make.right.mas_equalTo(self.view.mas_right);
+        make.left.mas_equalTo(self.view.mas_left);
+    }];
 }
 #pragma mark - Bind ViewModel
 - (void)bindViewModel:(id)viewModel{
-    
     @weakify(self);
     [[[self rac_signalForSelector:@selector(viewDidAppear:)] take:1] subscribeNext:^(id x) {
         @strongify(self);
         [self.tableView.mj_header beginRefreshing];
     }];
-    
-    [self.tableView.binder.didSelectedCellCommand.executionSignals.switchToLatest subscribeNext:^(NSIndexPath *indexPath) {
-        @strongify(self);
-        OCTUser *user = self.viewModel.dataSource[(NSUInteger) indexPath.row];
-        MGProfileViewModel *profile = [[MGProfileViewModel alloc]
-                                       initWithParams:@{kProfileOfUserLoginName:user.login,
-                                                        kProfileIsShowOnTabBar:@NO}];
-        [MGSharedDelegate.viewModelBased pushViewModel:profile animated:YES];
-    }];
+    self.tableView.binder.didSelectedCellCommand = self.viewModel.didSelectedRowCommand;
 }
 #pragma mark - Touch Action
 
@@ -68,10 +65,9 @@
 
 #pragma mark - Lazy Load
 - (UITableView *)tableView{
-    
     if (_tableView == nil) {
         @weakify(self);
-        _tableView = [UITableView createTableWithFrame:self.view.bounds binder:^(MGTableViewBinder *binder) {
+        _tableView = [UITableView createTableWithBinder:^(MGTableViewBinder *binder) {
             @strongify(self);
             binder.dataSourceSignal = [[RACObserve(self.viewModel, dataSource) ignore:nil] map:^id(NSArray *value) {
                 return RACTuplePack(@YES,@YES,value);

@@ -47,11 +47,9 @@
         searchBar.delegate = self;
         searchBar;
     });
-//    UIButtonType
     [self.view addSubview:self.tableView];
 }
 - (void)bindViewModel:(id)viewModel{
-    
     @weakify(self);
     [self.viewModel.requestShowcasesCommand.executionSignals.switchToLatest subscribeNext:^(NSArray *x) {
         @strongify(self);
@@ -71,8 +69,6 @@
         MGSearchViewModel *searchViewModel = [[MGSearchViewModel alloc]initWithParams:nil];
         [MGSharedDelegate.viewModelBased presentViewModel:searchViewModel animated:YES];
     }];
-    
-    
 }
 #pragma mark - Load Data
 

@@ -10,6 +10,9 @@
 #import "MGApiImpl+MGUser.h"
 #import "MGUser.h"
 #import "MGOrganizations.h"
+#import "MGFollowerViewModel.h"
+#import "MGFollowingViewModel.h"
+#import "MGRepositoryViewModel.h"
 
 NSString *const kProfileOfUserLoginName = @"kProfileOfUserLoginName";
 NSString *const kProfileIsShowOnTabBar = @"kProfileIsShowOnTabBar";
@@ -19,7 +22,23 @@ NSString *const kProfileIsShowOnTabBar = @"kProfileIsShowOnTabBar";
 @property (nonatomic, strong, readwrite) MGUser *user;
 @property (nonatomic, strong, readwrite) NSMutableArray *notificationsArray;
 @property (nonatomic, strong, readwrite) NSMutableArray *orgArray;
+@property (nonatomic, strong, readwrite) RACCommand *fetchFeedsCommand;
+
+@property (nonatomic, strong, readwrite) RACCommand *fetchUserInfoCommand;
+
+@property (nonatomic, strong, readwrite) RACCommand *fetchUserOrgCommand;
+
+@property (nonatomic, strong, readwrite) RACCommand *fetchNotificationsCommand;
+
+@property (nonatomic, strong, readwrite) RACCommand *markNotificationAsReadCommand;
+
+@property (nonatomic, strong, readwrite) RACCommand *muteNotificationCommand;
+
+@property (nonatomic, copy, readwrite) NSString *loginName;
+
 @property (nonatomic, assign) BOOL isShowOnTabBar;
+
+@property (nonatomic, strong, readwrite) RACCommand *clickedCategoryCommand;
 
 @end
 
@@ -30,64 +49,100 @@ NSString *const kProfileIsShowOnTabBar = @"kProfileIsShowOnTabBar";
 
 
 - (void)initialize{
-    
-    @weakify(self);
     NSParameterAssert(self.params[kProfileOfUserLoginName]);
     NSParameterAssert(self.params[kProfileIsShowOnTabBar]);
-    _loginName = self.params[kProfileOfUserLoginName];
+    @weakify(self);
+    self.loginName = self.params[kProfileOfUserLoginName];
     self.isShowOnTabBar=[self.params[kProfileIsShowOnTabBar] boolValue];
     
     if (self.isShowOnTabBar) {
         self.title = @"Profile";
     }else{
-        self.title = _loginName;
+        self.title = self.loginName;
     }
-    _fetchUserInfoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    
+    self.fetchUserInfoCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[[[MGApiImpl sharedApiImpl] fetchUserInfoWithLoginName:self.loginName] takeUntil:self.rac_willDeallocSignal] doNext:^(NSDictionary *x) {
+            @strongify(self);
             self.user = [MTLJSONAdapter modelOfClass:[MGUser class]
                                   fromJSONDictionary:x error:nil];
-            NSLog(@"%@",_user);
+            NSLog(@"%@",self.user);
         }];
     }];
     
-    _fetchUserOrgCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    self.fetchUserOrgCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[[[MGApiImpl sharedApiImpl]fetchUserOrgListWithLoginName:self.loginName] takeUntil:self.rac_willDeallocSignal] doNext:^(NSArray *orgs) {
+            @strongify(self);
             self.orgArray =[[[orgs.rac_sequence map:^id(NSDictionary *value) {
                 return [MTLJSONAdapter modelOfClass:[MGOrganizations class]
                                  fromJSONDictionary:value error:nil];
             }] array] mutableCopy];
-            NSLog(@"_orgArray --- %@",_orgArray);
+            NSLog(@"self.orgArray --- %@",self.orgArray);
         }];
     }];
     
-    _fetchNotificationsCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    self.fetchNotificationsCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
         return [[[[MGSharedDelegate.client fetchNotificationsNotMatchingEtag:nil
                                                     includeReadNotifications:YES
                                                                 updatedSince:nil] collect] takeUntil:self.rac_willDeallocSignal] doNext:^(NSArray *responseArray) {
+            @strongify(self);
             self.notificationsArray = [[[responseArray.rac_sequence map:^OCTNotification *(OCTResponse *response) {
                 return response.parsedResult;
             }] array] mutableCopy];
-            NSLog(@"_notificationsArray---%@",_notificationsArray);
+            NSLog(@"self.notificationsArray---%@",self.notificationsArray);
         }];
     }];
     
-    _markNotificationAsReadCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSURL *input) {
+    self.markNotificationAsReadCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSURL *input) {
         return [MGSharedDelegate.client markNotificationThreadAsReadAtURL:input];
     }];
     
-    _muteNotificationCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSURL *input) {
+    self.muteNotificationCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(NSURL *input) {
         return [MGSharedDelegate.client muteNotificationThreadAtURL:input];
     }];
     
-    _fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
+    self.fetchDataFromServiceCommand = [[RACCommand alloc]initWithSignalBlock:^RACSignal *(id input) {
         @strongify(self);
-        [_fetchUserInfoCommand execute:nil];
-        [_fetchUserOrgCommand execute:nil];
+        [self.fetchUserInfoCommand execute:nil];
+        [self.fetchUserOrgCommand execute:nil];
         if (self.isShowOnTabBar) {
-            [_fetchNotificationsCommand execute:nil];
+            [self.fetchNotificationsCommand execute:nil];
+        }
+        return [RACSignal empty];
+    }];
+    
+    
+    self.clickedCategoryCommand = [[RACCommand alloc]initWithEnabled:[[RACObserve(self, user) ignore:NULL] map:^id(id value) {
+        return value?@YES:@NO;
+    }] signalBlock:^RACSignal *(NSNumber *typeNumber) {
+        MGProfileCategoryType type = (MGProfileCategoryType) typeNumber.integerValue;
+        switch (type) {
+            case MGProfileCategoryTypeOfFollower:{
+                MGFollowerViewModel *follower =
+                [[MGFollowerViewModel alloc]initWithParams:@{kProfileOfUserLoginName:self.loginName}];
+                [MGSharedDelegate.viewModelBased pushViewModel:follower animated:YES];
+                NSLog(@"MGProfileCategoryTypeOfFollower - %s",__func__);
+            }
+                break;
+            case MGProfileCategoryTypeOfFollowing:{
+                MGFollowingViewModel *following =
+                [[MGFollowingViewModel alloc]initWithParams:@{kProfileOfUserLoginName:self.loginName}];
+                [MGSharedDelegate.viewModelBased pushViewModel:following animated:YES];
+                NSLog(@"MGProfileCategoryTypeOfFollowing - %s",__func__);
+            }
+                break;
+            case MGProfileCategoryTypeOfPublicRepo:{
+                MGRepositoryViewModel *repo =
+                [[MGRepositoryViewModel alloc]initWithParams:@{kListRepositoriesUserName:self.loginName,kRepositorIsShowOnTabBar:@NO}];
+                [MGSharedDelegate.viewModelBased pushViewModel:repo animated:YES];
+                NSLog(@"MGProfileCategoryTypeOfPublicRepo - %s",__func__);
+            }
+                break;
+            default:
+                break;
         }
         return [RACSignal empty];
     }];

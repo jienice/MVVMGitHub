@@ -48,10 +48,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mLg-Z5-ugM">
-                    <rect key="frame" x="6" y="197" width="363" height="29"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                    <rect key="frame" x="6" y="197" width="363" height="32"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                     <state key="normal" title="ButtonButtonButtonButtonButtonButtonButtonButton">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.01176470588" green="0.40000000000000002" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
             </subviews>
@@ -73,7 +73,7 @@
                 <constraint firstItem="ghB-7y-2dm" firstAttribute="trailing" secondItem="bdw-5p-KMc" secondAttribute="trailing" id="rgX-1e-IJo"/>
                 <constraint firstItem="mLg-Z5-ugM" firstAttribute="leading" secondItem="Hm7-xi-bQ5" secondAttribute="leading" id="sLx-r4-vpy"/>
                 <constraint firstItem="bdw-5p-KMc" firstAttribute="top" secondItem="CNR-gn-mPe" secondAttribute="top" id="wG6-wP-QYY"/>
-                <constraint firstItem="mLg-Z5-ugM" firstAttribute="trailing" secondItem="Hm7-xi-bQ5" secondAttribute="trailing" id="y34-Tf-GXL"/>
+                <constraint firstItem="mLg-Z5-ugM" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Hm7-xi-bQ5" secondAttribute="trailing" id="y34-Tf-GXL"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

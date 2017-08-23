@@ -16,4 +16,8 @@
 
 @property (nonatomic, strong) RACCommand *didEndLayoutCommand;
 
+@property (nonatomic, strong) RACCommand *changeBranchCommand;
+
+@property (nonatomic, strong) RACCommand *branchClickedCommand;
+
 @end
